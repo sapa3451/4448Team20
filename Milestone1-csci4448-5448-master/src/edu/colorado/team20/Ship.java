@@ -1,7 +1,10 @@
-package edu.colorado.csci44485448;
+package edu.colorado.team20;
 // This is the  baseclass for your ship.  Modify accordingly
 // TODO: practice good OO design
 public class Ship {
+    Ship () {
+
+    }
     private String name;
     // TODO: create appropriate getter and setter methods
     // TODO: Understand encapsulation
