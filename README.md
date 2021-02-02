@@ -1,6 +1,6 @@
 # 4448Team20
-# Group Members:
-Joe Petrafeso-Crosby
-Vanessa Reyes
-Priscila Trevino
-Salvatore Pacifico
+Group Members: <br />
+Joe Petrafeso-Crosby <br />
+Vanessa Reyes <br />
+Priscila Trevino <br />
+Salvatore Pacifico <br />
