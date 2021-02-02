@@ -3,14 +3,11 @@ package edu.colorado.team20;
 // TODO: practice good OO design
 public class Ship {
     Ship () {
-<<<<<<< HEAD
-
-
 
         //Team20, pair 1 was here.
-=======
+
         // Team 20, pair 2 was here.
->>>>>>> b0f706b3e78705ac888dbb852610baa48532c7c1
+
     }
     private String name;
     // TODO: create appropriate getter and setter methods
