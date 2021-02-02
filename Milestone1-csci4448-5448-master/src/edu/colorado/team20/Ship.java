@@ -4,6 +4,9 @@ package edu.colorado.team20;
 public class Ship {
     Ship () {
 
+
+
+        //Team20, pair 1 was here.
     }
     private String name;
     // TODO: create appropriate getter and setter methods
