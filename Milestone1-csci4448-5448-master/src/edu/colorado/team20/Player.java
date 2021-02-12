@@ -5,6 +5,7 @@ import java.util.Scanner;  // Import the Scanner class
 public class Player {
 
     // ask player for shot decision
+    // might want to return values/call function to represent shot being done?
     public void GetDecisionShot() {
         // variables for input
         char colVal;
@@ -58,6 +59,8 @@ public class Player {
                 input = sc.nextLine(); // Read user input
             }
         }
+
+        // maybe implement function to call to reference shot being completed
 
     }
 }

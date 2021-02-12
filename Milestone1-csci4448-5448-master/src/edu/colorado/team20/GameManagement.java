@@ -1,10 +1,14 @@
 package edu.colorado.team20;
 
 public class GameManagement {
-    // provides turn information (player always first)
+    // provides turn information
         // P --> user player turn
         // C --> computer turn
-    char turnInfo = 'P';
+    char turnInfo;
+
+    GameManagement() {
+        turnInfo = 'P'; // set to player first always
+    }
 
     public void BeginGameDisplay() {
         System.out.println("Welcome to The Battleship Game!");
