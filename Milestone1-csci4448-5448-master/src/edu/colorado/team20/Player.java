@@ -6,10 +6,12 @@ public class Player {
 
     // ask player for shot decision
     // might want to return values/call function to represent shot being done?
-    public void GetDecisionShot() {
+    public String GetDecisionShot() {
         // variables for input
         char colVal;
         int rowVal;
+        String r;
+        String c;
 
         System.out.println("It is your turn!");
         System.out.println("Decision: ");
@@ -19,6 +21,7 @@ public class Player {
         Scanner sc = new Scanner(System.in); //System.in is a standard input stream
         String input = sc.nextLine();    //reads string
         input = input.toUpperCase(); // set to uppercase
+        c = input;
 
         // we want to check input is okay for column
         boolean correct = false;
@@ -43,7 +46,8 @@ public class Player {
         System.out.println("Type which row (1-10) you would like to target: ");
 
         // take in user input
-        input = sc.nextLine();    //reads string
+        input = sc.nextLine();
+        r = input;//reads string
 
         // we want to check input is okay for column
         correct = false;
@@ -59,7 +63,8 @@ public class Player {
                 input = sc.nextLine(); // Read user input
             }
         }
-
+        //added a return method to this function, which is then used to call and update the board with a hit
+        return c+r;
         // maybe implement function to call to reference shot being completed
 
     }

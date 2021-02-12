@@ -4,6 +4,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/Milestone1-csci4448-5448-master/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/imlfiles" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
