@@ -1,5 +1,6 @@
 package edu.colorado.team20;
 
+import java.util.Arrays;
 
 public class Board {
     // thinking to have chars represent items on the board

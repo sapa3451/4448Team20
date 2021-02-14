@@ -1,4 +1,4 @@
-package edu.colorado.team20.main;
+package edu.colorado.team20;
 
 public class GameManagement {
     // provides turn information
