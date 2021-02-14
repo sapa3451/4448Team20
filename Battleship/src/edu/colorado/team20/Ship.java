@@ -1,4 +1,4 @@
-package edu.colorado.team20;
+package edu.colorado.team20.main;
 // This is the  baseclass for your ship.  Modify accordingly
 // TODO: practice good OO design
 public class Ship {
