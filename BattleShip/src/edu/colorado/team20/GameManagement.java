@@ -6,13 +6,14 @@ public class GameManagement {
         // C --> computer turn
     char turnInfo;
 
-    GameManagement() {
+    public GameManagement() {
         turnInfo = 'P'; // set to player first always
     }
 
-    public void BeginGameDisplay() {
+    public String BeginGameDisplay() {
         System.out.println("Welcome to The Battleship Game!");
         System.out.println();
+        return "Welcome to The Battleship Game!";
     }
 
     // change the turn

@@ -11,8 +11,6 @@ public class Ship {
         this.shipName = shipName;
         this.shipSize = shipSize;
 
-        // Team 20, pair 2 was here.
-
     }
 
     public String getShipName() {
