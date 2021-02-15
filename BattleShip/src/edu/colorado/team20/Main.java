@@ -15,20 +15,19 @@ public class Main {
         game.BeginGameDisplay();
 
         // May need to implement loop to switch between player and computer turns
-        String turn = player.GetDecisionShot();
-
+        Board board = new Board();
+        player.GetDecisionShot(board);
 
         // Testing Board class
-         Board board = new Board();
-         board.Show();
-         board.MarkBoard(turn);
+        board.Show();
 
         // Testing computer player class
          ComputerPlayer cp = new ComputerPlayer();
          String cpTurn = cp.RandomShot();
-         System.out.println("The computer has taken their turn");
+         System.out.println("The computer has taken their turn"); // make this into a method to notify player
          System.out.println();
-         board.MarkBoard(cpTurn);
+         // need to make the cpTurn call MarkBoard method in the computer choice function, not in main
+        // board.MarkBoard(cpTurn);
 
     }
 }

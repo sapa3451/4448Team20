@@ -5,13 +5,11 @@ import java.util.Scanner;  // Import the Scanner class
 public class Player {
 
     // ask player for shot decision
-    // might want to return values/call function to represent shot being done?
-    public String GetDecisionShot() {
+    // need to send in Board object in order to call the check spot validity (V)
+    public void GetDecisionShot(Board board) {
         // variables for input
-        char colVal;
-        int rowVal;
-        String r;
-        String c;
+        char colVal = ' ';
+        int rowVal = -1;
 
         System.out.println("It is your turn!");
         System.out.println("Decision: ");
@@ -21,7 +19,6 @@ public class Player {
         Scanner sc = new Scanner(System.in); //System.in is a standard input stream
         String input = sc.nextLine();    //reads string
         input = input.toUpperCase(); // set to uppercase
-        c = input;
 
         // we want to check input is okay for column
         boolean correct = false;
@@ -47,7 +44,6 @@ public class Player {
 
         // take in user input
         input = sc.nextLine();
-        r = input;//reads string
 
         // we want to check input is okay for column
         correct = false;
@@ -56,16 +52,22 @@ public class Player {
             try {
                 // checking valid integer using parseInt() method
                 rowVal = Integer.parseInt(input); // set value
-                correct = true;
             }
             catch (NumberFormatException e) { // throw error and get input again
                 System.out.println("Invalid row! Please enter a valid row (1-10):");
                 input = sc.nextLine(); // Read user input
             }
+
+            if (rowVal > 0 && rowVal <= 10) { // check if row value is within board
+                correct = true;
+            }
+            else {
+                System.out.println("Invalid row! Please enter a valid row (1-10):");
+                input = sc.nextLine(); // Read user input
+            }
         }
         //added a return method to this function, which is then used to call and update the board with a hit
-        return c+r;
-        // maybe implement function to call to reference shot being completed
-
+        // before calling method need to check if this spot is a valid move (not already been shot at)
+        board.MarkBoard(colVal, rowVal);
     }
 }

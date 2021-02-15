@@ -1,6 +1,7 @@
 package edu.colorado.team20;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Board {
     // thinking to have chars represent items on the board
@@ -8,22 +9,24 @@ public class Board {
         // E: empty
         // D: destroyed ship
         // X: marks hit
-    String[][] board = new String[10][10];
+    char[][] board = new char[10][10];
+    // create a hashmap for alphabet lookup to integer value for board
+    final HashMap<Character, Integer> alphaMap = new HashMap<Character, Integer>();
 
     // Board constructor
     Board() {
-        char c = 'A';
-        int r = 1;
-        // what I changed here was setting our board to have the values (A1, A2, etc.) represent the space being empty.
-        // When something is placed there, we can put "S","D", and so on. Having the values "A1", etc.
-        // makes lookup much much easier when messing with the board.
+        // setting the board as empty
         for (int i = 0; i < 10; i++) {
-            c = 'A';
             for (int j = 0; j < 10; j++) {
-                board[i][j] = c + String.valueOf(r);
-                c += 1;
+                board[i][j] = 'E';
             }
-            r += 1;
+        }
+
+        // making the alphaMap hashmap
+        final char[] alphas = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+        for (int i = 0; i < alphas.length; i++) {
+            // map ints to alphas
+            alphaMap.put(alphas[i], i);
         }
     }
 
@@ -37,37 +40,46 @@ public class Board {
 
         // print board
         for (int i = 0; i < 10; i++) {
-            if (i == 0) { System.out.println(col); }
+            if (i == 0) {
+                System.out.println(col);
+            }
 
             // this conditional fixes number lining
-            if (row[i] == 10) { System.out.print(row[i]); }
-            else { System.out.print(row[i] + " "); }
+            if (row[i] == 10) {
+                System.out.print(row[i]);
+            } else {
+                System.out.print(row[i] + " ");
+            }
             for (int j = 0; j < 10; j++) {
-                System.out.print("[ ]");
+                if (board[i][j] == 'X') {
+                    System.out.print("[X]");
+                } else {
+                    System.out.print("[ ]");
+                }
             }
             System.out.println();
         }
         System.out.println();
     }
 
+    // method to check if the spot that was chosen is valid for decision
+    boolean CheckSpot(char col, int row) {
+        char position = board[alphaMap.get(col)][row-1]; // subtract one from row because indexing of array
+        if (position != 'X' && position != 'D') {
+            return true;
+        }
+        return false;
+
+        // may need to have Ship work with this class to show that a Ship has been hit or not and mark in Ship class
+
+    }
+
     // update the board
-    public void MarkBoard(String input) {
-        // finding the space on the board that is equal
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (input.equals(board[i][j])) {
-                    board[i][j] = "X ";
-                }
-            }
-        }
-        //printing out board for test purposes
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
+    public void MarkBoard(char col, int row) {
+        // make a map that associates alphabet letter to column value
+        board[alphaMap.get(col)][row-1] = 'X'; // subtract one from row because indexing of array
+
+        // need to work with Ship class to know when to display sunken ship on the board
     }
 
 }
