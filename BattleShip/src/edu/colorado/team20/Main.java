@@ -10,16 +10,17 @@ public class Main {
         // creating a GameManagement object to start game
         GameManagement game = new GameManagement();
         Player player = new Player();
+        Board playerBoard = new Board();
+        Board compBoard = new Board();
 
         // display the start game info
         game.BeginGameDisplay();
 
         // May need to implement loop to switch between player and computer turns
-        Board board = new Board();
-        player.GetDecisionShot(board);
+        player.GetDecisionShot(playerBoard);
 
         // Testing Board class
-        board.Show();
+        playerBoard.Show();
 
         // Testing computer player class
          ComputerPlayer cp = new ComputerPlayer();
