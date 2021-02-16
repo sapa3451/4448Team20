@@ -134,13 +134,5 @@ public class Player {
         input = sc.nextLine();
         orientation = input;
 
-        if (orientation == "horizontally"){
-            for (int i = 0; i< myShip.getShipSize; i++){
-
-
-
-
-            }
-        }
     }
 }

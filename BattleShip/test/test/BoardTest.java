@@ -14,14 +14,13 @@ class BoardTest {
     }
 
     @Test
-    void CheckSpot_MarkBoard() {
+    void CheckSpot_MarkBoard() { // use this test to make sure that player can't hit the same spot twice
         // want to check if the check spot function is working
         Board board = new Board('C');
 
         // need to call MarkBoard to add a placement then check if place can be added again
         board.MarkBoard('A', 1);
         assertFalse(board.CheckSpot('A', 1));
-        assertEquals(board.GetPositionChar('A', 1), 'X');
 
         board.MarkBoard('B', 4);
         assertFalse(board.CheckSpot('B', 4));
@@ -33,6 +32,25 @@ class BoardTest {
 
         board.MarkBoard('J', 10);
         assertFalse(board.CheckSpot('J', 10));
+    }
+
+    @Test
+    void CheckIfMarked() { // test to make sure that MarkBoard function is marking board correctly
+        Board board = new Board('C');
+
+        assertEquals(board.GetPositionChar('A', 1), 'E');
+        assertEquals(board.GetPositionChar('D', 9), 'E');
+        assertEquals(board.GetPositionChar('C', 4), 'E');
+
+        board.MarkBoard('F', 4);
+        assertEquals(board.GetPositionChar('F', 4), 'X');
+        board.MarkBoard('A', 2);
+        assertEquals(board.GetPositionChar('A', 2), 'X');
+        board.MarkBoard('B', 3);
+        assertEquals(board.GetPositionChar('B', 3), 'X');
+        board.MarkBoard('J', 1);
+        assertEquals(board.GetPositionChar('J', 1), 'X');
+
     }
 
 }

@@ -5,10 +5,10 @@ import java.util.HashMap;
 
 public class Board {
     // thinking to have chars represent items on the board
-        // S: ship
-        // E: empty
-        // D: destroyed ship
-        // X: marks hit
+    // S: ship
+    // E: empty
+    // D: destroyed ship
+    // X: marks hit
     char[][] board = new char[10][10];
     // create a hashmap for alphabet lookup to integer value for board
     final HashMap<Character, Integer> alphaMap = new HashMap<Character, Integer>();
@@ -16,8 +16,11 @@ public class Board {
 
     // Board constructor
     public Board(char type) {
-        if (type == 'P') { this.boardType = 'P'; }
-        else { this.boardType = 'C'; }
+        if (type == 'P') {
+            this.boardType = 'P';
+        } else {
+            this.boardType = 'C';
+        }
 
         // setting the board as empty
         for (int i = 0; i < 10; i++) {
@@ -68,35 +71,43 @@ public class Board {
 
     // method to check if the spot that was chosen is valid for decision
     public boolean CheckSpot(char col, int row) {
-        char position = board[alphaMap.get(col)][row-1]; // subtract one from row because indexing of array
+        char position = board[alphaMap.get(col)][row - 1]; // subtract one from row because indexing of array
         if (position != 'X' && position != 'D') {
             return true;
         }
         return false;
-
-        // may need to have Ship work with this class to show that a Ship has been hit or not and mark in Ship class
-
     }
 
     // update the board
-    public void MarkBoard(char col, int row) {
-        char positionChar = board[alphaMap.get(col)][row-1];
+    public boolean MarkBoard(char col, int row) {
+        // call check spot in the beginning to check if spot is valid
+        if (this.CheckSpot(col, row)) {
+            char positionChar = board[alphaMap.get(col)][row - 1];
 
-        // if shot decision was empty --> mark as X
-        if (positionChar == 'E') {
-            board[alphaMap.get(col)][row-1] = 'X'; // subtract one from row because indexing of array
+            if (positionChar == 'E') { // if shot decision was empty --> mark as X
+                board[alphaMap.get(col)][row - 1] = 'X'; // subtract one from row because indexing of array
 
-            // print out information according to whose board is being checked
-            if (this.boardType == 'P') { // checking the player board (was computer's shot)
-                System.out.println("You missed!");
+                // print out information according to whose board is being checked
+                if (this.boardType == 'P') { // checking the player board (was computer's shot)
+                    System.out.println("Your opponent missed their shot!");
+                } else { // checking the computer board (was player's shot)
+                    System.out.println("You missed!");
+                }
             }
-            else { // checking the computer board (was player's shot)
-                System.out.println("Your opponent missed their shot!");
-            }
+            else { // decision was a ship --> mark as D
+                board[alphaMap.get(col)][row - 1] = 'D'; // subtract one from row because indexing of array
 
+                // print out information according to whose board is being checked
+                if (this.boardType == 'P') { // checking the player board (was computer's shot)
+                    System.out.println("Your opponent hit one of you ships!");
+                }
+                else { // checking the computer board (was player's shot)
+                    System.out.println("You hit one of your opponent's ship!");
+                }
+            }
+            return true; // board was marked correctly
         }
-
-        // need to work with Ship class to know when to display sunken ship on the board
+        return false; // board was not marked
     }
 
     // function to help with testing to get what the char is in the col/row position on board
@@ -106,6 +117,7 @@ public class Board {
 
     // function to set ship positioning on board
     public void SetShipPos() {
+        // TODO: Need to wait till Ships selection is implemented in order to place the ships on the board
         // need to take in Ship object to set positions for ships
 
     }
