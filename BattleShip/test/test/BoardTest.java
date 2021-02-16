@@ -9,18 +9,19 @@ class BoardTest {
 
     @Test
     void Show() {
-        Board board = new Board();
+        Board board = new Board('C');
         // assertEquals( (what expecting), (what function to call) )
     }
 
     @Test
     void CheckSpot_MarkBoard() {
         // want to check if the check spot function is working
-        Board board = new Board();
+        Board board = new Board('C');
 
         // need to call MarkBoard to add a placement then check if place can be added again
         board.MarkBoard('A', 1);
         assertFalse(board.CheckSpot('A', 1));
+        assertEquals(board.GetPositionChar('A', 1), 'X');
 
         board.MarkBoard('B', 4);
         assertFalse(board.CheckSpot('B', 4));

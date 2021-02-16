@@ -12,13 +12,17 @@ public class Board {
     char[][] board = new char[10][10];
     // create a hashmap for alphabet lookup to integer value for board
     final HashMap<Character, Integer> alphaMap = new HashMap<Character, Integer>();
+    final char boardType; // this can either be 'C' or 'P'
 
     // Board constructor
-    public Board() {
+    public Board(char type) {
+        if (type == 'P') { this.boardType = 'P'; }
+        else { this.boardType = 'C'; }
+
         // setting the board as empty
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                board[i][j] = 'E';
+                this.board[i][j] = 'E';
             }
         }
 
@@ -26,7 +30,7 @@ public class Board {
         final char[] alphas = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
         for (int i = 0; i < alphas.length; i++) {
             // map ints to alphas
-            alphaMap.put(alphas[i], i);
+            this.alphaMap.put(alphas[i], i);
         }
     }
 
@@ -76,10 +80,34 @@ public class Board {
 
     // update the board
     public void MarkBoard(char col, int row) {
-        // make a map that associates alphabet letter to column value
-        board[alphaMap.get(col)][row-1] = 'X'; // subtract one from row because indexing of array
+        char positionChar = board[alphaMap.get(col)][row-1];
+
+        // if shot decision was empty --> mark as X
+        if (positionChar == 'E') {
+            board[alphaMap.get(col)][row-1] = 'X'; // subtract one from row because indexing of array
+
+            // print out information according to whose board is being checked
+            if (this.boardType == 'P') { // checking the player board (was computer's shot)
+                System.out.println("You missed!");
+            }
+            else { // checking the computer board (was player's shot)
+                System.out.println("Your opponent missed their shot!");
+            }
+
+        }
 
         // need to work with Ship class to know when to display sunken ship on the board
+    }
+
+    // function to help with testing to get what the char is in the col/row position on board
+    public char GetPositionChar(char col, int row) {
+        return board[alphaMap.get(col)][row-1];
+    }
+
+    // function to set ship positioning on board
+    public void SetShipPos() {
+        // need to take in Ship object to set positions for ships
+
     }
 
 }
