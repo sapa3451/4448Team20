@@ -12,6 +12,10 @@ public class Main {
         Player player = new Player();
         Board playerBoard = new Board('P');
         Board compBoard = new Board('C');
+        Ship minesweeper = new Ship("minesweeper",2);
+        Ship destroyer = new Ship("destroyer",3);
+        Ship battleship = new Ship("battleship",4);
+
 
         // display the start game info
         game.BeginGameDisplay();

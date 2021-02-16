@@ -13,7 +13,7 @@ public class GameManagement {
     public String BeginGameDisplay() {
         System.out.println("Welcome to The Battleship Game!");
         System.out.println();
-        return "Welcome to The Battleship Game!";
+        return "Welcome to The Battleship Game!"; // why are we returning this?
     }
 
     // change the turn
