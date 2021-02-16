@@ -1,5 +1,6 @@
-package edu.colorado.team20;
+package test;
 
+import edu.colorado.team20.Board;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

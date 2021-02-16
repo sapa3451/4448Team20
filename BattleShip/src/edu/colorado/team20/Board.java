@@ -14,7 +14,7 @@ public class Board {
     final HashMap<Character, Integer> alphaMap = new HashMap<Character, Integer>();
 
     // Board constructor
-    Board() {
+    public Board() {
         // setting the board as empty
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -63,7 +63,7 @@ public class Board {
     }
 
     // method to check if the spot that was chosen is valid for decision
-    boolean CheckSpot(char col, int row) {
+    public boolean CheckSpot(char col, int row) {
         char position = board[alphaMap.get(col)][row-1]; // subtract one from row because indexing of array
         if (position != 'X' && position != 'D') {
             return true;
