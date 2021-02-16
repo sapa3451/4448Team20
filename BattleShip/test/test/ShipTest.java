@@ -26,6 +26,7 @@ class ShipTest {
         assertEquals(5, rowArray[0]);
         assertEquals(5, rowArray[1]);
         assertEquals(5, rowArray[2]);
+
     }
 
 }
