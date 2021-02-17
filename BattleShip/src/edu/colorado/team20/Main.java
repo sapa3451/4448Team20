@@ -26,7 +26,7 @@ public class Main {
         player.GetDecisionShot(compBoard); // need to send in opponent's board for player shot
 
         // Testing Board class
-        playerBoard.Show();
+        compBoard.Show(); // want to show player the computer board after shot
 
         // Testing computer player class
          ComputerPlayer cp = new ComputerPlayer();
