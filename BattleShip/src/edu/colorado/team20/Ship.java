@@ -7,6 +7,7 @@ public class Ship {
     private int shipSize;
     private char[] column;
     private int[] row;
+    // maybe add a variable to check if the ship is destroyed --> may be easy for ending game
 
     public Ship(String shipName, int shipSize) {
 

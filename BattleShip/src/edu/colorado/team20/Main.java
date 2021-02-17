@@ -12,6 +12,8 @@ public class Main {
         Player player = new Player();
         Board playerBoard = new Board('P');
         Board compBoard = new Board('C');
+
+        // we are going to have to make double ships and label them as computer and player ships
         Ship minesweeper = new Ship("minesweeper",2);
         Ship destroyer = new Ship("destroyer",3);
         Ship battleship = new Ship("battleship",4);

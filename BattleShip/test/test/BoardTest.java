@@ -1,6 +1,7 @@
 package test;
 
 import edu.colorado.team20.Board;
+import edu.colorado.team20.Ship;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,6 +52,59 @@ class BoardTest {
         board.MarkBoard('J', 1);
         assertEquals(board.GetPositionChar('J', 1), 'X');
 
+    }
+
+    @Test
+    void SetShipPos() { // test to make sure that ships get placed correctly
+        // create Ship object to test with
+        Ship ship1 = new Ship("minesweeper",2);
+        ship1.setColumnAndRow('A', 1, 0); // setting column and row
+
+        // check to make sure that ships get set on board
+        Board board = new Board('C');
+        board.SetShipPos(ship1);
+        char[] col = ship1.getColumn();
+        int[] row = ship1.getRow();
+
+        // set ship on the board
+        for (int i = 0; i < col.length; i++) {
+            for (int j = 0; j < row.length; j++) {
+                assertEquals(board.GetPositionChar(col[i], row[j]), 'S');
+            }
+        }
+        board.Show();
+
+        Ship ship2 = new Ship("destroyer",3);
+        ship2.setColumnAndRow('D', 3, 1); // setting column and row
+
+        // check to make sure that ships get set on board
+        board.SetShipPos(ship2);
+        col = ship2.getColumn();
+        row = ship2.getRow();
+
+        // set ship on the board
+        for (int i = 0; i < col.length; i++) {
+            for (int j = 0; j < row.length; j++) {
+                assertEquals(board.GetPositionChar(col[i], row[j]), 'S');
+            }
+        }
+        board.Show();
+
+        Ship ship3 = new Ship("battleship",4);
+        ship3.setColumnAndRow('D', 9, 1); // setting column and row
+
+        // check to make sure that ships get set on board
+        board.SetShipPos(ship3);
+        col = ship3.getColumn();
+        row = ship3.getRow();
+
+        // set ship on the board
+        for (int i = 0; i < col.length; i++) {
+            for (int j = 0; j < row.length; j++) {
+                assertEquals(board.GetPositionChar(col[i], row[j]), 'S');
+            }
+        }
+        board.Show();
     }
 
 }

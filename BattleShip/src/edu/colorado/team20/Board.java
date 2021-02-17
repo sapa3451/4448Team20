@@ -58,7 +58,7 @@ public class Board {
                 System.out.print(row[i] + " ");
             }
             for (int j = 0; j < 10; j++) {
-                if (board[i][j] == 'X') {
+                if (board[i][j] == 'X' || board[i][j] == 'S') {
                     System.out.print("[X]");
                 } else {
                     System.out.print("[ ]");
@@ -71,7 +71,7 @@ public class Board {
 
     // method to check if the spot that was chosen is valid for decision
     public boolean CheckSpot(char col, int row) {
-        char position = board[alphaMap.get(col)][row - 1]; // subtract one from row because indexing of array
+        char position = board[row-1][alphaMap.get(col)];; // subtract one from row because indexing of array
         if (position != 'X' && position != 'D') {
             return true;
         }
@@ -82,10 +82,10 @@ public class Board {
     public boolean MarkBoard(char col, int row) {
         // call check spot in the beginning to check if spot is valid
         if (this.CheckSpot(col, row)) {
-            char positionChar = board[alphaMap.get(col)][row - 1];
+            char positionChar = board[row-1][alphaMap.get(col)];;
 
             if (positionChar == 'E') { // if shot decision was empty --> mark as X
-                board[alphaMap.get(col)][row - 1] = 'X'; // subtract one from row because indexing of array
+                board[row-1][alphaMap.get(col)] = 'X'; // subtract one from row because indexing of array
 
                 // print out information according to whose board is being checked
                 if (this.boardType == 'P') { // checking the player board (was computer's shot)
@@ -95,7 +95,7 @@ public class Board {
                 }
             }
             else { // decision was a ship --> mark as D
-                board[alphaMap.get(col)][row - 1] = 'D'; // subtract one from row because indexing of array
+                board[row-1][alphaMap.get(col)] = 'D'; // subtract one from row because indexing of array
 
                 // print out information according to whose board is being checked
                 if (this.boardType == 'P') { // checking the player board (was computer's shot)
@@ -112,14 +112,22 @@ public class Board {
 
     // function to help with testing to get what the char is in the col/row position on board
     public char GetPositionChar(char col, int row) {
-        return board[alphaMap.get(col)][row-1];
+        return board[row-1][alphaMap.get(col)];
     }
 
     // function to set ship positioning on board
-    public void SetShipPos() {
+    public void SetShipPos(Ship ship) {
         // TODO: Need to wait till Ships selection is implemented in order to place the ships on the board
         // need to take in Ship object to set positions for ships
+        char[] col = ship.getColumn();
+        int[] row = ship.getRow();
 
+        // set ship on the board
+        for (int i = 0; i < row.length; i++) {
+            for (int j = 0; j < col.length; j++) {
+                this.board[row[i]-1][alphaMap.get(col[j])] = 'S';
+            }
+        }
     }
 
 }
