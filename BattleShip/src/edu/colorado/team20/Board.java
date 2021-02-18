@@ -44,7 +44,7 @@ public class Board {
     // show the board
     // the big to-do I see here is figuring out how to create a board who's display is as nice as this one (I couldn't think of any ideas at the moment)
     // that is also storing our hits and space occupancy (why I created another show board type for the time being for testing)
-    public void Show(Board board) {
+    public void Show() {
         // create arrays to hold board rows and columns
         final char[] col = {' ', ' ', ' ', 'A', ' ', ' ', 'B', ' ', ' ', 'C', ' ', ' ', 'D', ' ', ' ', 'E', ' ', ' ', 'F', ' ', ' ', 'G', ' ', ' ', 'H', ' ', ' ', 'I', ' ', ' ', 'J'};
         final int[] row = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -62,10 +62,10 @@ public class Board {
                 System.out.print(row[i] + " ");
             }
             for (int j = 0; j < 10; j++) {
-                if (board.getBoard()[i][j] == 'X') {
+                if (this.board[i][j] == 'X') {
                     System.out.print("[X]");
                 }
-                else if (board.getBoard()[i][j] == 'S') {
+                else if (this.board[i][j] == 'S') {
                     System.out.print("[S]");
                 }
                 else {
@@ -124,7 +124,7 @@ public class Board {
     }
 
     // function to set ship positioning on board
-    public void SetShipPos(Ship ship, Board board) {
+    public void SetShipPos(Ship ship) {
         // TODO: Need to wait till Ships selection is implemented in order to place the ships on the board
         // need to take in Ship object to set positions for ships
         char[] col = ship.getColumn();

@@ -26,17 +26,17 @@ public class Main {
         // display the start game info
         game.BeginGameDisplay();
         //**THIS IS THE PLAYERS BOARD BEING DISPLAYED**
-        playerBoard.Show(playerBoard);
+        playerBoard.Show();
 
         player.GetShipPlacement(playerMinesweeper);
         player.GetShipPlacement(playerDestroyer);
         player.GetShipPlacement(playerBattleship);
         //The parameter here is insuring the ships are being placed on the player board only
-        playerBoard.SetShipPos(playerMinesweeper,playerBoard);
-        playerBoard.SetShipPos(playerDestroyer,playerBoard);
-        playerBoard.SetShipPos(playerBattleship,playerBoard);
+        playerBoard.SetShipPos(playerMinesweeper);
+        playerBoard.SetShipPos(playerDestroyer);
+        playerBoard.SetShipPos(playerBattleship);
         //**THIS IS THE PLAYERS BOARD BEING DISPLAYED**
-        playerBoard.Show(playerBoard);
+        playerBoard.Show();
 
         //computer player ship placement here
 
@@ -46,7 +46,7 @@ public class Main {
         // Testing Board class
         //**THIS IS THE COMPUTERS BOARD BEING DISPLAYED**
         //ships are hidden on this board
-        compBoard.Show(compBoard); // want to show player the computer board after shot
+        compBoard.Show(); // want to show player the computer board after shot
 
         // Testing computer player class
          String cpTurn = cp.RandomShot();
