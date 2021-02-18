@@ -133,5 +133,6 @@ public class Player {
         System.out.println("Do you want to place your myShip.getShipName ship horizontally(0) or vertically(1)? ");
         input = sc.nextLine();
         orientation = Integer.parseInt(input);
+        myShip.setColumnAndRow(colVal,rowVal,orientation);
     }
 }
