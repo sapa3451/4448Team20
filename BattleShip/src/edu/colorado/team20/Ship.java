@@ -7,12 +7,14 @@ public class Ship {
     private int shipSize;
     private char[] column;
     private int[] row;
+    private boolean sunk;
     // maybe add a variable to check if the ship is destroyed --> may be easy for ending game
 
     public Ship(String shipName, int shipSize) {
 
         this.shipName = shipName;
         this.shipSize = shipSize;
+        this.sunk = false;
 
     }
 
@@ -54,6 +56,24 @@ public class Ship {
 
     public int getShipSize() {
         return shipSize;
+    }
+
+    public boolean getSunk () {return sunk;}
+
+    public void setHitAndSunk(char column, int row) {
+        for (int i = 0; i < this.shipSize; i++) {
+            if (this.column[i] == column && this.row[i] == row) {
+                this.column[i] = 'H'; //H will represent a hit for the column
+                this.row[i] = -1; //-1 will represent a hit for the row for now
+            }
+        }
+        for (int i = 0; i < this.shipSize; i++) {
+            if (this.column[i] != 'H' && this.row[i] != -1) {
+                sunk = false;
+                return;
+            }
+        }
+        sunk = true;
     }
 
 

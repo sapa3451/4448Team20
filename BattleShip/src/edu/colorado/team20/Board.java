@@ -37,10 +37,14 @@ public class Board {
         }
     }
 
+    public char[][] getBoard () {
+        return board;
+    }
+
     // show the board
     // the big to-do I see here is figuring out how to create a board who's display is as nice as this one (I couldn't think of any ideas at the moment)
     // that is also storing our hits and space occupancy (why I created another show board type for the time being for testing)
-    public void Show() {
+    public void Show(Board board) {
         // create arrays to hold board rows and columns
         final char[] col = {' ', ' ', ' ', 'A', ' ', ' ', 'B', ' ', ' ', 'C', ' ', ' ', 'D', ' ', ' ', 'E', ' ', ' ', 'F', ' ', ' ', 'G', ' ', ' ', 'H', ' ', ' ', 'I', ' ', ' ', 'J'};
         final int[] row = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -58,9 +62,13 @@ public class Board {
                 System.out.print(row[i] + " ");
             }
             for (int j = 0; j < 10; j++) {
-                if (board[i][j] == 'X' || board[i][j] == 'S') {
+                if (board.getBoard()[i][j] == 'X') {
                     System.out.print("[X]");
-                } else {
+                }
+                else if (board.getBoard()[i][j] == 'S') {
+                    System.out.print("[S]");
+                }
+                else {
                     System.out.print("[ ]");
                 }
             }
@@ -116,17 +124,15 @@ public class Board {
     }
 
     // function to set ship positioning on board
-    public void SetShipPos(Ship ship) {
+    public void SetShipPos(Ship ship, Board board) {
         // TODO: Need to wait till Ships selection is implemented in order to place the ships on the board
         // need to take in Ship object to set positions for ships
         char[] col = ship.getColumn();
         int[] row = ship.getRow();
 
         // set ship on the board
-        for (int i = 0; i < row.length; i++) {
-            for (int j = 0; j < col.length; j++) {
-                this.board[row[i]-1][alphaMap.get(col[j])] = 'S';
-            }
+        for (int i = 0; i < ship.getShipSize(); i++) {
+            this.board[row[i]-1][alphaMap.get(col[i])] = 'S';
         }
     }
 

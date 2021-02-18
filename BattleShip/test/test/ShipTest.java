@@ -37,4 +37,23 @@ class ShipTest {
 
     }
 
+    @Test
+    public void GetHitTest () {
+        Ship testShip1 = new Ship("Destroyer", 3);
+        testShip1.setColumnAndRow('A', 1, 1);
+        testShip1.setHitAndSunk('A', 1);
+        assertEquals(false, testShip1.getSunk());
+        testShip1.setHitAndSunk('B', 1);
+        testShip1.setHitAndSunk('C', 1);
+        char[] colArray = testShip1.getColumn();
+        int[] rowArray = testShip1.getRow();
+        assertEquals('H', colArray[0]);
+        assertEquals('H', colArray[1]);
+        assertEquals('H', colArray[2]);
+        assertEquals(-1, rowArray[0]);
+        assertEquals(-1, rowArray[1]);
+        assertEquals(-1, rowArray[2]);
+        assertEquals(true, testShip1.getSunk());
+    }
+
 }

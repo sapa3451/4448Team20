@@ -57,12 +57,13 @@ class BoardTest {
     @Test
     void SetShipPos() { // test to make sure that ships get placed correctly
         // create Ship object to test with
+        Board board1 = new Board('P');
         Ship ship1 = new Ship("minesweeper",2);
         ship1.setColumnAndRow('A', 1, 0); // setting column and row
 
         // check to make sure that ships get set on board
         Board board = new Board('C');
-        board.SetShipPos(ship1);
+        board.SetShipPos(ship1,board1);
         char[] col = ship1.getColumn();
         int[] row = ship1.getRow();
 
@@ -72,13 +73,13 @@ class BoardTest {
                 assertEquals(board.GetPositionChar(col[i], row[j]), 'S');
             }
         }
-        board.Show();
+        board.Show(board1);
 
         Ship ship2 = new Ship("destroyer",3);
         ship2.setColumnAndRow('D', 3, 1); // setting column and row
 
         // check to make sure that ships get set on board
-        board.SetShipPos(ship2);
+        board.SetShipPos(ship2,board1);
         col = ship2.getColumn();
         row = ship2.getRow();
 
@@ -88,13 +89,13 @@ class BoardTest {
                 assertEquals(board.GetPositionChar(col[i], row[j]), 'S');
             }
         }
-        board.Show();
+        board.Show(board1);
 
         Ship ship3 = new Ship("battleship",4);
         ship3.setColumnAndRow('D', 9, 1); // setting column and row
 
         // check to make sure that ships get set on board
-        board.SetShipPos(ship3);
+        board.SetShipPos(ship3,board1);
         col = ship3.getColumn();
         row = ship3.getRow();
 
@@ -104,7 +105,7 @@ class BoardTest {
                 assertEquals(board.GetPositionChar(col[i], row[j]), 'S');
             }
         }
-        board.Show();
+        board.Show(board1);
     }
 
 }

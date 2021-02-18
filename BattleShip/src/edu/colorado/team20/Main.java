@@ -10,26 +10,45 @@ public class Main {
         // creating a GameManagement object to start game
         GameManagement game = new GameManagement();
         Player player = new Player();
+        ComputerPlayer cp = new ComputerPlayer();
         Board playerBoard = new Board('P');
         Board compBoard = new Board('C');
 
         // we are going to have to make double ships and label them as computer and player ships
-        Ship minesweeper = new Ship("minesweeper",2);
-        Ship destroyer = new Ship("destroyer",3);
-        Ship battleship = new Ship("battleship",4);
+        Ship playerMinesweeper = new Ship("minesweeper",2);
+        Ship playerDestroyer = new Ship("destroyer",3);
+        Ship playerBattleship = new Ship("battleship",4);
+        Ship compMinesweeper = new Ship("minesweeper",2);
+        Ship compDestroyer = new Ship("destroyer",3);
+        Ship compBattleship = new Ship("battleship",4);
 
 
         // display the start game info
         game.BeginGameDisplay();
+        //**THIS IS THE PLAYERS BOARD BEING DISPLAYED**
+        playerBoard.Show(playerBoard);
+
+        player.GetShipPlacement(playerMinesweeper);
+        player.GetShipPlacement(playerDestroyer);
+        player.GetShipPlacement(playerBattleship);
+        //The parameter here is insuring the ships are being placed on the player board only
+        playerBoard.SetShipPos(playerMinesweeper,playerBoard);
+        playerBoard.SetShipPos(playerDestroyer,playerBoard);
+        playerBoard.SetShipPos(playerBattleship,playerBoard);
+        //**THIS IS THE PLAYERS BOARD BEING DISPLAYED**
+        playerBoard.Show(playerBoard);
+
+        //computer player ship placement here
 
         // May need to implement loop to switch between player and computer turns
         player.GetDecisionShot(compBoard); // need to send in opponent's board for player shot
 
         // Testing Board class
-        compBoard.Show(); // want to show player the computer board after shot
+        //**THIS IS THE COMPUTERS BOARD BEING DISPLAYED**
+        //ships are hidden on this board
+        compBoard.Show(compBoard); // want to show player the computer board after shot
 
         // Testing computer player class
-         ComputerPlayer cp = new ComputerPlayer();
          String cpTurn = cp.RandomShot();
          System.out.println("The computer has taken their turn"); // make this into a method to notify player
          System.out.println();
