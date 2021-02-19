@@ -30,7 +30,7 @@ public class Main {
 
         // Testing computer player class
          ComputerPlayer cp = new ComputerPlayer();
-         String cpTurn = cp.RandomShot();
+         String cpTurn = cp.RandomShot(compBoard);
          System.out.println("The computer has taken their turn"); // make this into a method to notify player
          System.out.println();
          // need to make the cpTurn call MarkBoard method in the computer choice function, not in main

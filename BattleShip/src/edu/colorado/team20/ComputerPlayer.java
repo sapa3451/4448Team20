@@ -5,7 +5,7 @@ import java.util.Random;
 public class ComputerPlayer {
 
     //computer player random turn
-    public String RandomShot() {
+    public String RandomShot(Board board) {
         Random randChar = new Random();
 
         //getting a random column
@@ -14,12 +14,23 @@ public class ComputerPlayer {
         Random randNum = new Random();
 
         //getting a random row
-        String n = String.valueOf(randNum.nextInt(10) + 1);
+        int n = (randNum.nextInt(10) + 1);
 
-        //resulting random board space
-        String result = c+n;
+        //coordinates resulting random board space
 
-        return result;
+
+        while(!board.MarkBoard(c,n))
+        {//while the randomly selected spot is not available
+            c = (char) ('A' + randChar.nextInt(10));
+            n = (randNum.nextInt(10) + 1);
+        }
+
+        String nConvert=String.valueOf(n);
+        return c+nConvert;
+    }
+
+    public void PlaceShips(Board board){
+
     }
 
 }

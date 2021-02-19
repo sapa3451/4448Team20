@@ -37,6 +37,10 @@ public class Board {
         }
     }
 
+    public char[][] getBoard () {
+        return board;
+    }
+
     // show the board
     // the big to-do I see here is figuring out how to create a board who's display is as nice as this one (I couldn't think of any ideas at the moment)
     // that is also storing our hits and space occupancy (why I created another show board type for the time being for testing)
@@ -58,9 +62,13 @@ public class Board {
                 System.out.print(row[i] + " ");
             }
             for (int j = 0; j < 10; j++) {
-                if (board[i][j] == 'X' || board[i][j] == 'S') {
+                if (this.board[i][j] == 'X') {
                     System.out.print("[X]");
-                } else {
+                }
+                else if (this.board[i][j] == 'S') {
+                    System.out.print("[S]");
+                }
+                else {
                     System.out.print("[ ]");
                 }
             }
@@ -123,10 +131,8 @@ public class Board {
         int[] row = ship.getRow();
 
         // set ship on the board
-        for (int i = 0; i < row.length; i++) {
-            for (int j = 0; j < col.length; j++) {
-                this.board[row[i]-1][alphaMap.get(col[j])] = 'S';
-            }
+        for (int i = 0; i < ship.getShipSize(); i++) {
+            this.board[row[i]-1][alphaMap.get(col[i])] = 'S';
         }
     }
 
