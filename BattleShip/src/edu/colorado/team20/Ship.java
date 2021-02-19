@@ -21,7 +21,7 @@ public class Ship {
     public void setColumnAndRow (char column, int row, int direction) {
         this.column = new char[this.shipSize];
         this.row = new int[this.shipSize];
-        if (direction == 1) {
+        if (direction == 1) { // horizontal
             int colConvert = convertToInt(column);
             for (int i = 0; i < this.shipSize; i++) {
                 this.column[i] = convertToChar(colConvert);
@@ -31,7 +31,7 @@ public class Ship {
                 this.row[i] = row;
             }
         }
-        else {
+        else { // vertical
             for (int i = 0; i < this.shipSize; i++) {
                 this.column[i] = column;
             }
