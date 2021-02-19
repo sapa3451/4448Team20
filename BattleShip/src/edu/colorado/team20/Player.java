@@ -72,10 +72,10 @@ public class Player {
 
 
     public void GetShipPlacement(Ship myShip) {
-        int orientation; // do they want to place the ship vertically(1) or horizontally(0)
+        String orientation = ""; // do they want to place the ship vertically(1) or horizontally(0)
         char colVal = ' ';
         int rowVal = -1;
-        System.out.println("Type which column (A-J) you would like to place your myShip.getShipName ship: ");
+        System.out.println("Type which column (A-J) you would like to place your " + myShip.getShipName() + " ship:");
         // take in user input
         Scanner sc = new Scanner(System.in); //System.in is a standard input stream
         String input = sc.nextLine();    //reads string
@@ -130,8 +130,15 @@ public class Player {
         // after this i have a valid colVal and rowVal
 
 
-        System.out.println("Do you want to place your myShip.getShipName ship horizontally(0) or vertically(1)? ");
+        System.out.println("Do you want to place your myShip.getShipName ship horizontally or vertically? ");
         input = sc.nextLine();
-        orientation = Integer.parseInt(input);
+        int direction;
+        if (orientation.toUpperCase() == "HORIZONTALLY") {
+            direction = 0;
+        }
+        else {
+            direction = 1;
+        }
+        myShip.setColumnAndRow(colVal,rowVal,direction);
     }
 }
