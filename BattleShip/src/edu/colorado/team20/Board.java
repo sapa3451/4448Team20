@@ -124,7 +124,7 @@ public class Board {
     }
 
     // function to set ship positioning on board
-    public void SetShipPos(Ship ship) {
+    public String SetShipPos(Ship ship) {
         // TODO: Need to wait till Ships selection is implemented in order to place the ships on the board
         // need to take in Ship object to set positions for ships
         char[] col = ship.getColumn();
@@ -132,8 +132,15 @@ public class Board {
 
         // set ship on the board
         for (int i = 0; i < ship.getShipSize(); i++) {
-            this.board[row[i]-1][alphaMap.get(col[i])] = 'S';
+            if (this.board[row[i]-1][alphaMap.get(col[i])] == 'S') {
+                ship.setColumnAndRow('Z', -10, -10); //this signifies that a ship was places where a ship already was
+                return ("Ship already placed here!");                   // and needs to be input again
+            }
+            else {
+                this.board[row[i]-1][alphaMap.get(col[i])] = 'S';
+            }
         }
+        return "Your "+ ship.getShipName()+ " was successfully placed!";
     }
 
 }

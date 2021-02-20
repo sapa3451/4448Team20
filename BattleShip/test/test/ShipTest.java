@@ -7,14 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ShipTest {
     @Test
-    public void GetShipNameAndSize () {
+    public void GetShipNameAndSize () { //test to make sure all ships are initiated properly
         Ship testShip1 = new Ship("Destroyer", 4);
         assertEquals("Destroyer", testShip1.getShipName());
         assertEquals(4, testShip1.getShipSize());
     }
 
     @Test
-    public void GetPlacementTest () {
+    public void GetPlacementTest () { //test to make sure all ships are placed properly
         //direction 1 is horizontal, 0 is vertical
         Ship testShip1 = new Ship("Destroyer", 3);
         testShip1.setColumnAndRow('A', 5, 1);
@@ -38,7 +38,7 @@ class ShipTest {
     }
 
     @Test
-    public void GetHitTest () {
+    public void GetHitTest () { //test to make sure all ships are hit/sunk properly
         Ship testShip1 = new Ship("Destroyer", 3);
         testShip1.setColumnAndRow('A', 1, 1);
         testShip1.setHitAndSunk('A', 1);

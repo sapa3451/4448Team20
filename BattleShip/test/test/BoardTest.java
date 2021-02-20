@@ -262,4 +262,32 @@ class BoardTest {
         }
         board.Show();
     }
+
+    @Test
+    void SetShipsOnSameSpot() {
+        // create Ship object to test with
+        Ship ship1 = new Ship("minesweeper",2);
+        ship1.setColumnAndRow('E', 4, 0); // setting column and row
+
+        // check to make sure that ships get set on board
+        Board board = new Board('C');
+        board.SetShipPos(ship1);
+        char[] col = ship1.getColumn();
+        int[] row = ship1.getRow();
+        // set ship on the board
+        for (int i = 0; i < col.length; i++) {
+            for (int j = 0; j < row.length; j++) {
+                assertEquals(board.GetPositionChar(col[i], row[j]), 'S');
+            }
+        }
+        Ship ship2 = new Ship("destroyer",3);
+        ship2.setColumnAndRow('E', 4, 0); // setting column and row
+
+        // check to make sure that ships get set on board
+        String result = board.SetShipPos(ship2);
+        char[] col2 = ship2.getColumn();
+        int[] row2 = ship2.getRow();
+        assertEquals('Z', col2[0]);
+        assertEquals("Ship already placed here!", result);
+    }
 }

@@ -32,9 +32,12 @@ public class Main {
         player.GetShipPlacement(playerDestroyer);
         player.GetShipPlacement(playerBattleship);
         //The parameter here is insuring the ships are being placed on the player board only
-        playerBoard.SetShipPos(playerMinesweeper);
-        playerBoard.SetShipPos(playerDestroyer);
-        playerBoard.SetShipPos(playerBattleship);
+        String result = playerBoard.SetShipPos(playerMinesweeper);
+        System.out.println(result);
+        result = playerBoard.SetShipPos(playerDestroyer);
+        System.out.println(result);
+        result = playerBoard.SetShipPos(playerBattleship);
+        System.out.println(result);
         //**THIS IS THE PLAYERS BOARD BEING DISPLAYED**
         playerBoard.Show();
 
@@ -49,7 +52,7 @@ public class Main {
         compBoard.Show(); // want to show player the computer board after shot
 
         // Testing computer player class
-        String cpTurn = cp.RandomShot();
+        String cpTurn = cp.RandomShot(playerBoard);
         System.out.println("The computer has taken their turn"); // make this into a method to notify player
         System.out.println();
         // need to make the cpTurn call MarkBoard method in the computer choice function, not in main

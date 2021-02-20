@@ -3,6 +3,25 @@ import java.util.Scanner;
 
 public class Player {
 
+    private Ship minesweeper;
+    private Ship destroyer;
+    private Ship battleship;
+
+    public void UpdateAndSetPlayerShips(Ship ship){
+        if (ship.getShipName() == "minesweeper"){
+            this.minesweeper = ship;
+        }
+        else if (ship.getShipName() == "destroyer"){
+            this.destroyer = ship;
+        }
+        else if (ship.getShipName() == "battleship"){
+            this.battleship = ship;
+        }
+
+    }
+
+
+
     // ask player for shot decision
     // need to send in Board object in order to call the check spot validity (V)
     public void GetDecisionShot(Board board) {
@@ -101,7 +120,7 @@ public class Player {
             }
         }
 
-        System.out.println("Type which row (1-10) you would like to place your myShip.getShipName ship: ");
+        System.out.println("Type which row (1-10) you would like to place your " + myShip.getShipName() + " ship: ");
 
         // take in user input
         input = sc.nextLine();
@@ -130,7 +149,7 @@ public class Player {
         // after this i have a valid colVal and rowVal
 
 
-        System.out.println("Do you want to place your myShip.getShipName ship horizontally or vertically? ");
+        System.out.println("Do you want to place your " + myShip.getShipName() + " ship horizontally or vertically? ");
         input = sc.nextLine();
         int direction;
         if (orientation.toUpperCase() == "HORIZONTALLY") {
@@ -140,5 +159,17 @@ public class Player {
             direction = 1;
         }
         myShip.setColumnAndRow(colVal,rowVal,direction);
+    }
+
+    public Ship getMinesweeper() {
+        return minesweeper;
+    }
+
+    public Ship getDestroyer() {
+        return destroyer;
+    }
+
+    public Ship getBattleship() {
+        return battleship;
     }
 }
