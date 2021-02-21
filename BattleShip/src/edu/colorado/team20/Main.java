@@ -28,9 +28,9 @@ public class Main {
         //**THIS IS THE PLAYERS BOARD BEING DISPLAYED**
         playerBoard.Show();
 
-        player.GetShipPlacement(playerMinesweeper);
-        player.GetShipPlacement(playerDestroyer);
-        player.GetShipPlacement(playerBattleship);
+//        player.GetShipPlacement(playerMinesweeper);
+//        player.GetShipPlacement(playerDestroyer);
+//        player.GetShipPlacement(playerBattleship);
         //The parameter here is insuring the ships are being placed on the player board only
         String result = playerBoard.SetShipPos(playerMinesweeper);
         System.out.println(result);
