@@ -25,12 +25,30 @@ public class ComputerPlayer {
             n = (randNum.nextInt(10) + 1);
         }
 
-        String nConvert=String.valueOf(n);
+        String nConvert=String.valueOf(n-1);
         return c+nConvert;
     }
 
-    public void PlaceShips(Board board){
+    public String RandShipPlacement(Ship compShip){
 
+        //getting a random column
+        Random randChar = new Random();
+        char c = (char) ('A' + randChar.nextInt(10));
+
+        //getting a random row
+        Random randNum = new Random();
+        int n = (randNum.nextInt(10) + 1);
+
+        //setting vertical/horizontal (1 horizontal,0 vertical)
+        Random randOrient = new Random();
+        int orientation =(randOrient.nextInt(2));
+
+        compShip.setColumnAndRow(c,n,orientation);
+
+        String nConvert=String.valueOf(n-1);
+        String oConvert=String.valueOf(orientation);
+        //Returns coordinates and orientation for testing
+        return c+nConvert+oConvert;
     }
 
 }
