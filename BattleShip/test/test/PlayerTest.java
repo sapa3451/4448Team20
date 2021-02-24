@@ -20,7 +20,7 @@ class PlayerTest {
         int [] rowArray = testShip1.getRow();
         assertEquals('A', colArray[0]);
         assertEquals('B', colArray[1]);
-        assertEquals('C', colArray[2]);
+         assertEquals('C', colArray[2]);
         assertEquals(1, rowArray[0]);
         assertEquals(1, rowArray[1]);
         assertEquals(1, rowArray[2]);

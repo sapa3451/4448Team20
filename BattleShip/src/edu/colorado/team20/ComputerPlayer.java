@@ -4,6 +4,10 @@ import java.util.Random;
 
 public class ComputerPlayer {
 
+    private Ship minesweeper;
+    private Ship destroyer;
+    private Ship battleship;
+
     //computer player random turn
     public String RandomShot(Board board) {
         Random randChar = new Random();

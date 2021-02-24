@@ -34,6 +34,7 @@ public class Main {
         //The parameter here is insuring the ships are being placed on the player board only
         String result = playerBoard.SetShipPos(playerMinesweeper);
         System.out.println(result);
+        //TODO: SetShipPos to be moved into the get placement functions in both player and computer player
         result = playerBoard.SetShipPos(playerDestroyer);
         System.out.println(result);
         result = playerBoard.SetShipPos(playerBattleship);

@@ -24,6 +24,8 @@ public class Player {
 
     // ask player for shot decision
     // need to send in Board object in order to call the check spot validity (V)
+
+    //TODO:Add board instances for both player and comp player, call each player on shots instead of board
     public void GetDecisionShot(Board board) {
         // variables for input
         char colVal = ' ';
@@ -159,6 +161,7 @@ public class Player {
         else {
             direction = 0;
         }
+        //TODO: Add board call of setShipPos
         myShip.setColumnAndRow(colVal,rowVal,direction);
     }
 

@@ -87,6 +87,7 @@ public class Board {
     }
 
     // update the board
+    //TODO: Add show board if marking was successful
     public boolean MarkBoard(char col, int row) {
         // call check spot in the beginning to check if spot is valid
         if (this.CheckSpot(col, row)) {

@@ -4,7 +4,7 @@ public class GameManagement {
     // provides turn information
         // P --> user player turn
         // C --> computer turn
-    char turnInfo;
+    private char turnInfo;
 
     public GameManagement() {
         turnInfo = 'P'; // set to player first always
