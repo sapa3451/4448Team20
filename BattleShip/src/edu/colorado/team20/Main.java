@@ -11,9 +11,12 @@ public class Main {
         GameManagement game = new GameManagement();
         Player player = new Player();
         ComputerPlayer cp = new ComputerPlayer();
+        // TODO: get rid of these Board objects as players have own objects now of board
         Board playerBoard = new Board('P');
         Board compBoard = new Board('C');
 
+        // TODO: we shouldn't need these Ship objects as players have own objects declared in own class
+        //  so need to make "GetShip" function that works for each class to get Ship objects
         // we are going to have to make double ships and label them as computer and player ships
         Ship playerMinesweeper = new Ship("minesweeper",2);
         Ship playerDestroyer = new Ship("destroyer",3);
@@ -34,7 +37,7 @@ public class Main {
         //The parameter here is insuring the ships are being placed on the player board only
         String result = playerBoard.SetShipPos(playerMinesweeper);
         System.out.println(result);
-        //TODO: SetShipPos to be moved into the get placement functions in both player and computer player
+        // TODO: SetShipPos to be moved into the get placement functions in both player and computer player
         result = playerBoard.SetShipPos(playerDestroyer);
         System.out.println(result);
         result = playerBoard.SetShipPos(playerBattleship);

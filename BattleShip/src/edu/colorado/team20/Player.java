@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Player {
 
+    // TODO: add board object for the player and make sure that Board class calls are updated with new object
+    private Board playerBoard = new Board('P');
     private Ship minesweeper;
     private Ship destroyer;
     private Ship battleship;

@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class ComputerPlayer {
 
+    // TODO: add board object for computer and make sure that Board class calls are updated with new object
+    private Board compBoard = new Board('C');
     private Ship minesweeper;
     private Ship destroyer;
     private Ship battleship;
