@@ -9,6 +9,7 @@ public class Board {
     // E: empty
     // D: destroyed ship
     // X: marks hit
+    // TODO: needing to add a C char to represent the captain's quarters for sonar radar
     char[][] board = new char[10][10];
     // create a hashmap for alphabet lookup to integer value for board
     final HashMap<Character, Integer> alphaMap = new HashMap<Character, Integer>();
@@ -140,5 +141,7 @@ public class Board {
         }
         return "Your "+ ship.getShipName()+ " was successfully placed!";
     }
+
+    // TODO: Need to create a function for sonar radar
 
 }

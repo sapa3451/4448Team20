@@ -19,6 +19,10 @@ public class Ship {
     }
 
     public void setColumnAndRow (char column, int row, int direction) {
+        // TODO: need to add a randomizer for placing the captain's quarters and possibly make it a
+        //  variable for each ship to know it's position (can discuss how to best do this in meeting).
+        //  As well will need to show way how many times the captain's quarters has been hit to know if
+        //  it is going to be a destroyed ship
         this.column = new char[this.shipSize];
         this.row = new int[this.shipSize];
         if (direction == 1) { // horizontal
