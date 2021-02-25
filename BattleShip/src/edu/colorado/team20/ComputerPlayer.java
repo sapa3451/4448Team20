@@ -23,7 +23,7 @@ public class ComputerPlayer {
         //coordinates resulting random board space
 
 
-        while(!board.MarkBoard(c,n))
+        while(!board.CheckSpot(c,n))
         {//while the randomly selected spot is not available
             c = (char) ('A' + randChar.nextInt(10));
             n = (randNum.nextInt(10) + 1);

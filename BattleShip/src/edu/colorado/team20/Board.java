@@ -87,8 +87,7 @@ public class Board {
     }
 
     // update the board
-    //TODO: Add show board if marking was successful
-    public boolean MarkBoard(char col, int row) {
+    public void MarkBoard(char col, int row) {
         // call check spot in the beginning to check if spot is valid
         if (this.CheckSpot(col, row)) {
             char positionChar = board[row-1][alphaMap.get(col)];;
@@ -114,9 +113,8 @@ public class Board {
                     System.out.println("You hit one of your opponent's ship!");
                 }
             }
-            return true; // board was marked correctly
+            this.Show(); // show the updated board
         }
-        return false; // board was not marked
     }
 
     // function to help with testing to get what the char is in the col/row position on board
@@ -126,7 +124,6 @@ public class Board {
 
     // function to set ship positioning on board
     public String SetShipPos(Ship ship) {
-        // TODO: Need to wait till Ships selection is implemented in order to place the ships on the board
         // need to take in Ship object to set positions for ships
         char[] col = ship.getColumn();
         int[] row = ship.getRow();
