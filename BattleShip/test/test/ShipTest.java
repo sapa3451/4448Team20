@@ -1,59 +1,45 @@
 package test;
 
-import edu.colorado.team20.Ship;
+import edu.colorado.team20.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ShipTest {
     @Test
-    public void GetShipNameAndSize () { //test to make sure all ships are initiated properly
-        Ship testShip1 = new Ship("Destroyer", 4);
-        assertEquals("Destroyer", testShip1.getShipName());
-        assertEquals(4, testShip1.getShipSize());
+    public void GetShipNameAndSize () {//test to make sure all ships are initiated properly
+        Battleship battleship = new Battleship(4);
+        Minesweeper minesweeper = new Minesweeper(2);
+        Destroyer destroyer = new Destroyer(3);
+        assertEquals(4, battleship.getShipSize());
+        for (int i = 0; i < 4; i++) {
+            if (i != 2) {
+                assertEquals('I', battleship.getShipSections()[i]);
+            }
+            else {
+                assertEquals('Q', battleship.getShipSections()[i]);
+            }
+        }
+
+        assertEquals(3, destroyer.getShipSize());
+        for (int i = 0; i < 3; i++) {
+            if (i != 1) {
+                assertEquals('I', destroyer.getShipSections()[i]);
+            }
+            else {
+                assertEquals('Q', destroyer.getShipSections()[i]);
+            }
+        }
+        assertEquals(2, minesweeper.getShipSize());
+        for (int i = 0; i < 2; i++) {
+            if (i != 0) {
+                assertEquals('I', minesweeper.getShipSections()[i]);
+            }
+            else {
+                assertEquals('Q', minesweeper.getShipSections()[i]);
+            }
+        }
     }
 
-    @Test
-    public void GetPlacementTest () { //test to make sure all ships are placed properly
-        //direction 1 is horizontal, 0 is vertical
-        Ship testShip1 = new Ship("Destroyer", 3);
-        testShip1.setColumnAndRow('A', 5, 1);
-        char[] colArray = testShip1.getColumn();
-        int[] rowArray = testShip1.getRow();
-        assertEquals('A', colArray[0]);
-        assertEquals('B', colArray[1]);
-        assertEquals('C', colArray[2]);
-        assertEquals(5, rowArray[0]);
-        assertEquals(5, rowArray[1]);
-        assertEquals(5, rowArray[2]);
-        Ship testShip2 = new Ship("Minesweeper", 2);
-        testShip2.setColumnAndRow('J', 1, 0);
-        colArray = testShip2.getColumn();
-        rowArray = testShip2.getRow();
-        assertEquals('J', colArray[0]);
-        assertEquals('J', colArray[1]);
-        assertEquals(1, rowArray[0]);
-        assertEquals(2, rowArray[1]);
-
-    }
-
-    @Test
-    public void GetHitTest () { //test to make sure all ships are hit/sunk properly
-        Ship testShip1 = new Ship("Destroyer", 3);
-        testShip1.setColumnAndRow('A', 1, 1);
-        testShip1.setHitAndSunk('A', 1);
-        assertEquals(false, testShip1.getSunk());
-        testShip1.setHitAndSunk('B', 1);
-        testShip1.setHitAndSunk('C', 1);
-        char[] colArray = testShip1.getColumn();
-        int[] rowArray = testShip1.getRow();
-        assertEquals('H', colArray[0]);
-        assertEquals('H', colArray[1]);
-        assertEquals('H', colArray[2]);
-        assertEquals(-1, rowArray[0]);
-        assertEquals(-1, rowArray[1]);
-        assertEquals(-1, rowArray[2]);
-        assertEquals(true, testShip1.getSunk());
-    }
 
 }

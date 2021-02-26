@@ -2,16 +2,17 @@ package edu.colorado.team20;
 
 import java.util.Random;
 
-public class ComputerPlayer {
+public final class ComputerPlayer implements IPlayer {
+    private final IBoard board;
+    public ComputerPlayer() {
+        this.board = new ComputerBoard();
+    }
 
-    // TODO: add board object for computer and make sure that Board class calls are updated with new object
-    private Board compBoard = new Board('C');
-    private Ship minesweeper;
-    private Ship destroyer;
-    private Ship battleship;
+    public IBoard getBoard () {
+        return board;
+    }
 
-    //computer player random turn
-    public String RandomShot(Board board) {
+    public void Shot(IBoard board, char col, int row) {
         Random randChar = new Random();
 
         //getting a random column
@@ -30,31 +31,72 @@ public class ComputerPlayer {
             c = (char) ('A' + randChar.nextInt(10));
             n = (randNum.nextInt(10) + 1);
         }
-
-        String nConvert=String.valueOf(n-1);
-        return c+nConvert;
+        board.MarkBoard(c, n);
     }
 
-    public String RandShipPlacement(Ship compShip){
-
-        //getting a random column
-        Random randChar = new Random();
-        char c = (char) ('A' + randChar.nextInt(10));
-
-        //getting a random row
-        Random randNum = new Random();
-        int n = (randNum.nextInt(10) + 1);
-
-        //setting vertical/horizontal (1 horizontal,0 vertical)
-        Random randOrient = new Random();
-        int orientation =(randOrient.nextInt(2));
-
-        compShip.setColumnAndRow(c,n,orientation);
-
-        String nConvert=String.valueOf(n-1);
-        String oConvert=String.valueOf(orientation);
-        //Returns coordinates and orientation for testing
-        return c+nConvert+oConvert;
+    public void placeBattleship () {
+        boolean placed = false;
+        while (!placed) {
+            Random randOrient = new Random();
+            int orientation = (randOrient.nextInt(2));
+            int n = this.board.getRowSize();
+            int nCheck = n - 3;
+            char c = (char) ('A' + this.board.getRowSize() - 1);
+            char cCheck = (char) (c - 3);
+            placed = isPlaced(orientation, n, nCheck, c, cCheck, 4);
+        }
     }
 
+    public void placeMinesweeper () {
+        boolean placed = false;
+        while (!placed) {
+            Random randOrient = new Random();
+            int orientation = (randOrient.nextInt(2));
+            int n = this.board.getRowSize();
+            int nCheck = n - 3;
+            char c = (char) ('A' + this.board.getRowSize() - 1);
+            char cCheck = (char) (c - 3);
+            placed = isPlaced(orientation, n, nCheck, c, cCheck, 2);
+        }
+    }
+
+    public void placeDestroyer (){
+        boolean placed = false;
+        while (!placed) {
+            Random randOrient = new Random();
+            int orientation = (randOrient.nextInt(2));
+            int n = this.board.getRowSize();
+            int nCheck = n - 3;
+            char c = (char) ('A' + this.board.getRowSize() - 1);
+            char cCheck = (char) (c - 3);
+            placed = isPlaced(orientation, n, nCheck, c, cCheck, 3);
+        }
+    }
+
+    private boolean isPlaced(int orientation, int n, int nCheck, char c, char cCheck, int size) {
+        boolean placed;
+        if (orientation == 1) {
+            while (c > cCheck) {
+                //getting a random column
+                Random randChar = new Random();
+                c = (char) ('A' + randChar.nextInt(10));
+
+                //getting a random row
+                Random randNum = new Random();
+                n = (randNum.nextInt(10) + 1);
+            }
+        } else {
+            while (n > nCheck) {
+                //getting a random column
+                Random randChar = new Random();
+                c = (char) ('A' + randChar.nextInt(10));
+
+                //getting a random row
+                Random randNum = new Random();
+                n = (randNum.nextInt(10) + 1);
+            }
+        }
+        placed = this.board.SetShipPos(n, c, orientation, size);
+        return placed;
+    }
 }

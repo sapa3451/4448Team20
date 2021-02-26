@@ -1,35 +1,23 @@
 package edu.colorado.team20;
+
 import java.util.Scanner;
 
-public class Player {
-
-    // TODO: add board object for the player and make sure that Board class calls are updated with new object
-    private Board playerBoard = new Board('P');
-    private Ship minesweeper;
-    private Ship destroyer;
-    private Ship battleship;
-
-    public void UpdateAndSetPlayerShips(Ship ship){
-        if (ship.getShipName() == "minesweeper"){
-            this.minesweeper = ship;
-        }
-        else if (ship.getShipName() == "destroyer"){
-            this.destroyer = ship;
-        }
-        else if (ship.getShipName() == "battleship"){
-            this.battleship = ship;
-        }
-
+public final class UserPlayer implements IPlayer {
+    private final IBoard board;
+    public UserPlayer() {
+        this.board = new PlayerBoard();
     }
 
+    public IBoard getBoard () {
+        return board;
+    }
 
-
-    // ask player for shot decision
-    // need to send in Board object in order to call the check spot validity (V)
-
-    //TODO:Add board instances for both player and comp player, call each player on shots instead of board
-    public void GetDecisionShot(Board board) {
+    public void Shot(IBoard board, char colv, int row) {
         // variables for input
+        if (colv != 'Z' && row != -1) {
+            board.MarkBoard(colv, row);
+            return;
+        }
         char colVal = ' ';
         int rowVal = -1;
 
@@ -93,23 +81,26 @@ public class Player {
         board.MarkBoard(colVal, rowVal);
     }
 
-
-    public void GetShipPlacement(Ship myShip,String [] input) {
-        String orientation = ""; // do they want to place the ship vertically(1) or horizontally(0)
+    public void ShipPlacement(int shipSize, int check) {
+        if (check == -1) {
+            this.board.SetShipPos(1, 'A', 1, shipSize);
+            return;
+        }
+        // do they want to place the ship vertically(1) or horizontally(0)
         char colVal = ' ';
         int rowVal = -1;
-        System.out.println("Type which column (A-J) you would like to place your " + myShip.getShipName() + " ship:");
+        System.out.println("Type which column (A-J) you would like to place your ship:");
         // take in user input
-//        Scanner sc = new Scanner(System.in); //System.in is a standard input stream
-//        String input = sc.nextLine();    //reads string
-//        input = input.toUpperCase(); // set to uppercase
+        Scanner sc = new Scanner(System.in); //System.in is a standard input stream
+        String input = sc.nextLine();    //reads string
+        input = input.toUpperCase(); // set to uppercase
 
         // we want to check input is okay for column
         boolean correct = false;
         while (!correct) {
             // check if valid input
-            if (input[0].length() == 1) { // check if single letter
-                char[] col = input[0].toCharArray(); // set to char array
+            if (input.length() == 1) { // check if single letter
+                char[] col = input.toCharArray(); // set to char array
                 if (col[0] >= 'A' && col[0] <= 'J') {  // check if valid column input
                     correct = true;
                     // set column value
@@ -119,15 +110,15 @@ public class Player {
             // invalid input
             if (!correct) {
                 System.out.println("Invalid column! Please enter a valid column (A-J): ");
-//                input = sc.nextLine(); // Read user input
-//                input = input.toUpperCase(); // set to uppercase
+                input = sc.nextLine(); // Read user input
+                input = input.toUpperCase(); // set to uppercase
             }
         }
 
-        System.out.println("Type which row (1-10) you would like to place your " + myShip.getShipName() + " ship: ");
+        System.out.println("Type which row (1-10) you would like to place your ship: ");
 
         // take in user input
-//        input = sc.nextLine();
+        input = sc.nextLine();
 
         // we want to check input is okay for column
         correct = false;
@@ -135,11 +126,11 @@ public class Player {
             // check if valid input
             try {
                 // checking valid integer using parseInt() method
-                rowVal = Integer.parseInt(input[1]); // set value
+                rowVal = Integer.parseInt(input); // set value
             }
             catch (NumberFormatException e) { // throw error and get input again
                 System.out.println("Invalid row! Please enter a valid row (1-10):");
-//                input = sc.nextLine(); // Read user input
+                input = sc.nextLine(); // Read user input
             }
 
             if (rowVal > 0 && rowVal <= 10) { // check if row value is within board
@@ -147,35 +138,31 @@ public class Player {
             }
             else {
                 System.out.println("Invalid row! Please enter a valid row (1-10):");
-//                input = sc.nextLine(); // Read user input
+                input = sc.nextLine(); // Read user input
             }
         }
         // after this i have a valid colVal and rowVal
 
 
-        System.out.println("Do you want to place your " + myShip.getShipName() + " ship horizontally or vertically? ");
-//        input = sc.nextLine();
-        orientation = input[2];
-        int direction;
-        if (orientation.toUpperCase() == "HORIZONTALLY") {
-            direction = 1;
-        }
-        else {
-            direction = 0;
-        }
-        //TODO: Add board call of setShipPos
-        myShip.setColumnAndRow(colVal,rowVal,direction);
+        System.out.println("Do you want to place your ship horizontally or vertically? ");
+        input = sc.nextLine();
+        int direction = Integer.parseInt(input);
+        this.board.SetShipPos(rowVal, colVal, direction, shipSize);
     }
 
-    public Ship getMinesweeper() {
-        return minesweeper;
+    public void placeBattleship () {
+        System.out.println("Placing your Battleship!");
+        ShipPlacement(4, 0);
     }
 
-    public Ship getDestroyer() {
-        return destroyer;
+    public void placeMinesweeper () {
+        System.out.println("Placing your Minesweeper!");
+        ShipPlacement(2, 0);
     }
 
-    public Ship getBattleship() {
-        return battleship;
+    public void placeDestroyer () {
+        System.out.println("Placing your Destroyer!");
+        ShipPlacement(3, 0);
     }
+
 }
