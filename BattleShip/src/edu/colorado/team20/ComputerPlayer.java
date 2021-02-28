@@ -3,16 +3,18 @@ package edu.colorado.team20;
 import java.util.Random;
 
 public final class ComputerPlayer implements IPlayer {
-    private final IBoard board;
-    public ComputerPlayer() {
-        this.board = new ComputerBoard();
+    private final Board board;
+
+    public ComputerPlayer(Board board) {
+        this.board = board;
     }
 
-    public IBoard getBoard () {
+
+    public Board getBoard () {
         return board;
     }
 
-    public void Shot(IBoard board, char col, int row) {
+    public void Shot(Board board, char col, int row) {
         Random randChar = new Random();
 
         //getting a random column

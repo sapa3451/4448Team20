@@ -14,7 +14,11 @@ class BoardTest {
 
     @Test
     void Show() {
-        IBoard board = new ComputerBoard();
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board board = new ComputerBoard(fleet);
         assertEquals(10, board.getColumnSize());
         assertEquals(10, board.getRowSize());
     }
@@ -22,7 +26,11 @@ class BoardTest {
     @Test
     void CheckSpot_MarkBoard() { // use this test to make sure that player can't hit the same spot twice
         // want to check if the check spot function is working
-        IBoard board = new ComputerBoard();
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board board = new ComputerBoard(fleet);
 
         // need to call MarkBoard to add a placement then check if place can be added again
         board.MarkBoard('A', 1);
@@ -42,7 +50,11 @@ class BoardTest {
 
     @Test
     void CheckIfMarked() { // test to make sure that MarkBoard function is marking board correctly
-        IBoard board = new ComputerBoard();
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board board = new ComputerBoard(fleet);
 
         assertEquals(board.GetPositionChar('A', 1), 'E');
         assertEquals(board.GetPositionChar('D', 9), 'E');
@@ -61,7 +73,11 @@ class BoardTest {
 
     @Test
     void SetShipPos1() { // test to make sure that ships get placed correctly
-        IBoard board = new PlayerBoard();; // setting column and row
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board board = new PlayerBoard(fleet);; // setting column and row
         board.SetShipPos(1,'A',1,4);
         for (int i = 0; i < 2; i++) {
             assertEquals(board.GetPositionChar((char) ('A' + i), 1), 'S');
@@ -77,7 +93,11 @@ class BoardTest {
 
     @Test
     void SetShipPos2() { // test to make sure that ships get placed correctly
-        IBoard board = new PlayerBoard();; // setting column and row
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board board = new PlayerBoard(fleet);; // setting column and row
         board.SetShipPos(1,'A',0,4);
         for (int i = 0; i < 2; i++) {
             assertEquals(board.GetPositionChar((char) ('A'), 1 + i), 'S');

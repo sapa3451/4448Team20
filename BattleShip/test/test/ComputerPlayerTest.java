@@ -10,9 +10,13 @@ class ComputerPlayerTest {
 
     @Test
     public void SingleRandomShot () {
-        IPlayer testComputer = new ComputerPlayer();
-        IBoard computerBoard = new ComputerBoard();
-        IBoard playerBoard = new PlayerBoard();
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board playerBoard = new PlayerBoard(fleet);
+        Board computerBoard = new ComputerBoard(fleet);
+        IPlayer testComputer = new ComputerPlayer(computerBoard);
         testComputer.Shot(playerBoard, 'Z', -1);
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
@@ -27,9 +31,13 @@ class ComputerPlayerTest {
 
     @Test
     public void MultipleRandomShot () {
-        IPlayer testComputer = new ComputerPlayer();
-        IBoard computerBoard = new ComputerBoard();
-        IBoard playerBoard = new PlayerBoard();
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board playerBoard = new PlayerBoard(fleet);
+        Board computerBoard = new ComputerBoard(fleet);
+        IPlayer testComputer = new ComputerPlayer(computerBoard);
         testComputer.Shot(playerBoard, 'Z', -1);
         testComputer.Shot(playerBoard, 'Z', -1);
         testComputer.Shot(playerBoard, 'Z', -1);
@@ -49,7 +57,13 @@ class ComputerPlayerTest {
 
     @Test
     public void RandPlaceShipTest (){
-        IPlayer testComputer = new ComputerPlayer();
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board playerBoard = new PlayerBoard(fleet);
+        Board computerBoard = new ComputerBoard(fleet);
+        IPlayer testComputer = new ComputerPlayer(computerBoard);
         testComputer.placeBattleship();
         int count = 0;
         for (int i = 0; i < testComputer.getBoard().getColumnSize(); i++) {

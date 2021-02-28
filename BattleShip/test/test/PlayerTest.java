@@ -8,16 +8,26 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerTest {
     @Test
     public void SingleShot () {
-        IPlayer testPlayer = new UserPlayer();
-        IBoard computerBoard = new ComputerBoard();
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board playerBoard = new PlayerBoard(fleet);
+        Board computerBoard = new ComputerBoard(fleet);
+        IPlayer testPlayer = new UserPlayer(playerBoard);
         testPlayer.Shot(computerBoard, 'A', 1);
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
     }
 
     @Test
     public void MultipleShot () {
-        IPlayer testPlayer = new UserPlayer();
-        IBoard computerBoard = new ComputerBoard();
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board playerBoard = new PlayerBoard(fleet);
+        Board computerBoard = new ComputerBoard(fleet);
+        IPlayer testPlayer = new UserPlayer(playerBoard);
         testPlayer.Shot(computerBoard, 'A', 1);
         testPlayer.Shot(computerBoard, 'A', 2);
         testPlayer.Shot(computerBoard, 'A', 10);
@@ -32,7 +42,13 @@ class PlayerTest {
 
     @Test
     public void PlaceBattleshipTest (){
-        IPlayer testPlayer = new UserPlayer();
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board playerBoard = new PlayerBoard(fleet);
+        Board computerBoard = new ComputerBoard(fleet);
+        IPlayer testPlayer = new UserPlayer(playerBoard);
         testPlayer.placeBattleship();
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
@@ -47,7 +63,13 @@ class PlayerTest {
     }
     @Test
     public void PlaceMinesweeperTest (){
-        IPlayer testPlayer = new UserPlayer();
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board playerBoard = new PlayerBoard(fleet);
+        Board computerBoard = new ComputerBoard(fleet);
+        IPlayer testPlayer = new UserPlayer(playerBoard);
         testPlayer.placeMinesweeper();
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
@@ -62,7 +84,13 @@ class PlayerTest {
     }
     @Test
     public void PlaceDestroyerTest (){
-        IPlayer testPlayer = new UserPlayer();
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board playerBoard = new PlayerBoard(fleet);
+        Board computerBoard = new ComputerBoard(fleet);
+        IPlayer testPlayer = new UserPlayer(playerBoard);
         testPlayer.placeDestroyer();
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {

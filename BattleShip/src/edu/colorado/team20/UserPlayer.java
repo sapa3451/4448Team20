@@ -3,16 +3,17 @@ package edu.colorado.team20;
 import java.util.Scanner;
 
 public final class UserPlayer implements IPlayer {
-    private final IBoard board;
-    public UserPlayer() {
-        this.board = new PlayerBoard();
+    private final Board board;
+
+    public UserPlayer(Board board) {
+        this.board = board;
     }
 
-    public IBoard getBoard () {
+    public Board getBoard () {
         return board;
     }
 
-    public void Shot(IBoard board, char colv, int row) {
+    public void Shot(Board board, char colv, int row) {
         // variables for input
         if (colv != 'Z' && row != -1) {
             board.MarkBoard(colv, row);
@@ -83,7 +84,7 @@ public final class UserPlayer implements IPlayer {
 
     public void ShipPlacement(int shipSize, int check) {
         if (check == -1) {
-            this.board.SetShipPos(1, 'A', 1, shipSize);
+            board.SetShipPos(1, 'A', 1, shipSize);
             return;
         }
         // do they want to place the ship vertically(1) or horizontally(0)
@@ -147,7 +148,7 @@ public final class UserPlayer implements IPlayer {
         System.out.println("Do you want to place your ship horizontally or vertically? ");
         input = sc.nextLine();
         int direction = Integer.parseInt(input);
-        this.board.SetShipPos(rowVal, colVal, direction, shipSize);
+        board.SetShipPos(rowVal, colVal, direction, shipSize);
     }
 
     public void placeBattleship () {
@@ -165,4 +166,9 @@ public final class UserPlayer implements IPlayer {
         ShipPlacement(3, 0);
     }
 
+
+    //TODO: connecting ships with player??? email dwight
+    //TODO: captains quarters
+    //TODO: sonar radar
+    //TODO: ship health and board knowing which ships are which
 }
