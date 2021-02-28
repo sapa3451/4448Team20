@@ -9,7 +9,6 @@ public abstract class Board {
     protected final int columnSize = 10;
     protected Ship[] fleet = new Ship[3];
 
-
     public Board(Ship[] fleet) {
         this.board = new char[this.rowSize][this.columnSize];
         char[] alphas = new char[this.rowSize];

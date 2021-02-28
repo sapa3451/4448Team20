@@ -3,6 +3,7 @@ package edu.colorado.team20;
 import java.util.HashMap;
 
 public final class PlayerBoard extends Board {
+
     public PlayerBoard(Ship[] fleet) {
         super(fleet);
     }
