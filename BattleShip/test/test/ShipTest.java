@@ -11,7 +11,7 @@ class ShipTest {
         Battleship battleship = new Battleship(4, "battleship");
         Minesweeper minesweeper = new Minesweeper(2, "minesweeper");
         Destroyer destroyer = new Destroyer(3, "destroyer");
-        assertEquals(4, battleship.getNumOccupiedBoardCells());
+        assertEquals(4, battleship.getSize());
         for (int i = 0; i < 4; i++) {
             if (i != 2) {
                 assertEquals('S', battleship.getShipSections()[i]);
@@ -21,7 +21,7 @@ class ShipTest {
             }
         }
 
-        assertEquals(3, destroyer.getNumOccupiedBoardCells());
+        assertEquals(3, destroyer.getSize());
         for (int i = 0; i < 3; i++) {
             if (i != 1) {
                 assertEquals('S', destroyer.getShipSections()[i]);
@@ -30,7 +30,7 @@ class ShipTest {
                 assertEquals('Q', destroyer.getShipSections()[i]);
             }
         }
-        assertEquals(2, minesweeper.getNumOccupiedBoardCells());
+        assertEquals(2, minesweeper.getSize());
         for (int i = 0; i < 2; i++) {
             if (i != 0) {
                 assertEquals('S', minesweeper.getShipSections()[i]);
