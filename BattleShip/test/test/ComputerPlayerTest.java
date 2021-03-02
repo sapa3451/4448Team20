@@ -37,7 +37,7 @@ class ComputerPlayerTest {
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
-        ComputerPlayer  testComputer = new ComputerPlayer(computerBoard);
+        ComputerPlayer testComputer = new ComputerPlayer(computerBoard);
         testComputer.Shot(playerBoard, 'Z', -1);
         testComputer.Shot(playerBoard, 'Z', -1);
         testComputer.Shot(playerBoard, 'Z', -1);
@@ -63,13 +63,8 @@ class ComputerPlayerTest {
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
-<<<<<<< Updated upstream
-        IPlayer testComputer = new ComputerPlayer(computerBoard);
-        testComputer.placeBattleship(battleship.getId());
-=======
-        ComputerPlayer  testComputer = new ComputerPlayer(computerBoard);
-        testComputer.performPlacement(4);
->>>>>>> Stashed changes
+        ComputerPlayer testComputer = new ComputerPlayer(computerBoard);
+        testComputer.performPlacement(battleship.getId(), battleship.getSize());
         int count = 0;
         for (int i = 0; i < testComputer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testComputer.getBoard().getRowSize(); j++) {
@@ -80,11 +75,7 @@ class ComputerPlayerTest {
             }
         }
         assertEquals(4,count);
-<<<<<<< Updated upstream
-        testComputer.placeDestroyer(destroyer.getId());
-=======
-        testComputer.performPlacement(3);
->>>>>>> Stashed changes
+        testComputer.performPlacement(destroyer.getId(), destroyer.getSize());
         count = 0;
         for (int i = 0; i < testComputer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testComputer.getBoard().getRowSize(); j++) {
@@ -95,11 +86,7 @@ class ComputerPlayerTest {
             }
         }
         assertEquals(7,count);
-<<<<<<< Updated upstream
-        testComputer.placeMinesweeper(minesweeper.getId());
-=======
-        testComputer.performPlacement(2);
->>>>>>> Stashed changes
+        testComputer.performPlacement(minesweeper.getId(), minesweeper.getSize());
         count = 0;
         for (int i = 0; i < testComputer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testComputer.getBoard().getRowSize(); j++) {

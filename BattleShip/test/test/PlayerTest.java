@@ -48,13 +48,8 @@ class PlayerTest {
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
-<<<<<<< Updated upstream
-        IPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeBattleship(battleship.getId());
-=======
         UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeBattleship();
->>>>>>> Stashed changes
+        testPlayer.placeBattleship(battleship.getId());
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
@@ -74,13 +69,8 @@ class PlayerTest {
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
-<<<<<<< Updated upstream
-        IPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeMinesweeper(minesweeper.getId());
-=======
         UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeMinesweeper();
->>>>>>> Stashed changes
+        testPlayer.placeMinesweeper(minesweeper.getId());
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
@@ -100,13 +90,8 @@ class PlayerTest {
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
-<<<<<<< Updated upstream
-        IPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeDestroyer(destroyer.getId());
-=======
         UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeDestroyer();
->>>>>>> Stashed changes
+        testPlayer.placeDestroyer(destroyer.getId());
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
