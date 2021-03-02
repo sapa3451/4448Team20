@@ -78,7 +78,7 @@ public class GameManagement {
             System.out.println(ship.getId());
         }
 
-        player.Shot(computer.getBoard(),'Z', -1);
+        player.Shot(computer.getBoard(), 'Z', -1);
 
         System.out.println("The computer is now taking their shot!");
         System.out.println();
@@ -91,14 +91,28 @@ public class GameManagement {
     // change the turn
     public void ChangeTurn() {
         // change the turn to either player or computer
-        turnInfo  = (turnInfo == 'P') ? 'C' : 'P';
+        turnInfo = (turnInfo == 'P') ? 'C' : 'P';
     }
 
     // method to return turn info
-    public char GetTurn(){
+    public char GetTurn() {
         return turnInfo;
     }
 
 
     //TODO: Add end game check, more functions
+    public boolean EndGame(Ship[] playerFleet, Ship[] compFleet) {
+        int playerCount = 0;
+        int compCount = 0;
+        for (int i = 0; i < playerFleet.length; i++) {
+            if (playerFleet[i].checkSunk(playerFleet[i].getSize())) {
+                playerCount++;
+            }
+            if (compFleet[i].checkSunk(compFleet[i].getSize())) {
+                compCount++;
+            }
+        }
+        return playerCount == playerFleet.length || compCount == compFleet.length;
+    }
+
 }

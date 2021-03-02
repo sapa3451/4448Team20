@@ -6,6 +6,7 @@ public abstract class Ship {
     protected int shipHealth;
     protected String name;
     int id;
+    protected int shipSize;
 
     public Ship(int numOccupiedBoardCells, String shipName) {
         this.numOccupiedBoardCells = numOccupiedBoardCells;

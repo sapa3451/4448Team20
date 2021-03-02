@@ -9,6 +9,8 @@ public final class ComputerPlayer extends Player{
     }
 
     public void Shot(Board board, char col, int row) {
+//        System.out.println("The computer is now taking their shot!");
+//        System.out.println();
         Random randChar = new Random();
 
         //getting a random column

@@ -146,7 +146,7 @@ public final class UserPlayer extends Player{
         // after this i have a valid colVal and rowVal
 
 
-        System.out.println("Do you want to place your ship horizontally or vertically? ");
+        System.out.println("Do you want to place your ship horizontally(1) or vertically(0)? ");
         input = sc.nextLine();
         int direction = Integer.parseInt(input);
         board.SetShipPos(id, rowVal, colVal, direction, shipSize);
