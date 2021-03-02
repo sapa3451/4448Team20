@@ -2,16 +2,10 @@ package edu.colorado.team20;
 
 import java.util.Random;
 
-public final class ComputerPlayer implements IPlayer {
-    private final Board board;
-
+public final class ComputerPlayer extends Player{
     public ComputerPlayer(Board board) {
-        this.board = board;
-    }
-
-
-    public Board getBoard () {
-        return board;
+        super(board);
+        placementBehavior = new RandomPlacement();
     }
 
     public void Shot(Board board, char col, int row) {
@@ -41,72 +35,4 @@ public final class ComputerPlayer implements IPlayer {
         }
     }
 
-
-    // TODO: we need to make sure that ships do not overlap
-
-    public void placeBattleship (int id) {
-        boolean placed = false;
-        while (!placed) {
-            Random randOrient = new Random();
-            int orientation = (randOrient.nextInt(2));
-            int n = this.board.getRowSize();
-            int nCheck = n - 3;
-            char c = (char) ('A' + this.board.getRowSize() - 1);
-            char cCheck = (char) (c - 3);
-            placed = isPlaced(id, orientation, n, nCheck, c, cCheck, 4);
-        }
-    }
-
-    public void placeMinesweeper (int id) {
-        boolean placed = false;
-        while (!placed) {
-            Random randOrient = new Random();
-            int orientation = (randOrient.nextInt(2));
-            int n = this.board.getRowSize();
-            int nCheck = n - 3;
-            char c = (char) ('A' + this.board.getRowSize() - 1);
-            char cCheck = (char) (c - 3);
-            placed = isPlaced(id, orientation, n, nCheck, c, cCheck, 2);
-        }
-    }
-
-    public void placeDestroyer (int id) {
-        boolean placed = false;
-        while (!placed) {
-            Random randOrient = new Random();
-            int orientation = (randOrient.nextInt(2));
-            int n = this.board.getRowSize();
-            int nCheck = n - 3;
-            char c = (char) ('A' + this.board.getRowSize() - 1);
-            char cCheck = (char) (c - 3);
-            placed = isPlaced(id, orientation, n, nCheck, c, cCheck, 3);
-        }
-    }
-
-    private boolean isPlaced(int id, int orientation, int n, int nCheck, char c, char cCheck, int size) {
-        boolean placed;
-        if (orientation == 1) {
-            while (c > cCheck) {
-                //getting a random column
-                Random randChar = new Random();
-                c = (char) ('A' + randChar.nextInt(10));
-
-                //getting a random row
-                Random randNum = new Random();
-                n = (randNum.nextInt(10) + 1);
-            }
-        } else {
-            while (n > nCheck) {
-                //getting a random column
-                Random randChar = new Random();
-                c = (char) ('A' + randChar.nextInt(10));
-
-                //getting a random row
-                Random randNum = new Random();
-                n = (randNum.nextInt(10) + 1);
-            }
-        }
-        placed = this.board.SetShipPos(id, n, c, orientation, size);
-        return placed;
-    }
 }

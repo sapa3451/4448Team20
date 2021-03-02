@@ -25,12 +25,12 @@ public abstract class Ship {
     public void setID(int ID) { id = ID; }
     public int getId() { return id; }
 
-    public String getName () {
-        return name;
+    public int getSize () {
+        return this.numOccupiedBoardCells;
     }
 
-    public int getNumOccupiedBoardCells() {
-        return numOccupiedBoardCells;
+    public String getName () {
+        return name;
     }
 
     public char[] getShipSections() {

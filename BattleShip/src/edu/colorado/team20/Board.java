@@ -1,5 +1,7 @@
 package edu.colorado.team20;
 
+import edu.colorado.team20.Ship;
+
 import java.util.HashMap;
 
 public abstract class Board {
@@ -9,6 +11,7 @@ public abstract class Board {
     protected final int rowSize = 10;
     protected final int columnSize = 10;
     protected Ship[] fleet = new Ship[3]; // do we need this still??
+
 
     public Board(Ship[] fleet) {
         this.board = new char[this.rowSize][this.columnSize];

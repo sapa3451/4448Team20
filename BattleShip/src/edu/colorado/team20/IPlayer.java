@@ -3,7 +3,6 @@ package edu.colorado.team20;
 public interface IPlayer {
     void Shot(Board board, char col, int row);
     Board getBoard();
-    void placeBattleship(int id);
-    void placeMinesweeper(int id);
-    void placeDestroyer(int id);
+    void placeShip();
 }
+

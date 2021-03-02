@@ -2,15 +2,10 @@ package edu.colorado.team20;
 
 import java.util.Scanner;
 
-public final class UserPlayer implements IPlayer {
-    private final Board board;
+public final class UserPlayer extends Player{
 
     public UserPlayer(Board board) {
-        this.board = board;
-    }
-
-    public Board getBoard () {
-        return board;
+        super(board);
     }
 
     // TODO: need to call CheckSpot to make sure that the spot hasn't already been shot at

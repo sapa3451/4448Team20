@@ -25,8 +25,9 @@ public class GameManagement {
         PlayerBoard playerBoard = new PlayerBoard(playerFleet);
         ComputerBoard computerBoard = new ComputerBoard(compFleet);
 
-        IPlayer player = new UserPlayer(playerBoard);
-        IPlayer computer = new ComputerPlayer(computerBoard);
+
+        UserPlayer player = new UserPlayer(playerBoard);
+        ComputerPlayer computer = new ComputerPlayer(computerBoard);
 
         System.out.println("Welcome to The Battleship Game!");
         System.out.println();
@@ -40,26 +41,7 @@ public class GameManagement {
         for (Ship ship : compFleet) {
             ship.setID(idNum);
             idNum++;
-
-            String name = ship.getName();
-            // place ship
-            switch(name) {
-                case "battleship":
-                    computer.placeBattleship(ship.getId());
-                    break;
-
-                case "destroyer":
-                    computer.placeDestroyer(ship.getId());
-                    break;
-
-                case "minesweeper":
-                    computer.placeMinesweeper(ship.getId());
-                    break;
-
-                default:
-                    System.out.println("Not found!");
-                    break;
-            }
+            computer.performPlacement(ship.getId(), ship.getSize());
         }
 
         // give ships ids and place them
@@ -102,6 +84,7 @@ public class GameManagement {
         System.out.println();
 
         computer.Shot(player.getBoard(), 'Z', -1);
+
 
     }
 

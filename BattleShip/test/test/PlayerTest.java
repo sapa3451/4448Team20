@@ -14,7 +14,7 @@ class PlayerTest {
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
-        IPlayer testPlayer = new UserPlayer(playerBoard);
+        UserPlayer testPlayer = new UserPlayer(playerBoard);
         testPlayer.Shot(computerBoard, 'A', 1);
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
     }
@@ -27,7 +27,7 @@ class PlayerTest {
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
-        IPlayer testPlayer = new UserPlayer(playerBoard);
+        UserPlayer testPlayer = new UserPlayer(playerBoard);
         testPlayer.Shot(computerBoard, 'A', 1);
         testPlayer.Shot(computerBoard, 'A', 2);
         testPlayer.Shot(computerBoard, 'A', 10);
@@ -48,8 +48,13 @@ class PlayerTest {
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
+<<<<<<< Updated upstream
         IPlayer testPlayer = new UserPlayer(playerBoard);
         testPlayer.placeBattleship(battleship.getId());
+=======
+        UserPlayer testPlayer = new UserPlayer(playerBoard);
+        testPlayer.placeBattleship();
+>>>>>>> Stashed changes
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
@@ -69,8 +74,13 @@ class PlayerTest {
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
+<<<<<<< Updated upstream
         IPlayer testPlayer = new UserPlayer(playerBoard);
         testPlayer.placeMinesweeper(minesweeper.getId());
+=======
+        UserPlayer testPlayer = new UserPlayer(playerBoard);
+        testPlayer.placeMinesweeper();
+>>>>>>> Stashed changes
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
@@ -90,8 +100,13 @@ class PlayerTest {
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
+<<<<<<< Updated upstream
         IPlayer testPlayer = new UserPlayer(playerBoard);
         testPlayer.placeDestroyer(destroyer.getId());
+=======
+        UserPlayer testPlayer = new UserPlayer(playerBoard);
+        testPlayer.placeDestroyer();
+>>>>>>> Stashed changes
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
