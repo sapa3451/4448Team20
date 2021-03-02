@@ -64,7 +64,7 @@ class ComputerPlayerTest {
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
         IPlayer testComputer = new ComputerPlayer(computerBoard);
-        testComputer.placeBattleship();
+        testComputer.placeBattleship(battleship.getId());
         int count = 0;
         for (int i = 0; i < testComputer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testComputer.getBoard().getRowSize(); j++) {
@@ -75,7 +75,7 @@ class ComputerPlayerTest {
             }
         }
         assertEquals(4,count);
-        testComputer.placeDestroyer();
+        testComputer.placeDestroyer(destroyer.getId());
         count = 0;
         for (int i = 0; i < testComputer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testComputer.getBoard().getRowSize(); j++) {
@@ -86,7 +86,7 @@ class ComputerPlayerTest {
             }
         }
         assertEquals(7,count);
-        testComputer.placeMinesweeper();
+        testComputer.placeMinesweeper(minesweeper.getId());
         count = 0;
         for (int i = 0; i < testComputer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testComputer.getBoard().getRowSize(); j++) {

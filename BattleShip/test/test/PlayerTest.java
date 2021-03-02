@@ -49,7 +49,7 @@ class PlayerTest {
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
         IPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeBattleship();
+        testPlayer.placeBattleship(battleship.getId());
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
@@ -70,7 +70,7 @@ class PlayerTest {
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
         IPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeMinesweeper();
+        testPlayer.placeMinesweeper(minesweeper.getId());
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
@@ -91,7 +91,7 @@ class PlayerTest {
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
         IPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeDestroyer();
+        testPlayer.placeDestroyer(destroyer.getId());
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {

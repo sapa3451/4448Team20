@@ -1,6 +1,10 @@
 package edu.colorado.team20;
 
+import javafx.util.Pair;
+
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public final class PlayerBoard extends Board {
 
@@ -54,37 +58,9 @@ public final class PlayerBoard extends Board {
         }
         System.out.println();
     }
-    public boolean SetShipPos(int row, char col, int direction, int size) {
-        char positionChar = board[row-1][alphaMap.get(col)];
-        int quarters = size/2;
-        if (size == 2) {
-            quarters = 0;
-        }
-        int rowC = row;
-        char colC = col;
-        if (positionChar == 'S') {
-            System.out.println("Ship already placed here!");
-            return false;
-        }
-        else {
-            if (direction == 1) {
-                for (int i = 0; i < size; i++) {
-                    board[row - 1][alphaMap.get(col)] = 'S';
-                    col += 1;
-                }
-                char o = (char) (colC + quarters);
-                board[rowC - 1][alphaMap.get(o)] = 'Q';
-            }
-            else {
-                for (int i = 0; i < size; i++) {
-                    board[row - 1][alphaMap.get(col)] = 'S';
-                    row += 1;
-                }
-                board[rowC - 1 + quarters][alphaMap.get(colC)] = 'Q';
-            }
-        }
-        Show();
-        return true;
+
+    @Override
+    public void ShowSonarPulse(char c, int i) {
+
     }
-    // TODO: Need to create a function for sonar radar
 }

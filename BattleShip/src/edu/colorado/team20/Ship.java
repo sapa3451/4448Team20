@@ -5,8 +5,9 @@ public abstract class Ship {
     protected char[] shipSections;
     protected int shipHealth;
     protected String name;
+    int id;
 
-    public Ship(int numOccupiedBoardCells, String name) {
+    public Ship(int numOccupiedBoardCells, String shipName) {
         this.numOccupiedBoardCells = numOccupiedBoardCells;
         int quarters = numOccupiedBoardCells /2;
         this.shipSections = new char[numOccupiedBoardCells];
@@ -18,7 +19,11 @@ public abstract class Ship {
         }
         this.shipSections[quarters] = 'Q';
         this.shipHealth = numOccupiedBoardCells + 1;
+        name = shipName;
     }
+
+    public void setID(int ID) { id = ID; }
+    public int getId() { return id; }
 
     public String getName () {
         return name;

@@ -5,20 +5,25 @@ public class GameManagement {
     // P --> user player turn
     // C --> computer turn
     private char turnInfo;
+    int idNum = 1;
 
     public GameManagement() {
         turnInfo = 'P'; // set to player first always
     }
 
     public void BeginGame() {
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship Pbattleship = new Battleship(4, "battleship");
+        Ship Pdestroyer = new Destroyer(3, "destroyer");
+        Ship Pminesweeper = new Minesweeper(2, "minesweeper");
+        Ship Cbattleship = new Battleship(4, "battleship");
+        Ship Cdestroyer = new Destroyer(3, "destroyer");
+        Ship Cminesweeper = new Minesweeper(2, "minesweeper");
 
-        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper};
+        Ship[] compFleet = {Cbattleship, Cdestroyer, Cminesweeper};
 
-        PlayerBoard playerBoard = new PlayerBoard(fleet);
-        ComputerBoard computerBoard = new ComputerBoard(fleet);
+        PlayerBoard playerBoard = new PlayerBoard(playerFleet);
+        ComputerBoard computerBoard = new ComputerBoard(compFleet);
 
         IPlayer player = new UserPlayer(playerBoard);
         IPlayer computer = new ComputerPlayer(computerBoard);
@@ -31,13 +36,65 @@ public class GameManagement {
         System.out.println();
         System.out.println();
 
-        computer.placeBattleship();
-        computer.placeDestroyer();
-        computer.placeMinesweeper();
+        // give ships ids and place them
+        for (Ship ship : compFleet) {
+            ship.setID(idNum);
+            idNum++;
 
-        player.placeBattleship();
-        player.placeDestroyer();
-        player.placeMinesweeper();
+            String name = ship.getName();
+            // place ship
+            switch(name) {
+                case "battleship":
+                    computer.placeBattleship(ship.getId());
+                    break;
+
+                case "destroyer":
+                    computer.placeDestroyer(ship.getId());
+                    break;
+
+                case "minesweeper":
+                    computer.placeMinesweeper(ship.getId());
+                    break;
+
+                default:
+                    System.out.println("Not found!");
+                    break;
+            }
+        }
+
+        // give ships ids and place them
+        for (Ship ship : playerFleet) {
+            ship.setID(idNum);
+            idNum++;
+
+            String name = ship.getName();
+            // place ship
+            switch(name) {
+                case "battleship":
+                    player.placeBattleship(ship.getId());
+                    break;
+
+                case "destroyer":
+                    player.placeDestroyer(ship.getId());
+                    break;
+
+                case "minesweeper":
+                    player.placeMinesweeper(ship.getId());
+                    break;
+
+                default:
+                    System.out.println("Not found!");
+                    break;
+            }
+        }
+
+        // for testing purposes to see if ids work correctly
+        for (Ship ship : compFleet) {
+            System.out.println(ship.getId());
+        }
+        for (Ship ship : playerFleet) {
+            System.out.println(ship.getId());
+        }
 
         player.Shot(computer.getBoard(),'Z', -1);
 

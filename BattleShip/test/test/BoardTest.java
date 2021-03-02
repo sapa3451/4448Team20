@@ -77,8 +77,8 @@ class BoardTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board board = new PlayerBoard(fleet);; // setting column and row
-        board.SetShipPos(1,'A',1,4);
+        Board board = new PlayerBoard(fleet); // setting column and row
+        board.SetShipPos(0, 1,'A',1,4);
         for (int i = 0; i < 2; i++) {
             assertEquals(board.GetPositionChar((char) ('A' + i), 1), 'S');
         }
@@ -98,7 +98,7 @@ class BoardTest {
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board board = new PlayerBoard(fleet);; // setting column and row
-        board.SetShipPos(1,'A',0,4);
+        board.SetShipPos(0,1,'A',0,4);
         for (int i = 0; i < 2; i++) {
             assertEquals(board.GetPositionChar((char) ('A'), 1 + i), 'S');
         }
@@ -110,4 +110,20 @@ class BoardTest {
         }
         board.Show();
     }
+
+    @Test
+    void SonarPulse() { // want to check if the area shows the ships correctly
+        Ship battleship = new Battleship(4, "battleship");
+        Ship destroyer = new Destroyer(3, "destroyer");
+        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship[] fleet = {battleship, destroyer, minesweeper};
+        Board board = new ComputerBoard(fleet); // setting column and row
+        board.SetShipPos(1,1,'A',1,4);
+        board.SetShipPos(2,4,'B',1,3);
+        board.SetShipPos(3,4,'F',1,2);
+        board.ShowSonarPulse('C', 4);
+
+        board.ShowSonarPulse('A', 0);
+    }
+
 }

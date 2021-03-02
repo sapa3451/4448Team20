@@ -13,6 +13,7 @@ public final class UserPlayer implements IPlayer {
         return board;
     }
 
+    // TODO: need to call CheckSpot to make sure that the spot hasn't already been shot at
     public void Shot(Board board, char colv, int row) {
         // variables for input
         if (colv != 'Z' && row != -1) {
@@ -79,12 +80,17 @@ public final class UserPlayer implements IPlayer {
         }
         //added a return method to this function, which is then used to call and update the board with a hit
         // before calling method need to check if this spot is a valid move (not already been shot at)
-        board.MarkBoard(colVal, rowVal);
+        if (board.MarkBoard(colVal, rowVal) != 0) {
+            // ship has been hit
+            // TODO: we need to search through ships by id and mark the health of that ship down
+            // TODO: we need to also check if this spot was a captain's quarters
+        }
     }
 
-    public void ShipPlacement(int shipSize, int check) {
+    public void ShipPlacement(int id, int shipSize, int check) {
+        // TODO: we need to make sure that ships do not overlap
         if (check == -1) {
-            board.SetShipPos(1, 'A', 1, shipSize);
+            board.SetShipPos(id, 1, 'A', 1, shipSize);
             return;
         }
         // do they want to place the ship vertically(1) or horizontally(0)
@@ -148,22 +154,22 @@ public final class UserPlayer implements IPlayer {
         System.out.println("Do you want to place your ship horizontally or vertically? ");
         input = sc.nextLine();
         int direction = Integer.parseInt(input);
-        board.SetShipPos(rowVal, colVal, direction, shipSize);
+        board.SetShipPos(id, rowVal, colVal, direction, shipSize);
     }
 
-    public void placeBattleship () {
+    public void placeBattleship (int id) {
         System.out.println("Placing your Battleship!");
-        ShipPlacement(4, 0);
+        ShipPlacement(id, 4, 0);
     }
 
-    public void placeMinesweeper () {
+    public void placeMinesweeper (int id) {
         System.out.println("Placing your Minesweeper!");
-        ShipPlacement(2, 0);
+        ShipPlacement(id, 2, 0);
     }
 
-    public void placeDestroyer () {
+    public void placeDestroyer (int id) {
         System.out.println("Placing your Destroyer!");
-        ShipPlacement(3, 0);
+        ShipPlacement(id, 3, 0);
     }
 
 
