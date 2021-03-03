@@ -42,7 +42,7 @@ public abstract class Ship implements ShipObservers{
 
     public int getTotShipHealth() { return this.totShipHealth; }
 
-    public boolean updateHealth(int damage) {
+    public boolean update(int damage) {
         this.totShipHealth = this.totShipHealth - damage;
         if (this.totShipHealth == 0) { return true; } // ship destroyed
         return false; // ship still has life
@@ -50,11 +50,11 @@ public abstract class Ship implements ShipObservers{
 
     public int getCaptainQHealth() { return this.captainQHealth; }
 
-    public boolean updateCaptainQHealth(int damage) {
+    public boolean updateCQ(int damage) {
         this.captainQHealth = this.captainQHealth - damage;
         if (this.captainQHealth == 0) {
             // set tot health to 0
-            this.updateHealth(this.totShipHealth);
+            this.update(this.totShipHealth);
             return true; // return true --> ship is destroyed
         }
         return false; // return false --> ship still has health

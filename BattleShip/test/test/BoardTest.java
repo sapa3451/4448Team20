@@ -185,7 +185,7 @@ class BoardTest {
         assertEquals(Pminesweeper.getId(), 3);
 
         // check to see if minesweeper gets destroyed from one hit of captainQ
-        Pminesweeper.updateCaptainQHealth(1);
+        Pminesweeper.updateCQ(1);
         assertEquals(Pminesweeper.getTotShipHealth(), 0);
         String PminesweeperPos = playerBoard.getShipStartPos(Pminesweeper.getId());
         playerBoard.updateShipChars(PminesweeperPos.charAt(0), PminesweeperPos.charAt(1) - '0', Pminesweeper.getSize(), PminesweeperPos.charAt(2) - '0');
@@ -198,10 +198,10 @@ class BoardTest {
         assertEquals(Pbattleship.getId(), 1);
 
         // take a shot at captainQ once --> ship shuld still be alive
-        Pbattleship.updateCaptainQHealth(1);
+        Pbattleship.updateCQ(1);
         assertEquals(Pbattleship.getCaptainQHealth(), 1);
         assertEquals(Pbattleship.getTotShipHealth(), 4); // make sure it still is equal;
-        Pbattleship.updateCaptainQHealth(1);
+        Pbattleship.updateCQ(1);
         assertEquals(Pbattleship.getCaptainQHealth(), 0);
         assertEquals(Pbattleship.getTotShipHealth(), 0); // make sure it still is equal;
         String PbattleshipPos = playerBoard.getShipStartPos(Pbattleship.getId());
@@ -215,10 +215,10 @@ class BoardTest {
         assertEquals(Pdestroyer.getId(), 2);
 
         // take a shot at captainQ once --> ship shuld still be alive
-        Pdestroyer.updateCaptainQHealth(1);
+        Pdestroyer.updateCQ(1);
         assertEquals(Pdestroyer.getCaptainQHealth(), 1);
         assertEquals(Pdestroyer.getTotShipHealth(), 3); // make sure it still is equal;
-        Pdestroyer.updateCaptainQHealth(1);
+        Pdestroyer.updateCQ(1);
         assertEquals(Pdestroyer.getCaptainQHealth(), 0);
         assertEquals(Pdestroyer.getTotShipHealth(), 0); // make sure it still is equal;
         String PdestroyerPos = playerBoard.getShipStartPos(Pbattleship.getId());

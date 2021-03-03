@@ -63,7 +63,7 @@ public abstract class Board implements BoardSubject{
     public void updateShipOnHit(int id) {
         for (Ship ship : fleet){
             if (id == ship.getId()) {
-                ship.updateHealth(1);
+                ship.update(1);
             }
         }
     }
@@ -71,7 +71,7 @@ public abstract class Board implements BoardSubject{
     public void updateShipOnCQHit(int id) {
         for (Ship ship : fleet){
             if (id == ship.getId()) {
-                ship.updateCaptainQHealth(1);
+                ship.updateCQ(1);
             }
         }
     }
