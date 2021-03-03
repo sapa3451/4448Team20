@@ -1,6 +1,9 @@
 package test;
 
 import edu.colorado.team20.*;
+import edu.colorado.team20.Board;
+import edu.colorado.team20.ComputerBoard;
+import edu.colorado.team20.PlayerBoard;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -21,7 +24,7 @@ class BoardTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board board = new ComputerBoard(fleet);
+        Board board = new ComputerBoard();
         assertEquals(10, board.getColumnSize());
         assertEquals(10, board.getRowSize());
     }
@@ -33,7 +36,7 @@ class BoardTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board board = new ComputerBoard(fleet);
+        Board board = new ComputerBoard();
 
         // need to call MarkBoard to add a placement then check if place can be added again
         board.MarkBoard('A', 1);
@@ -57,7 +60,7 @@ class BoardTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board board = new ComputerBoard(fleet);
+        Board board = new ComputerBoard();
 
         assertEquals(board.GetPositionChar('A', 1), 'E');
         assertEquals(board.GetPositionChar('D', 9), 'E');
@@ -80,7 +83,7 @@ class BoardTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board board = new PlayerBoard(fleet); // setting column and row
+        Board board = new PlayerBoard(); // setting column and row
         board.SetShipPos(0, 1,'A',1,4);
         for (int i = 0; i < 2; i++) {
             assertEquals(board.GetPositionChar((char) ('A' + i), 1), 'S');
@@ -91,7 +94,7 @@ class BoardTest {
         for (int i = 3; i < 4; i ++) {
             assertEquals(board.GetPositionChar((char) ('A' + i), 1), 'S');
         }
-        board.ShowBoardToPlayer();
+        board.performShow();
     }
 
     @Test
@@ -100,7 +103,7 @@ class BoardTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board board = new PlayerBoard(fleet); // setting column and row
+        Board board = new PlayerBoard();; // setting column and row
         board.SetShipPos(0,1,'A',0,4);
         for (int i = 0; i < 2; i++) {
             assertEquals(board.GetPositionChar((char) ('A'), 1 + i), 'S');
@@ -111,7 +114,7 @@ class BoardTest {
         for (int i = 3; i < 4; i ++) {
             assertEquals(board.GetPositionChar((char) ('A'), 1 + i), 'S');
         }
-        board.ShowBoardToPlayer();
+        board.performShow();
     }
 
     @Test
@@ -120,7 +123,7 @@ class BoardTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board board = new ComputerBoard(fleet); // setting column and row
+        Board board = new ComputerBoard(); // setting column and row
         board.SetShipPos(1,1,'A',1,4);
         board.SetShipPos(2,4,'B',1,3);
         board.SetShipPos(3,4,'F',1,2);
@@ -142,19 +145,20 @@ class BoardTest {
 
         Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper};
         Ship[] compFleet = {Cbattleship, Cdestroyer, Cminesweeper};
-        Board compBoard = new ComputerBoard(compFleet); // setting column and row
-        Board playerBoard = new PlayerBoard(playerFleet);
+        Board compBoard = new ComputerBoard(); // setting column and row
+        Board playerBoard = new PlayerBoard();
         UserPlayer player = new UserPlayer(playerBoard);
         ComputerPlayer computer = new ComputerPlayer(playerBoard);
 
         // place player boards
         // give ships ids and place them
+        int a = 1;
+        int b = 1;
+        int c = 1;
         for (Ship ship : playerFleet) {
             ship.setId(game.getIdNum());
             game.setIdNum();
-
             String name = ship.getName();
-            // place ship
             switch(name) {
                 case "battleship":
                     playerBoard.SetShipPos(1,1,'A',1,4);
@@ -185,7 +189,7 @@ class BoardTest {
         assertEquals(Pminesweeper.getTotShipHealth(), 0);
         String PminesweeperPos = playerBoard.getShipStartPos(Pminesweeper.getId());
         playerBoard.updateShipChars(PminesweeperPos.charAt(0), PminesweeperPos.charAt(1) - '0', Pminesweeper.getSize(), PminesweeperPos.charAt(2) - '0');
-        playerBoard.ShowBoardToOpponent();
+        playerBoard.performShow();
 
         // testing battleship
         pos = playerBoard.getShipCaptainQPos(1);
@@ -202,7 +206,7 @@ class BoardTest {
         assertEquals(Pbattleship.getTotShipHealth(), 0); // make sure it still is equal;
         String PbattleshipPos = playerBoard.getShipStartPos(Pbattleship.getId());
         playerBoard.updateShipChars(PbattleshipPos.charAt(0), PbattleshipPos.charAt(1) - '0', Pbattleship.getSize(), PbattleshipPos.charAt(2) - '0');
-        playerBoard.ShowBoardToOpponent();
+        playerBoard.performShow();
 
         // testing destroyer
         pos = playerBoard.getShipCaptainQPos(1);
@@ -219,7 +223,7 @@ class BoardTest {
         assertEquals(Pdestroyer.getTotShipHealth(), 0); // make sure it still is equal;
         String PdestroyerPos = playerBoard.getShipStartPos(Pbattleship.getId());
         playerBoard.updateShipChars(PdestroyerPos.charAt(0), PdestroyerPos.charAt(1) - '0', Pdestroyer.getSize(), PdestroyerPos.charAt(2) - '0');
-        playerBoard.ShowBoardToOpponent();
+        playerBoard.performShow();
 
         // TODO: need to add testing for computer captain's quarters
     }

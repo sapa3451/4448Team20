@@ -1,5 +1,7 @@
 package edu.colorado.team20;
 
+import edu.colorado.team20.Board;
+
 import java.util.Random;
 
 public class RandomPlacement implements PlacementBehavior{

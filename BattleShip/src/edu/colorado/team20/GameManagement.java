@@ -1,5 +1,7 @@
 package edu.colorado.team20;
 
+import edu.colorado.team20.Board;
+
 public class GameManagement {
     // provides turn information
     // P --> user player turn
@@ -24,11 +26,11 @@ public class GameManagement {
         Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper};
         Ship[] compFleet = {Cbattleship, Cdestroyer, Cminesweeper};
 
-        Board playerBoard = new PlayerBoard(playerFleet);
-        Board computerBoard = new ComputerBoard(compFleet);
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
 
-        UserPlayer player = new UserPlayer(playerBoard); // TODO: this need to be Player not ComputerPlayer --> there is functiosn that are used in UserPlayer that are cuasing trouble when I change it
-        ComputerPlayer computer = new ComputerPlayer(computerBoard);
+        Player player = new UserPlayer(playerBoard);
+        Player computer = new ComputerPlayer(computerBoard);
 
         System.out.println("Welcome to The Battleship Game!");
         System.out.println();
@@ -43,62 +45,29 @@ public class GameManagement {
             ship.setId(idNum);
             idNum++;
             computer.performPlacement(ship.getId(), ship.getSize());
+            computer.getBoard().registerShip(ship);
         }
+
+        computer.getBoard().setShowBehavior(new SonarBoardShow('E',3));
+        computer.getBoard().performShow();
+        computer.getBoard().setShowBehavior(new HiddenBoardShow());
+
+        idNum = 1;
 
         // give ships ids and place them
         for (Ship ship : playerFleet) {
             ship.setId(idNum);
             idNum++;
-
-            String name = ship.getName();
-            // place ship
-            switch(name) {
-                case "battleship":
-                    player.placeBattleship(ship.getId());
-                    break;
-
-                case "destroyer":
-                    player.placeDestroyer(ship.getId());
-                    break;
-
-                case "minesweeper":
-                    player.placeMinesweeper(ship.getId());
-                    break;
-
-                default:
-                    System.out.println("Not found!");
-                    break;
-            }
+            player.performPlacement(ship.getId(), ship.getSize());
+            player.getBoard().registerShip(ship);
         }
 
-        int id = player.Shot(computer.getBoard(), 'Z', -1, this.turnNum);
-        // both player and computer player's will return ship id if hit
-        if (id != -1) { // check if return id
-            // need to find id of opponent ship (computer) to adjust health
-            Ship hitShip = null;
-            for (Ship ship : compFleet) {
-                if (id == ship.getId()) {
-                    hitShip = ship;
-                }
-            }
-            player.checkCaptainsQ(hitShip, computer.getBoard(), this.getTurnNum());
-        }
+        player.performShot(computer.getBoard(), 'Z', -1, this.turnNum);
 
         System.out.println("The computer is now taking their shot!");
         System.out.println();
 
-        id = computer.Shot(player.getBoard(), 'Z', -1, this.turnNum);
-        // both player and computer player's will return ship id if hit
-        if (id != -1) { // check if return id
-            // need to find id of opponent ship (computer) to adjust health
-            Ship hitShip = null;
-            for (Ship ship : playerFleet) {
-                if (id == ship.getId()) {
-                    hitShip = ship;
-                }
-            }
-            computer.checkCaptainsQ(hitShip, player.getBoard(), this.getTurnNum());
-        }
+        computer.performShot(player.getBoard(), 'Z', -1, this.turnNum);
 
         // TODO: make sure when round ends add one to the turnNum!
 

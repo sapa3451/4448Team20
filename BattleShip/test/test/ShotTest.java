@@ -1,6 +1,9 @@
 package test;
 
 import edu.colorado.team20.*;
+import edu.colorado.team20.Board;
+import edu.colorado.team20.ComputerBoard;
+import edu.colorado.team20.PlayerBoard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,18 +16,18 @@ public class ShotTest {
         System.out.println("Running SingleUserShot Test...........");
 
         ShotBehavior shotBehavior;
-        shotBehavior= new UserShot();
+        shotBehavior= new InputShot();
 
         Ship battleship = new Battleship(4, "battleship");
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
         //Board playerBoard = new PlayerBoard(fleet);
-        Board computerBoard = new ComputerBoard(fleet);
+        Board computerBoard = new ComputerBoard();
 
         //IPlayer testPlayer = new UserPlayer(playerBoard);
 
-        shotBehavior.makeShot(computerBoard,'A',1);
+        shotBehavior.shot(computerBoard,'A',1,1);
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
     }
 
@@ -32,24 +35,16 @@ public class ShotTest {
     public void MultipleUserShotTest(){
 
         System.out.println("Running MultipleUserShot Test...........");
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
 
-        ShotBehavior shotBehavior;
-        shotBehavior= new UserShot();
+        Player testPlayer = new UserPlayer(playerBoard);
 
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
-        //Board playerBoard = new PlayerBoard(fleet);
-        Board computerBoard = new ComputerBoard(fleet);
-
-        //IPlayer testPlayer = new UserPlayer(playerBoard);
-
-        shotBehavior.makeShot(computerBoard,'A',1);
-        shotBehavior.makeShot(computerBoard, 'A', 2);
-        shotBehavior.makeShot(computerBoard, 'A', 10);
-        shotBehavior.makeShot(computerBoard, 'C', 1);
-        shotBehavior.makeShot(computerBoard, 'J', 4);
+        testPlayer.performShot(computerBoard,'A',1,1);
+        testPlayer.performShot(computerBoard, 'A', 2,1);
+        testPlayer.performShot(computerBoard, 'A', 10,1);
+        testPlayer.performShot(computerBoard, 'C', 1,1);
+        testPlayer.performShot(computerBoard, 'J', 4,1);
 
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
         assertEquals(computerBoard.GetPositionChar('A',2), 'X');
@@ -63,19 +58,11 @@ public class ShotTest {
 
         System.out.println("Running SingleRandomShot Test...........");
 
-        ShotBehavior shotBehavior;
-        shotBehavior= new RandomShot();
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
+        Player testComputer = new ComputerPlayer(computerBoard);
 
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
-
-        Board playerBoard = new PlayerBoard(fleet);
-        //Board computerBoard = new ComputerBoard(fleet);
-        //IPlayer testComputer = new ComputerPlayer(computerBoard);
-
-        shotBehavior.makeShot(playerBoard, 'Z', -1);
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
 
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
@@ -93,23 +80,15 @@ public class ShotTest {
 
         System.out.println("Running MultipleRandomShot Test...........");
 
-        ShotBehavior shotBehavior;
-        shotBehavior= new RandomShot();
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
+        Player testComputer = new ComputerPlayer(computerBoard);
 
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
-
-        Board playerBoard = new PlayerBoard(fleet);
-        //Board computerBoard = new ComputerBoard(fleet);
-        //IPlayer testComputer = new ComputerPlayer(computerBoard);
-
-        shotBehavior.makeShot(playerBoard, 'Z', -1);
-        shotBehavior.makeShot(playerBoard, 'Z', -1);
-        shotBehavior.makeShot(playerBoard, 'Z', -1);
-        shotBehavior.makeShot(playerBoard, 'Z', -1);
-        shotBehavior.makeShot(playerBoard, 'Z', -1);
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
 
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
@@ -128,18 +107,16 @@ public class ShotTest {
 
         System.out.println("Running Sonar Test...........");
 
-        ShotBehavior shotBehavior;
-        shotBehavior= new SonarShot();
-
         Ship battleship = new Battleship(4, "battleship");
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
 
         //Board playerBoard = new PlayerBoard(fleet);
-        Board computerBoard = new ComputerBoard(fleet);
-        //IPlayer testComputer = new ComputerPlayer(computerBoard);
+        Board computerBoard = new ComputerBoard();
+        Board playerBoard = new PlayerBoard();
+        Player testComputer = new ComputerPlayer(computerBoard);
 
-        shotBehavior.makeShot(computerBoard,'F',7);
+        testComputer.performShot(playerBoard,'F',7, 1);
     }
 }

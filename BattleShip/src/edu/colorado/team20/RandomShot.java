@@ -1,28 +1,37 @@
 package edu.colorado.team20;
 
+import edu.colorado.team20.Board;
+
 import java.util.Random;
 
 public final class RandomShot implements ShotBehavior{
 
-    public void makeShot(Board board, char col, int row) {
+    public void shot(Board board, char col, int row, int turnNum) {
+//        System.out.println("The computer is now taking their shot!");
+//        System.out.println();
         Random randChar = new Random();
 
         //getting a random column
-        char c = (char) ('A' + randChar.nextInt(10));
+        col = (char) ('A' + randChar.nextInt(10));
 
         Random randNum = new Random();
 
         //getting a random row
-        int n = (randNum.nextInt(10) + 1);
+        row = (randNum.nextInt(10) + 1);
 
         //coordinates resulting random board space
 
 
-        while(!board.CheckSpot(c,n))
+        while(!board.CheckSpot(col,row))
         {//while the randomly selected spot is not available
-            c = (char) ('A' + randChar.nextInt(10));
-            n = (randNum.nextInt(10) + 1);
+            col = (char) ('A' + randChar.nextInt(10));
+            row = (randNum.nextInt(10) + 1);
         }
-        board.MarkBoard(c, n);
+
+        //TODO: need to add captain's quarters to computer ships
+
+        // add shot to map of shot decision;
+
+        board.MarkBoard('A', 3);
     }
 }

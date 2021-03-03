@@ -9,8 +9,9 @@ import java.util.Queue;
 
 public final class ComputerBoard extends Board {
 
-    public ComputerBoard(Ship[] fleet) {
-        super(fleet);
+    public ComputerBoard() {
+        super();
+        showBehavior = new HiddenBoardShow();
     }
 
     // TODO: Need to create a function for sonar pulse

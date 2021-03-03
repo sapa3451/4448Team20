@@ -9,8 +9,9 @@ import java.util.Queue;
 
 public final class PlayerBoard extends Board {
 
-    public PlayerBoard(Ship[] fleet) {
-        super(fleet);
+    public PlayerBoard() {
+        super();
+        showBehavior = new RegularBoardShow();
     }
 
     @Override

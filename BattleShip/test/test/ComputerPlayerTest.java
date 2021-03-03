@@ -1,6 +1,9 @@
 package test;
 
 import edu.colorado.team20.*;
+import edu.colorado.team20.Board;
+import edu.colorado.team20.ComputerBoard;
+import edu.colorado.team20.PlayerBoard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,10 +17,10 @@ class ComputerPlayerTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard(fleet);
-        Board computerBoard = new ComputerBoard(fleet);
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
         ComputerPlayer testComputer = new ComputerPlayer(computerBoard);
-        testComputer.Shot(playerBoard, 'Z', -1, 0);
+        testComputer.performShot(playerBoard, 'Z', -1, 0);
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
             for (int j = 0; j < playerBoard.getRowSize(); j++) {
@@ -35,14 +38,14 @@ class ComputerPlayerTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard(fleet);
-        Board computerBoard = new ComputerBoard(fleet);
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
         ComputerPlayer testComputer = new ComputerPlayer(computerBoard);
-        testComputer.Shot(playerBoard, 'Z', -1, 0);
-        testComputer.Shot(playerBoard, 'Z', -1, 0);
-        testComputer.Shot(playerBoard, 'Z', -1, 0);
-        testComputer.Shot(playerBoard, 'Z', -1, 0);
-        testComputer.Shot(playerBoard, 'Z', -1, 0);
+        testComputer.performShot(playerBoard, 'Z', -1, 0);
+        testComputer.performShot(playerBoard, 'Z', -1, 0);
+        testComputer.performShot(playerBoard, 'Z', -1, 0);
+        testComputer.performShot(playerBoard, 'Z', -1, 0);
+        testComputer.performShot(playerBoard, 'Z', -1, 0);
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
             for (int j = 0; j < playerBoard.getRowSize(); j++) {
@@ -61,8 +64,8 @@ class ComputerPlayerTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard(fleet);
-        Board computerBoard = new ComputerBoard(fleet);
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
         ComputerPlayer testComputer = new ComputerPlayer(computerBoard);
         testComputer.performPlacement(battleship.getId(), battleship.getSize());
         int count = 0;

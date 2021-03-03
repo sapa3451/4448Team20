@@ -2,20 +2,23 @@ package edu.colorado.team20;
 
 import edu.colorado.team20.Ship;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public abstract class Board {
+public abstract class Board implements BoardSubject{
     protected final char[][] board;
     protected int[][] idBoard;
     protected final HashMap<Character, Integer> alphaMap = new HashMap<>();
     protected final int rowSize = 10;
     protected final int columnSize = 10;
-    protected Ship[] fleet = new Ship[3]; // do we need this still??
     protected HashMap<Integer, String> startPos = new HashMap<>();
     protected HashMap<Integer, String> shipCapQPos = new HashMap<>();
+    protected List<Ship> fleet;
+    ShowBehavior showBehavior;
 
-
-    public Board(Ship[] fleet) {
+    public Board() {
         this.board = new char[this.rowSize][this.columnSize];
         this.idBoard = new int[this.rowSize][this.columnSize];
         char[] alphas = new char[this.rowSize];
@@ -34,9 +37,44 @@ public abstract class Board {
             // map ints to alphas
             this.alphaMap.put(alphas[i], i);
         }
-        this.fleet = fleet;
+        fleet = new ArrayList<Ship>();
     }
 
+    public char[][] getBoard() {
+        return this.board;
+    }
+
+    public void setShowBehavior (ShowBehavior sb) {
+        showBehavior = sb;
+    }
+
+    public void performShow() {
+        showBehavior.show(this);
+    }
+
+    public void registerShip (Ship s) {
+        fleet.add(s);
+    }
+
+    public void removeShip(Ship s) {
+        fleet.remove(s);
+    }
+
+    public void updateShipOnHit(int id) {
+        for (Ship ship : fleet){
+            if (id == ship.getId()) {
+                ship.updateHealth(1);
+            }
+        }
+    }
+
+    public void updateShipOnCQHit(int id) {
+        for (Ship ship : fleet){
+            if (id == ship.getId()) {
+                ship.updateCaptainQHealth(1);
+            }
+        }
+    }
 
     public int getRowSize () {
         return rowSize;
@@ -49,100 +87,8 @@ public abstract class Board {
     public char GetPositionChar(char col, int row) {
         return board[row-1][alphaMap.get(col)];
     }
-
-    // show the placement of the player's ships
-    public void ShowBoardToPlayer() {
-        // create arrays to hold board rows and columns
-        char[] col = new char[columnSize*3+2];
-        int [] row = new int[rowSize];
-        char start = 'A';
-        col[0] = ' ';
-        for (int i = 1; i < this.columnSize*3-1; i = i + 3) {
-            col[i+1] = ' ';
-            col[i+2] = ' ';
-            col[i+3] = start;
-            start += 1;
-        }
-        for (int i = 0; i < this.rowSize; i++) {
-            row[i] = i+1;
-        }
-
-        // print board
-        for (int i = 0; i < this.rowSize; i++) {
-            if (i == 0) {
-                System.out.println(col);
-            }
-
-            // this conditional fixes number lining
-            if (row[i] >= 10) {
-                System.out.print(row[i]);
-            } else {
-                System.out.print(row[i] + " ");
-            }
-            for (int j = 0; j < this.columnSize; j++) {
-                if (this.board[i][j] == 'X') {
-                    System.out.print("[X]");
-                }
-                else if (this.board[i][j] == 'S') {
-                    System.out.print("[S]");
-                }
-                else if (this.board[i][j] == 'Q') {
-                    System.out.print("[Q]");
-                }
-                else {
-                    System.out.print("[ ]");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
     // show the opponent the player's board
     // shows opponent what spots they hit and destroyed ships
-    public void ShowBoardToOpponent() {
-        // create arrays to hold board rows and columns
-        char[] col = new char[columnSize*3+2];
-        int [] row = new int[rowSize];
-        char start = 'A';
-        col[0] = ' ';
-        for (int i = 1; i < this.columnSize*3-1; i = i + 3) {
-            col[i+1] = ' ';
-            col[i+2] = ' ';
-            col[i+3] = start;
-            start += 1;
-        }
-        for (int i = 0; i < this.rowSize; i++) {
-            row[i] = i+1;
-        }
-
-        // print board
-        for (int i = 0; i < this.rowSize; i++) {
-            if (i == 0) {
-                System.out.println(col);
-            }
-
-            // this conditional fixes number lining
-            if (row[i] >= 10) {
-                System.out.print(row[i]);
-            } else {
-                System.out.print(row[i] + " ");
-            }
-            for (int j = 0; j < this.columnSize; j++) {
-                if (this.board[i][j] == 'D') {
-                    System.out.print("[D]");
-                }
-                else if (this.board[i][j] == 'X') {
-                    System.out.print("[X]");
-                }
-                else {
-                    System.out.print("[ ]");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
 
     // function to check if spot was already shot at
     public boolean CheckSpot(char col, int row) {
@@ -152,7 +98,7 @@ public abstract class Board {
 
     // function to mark board after a shot
     // returns id of ship if it has been hit (-1 if no ship hit)
-    public int MarkBoard(char col, int row) {
+    public void MarkBoard(char col, int row) {
         // call check spot in the beginning to check if spot is valid
         char positionChar = board[row-1][alphaMap.get(col)];
 
@@ -165,8 +111,32 @@ public abstract class Board {
         else { // decision was a ship --> mark as D
             board[row-1][alphaMap.get(col)] = 'D'; // subtract one from row because indexing of array
         }
-        this.ShowBoardToOpponent(); // show the updated board
-        return (this.idBoard[row-1][alphaMap.get(col)] != 0 ? this.idBoard[row-1][alphaMap.get(col)] : -1);
+        int id = this.idBoard[row-1][alphaMap.get(col)];
+        if (id != 0 && positionChar == 'Q') {
+            updateShipOnCQHit(id);
+            String s = startPos.get(id);
+            int y = 0;
+            if (s.length() == 4) {
+                y = 10;
+            }
+            else {
+                y = Integer.parseInt(String.valueOf(s.charAt(1)));
+            }
+            updateShipChars(s.charAt(0), y-1, fleet.get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
+        }
+        else if (id != 0){
+            updateShipOnHit(id);
+            String s = startPos.get(id);
+            int y = 0;
+            if (s.length() == 4) {
+                y = 10;
+            }
+            else {
+                y = Integer.parseInt(String.valueOf(s.charAt(1)));
+            }
+            updateShipChars(s.charAt(0), y-1, fleet.get(id - 1).getSize(), s.charAt(2));
+        }
+        this.performShow();
     }
 
     public boolean SetShipPos(int id, int row, char col, int direction, int size) {
@@ -183,7 +153,7 @@ public abstract class Board {
         }
         else {
             if (direction == 1) { // horizontal
-                startPos.put(id, col+String.valueOf(row-1)+1); // add start position to map
+                startPos.put(id, col+String.valueOf(row)+1); // add start position to map
                 for (int i = 0; i < size; i++) {
                     board[row - 1][alphaMap.get(col)] = 'S';
                     idBoard[row - 1][alphaMap.get(col)] = id;
@@ -191,7 +161,7 @@ public abstract class Board {
                 }
                 char o = (char) (colC + quarters);
                 board[rowC - 1][alphaMap.get(o)] = 'Q';
-                shipCapQPos.put(id, o+String.valueOf(rowC - 1)+1); // add captain's quarter's to map
+                shipCapQPos.put(id, o+String.valueOf(rowC)+1); // add captain's quarter's to map
             }
             else { // vertical
                 startPos.put(id, col+String.valueOf(row)+0); // add start position to map
@@ -201,7 +171,7 @@ public abstract class Board {
                     row += 1;
                 }
                 board[rowC - 1 + quarters][alphaMap.get(colC)] = 'Q';
-                shipCapQPos.put(id, colC+String.valueOf(rowC - 1 + quarters)+1); // add captain's quarter's to map
+                shipCapQPos.put(id, colC+String.valueOf(rowC + quarters)+0); // add captain's quarter's to map
             }
 
         }

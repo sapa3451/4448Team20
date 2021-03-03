@@ -1,22 +1,16 @@
 package edu.colorado.team20;
 
+import edu.colorado.team20.Board;
+
 import java.util.Scanner;
 
-public final class UserShot implements ShotBehavior{
-
-    public void makeShot(Board board, char colv, int row){
-        // variables for input
-        if (colv != 'Z' && row != -1) {
-            board.MarkBoard(colv, row);
-            return;
-        }
+public class InputPlacement implements PlacementBehavior{
+    public void place (int id, Board board, int size) {
+        // TODO: we need to make sure that ships do not overlap
+        // do they want to place the ship vertically(1) or horizontally(0)
         char colVal = ' ';
         int rowVal = -1;
-
-        System.out.println("It is your turn!");
-        System.out.println("Decision: ");
-        System.out.println("Type which column (A-J) you would like to target: ");
-
+        System.out.println("Type which column (A-J) you would like to place your ship:");
         // take in user input
         Scanner sc = new Scanner(System.in); //System.in is a standard input stream
         String input = sc.nextLine();    //reads string
@@ -42,7 +36,7 @@ public final class UserShot implements ShotBehavior{
             }
         }
 
-        System.out.println("Type which row (1-10) you would like to target: ");
+        System.out.println("Type which row (1-10) you would like to place your ship: ");
 
         // take in user input
         input = sc.nextLine();
@@ -68,8 +62,12 @@ public final class UserShot implements ShotBehavior{
                 input = sc.nextLine(); // Read user input
             }
         }
-        //added a return method to this function, which is then used to call and update the board with a hit
-        // before calling method need to check if this spot is a valid move (not already been shot at)
-        board.MarkBoard(colVal, rowVal);
+        // after this i have a valid colVal and rowVal
+
+
+        System.out.println("Do you want to place your ship horizontally(1) or vertically(0)? ");
+        input = sc.nextLine();
+        int direction = Integer.parseInt(input);
+        board.SetShipPos(id, rowVal, colVal, direction, size);
     }
 }

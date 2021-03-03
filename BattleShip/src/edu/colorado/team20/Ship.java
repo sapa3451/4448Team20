@@ -1,6 +1,6 @@
 package edu.colorado.team20;
 
-public abstract class Ship {
+public abstract class Ship implements ShipObservers{
     protected int numOccupiedBoardCells;
     protected char[] shipSections;
     protected int totShipHealth;
@@ -21,27 +21,35 @@ public abstract class Ship {
         }
         this.shipSections[quarters] = 'Q';
         this.totShipHealth = this.getSize();
-        name = shipName;
+        this.name = shipName;
     }
 
     public void setId(int ID) { this.id = ID; }
+
     public int getId() { return this.id; }
+
     public int getSize () {
         return this.numOccupiedBoardCells;
     }
+
     public String getName () {
         return this.name;
     }
+
     public char[] getShipSections() {
         return this.shipSections;
     }
+
     public int getTotShipHealth() { return this.totShipHealth; }
+
     public boolean updateHealth(int damage) {
         this.totShipHealth = this.totShipHealth - damage;
         if (this.totShipHealth == 0) { return true; } // ship destroyed
         return false; // ship still has life
     }
+
     public int getCaptainQHealth() { return this.captainQHealth; }
+
     public boolean updateCaptainQHealth(int damage) {
         this.captainQHealth = this.captainQHealth - damage;
         if (this.captainQHealth == 0) {
@@ -54,12 +62,10 @@ public abstract class Ship {
 
 
     public boolean checkSunk(int size) {
-        for (int i = 0; i < size; i++) {
-            if (this.shipSections[i] != 'H') {
-                return false;
-            }
+        if (this.getTotShipHealth() == 0) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     public void displayInfo() {

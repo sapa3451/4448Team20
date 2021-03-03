@@ -5,4 +5,8 @@ public class Destroyer extends Ship {
         super(size, name);
         captainQHealth = 2;
     }
+
+    public void update() {
+
+    }
 }

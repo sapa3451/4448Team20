@@ -5,4 +5,8 @@ public class Minesweeper extends Ship {
         super(size, name);
         captainQHealth = 1; // minesweeper only has one health hit for captain's quarters
     }
+
+    public void update() {
+
+    }
 }

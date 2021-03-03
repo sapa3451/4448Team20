@@ -1,6 +1,9 @@
 package test;
 
 import edu.colorado.team20.*;
+import edu.colorado.team20.Board;
+import edu.colorado.team20.ComputerBoard;
+import edu.colorado.team20.PlayerBoard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,10 +15,10 @@ class PlayerTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard(fleet);
-        Board computerBoard = new ComputerBoard(fleet);
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
         UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.Shot(computerBoard, 'A', 1, 0);
+        testPlayer.performShot(computerBoard, 'A', 1, 0);
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
     }
 
@@ -25,14 +28,14 @@ class PlayerTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard(fleet);
-        Board computerBoard = new ComputerBoard(fleet);
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
         UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.Shot(computerBoard, 'A', 1, 0);
-        testPlayer.Shot(computerBoard, 'A', 2, 0);
-        testPlayer.Shot(computerBoard, 'A', 10, 0);
-        testPlayer.Shot(computerBoard, 'C', 1, 0);
-        testPlayer.Shot(computerBoard, 'J', 4, 0);
+        testPlayer.performShot(computerBoard, 'A', 1, 0);
+        testPlayer.performShot(computerBoard, 'A', 2, 0);
+        testPlayer.performShot(computerBoard, 'A', 10, 0);
+        testPlayer.performShot(computerBoard, 'C', 1, 0);
+        testPlayer.performShot(computerBoard, 'J', 4, 0);
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
         assertEquals(computerBoard.GetPositionChar('A',2), 'X');
         assertEquals(computerBoard.GetPositionChar('A',10), 'X');
@@ -46,10 +49,10 @@ class PlayerTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard(fleet);
-        Board computerBoard = new ComputerBoard(fleet);
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
         UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeBattleship(battleship.getId());
+        testPlayer.performPlacement(battleship.getId(), battleship.getSize());
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
@@ -67,10 +70,10 @@ class PlayerTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard(fleet);
-        Board computerBoard = new ComputerBoard(fleet);
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
         UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeMinesweeper(minesweeper.getId());
+        testPlayer.performPlacement(minesweeper.getId(), minesweeper.getSize());
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
@@ -88,10 +91,10 @@ class PlayerTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard(fleet);
-        Board computerBoard = new ComputerBoard(fleet);
+        Board playerBoard = new PlayerBoard();
+        Board computerBoard = new ComputerBoard();
         UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.placeDestroyer(destroyer.getId());
+        testPlayer.performPlacement(destroyer.getId(), destroyer.getSize());
         int count = 0;
         for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
