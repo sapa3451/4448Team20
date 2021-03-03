@@ -13,9 +13,4 @@ public final class PlayerBoard extends Board {
         super();
         showBehavior = new RegularBoardShow();
     }
-
-    @Override
-    public void ShowSonarPulse(char c, int i) {
-
-    }
 }

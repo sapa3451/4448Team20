@@ -240,6 +240,4 @@ public abstract class Board implements BoardSubject{
 
     public String getShipCaptainQPos(int id) { return this.shipCapQPos.get(id); }
     public String getShipStartPos(int id) { return this.startPos.get(id); }
-
-    public abstract void ShowSonarPulse(char c, int i);
 }
