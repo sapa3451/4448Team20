@@ -3,6 +3,9 @@ package test;
 import edu.colorado.team20.*;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 // TODO: Need to make more test cases to make sure that all
@@ -88,7 +91,7 @@ class BoardTest {
         for (int i = 3; i < 4; i ++) {
             assertEquals(board.GetPositionChar((char) ('A' + i), 1), 'S');
         }
-        board.Show();
+        board.ShowBoardToPlayer();
     }
 
     @Test
@@ -97,7 +100,7 @@ class BoardTest {
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board board = new PlayerBoard(fleet);; // setting column and row
+        Board board = new PlayerBoard(fleet); // setting column and row
         board.SetShipPos(0,1,'A',0,4);
         for (int i = 0; i < 2; i++) {
             assertEquals(board.GetPositionChar((char) ('A'), 1 + i), 'S');
@@ -108,7 +111,7 @@ class BoardTest {
         for (int i = 3; i < 4; i ++) {
             assertEquals(board.GetPositionChar((char) ('A'), 1 + i), 'S');
         }
-        board.Show();
+        board.ShowBoardToPlayer();
     }
 
     @Test
@@ -125,5 +128,102 @@ class BoardTest {
 
         board.ShowSonarPulse('A', 0);
     }
+
+    @Test
+    void CaptainsQs() {
+        //want to make sure that health goes down
+        GameManagement game = new GameManagement();
+        Ship Pbattleship = new Battleship(4, "battleship");
+        Ship Pdestroyer = new Destroyer(3, "destroyer");
+        Ship Pminesweeper = new Minesweeper(2, "minesweeper");
+        Ship Cbattleship = new Battleship(4, "battleship");
+        Ship Cdestroyer = new Destroyer(3, "destroyer");
+        Ship Cminesweeper = new Minesweeper(2, "minesweeper");
+
+        Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper};
+        Ship[] compFleet = {Cbattleship, Cdestroyer, Cminesweeper};
+        Board compBoard = new ComputerBoard(compFleet); // setting column and row
+        Board playerBoard = new PlayerBoard(playerFleet);
+        UserPlayer player = new UserPlayer(playerBoard);
+        ComputerPlayer computer = new ComputerPlayer(playerBoard);
+
+        // place player boards
+        // give ships ids and place them
+        for (Ship ship : playerFleet) {
+            ship.setId(game.getIdNum());
+            game.setIdNum();
+
+            String name = ship.getName();
+            // place ship
+            switch(name) {
+                case "battleship":
+                    playerBoard.SetShipPos(1,1,'A',1,4);
+                    break;
+
+                case "destroyer":
+                    playerBoard.SetShipPos(2,4,'B',1,3);
+                    break;
+
+                case "minesweeper":
+                    playerBoard.SetShipPos(3,4,'F',1,2);
+                    break;
+
+                default:
+                    System.out.println("Not found!");
+                    break;
+            }
+        }
+
+        // get the captains quarters of the minesweeper
+        String pos = playerBoard.getShipCaptainQPos(3);
+        String col = String.valueOf(pos.charAt(0));
+        String row = String.valueOf(pos.charAt(1));
+        assertEquals(Pminesweeper.getId(), 3);
+
+        // check to see if minesweeper gets destroyed from one hit of captainQ
+        Pminesweeper.updateCaptainQHealth(1);
+        assertEquals(Pminesweeper.getTotShipHealth(), 0);
+        String PminesweeperPos = playerBoard.getShipStartPos(Pminesweeper.getId());
+        playerBoard.updateShipChars(PminesweeperPos.charAt(0), PminesweeperPos.charAt(1) - '0', Pminesweeper.getSize(), PminesweeperPos.charAt(2) - '0');
+        playerBoard.ShowBoardToOpponent();
+
+        // testing battleship
+        pos = playerBoard.getShipCaptainQPos(1);
+        col = String.valueOf(pos.charAt(0));
+        row = String.valueOf(pos.charAt(1));
+        assertEquals(Pbattleship.getId(), 1);
+
+        // take a shot at captainQ once --> ship shuld still be alive
+        Pbattleship.updateCaptainQHealth(1);
+        assertEquals(Pbattleship.getCaptainQHealth(), 1);
+        assertEquals(Pbattleship.getTotShipHealth(), 4); // make sure it still is equal;
+        Pbattleship.updateCaptainQHealth(1);
+        assertEquals(Pbattleship.getCaptainQHealth(), 0);
+        assertEquals(Pbattleship.getTotShipHealth(), 0); // make sure it still is equal;
+        String PbattleshipPos = playerBoard.getShipStartPos(Pbattleship.getId());
+        playerBoard.updateShipChars(PbattleshipPos.charAt(0), PbattleshipPos.charAt(1) - '0', Pbattleship.getSize(), PbattleshipPos.charAt(2) - '0');
+        playerBoard.ShowBoardToOpponent();
+
+        // testing destroyer
+        pos = playerBoard.getShipCaptainQPos(1);
+        col = String.valueOf(pos.charAt(0));
+        row = String.valueOf(pos.charAt(1));
+        assertEquals(Pdestroyer.getId(), 2);
+
+        // take a shot at captainQ once --> ship shuld still be alive
+        Pdestroyer.updateCaptainQHealth(1);
+        assertEquals(Pdestroyer.getCaptainQHealth(), 1);
+        assertEquals(Pdestroyer.getTotShipHealth(), 3); // make sure it still is equal;
+        Pdestroyer.updateCaptainQHealth(1);
+        assertEquals(Pdestroyer.getCaptainQHealth(), 0);
+        assertEquals(Pdestroyer.getTotShipHealth(), 0); // make sure it still is equal;
+        String PdestroyerPos = playerBoard.getShipStartPos(Pbattleship.getId());
+        playerBoard.updateShipChars(PdestroyerPos.charAt(0), PdestroyerPos.charAt(1) - '0', Pdestroyer.getSize(), PdestroyerPos.charAt(2) - '0');
+        playerBoard.ShowBoardToOpponent();
+
+        // TODO: need to add testing for computer captain's quarters
+    }
+
+    // TODO: need to create testing for ship health, make sure that it goes down when non captainQ gets hit
 
 }

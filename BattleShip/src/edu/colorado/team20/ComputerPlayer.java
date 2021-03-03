@@ -8,7 +8,7 @@ public final class ComputerPlayer extends Player{
         placementBehavior = new RandomPlacement();
     }
 
-    public void Shot(Board board, char col, int row) {
+    public int Shot(Board board, char col, int row, int turnNum) {
 //        System.out.println("The computer is now taking their shot!");
 //        System.out.println();
         Random randChar = new Random();
@@ -30,11 +30,12 @@ public final class ComputerPlayer extends Player{
             n = (randNum.nextInt(10) + 1);
         }
 
-        if (board.MarkBoard(c, n) != 0) {
-            // ship has been hit
-            // TODO: we need to search through ships by id and mark the health of that ship down
-            // TODO: we need to also check if this spot was a captain's quarters
-        }
+        //TODO: need to add captain's quarters to computer ships
+
+        // add shot to map of shot decisions
+        this.addShotFromTurn(turnNum, c+String.valueOf(n));
+
+        return board.MarkBoard(c, n);
     }
 
 }

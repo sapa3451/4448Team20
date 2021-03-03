@@ -4,11 +4,13 @@ public class GameManagement {
     // provides turn information
     // P --> user player turn
     // C --> computer turn
+    private int turnNum;
     private char turnInfo;
     int idNum = 1;
 
     public GameManagement() {
         turnInfo = 'P'; // set to player first always
+        turnNum = 1; // initialize first round
     }
 
     public void BeginGame() {
@@ -22,11 +24,10 @@ public class GameManagement {
         Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper};
         Ship[] compFleet = {Cbattleship, Cdestroyer, Cminesweeper};
 
-        PlayerBoard playerBoard = new PlayerBoard(playerFleet);
-        ComputerBoard computerBoard = new ComputerBoard(compFleet);
+        Board playerBoard = new PlayerBoard(playerFleet);
+        Board computerBoard = new ComputerBoard(compFleet);
 
-
-        UserPlayer player = new UserPlayer(playerBoard);
+        UserPlayer player = new UserPlayer(playerBoard); // TODO: this need to be Player not ComputerPlayer --> there is functiosn that are used in UserPlayer that are cuasing trouble when I change it
         ComputerPlayer computer = new ComputerPlayer(computerBoard);
 
         System.out.println("Welcome to The Battleship Game!");
@@ -39,14 +40,14 @@ public class GameManagement {
 
         // give ships ids and place them
         for (Ship ship : compFleet) {
-            ship.setID(idNum);
+            ship.setId(idNum);
             idNum++;
             computer.performPlacement(ship.getId(), ship.getSize());
         }
 
         // give ships ids and place them
         for (Ship ship : playerFleet) {
-            ship.setID(idNum);
+            ship.setId(idNum);
             idNum++;
 
             String name = ship.getName();
@@ -70,21 +71,36 @@ public class GameManagement {
             }
         }
 
-        // for testing purposes to see if ids work correctly
-        for (Ship ship : compFleet) {
-            System.out.println(ship.getId());
+        int id = player.Shot(computer.getBoard(), 'Z', -1, this.turnNum);
+        // both player and computer player's will return ship id if hit
+        if (id != -1) { // check if return id
+            // need to find id of opponent ship (computer) to adjust health
+            Ship hitShip = null;
+            for (Ship ship : compFleet) {
+                if (id == ship.getId()) {
+                    hitShip = ship;
+                }
+            }
+            player.checkCaptainsQ(hitShip, computer.getBoard(), this.getTurnNum());
         }
-        for (Ship ship : playerFleet) {
-            System.out.println(ship.getId());
-        }
-
-        player.Shot(computer.getBoard(), 'Z', -1);
 
         System.out.println("The computer is now taking their shot!");
         System.out.println();
 
-        computer.Shot(player.getBoard(), 'Z', -1);
+        id = computer.Shot(player.getBoard(), 'Z', -1, this.turnNum);
+        // both player and computer player's will return ship id if hit
+        if (id != -1) { // check if return id
+            // need to find id of opponent ship (computer) to adjust health
+            Ship hitShip = null;
+            for (Ship ship : playerFleet) {
+                if (id == ship.getId()) {
+                    hitShip = ship;
+                }
+            }
+            computer.checkCaptainsQ(hitShip, player.getBoard(), this.getTurnNum());
+        }
 
+        // TODO: make sure when round ends add one to the turnNum!
 
     }
 
@@ -114,5 +130,9 @@ public class GameManagement {
         }
         return playerCount == playerFleet.length || compCount == compFleet.length;
     }
+
+    public int getTurnNum() { return turnNum; }
+    public int getIdNum() { return this.idNum; }
+    public void setIdNum() { this.idNum++; }
 
 }

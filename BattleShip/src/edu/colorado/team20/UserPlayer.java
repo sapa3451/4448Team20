@@ -9,11 +9,10 @@ public final class UserPlayer extends Player{
     }
 
     // TODO: need to call CheckSpot to make sure that the spot hasn't already been shot at
-    public void Shot(Board board, char colv, int row) {
+    public int Shot(Board board, char colv, int row, int turnNum) {
         // variables for input
         if (colv != 'Z' && row != -1) {
-            board.MarkBoard(colv, row);
-            return;
+            return board.MarkBoard(colv, row);
         }
         char colVal = ' ';
         int rowVal = -1;
@@ -73,13 +72,13 @@ public final class UserPlayer extends Player{
                 input = sc.nextLine(); // Read user input
             }
         }
+
+        // add shot to map of shot decisions
+        this.addShotFromTurn(turnNum, colVal+String.valueOf(rowVal));
+
         //added a return method to this function, which is then used to call and update the board with a hit
         // before calling method need to check if this spot is a valid move (not already been shot at)
-        if (board.MarkBoard(colVal, rowVal) != 0) {
-            // ship has been hit
-            // TODO: we need to search through ships by id and mark the health of that ship down
-            // TODO: we need to also check if this spot was a captain's quarters
-        }
+        return board.MarkBoard(colVal, rowVal);
     }
 
     public void ShipPlacement(int id, int shipSize, int check) {

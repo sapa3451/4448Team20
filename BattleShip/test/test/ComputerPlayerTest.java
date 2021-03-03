@@ -17,7 +17,7 @@ class ComputerPlayerTest {
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
         ComputerPlayer testComputer = new ComputerPlayer(computerBoard);
-        testComputer.Shot(playerBoard, 'Z', -1);
+        testComputer.Shot(playerBoard, 'Z', -1, 0);
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
             for (int j = 0; j < playerBoard.getRowSize(); j++) {
@@ -38,11 +38,11 @@ class ComputerPlayerTest {
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
         ComputerPlayer testComputer = new ComputerPlayer(computerBoard);
-        testComputer.Shot(playerBoard, 'Z', -1);
-        testComputer.Shot(playerBoard, 'Z', -1);
-        testComputer.Shot(playerBoard, 'Z', -1);
-        testComputer.Shot(playerBoard, 'Z', -1);
-        testComputer.Shot(playerBoard, 'Z', -1);
+        testComputer.Shot(playerBoard, 'Z', -1, 0);
+        testComputer.Shot(playerBoard, 'Z', -1, 0);
+        testComputer.Shot(playerBoard, 'Z', -1, 0);
+        testComputer.Shot(playerBoard, 'Z', -1, 0);
+        testComputer.Shot(playerBoard, 'Z', -1, 0);
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
             for (int j = 0; j < playerBoard.getRowSize(); j++) {

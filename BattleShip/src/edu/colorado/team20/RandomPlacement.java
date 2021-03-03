@@ -12,7 +12,7 @@ public class RandomPlacement implements PlacementBehavior{
             int nCheck = n - 3;
             char c = (char) ('A' + board.getRowSize() - 1);
             char cCheck = (char) (c - size+1);
-            placed = isPlaced(id, orientation, n, nCheck, c, cCheck, 4, board);
+            placed = isPlaced(id, orientation, n, nCheck, c, cCheck, size, board);
         }
     }
 

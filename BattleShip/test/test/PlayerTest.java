@@ -15,7 +15,7 @@ class PlayerTest {
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
         UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.Shot(computerBoard, 'A', 1);
+        testPlayer.Shot(computerBoard, 'A', 1, 0);
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
     }
 
@@ -28,11 +28,11 @@ class PlayerTest {
         Board playerBoard = new PlayerBoard(fleet);
         Board computerBoard = new ComputerBoard(fleet);
         UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.Shot(computerBoard, 'A', 1);
-        testPlayer.Shot(computerBoard, 'A', 2);
-        testPlayer.Shot(computerBoard, 'A', 10);
-        testPlayer.Shot(computerBoard, 'C', 1);
-        testPlayer.Shot(computerBoard, 'J', 4);
+        testPlayer.Shot(computerBoard, 'A', 1, 0);
+        testPlayer.Shot(computerBoard, 'A', 2, 0);
+        testPlayer.Shot(computerBoard, 'A', 10, 0);
+        testPlayer.Shot(computerBoard, 'C', 1, 0);
+        testPlayer.Shot(computerBoard, 'J', 4, 0);
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
         assertEquals(computerBoard.GetPositionChar('A',2), 'X');
         assertEquals(computerBoard.GetPositionChar('A',10), 'X');

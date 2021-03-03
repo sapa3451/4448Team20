@@ -3,7 +3,8 @@ package edu.colorado.team20;
 public abstract class Ship {
     protected int numOccupiedBoardCells;
     protected char[] shipSections;
-    protected int shipHealth;
+    protected int totShipHealth;
+    protected int captainQHealth;
     protected String name;
     int id;
     protected int shipSize;
@@ -19,24 +20,39 @@ public abstract class Ship {
             this.shipSections[i] = 'S';
         }
         this.shipSections[quarters] = 'Q';
-        this.shipHealth = numOccupiedBoardCells + 1;
+        this.totShipHealth = this.getSize();
         name = shipName;
     }
 
-    public void setID(int ID) { id = ID; }
-    public int getId() { return id; }
-
+    public void setId(int ID) { this.id = ID; }
+    public int getId() { return this.id; }
     public int getSize () {
         return this.numOccupiedBoardCells;
     }
-
     public String getName () {
-        return name;
+        return this.name;
+    }
+    public char[] getShipSections() {
+        return this.shipSections;
+    }
+    public int getTotShipHealth() { return this.totShipHealth; }
+    public boolean updateHealth(int damage) {
+        this.totShipHealth = this.totShipHealth - damage;
+        if (this.totShipHealth == 0) { return true; } // ship destroyed
+        return false; // ship still has life
+    }
+    public int getCaptainQHealth() { return this.captainQHealth; }
+    public boolean updateCaptainQHealth(int damage) {
+        this.captainQHealth = this.captainQHealth - damage;
+        if (this.captainQHealth == 0) {
+            // set tot health to 0
+            this.updateHealth(this.totShipHealth);
+            return true; // return true --> ship is destroyed
+        }
+        return false; // return false --> ship still has health
     }
 
-    public char[] getShipSections() {
-        return shipSections;
-    }
+
     public boolean checkSunk(int size) {
         for (int i = 0; i < size; i++) {
             if (this.shipSections[i] != 'H') {
@@ -45,6 +61,7 @@ public abstract class Ship {
         }
         return true;
     }
+
     public void displayInfo() {
         System.out.println(this.numOccupiedBoardCells);
         for (int i = 0; i < this.numOccupiedBoardCells; i++) {
