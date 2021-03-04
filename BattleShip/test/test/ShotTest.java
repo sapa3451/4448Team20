@@ -1,9 +1,6 @@
 package test;
 
 import edu.colorado.team20.*;
-import edu.colorado.team20.Board;
-import edu.colorado.team20.ComputerBoard;
-import edu.colorado.team20.PlayerBoard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,33 +8,34 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ShotTest {
 
     @Test
-    public void SingleUserShotTest(){
+    public void SingleInputShotTest(){
 
-        System.out.println("Running SingleUserShot Test...........");
+        System.out.println("Running SingleInputShot Test...........");
 
-        Board playerBoard = new PlayerBoard();
+        ShotBehavior shotBehavior;
+        shotBehavior= new InputShot();
+
         Board computerBoard = new ComputerBoard();
 
-        Player testPlayer = new UserPlayer(playerBoard);
-
-        testPlayer.performShot(computerBoard,'A',1,1);
+        shotBehavior.shot(computerBoard,'A',1,1 );
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
     }
 
     @Test
-    public void MultipleUserShotTest(){
+    public void MultipleInputShotTest(){
 
-        System.out.println("Running MultipleUserShot Test...........");
-        Board playerBoard = new PlayerBoard();
+        System.out.println("Running MultipleInputShot Test...........");
+
+        ShotBehavior shotBehavior;
+        shotBehavior= new InputShot();
+
         Board computerBoard = new ComputerBoard();
 
-        Player testPlayer = new UserPlayer(playerBoard);
-
-        testPlayer.performShot(computerBoard,'A',1,1);
-        testPlayer.performShot(computerBoard, 'A', 2,1);
-        testPlayer.performShot(computerBoard, 'A', 10,1);
-        testPlayer.performShot(computerBoard, 'C', 1,1);
-        testPlayer.performShot(computerBoard, 'J', 4,1);
+        shotBehavior.shot(computerBoard,'A',1,1);
+        shotBehavior.shot(computerBoard, 'A', 2,1);
+        shotBehavior.shot(computerBoard, 'A', 10,1);
+        shotBehavior.shot(computerBoard, 'C', 1,1);
+        shotBehavior.shot(computerBoard, 'J', 4,1);
 
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
         assertEquals(computerBoard.GetPositionChar('A',2), 'X');
@@ -51,12 +49,12 @@ public class ShotTest {
 
         System.out.println("Running SingleRandomShot Test...........");
 
+        ShotBehavior shotBehavior;
+        shotBehavior= new RandomShot();
+
         Board playerBoard = new PlayerBoard();
-        Board computerBoard = new ComputerBoard();
 
-        Player testComputer = new ComputerPlayer(computerBoard);
-
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        shotBehavior.shot(playerBoard, 'Z', -1,1);
 
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
@@ -74,16 +72,17 @@ public class ShotTest {
 
         System.out.println("Running MultipleRandomShot Test...........");
 
+        ShotBehavior shotBehavior;
+        shotBehavior= new RandomShot();
+
         Board playerBoard = new PlayerBoard();
-        Board computerBoard = new ComputerBoard();
 
-        Player testComputer = new ComputerPlayer(computerBoard);
 
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        shotBehavior.shot(playerBoard, 'Z', -1, 1);
+        shotBehavior.shot(playerBoard, 'Z', -1, 1);
+        shotBehavior.shot(playerBoard, 'Z', -1, 1);
+        shotBehavior.shot(playerBoard, 'Z', -1, 1);
+        shotBehavior.shot(playerBoard, 'Z', -1, 1);
 
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {

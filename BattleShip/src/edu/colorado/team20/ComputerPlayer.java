@@ -9,7 +9,6 @@ public final class ComputerPlayer extends Player{
         super(board);
         placementBehavior = new RandomPlacement();
         shotBehavior = new RandomShot();
-
     }
 
 }

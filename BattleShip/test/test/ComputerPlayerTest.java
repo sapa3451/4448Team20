@@ -13,14 +13,16 @@ class ComputerPlayerTest {
 
     @Test
     public void SingleRandomShot () {
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
+
+        System.out.println("Running SingleRandomShot Test...........");
+
         Board playerBoard = new PlayerBoard();
         Board computerBoard = new ComputerBoard();
-        ComputerPlayer testComputer = new ComputerPlayer(computerBoard);
-        testComputer.performShot(playerBoard, 'Z', -1, 0);
+
+        Player testComputer = new ComputerPlayer(computerBoard);
+
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
+
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
             for (int j = 0; j < playerBoard.getRowSize(); j++) {
@@ -34,18 +36,20 @@ class ComputerPlayerTest {
 
     @Test
     public void MultipleRandomShot () {
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
+
+        System.out.println("Running MultipleRandomShot Test...........");
+
         Board playerBoard = new PlayerBoard();
         Board computerBoard = new ComputerBoard();
-        ComputerPlayer testComputer = new ComputerPlayer(computerBoard);
-        testComputer.performShot(playerBoard, 'Z', -1, 0);
-        testComputer.performShot(playerBoard, 'Z', -1, 0);
-        testComputer.performShot(playerBoard, 'Z', -1, 0);
-        testComputer.performShot(playerBoard, 'Z', -1, 0);
-        testComputer.performShot(playerBoard, 'Z', -1, 0);
+
+        Player testComputer = new ComputerPlayer(computerBoard);
+
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        testComputer.performShot(playerBoard, 'Z', -1, 1);
+
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
             for (int j = 0; j < playerBoard.getRowSize(); j++) {
@@ -54,52 +58,7 @@ class ComputerPlayerTest {
                 }
             }
         }
-        assertEquals(5,count);
+        assertEquals(5, count);
 
     }
-
-    @Test
-    public void RandPlaceShipTest (){
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard();
-        Board computerBoard = new ComputerBoard();
-        ComputerPlayer testComputer = new ComputerPlayer(computerBoard);
-        testComputer.performPlacement(battleship.getId(), battleship.getSize());
-        int count = 0;
-        for (int i = 0; i < testComputer.getBoard().getColumnSize(); i++) {
-            for (int j = 0; j < testComputer.getBoard().getRowSize(); j++) {
-                char s = testComputer.getBoard().GetPositionChar((char) ('A' + i), 1 + j);
-                if (testComputer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'S' || testComputer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
-                    count += 1;
-                }
-            }
-        }
-        assertEquals(4,count);
-        testComputer.performPlacement(destroyer.getId(), destroyer.getSize());
-        count = 0;
-        for (int i = 0; i < testComputer.getBoard().getColumnSize(); i++) {
-            for (int j = 0; j < testComputer.getBoard().getRowSize(); j++) {
-                char s = testComputer.getBoard().GetPositionChar((char) ('A' + i), 1 + j);
-                if (testComputer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'S' || testComputer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
-                    count += 1;
-                }
-            }
-        }
-        assertEquals(7,count);
-        testComputer.performPlacement(minesweeper.getId(), minesweeper.getSize());
-        count = 0;
-        for (int i = 0; i < testComputer.getBoard().getColumnSize(); i++) {
-            for (int j = 0; j < testComputer.getBoard().getRowSize(); j++) {
-                char s = testComputer.getBoard().GetPositionChar((char) ('A' + i), 1 + j);
-                if (testComputer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'S' || testComputer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
-                    count += 1;
-                }
-            }
-        }
-        assertEquals(9,count);
-    }
-
 }

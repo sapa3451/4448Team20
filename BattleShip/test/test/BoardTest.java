@@ -128,8 +128,7 @@ class BoardTest {
         board.SetShipPos(2,4,'B',1,3);
         board.SetShipPos(3,4,'F',1,2);
 
-        board.setShowBehavior(new SonarBoardShow('A',1));
-        board.performShow();
+        board.setShowBehavior(new SonarBoardShow('A', 1));
         board.performShow();
     }
 

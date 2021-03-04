@@ -9,101 +9,40 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
+
     @Test
-    public void SingleShot () {
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
+    public void SingleUserShotTest(){
+
+        System.out.println("Running SingleUserShot Test...........");
+
         Board playerBoard = new PlayerBoard();
         Board computerBoard = new ComputerBoard();
-        UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.performShot(computerBoard, 'A', 1, 0);
+
+        Player testPlayer = new UserPlayer(playerBoard);
+
+        testPlayer.performShot(computerBoard,'A',1,1);
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
     }
 
     @Test
-    public void MultipleShot () {
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
+    public void MultipleUserShotTest(){
+
+        System.out.println("Running MultipleUserShot Test...........");
         Board playerBoard = new PlayerBoard();
         Board computerBoard = new ComputerBoard();
-        UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.performShot(computerBoard, 'A', 1, 0);
-        testPlayer.performShot(computerBoard, 'A', 2, 0);
-        testPlayer.performShot(computerBoard, 'A', 10, 0);
-        testPlayer.performShot(computerBoard, 'C', 1, 0);
-        testPlayer.performShot(computerBoard, 'J', 4, 0);
+
+        Player testPlayer = new UserPlayer(playerBoard);
+
+        testPlayer.performShot(computerBoard,'A',1,1);
+        testPlayer.performShot(computerBoard, 'A', 2,1);
+        testPlayer.performShot(computerBoard, 'A', 10,1);
+        testPlayer.performShot(computerBoard, 'C', 1,1);
+        testPlayer.performShot(computerBoard, 'J', 4,1);
+
         assertEquals(computerBoard.GetPositionChar('A',1), 'X');
         assertEquals(computerBoard.GetPositionChar('A',2), 'X');
         assertEquals(computerBoard.GetPositionChar('A',10), 'X');
         assertEquals(computerBoard.GetPositionChar('C',1), 'X');
         assertEquals(computerBoard.GetPositionChar('J',4), 'X');
-    }
-
-    @Test
-    public void PlaceBattleshipTest (){
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard();
-        Board computerBoard = new ComputerBoard();
-        UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.performPlacement(battleship.getId(), battleship.getSize());
-        int count = 0;
-        for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
-            for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
-                char s = testPlayer.getBoard().GetPositionChar((char) ('A' + i), 1 + j);
-                if (testPlayer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'S' || testPlayer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
-                    count += 1;
-                }
-            }
-        }
-        assertEquals(4,count);
-    }
-    @Test
-    public void PlaceMinesweeperTest (){
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard();
-        Board computerBoard = new ComputerBoard();
-        UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.performPlacement(minesweeper.getId(), minesweeper.getSize());
-        int count = 0;
-        for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
-            for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
-                char s = testPlayer.getBoard().GetPositionChar((char) ('A' + i), 1 + j);
-                if (testPlayer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'S' || testPlayer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
-                    count += 1;
-                }
-            }
-        }
-        assertEquals(2,count);
-    }
-    @Test
-    public void PlaceDestroyerTest (){
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
-        Board playerBoard = new PlayerBoard();
-        Board computerBoard = new ComputerBoard();
-        UserPlayer testPlayer = new UserPlayer(playerBoard);
-        testPlayer.performPlacement(destroyer.getId(), destroyer.getSize());
-        int count = 0;
-        for (int i = 0; i < testPlayer.getBoard().getColumnSize(); i++) {
-            for (int j = 0; j < testPlayer.getBoard().getRowSize(); j++) {
-                char s = testPlayer.getBoard().GetPositionChar((char) ('A' + i), 1 + j);
-                if (testPlayer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'S' || testPlayer.getBoard().GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
-                    count += 1;
-                }
-            }
-        }
-        assertEquals(3,count);
     }
 }
