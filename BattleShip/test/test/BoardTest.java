@@ -127,9 +127,10 @@ class BoardTest {
         board.SetShipPos(1,1,'A',1,4);
         board.SetShipPos(2,4,'B',1,3);
         board.SetShipPos(3,4,'F',1,2);
-        board.ShowSonarPulse('C', 4);
 
-        board.ShowSonarPulse('A', 0);
+        board.setShowBehavior(new SonarBoardShow('A',1));
+        board.performShow();
+        board.performShow();
     }
 
     @Test

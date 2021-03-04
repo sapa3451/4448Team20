@@ -8,6 +8,7 @@ public class InputShot implements ShotBehavior{
 
     public void shot(Board board, char colv, int row, int turnNum){
         if (colv != 'Z' && row != -1) {
+            board.MarkBoard(colv,row);
             return;
         }
         char colVal = ' ';

@@ -32,6 +32,6 @@ public final class RandomShot implements ShotBehavior{
 
         // add shot to map of shot decision;
 
-        board.MarkBoard('A', 3);
+        board.MarkBoard(col, row);
     }
 }
