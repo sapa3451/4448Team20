@@ -55,6 +55,7 @@ public abstract class Ship implements ShipObservers{
         if (this.captainQHealth == 0) {
             // set tot health to 0
             this.update(this.totShipHealth);
+            //System.out.println("You've destroyed the " + this.getName() + " captain's quarters! " + this.getName() + " is now destroyed!");
             return true; // return true --> ship is destroyed
         }
         return false; // return false --> ship still has health

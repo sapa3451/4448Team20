@@ -52,8 +52,6 @@ public class GameManagement {
         computer.getBoard().performShow();
         computer.getBoard().setShowBehavior(new HiddenBoardShow());
 
-        idNum = 1;
-
         // give ships ids and place them
         for (Ship ship : playerFleet) {
             ship.setId(idNum);

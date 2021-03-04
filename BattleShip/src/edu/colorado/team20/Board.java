@@ -126,15 +126,6 @@ public abstract class Board implements BoardSubject{
         }
         else if (id != 0){
             updateShipOnHit(id);
-            String s = startPos.get(id);
-            int y = 0;
-            if (s.length() == 4) {
-                y = 10;
-            }
-            else {
-                y = Integer.parseInt(String.valueOf(s.charAt(1)));
-            }
-            updateShipChars(s.charAt(0), y-1, fleet.get(id - 1).getSize(), s.charAt(2));
         }
         this.performShow();
     }
