@@ -36,6 +36,9 @@ public class HiddenBoardShow implements ShowBehavior{
                 else if (board.getBoard()[i][j] == 'X') {
                     System.out.print("[X]");
                 }
+                else if (board.getBoard()[i][j] == 'W') {
+                    System.out.print("[W]");
+                }
                 else {
                     System.out.print("[ ]");
                 }

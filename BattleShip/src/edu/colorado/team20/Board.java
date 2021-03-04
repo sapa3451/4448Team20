@@ -60,20 +60,27 @@ public abstract class Board implements BoardSubject{
         fleet.remove(s);
     }
 
-    public void updateShipOnHit(int id) {
+    public int updateShipOnHit(int id) {
+        int health = -1;
+
         for (Ship ship : fleet){
             if (id == ship.getId()) {
                 ship.update(1);
             }
         }
+        return health;
     }
 
-    public void updateShipOnCQHit(int id) {
-        for (Ship ship : fleet){
+    public int updateShipOnCQHit(int id) {
+        int health = -1;
+
+        for (Ship ship : fleet) {
             if (id == ship.getId()) {
                 ship.updateCQ(1);
+                health = ship.getTotShipHealth();
             }
         }
+        return health;
     }
 
     public int getRowSize () {
@@ -112,20 +119,32 @@ public abstract class Board implements BoardSubject{
             board[row-1][alphaMap.get(col)] = 'D'; // subtract one from row because indexing of array
         }
         int id = this.idBoard[row-1][alphaMap.get(col)];
-        if (id != 0 && positionChar == 'Q') {
-            updateShipOnCQHit(id);
-            String s = startPos.get(id);
-            int y = 0;
-            if (s.length() == 4) {
-                y = 10;
+        if (id != 0 && positionChar == 'Q') { // captainsQ got hit
+            if (updateShipOnCQHit(id) == 0) { // need to check if captainsQ is 0 health
+                // update the board to sink whole ship
+                String s = startPos.get(id);
+                int y = 0;
+                if (s.length() == 4) {
+                    y = 10;
+                }
+                else {
+                    y = Integer.parseInt(String.valueOf(s.charAt(1)));
+                }
+                updateShipChars(s.charAt(0), y-1, fleet.get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
             }
-            else {
-                y = Integer.parseInt(String.valueOf(s.charAt(1)));
-            }
-            updateShipChars(s.charAt(0), y-1, fleet.get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
         }
         else if (id != 0){
-            updateShipOnHit(id);
+            if (updateShipOnHit(id) == 0) {
+                String s = startPos.get(id);
+                int y = 0;
+                if (s.length() == 4) {
+                    y = 10;
+                }
+                else {
+                    y = Integer.parseInt(String.valueOf(s.charAt(1)));
+                }
+                updateShipChars(s.charAt(0), y-1, fleet.get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
+            }
         }
         this.performShow();
     }
