@@ -157,7 +157,7 @@ public abstract class Board implements BoardSubject{
         }
         int rowC = row;
         char colC = col;
-        if (positionChar == 'S') {
+        if (positionChar != 'E') {
             System.out.println("Ship already placed here!");
             return false;
         }//Checks if ship is already at that location
@@ -166,7 +166,7 @@ public abstract class Board implements BoardSubject{
 
                 char indexCol=col;
                 for (int i = 0; i < size; i++) {
-                    if(board[row - 1][alphaMap.get(indexCol)] == 'S'){
+                    if(board[row - 1][alphaMap.get(indexCol)] != 'E'){
                         System.out.println("Ship already placed here!");
                         return false;
                     }
@@ -187,7 +187,7 @@ public abstract class Board implements BoardSubject{
             else { // vertical
 
                 for (int i = row; i < size+row; i++) {
-                    if(board[i - 1][alphaMap.get(col)] == 'S'){
+                    if(board[i - 1][alphaMap.get(col)] != 'E'){
                         System.out.println("Ship already placed here!");
                         return false;
                     }
