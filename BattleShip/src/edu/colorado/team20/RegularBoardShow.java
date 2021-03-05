@@ -42,6 +42,9 @@ public class RegularBoardShow implements ShowBehavior {
                 else if (board.getBoard()[i][j] == 'D') {
                     System.out.print("[D]");
                 }
+                else if (board.getBoard()[i][j] == 'W') {
+                    System.out.print("[W]");
+                }
                 else {
                     System.out.print("[ ]");
                 }

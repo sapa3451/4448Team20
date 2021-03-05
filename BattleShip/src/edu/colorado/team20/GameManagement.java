@@ -2,6 +2,8 @@ package edu.colorado.team20;
 
 import edu.colorado.team20.Board;
 
+import java.util.Scanner;
+
 public class GameManagement {
     // provides turn information
     // P --> user player turn
@@ -64,27 +66,33 @@ public class GameManagement {
         boolean firstSunk = false;
         int sonarUses = 2;
         while(!EndGame(playerFleet,compFleet)){
-            if(GetTurn() == 'P') // players turn
-            {
                 player.performShot(computer.getBoard(), 'Z', -1, this.turnNum);
                 ChangeTurn();
 //                player.getBoard().performShow();
-            }
-            else{
                 computer.performShot(player.getBoard(), 'Z', -1, this.turnNum);
-                ChangeTurn(); }
+                ChangeTurn();
             // round over updating turnNum
             turnNum++;
+
+            if(!firstSunk){ // loop through comp's fleet to find at least one sunk ship
+                for(int i = 0; i < compFleet.length; i++) {
+                    if (compFleet[i].checkSunk(compFleet[i].getSize())) {
+                        firstSunk = true;
+                        break;
+                    }
+                }
+            }
+
             // checking to see if the player has sunk at least one ship from comp
             // this is to ask if they want to use a sonar
-            if(firstSunk && sonarUses!=0){ // ask about sonar use since first ship is sunk
+            if (firstSunk && sonarUses!=0){ // ask about sonar use since first ship is sunk
                 System.out.println("Because you sunk your first opponent's ship, would you like to use a sonar pulse?");
                 System.out.println();
                 // take in user input
                 Scanner sc = new Scanner(System.in); //System.in is a standard input stream
                 String input = sc.nextLine();    //reads string
                 input = input.toUpperCase(); // set to uppercase
-                if(input == "YES"){ // need to check for bad input
+                if (input.equals("YES")) { // need to check for bad input
                     // use sonarBoardShow
                     char colVal = ' ';
                     int rowVal = -1;
@@ -141,16 +149,9 @@ public class GameManagement {
                     // got a valid row and col
                     computer.getBoard().setShowBehavior(new SonarBoardShow(colVal,rowVal));
                     computer.getBoard().performShow();
+                    computer.getBoard().setShowBehavior(new HiddenBoardShow());
                     // remove one sonar use
                     sonarUses--;
-                }
-            }
-            else if(!firstSunk){ // loop through comp's fleet to find at least one sunk ship
-                for(int i = 0; i < compFleet.length; i++) {
-                    if (compFleet[i].checkSunk(compFleet[i].getSize())) {
-                        firstSunk = true;
-                        break;
-                    }
                 }
             }
         }

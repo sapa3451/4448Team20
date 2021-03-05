@@ -17,6 +17,7 @@ public class SonarBoardShow implements ShowBehavior{
         char[] columns = new char[board.getColumnSize()*3+2];
         int [] rows = new int[board.getRowSize()];
         char start = 'A';
+        columns[0] = ' ';
 
         for (int i = 1; i < board.getColumnSize()*3-1; i = i + 3) {
             columns[i+1] = ' ';
@@ -105,6 +106,9 @@ public class SonarBoardShow implements ShowBehavior{
                     }
                     else if (board.getBoard()[i][j] == 'S' || board.getBoard()[i][j] == 'Q') {
                         System.out.print("[S]");
+                    }
+                    else if (board.getBoard()[i][j] == 'W') {
+                        System.out.print("[W]");
                     }
                     else {
                         System.out.print("[*]");

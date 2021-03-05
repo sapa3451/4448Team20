@@ -119,18 +119,18 @@ public abstract class Board implements BoardSubject{
             board[row-1][alphaMap.get(col)] = 'D'; // subtract one from row because indexing of array
         }
         int id = this.idBoard[row-1][alphaMap.get(col)];
-        if (id != 0 && positionChar == 'Q') { // captainsQ got hit
+        if (id != 0 && positionChar == 'Q' || positionChar == 'W') { // captainsQ got hit
             if (updateShipOnCQHit(id) == 0) { // need to check if captainsQ is 0 health
                 // update the board to sink whole ship
                 String s = startPos.get(id);
                 int y = 0;
                 if (s.length() == 4) {
-                    y = 10;
+                    y = 9;
                 }
                 else {
                     y = Integer.parseInt(String.valueOf(s.charAt(1)));
                 }
-                updateShipChars(s.charAt(0), y-1, fleet.get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
+                updateShipChars(s.charAt(0), y, fleet.get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
             }
         }
         else if (id != 0){
@@ -138,12 +138,12 @@ public abstract class Board implements BoardSubject{
                 String s = startPos.get(id);
                 int y = 0;
                 if (s.length() == 4) {
-                    y = 10;
+                    y = 9;
                 }
                 else {
                     y = Integer.parseInt(String.valueOf(s.charAt(1)));
                 }
-                updateShipChars(s.charAt(0), y-1, fleet.get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
+                updateShipChars(s.charAt(0), y, fleet.get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
             }
         }
         this.performShow();
