@@ -174,7 +174,7 @@ public abstract class Board implements BoardSubject{
                 }//This checks all the values where ship would be placed and
                 //makes sure no ships are already placed there in advanced
 
-                startPos.put(id, col+String.valueOf(row)+1); // add start position to map
+                startPos.put(id, col+String.valueOf(row-1)+1); // add start position to map
                 for (int i = 0; i < size; i++) {
                     board[row - 1][alphaMap.get(col)] = 'S';
                     idBoard[row - 1][alphaMap.get(col)] = id;
@@ -182,7 +182,7 @@ public abstract class Board implements BoardSubject{
                 }
                 char o = (char) (colC + quarters);
                 board[rowC - 1][alphaMap.get(o)] = 'Q';
-                shipCapQPos.put(id, o+String.valueOf(rowC)+1); // add captain's quarter's to map
+                shipCapQPos.put(id, o+String.valueOf(rowC - 1)); // add captain's quarter's to map
             }
             else { // vertical
 
@@ -194,14 +194,14 @@ public abstract class Board implements BoardSubject{
                 }//This checks all the values where ship would be placed and
                 //makes sure no ships are already placed there in advanced
 
-                startPos.put(id, col+String.valueOf(row)+0); // add start position to map
+                startPos.put(id, col+String.valueOf(row-1)+0); // add start position to map
                 for (int i = 0; i < size; i++) {
                     board[row - 1][alphaMap.get(col)] = 'S';
                     idBoard[row - 1][alphaMap.get(col)] = id;
                     row += 1;
                 }
                 board[rowC - 1 + quarters][alphaMap.get(colC)] = 'Q';
-                shipCapQPos.put(id, colC+String.valueOf(rowC + quarters)+0); // add captain's quarter's to map
+                shipCapQPos.put(id, colC+String.valueOf(rowC + quarters - 1)); // add captain's quarter's to map
             }
 
         }

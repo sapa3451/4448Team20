@@ -9,7 +9,7 @@ public class SonarBoardShow implements ShowBehavior{
     int row;
     char col;
     public SonarBoardShow(char c, int i) {
-        this.row = i - 1;
+        this.row = i - 1; // subtract one for zero indexing
         this.col = c;
     }
     public void show (Board board) {
@@ -97,7 +97,8 @@ public class SonarBoardShow implements ShowBehavior{
                 System.out.print(rows[i] + " ");
             }
             for (int j = 0; j < board.getColumnSize(); j++) {
-                if (!positions.isEmpty() && board.alphaMap.get(positions.peek().getKey()) == j && positions.peek().getValue() == i) { // check to see if area is part of the radar pulse
+                // check to see if area is part of the radar pulse
+                if (!positions.isEmpty() && board.alphaMap.get(positions.peek().getKey()) == j && positions.peek().getValue() == i) {
                     positions.remove(); // remove the position
                     if (board.getBoard()[i][j] == 'X') {
                         System.out.print("[X]");

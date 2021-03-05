@@ -178,6 +178,8 @@ class BoardTest {
             }
         }
 
+        assertEquals("F3", playerBoard.getShipCaptainQPos(3));
+
         // get the captains quarters of the minesweeper
         String pos = playerBoard.getShipCaptainQPos(3);
         String col = String.valueOf(pos.charAt(0));
