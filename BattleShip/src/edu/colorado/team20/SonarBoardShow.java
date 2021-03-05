@@ -9,7 +9,7 @@ public class SonarBoardShow implements ShowBehavior{
     int row;
     char col;
     public SonarBoardShow(char c, int i) {
-        this.row = i;
+        this.row = i - 1;
         this.col = c;
     }
     public void show (Board board) {
@@ -33,19 +33,19 @@ public class SonarBoardShow implements ShowBehavior{
         Queue<Pair<Character, Integer>> positions = new LinkedList<Pair<Character, Integer>>();
 
         // check if 2 up from midpoint is available
-        if ((this.row-2)-1 > -1) {
+        if ((this.row-2) > -1) {
             positions.add(new Pair(this.col, this.row-2));
         }
         // check one up and one left
-        if (board.alphaMap.get(this.col)-1 > -1 && (this.row-1)-1 > -1) {
+        if (board.alphaMap.get(this.col)-1 > -1 && (this.row-1) > -1) {
             positions.add(new Pair((char) (((int) this.col)-1), this.row-1));
         }
         // check one up
-        if ((this.row-1)-1 > -1) {
+        if ((this.row-1) > -1) {
             positions.add(new Pair(this.col, this.row-1));
         }
         // check one up and one right
-        if (board.alphaMap.get(this.col)+1 < board.getColumnSize() && (this.row-1)-1 > -1) {
+        if (board.alphaMap.get(this.col)+1 < board.getColumnSize() && (this.row-1) > -1) {
             positions.add(new Pair((char) (((int) this.col)+1), this.row-1));
         }
         // check 2 to the left
@@ -67,19 +67,19 @@ public class SonarBoardShow implements ShowBehavior{
             positions.add(new Pair((char) (((int) this.col)+2), this.row));
         }
         // check one down and one left
-        if (board.alphaMap.get(this.col)-1 > -1 && (this.row+1)-1 < board.rowSize) {
+        if (board.alphaMap.get(this.col)-1 > -1 && (this.row+1) < board.rowSize) {
             positions.add(new Pair((char) (((int) this.col)-1), this.row+1));
         }
         // check one down
-        if ((this.row+1)-1 < board.rowSize) {
+        if ((this.row+1) < board.rowSize) {
             positions.add(new Pair(this.col, this.row+1));
         }
         // check one down and one right
-        if (board.alphaMap.get(this.col)+1 < board.getColumnSize() && (this.row+1)-1 < board.rowSize) {
+        if (board.alphaMap.get(this.col)+1 < board.getColumnSize() && (this.row+1) < board.rowSize) {
             positions.add(new Pair((char) (((int) this.col)+1), this.row+1));
         }
         // check 2 down
-        if ((this.row+2)-1 < board.rowSize) {
+        if ((this.row+2) < board.rowSize) {
             positions.add(new Pair(this.col, this.row+2));
         }
 

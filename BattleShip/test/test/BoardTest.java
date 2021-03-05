@@ -224,8 +224,6 @@ class BoardTest {
         String PdestroyerPos = playerBoard.getShipStartPos(Pbattleship.getId());
         playerBoard.updateShipChars(PdestroyerPos.charAt(0), PdestroyerPos.charAt(1) - '0', Pdestroyer.getSize(), PdestroyerPos.charAt(2) - '0');
         playerBoard.performShow();
-
-        // TODO: need to add testing for computer captain's quarters
     }
 
     // TODO: need to create testing for ship health, make sure that it goes down when non captainQ gets hit
