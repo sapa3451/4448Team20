@@ -1,0 +1,61 @@
+package test;
+
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Board.ComputerBoard;
+import edu.colorado.team20.Board.PlayerBoard;
+import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
+import edu.colorado.team20.Player.Interfaces.Behaviors.InputShot;
+import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
+import edu.colorado.team20.Player.Interfaces.Behaviors.RandomShot;
+import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
+import edu.colorado.team20.Player.Interfaces.ShotBehavior;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class PlacementTest {
+    @Test
+    public void SingleInputPlacementTest() {
+
+        System.out.println("Running SingleInputPlacement Test...........");
+
+        PlacementBehavior placementBehavior;
+        placementBehavior = new RandomPlacement(); //Because our placement is the same for random/input, we will use random for testing
+        Board playerBoard = new PlayerBoard();
+        placementBehavior.place(1, playerBoard, 4);
+        int count = 0;
+        for (int i = 0; i < playerBoard.getColumnSize(); i++) {
+            for (int j = 0; j < playerBoard.getRowSize(); j++) {
+                char s = playerBoard.GetPositionChar((char) ('A' + i), 1 + j);
+                if (playerBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'S' || playerBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
+                    count += 1;
+                }
+            }
+        }
+        assertEquals(4, count);
+
+    }
+
+    @Test
+    public void MultipleInputPlacementTest() {
+
+        System.out.println("Running MultipleInputPlacement Test...........");
+
+        PlacementBehavior placementBehavior;
+        placementBehavior = new RandomPlacement(); //Because our placement is the same for random/input, we will use random for testing
+        Board playerBoard = new PlayerBoard();
+        placementBehavior.place(1, playerBoard, 4);
+        placementBehavior.place(1, playerBoard, 3);
+        placementBehavior.place(1, playerBoard, 2);
+        int count = 0;
+        for (int i = 0; i < playerBoard.getColumnSize(); i++) {
+            for (int j = 0; j < playerBoard.getRowSize(); j++) {
+                char s = playerBoard.GetPositionChar((char) ('A' + i), 1 + j);
+                if (playerBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'S' || playerBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
+                    count += 1;
+                }
+            }
+        }
+        assertEquals(9, count);
+    }
+}

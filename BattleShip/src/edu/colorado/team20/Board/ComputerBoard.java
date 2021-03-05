@@ -6,7 +6,7 @@ public final class ComputerBoard extends Board {
 
     public ComputerBoard() {
         super();
-        showBehavior = new HiddenBoardShow();
+        showBehavior = new HiddenBoardShow(); //a computer only needs to display its board to an opponent, so its ships that are still intact will be hidden
     }
 
 }

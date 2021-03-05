@@ -6,7 +6,7 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 public abstract class Player {
-    protected final Board board; // isn't this tight coupling??
+    private final Board board; // isn't this tight coupling??
     PlacementBehavior placementBehavior;
     protected HashMap<Integer, String> shotDecisionInfo; // keep track of shots per round
     ShotBehavior shotBehavior;
@@ -24,7 +24,7 @@ public abstract class Player {
     }
 
     public void performShot (Board board, char col, int row, int turnNum) {
-        shotBehavior.shot(board, col, row, turnNum);
+        shotBehavior.shot(board, col, row, turnNum); //using strategy method, this is a behavior (in ShotBehavior)
         this.addShotFromTurn(turnNum, col+String.valueOf(row));
     }
 

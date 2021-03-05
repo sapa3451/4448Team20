@@ -6,6 +6,6 @@ public final class PlayerBoard extends Board {
 
     public PlayerBoard() {
         super();
-        showBehavior = new RegularBoardShow();
+        showBehavior = new RegularBoardShow(); //a players board will show their own ships and any shots against there board
     }
 }

@@ -50,22 +50,27 @@ public abstract class Board implements BoardSubject {
     }
 
     public void performShow() {
-        showBehavior.show(this);
+        showBehavior.show(this); //strategy pattern, this calls to the interface and then to the specific class
     }
 
     public void registerShip (Ship s) {
         fleet.add(s);
-    }
+    } //use of observer strategy here, this adds ships to be updated after each hit
 
-    public void removeShip(Ship s) {
-        fleet.remove(s);
-    }
+    public void removeShip(int id) {
+        for (Ship ship : fleet){
+            if (id == ship.getId()) {
+                fleet.remove(ship);
+                return;
+            }
+        }
+    } //use of observer strategy here, this removes ships after they are sunk to longer recieve any updates
 
     public HashMap<Character, Integer> getAlphaMap() {
         return this.alphaMap;
     }
 
-    public int updateShipOnHit(int id) {
+    public int updateShipOnHit(int id) { //sending updates to ships when they get hit
         int health = -1;
 
         for (Ship ship : fleet){
@@ -76,7 +81,7 @@ public abstract class Board implements BoardSubject {
         return health;
     }
 
-    public int updateShipOnCQHit(int id) {
+    public int updateShipOnCQHit(int id) { //sending updates to ships when they get hit in the CQ
         int health = -1;
 
         for (Ship ship : fleet) {
@@ -152,6 +157,7 @@ public abstract class Board implements BoardSubject {
                     y = Integer.parseInt(String.valueOf(s.charAt(1)));
                 }
                 updateShipChars(s.charAt(0), y, fleet.get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
+                removeShip(id); //removes a ship as an observer when sunk
             }
         }
         this.performShow();

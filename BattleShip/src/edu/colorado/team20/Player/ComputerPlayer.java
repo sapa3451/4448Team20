@@ -7,7 +7,7 @@ import edu.colorado.team20.Player.Interfaces.Behaviors.RandomShot;
 public final class ComputerPlayer extends Player{
     public ComputerPlayer(Board board) {
         super(board);
-        placementBehavior = new RandomPlacement();
+        placementBehavior = new RandomPlacement(); //a computer initially has an random behavior, both shot and placement
         shotBehavior = new RandomShot();
     }
 

@@ -8,8 +8,7 @@ public abstract class Ship implements ShipObservers {
     protected int totShipHealth;
     protected int captainQHealth;
     protected String name;
-    int id;
-    protected int shipSize;
+    protected int id;
 
     public Ship(int numOccupiedBoardCells, String shipName) {
         this.numOccupiedBoardCells = numOccupiedBoardCells;
@@ -44,7 +43,7 @@ public abstract class Ship implements ShipObservers {
 
     public int getTotShipHealth() { return this.totShipHealth; }
 
-    public boolean update(int damage) {
+    public boolean update(int damage) { //Use of the observer strategy here, function in ShipObservers
         this.totShipHealth = this.totShipHealth - damage;
         if (this.totShipHealth == 0) { return true; } // ship destroyed
         return false; // ship still has life
@@ -52,7 +51,7 @@ public abstract class Ship implements ShipObservers {
 
     public int getCaptainQHealth() { return this.captainQHealth; }
 
-    public boolean updateCQ(int damage) {
+    public boolean updateCQ(int damage) { //Use of the observer strategy here, function in ShipObservers
         this.captainQHealth = this.captainQHealth - damage;
         if (this.captainQHealth == 0) {
             // set tot health to 0
@@ -62,7 +61,6 @@ public abstract class Ship implements ShipObservers {
         }
         return false; // return false --> ship still has health
     }
-
 
     public boolean checkSunk(int size) {
         if (this.getTotShipHealth() == 0) {

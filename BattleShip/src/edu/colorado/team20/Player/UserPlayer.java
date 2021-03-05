@@ -8,7 +8,7 @@ public final class UserPlayer extends Player{
 
     public UserPlayer(Board board) {
         super(board);
-        placementBehavior = new InputPlacement();
+        placementBehavior = new InputPlacement(); //a player initially has an input behavior, both shot and placement
         shotBehavior = new InputShot();
     }
 
