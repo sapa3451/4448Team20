@@ -160,9 +160,20 @@ public abstract class Board implements BoardSubject{
         if (positionChar == 'S') {
             System.out.println("Ship already placed here!");
             return false;
-        }
+        }//Checks if ship is already at that location
         else {
             if (direction == 1) { // horizontal
+
+                char indexCol=col;
+                for (int i = 0; i < size; i++) {
+                    if(board[row - 1][alphaMap.get(indexCol)] == 'S'){
+                        System.out.println("Ship already placed here!");
+                        return false;
+                    }
+                    indexCol += 1;
+                }//This checks all the values where ship would be placed and
+                //makes sure no ships are already placed there in advanced
+
                 startPos.put(id, col+String.valueOf(row)+1); // add start position to map
                 for (int i = 0; i < size; i++) {
                     board[row - 1][alphaMap.get(col)] = 'S';
@@ -174,6 +185,15 @@ public abstract class Board implements BoardSubject{
                 shipCapQPos.put(id, o+String.valueOf(rowC)+1); // add captain's quarter's to map
             }
             else { // vertical
+
+                for (int i = row; i < size+row; i++) {
+                    if(board[i - 1][alphaMap.get(col)] == 'S'){
+                        System.out.println("Ship already placed here!");
+                        return false;
+                    }
+                }//This checks all the values where ship would be placed and
+                //makes sure no ships are already placed there in advanced
+
                 startPos.put(id, col+String.valueOf(row)+0); // add start position to map
                 for (int i = 0; i < size; i++) {
                     board[row - 1][alphaMap.get(col)] = 'S';
