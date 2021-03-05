@@ -1,4 +1,4 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Game;
 
 public class Main {
 

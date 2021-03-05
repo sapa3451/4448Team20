@@ -1,13 +1,17 @@
 package test;
 
-import edu.colorado.team20.*;
-import edu.colorado.team20.Board;
-import edu.colorado.team20.ComputerBoard;
-import edu.colorado.team20.PlayerBoard;
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Board.ComputerBoard;
+import edu.colorado.team20.Board.PlayerBoard;
+import edu.colorado.team20.Board.Interfaces.Behaviors.SonarBoardShow;
+import edu.colorado.team20.Game.GameManagement;
+import edu.colorado.team20.Player.ComputerPlayer;
+import edu.colorado.team20.Player.UserPlayer;
+import edu.colorado.team20.Ship.Battleship;
+import edu.colorado.team20.Ship.Destroyer;
+import edu.colorado.team20.Ship.Minesweeper;
+import edu.colorado.team20.Ship.Ship;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 

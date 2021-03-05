@@ -1,6 +1,11 @@
 package test;
 
-import edu.colorado.team20.*;
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Board.ComputerBoard;
+import edu.colorado.team20.Board.PlayerBoard;
+import edu.colorado.team20.Player.Interfaces.Behaviors.InputShot;
+import edu.colorado.team20.Player.Interfaces.Behaviors.RandomShot;
+import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

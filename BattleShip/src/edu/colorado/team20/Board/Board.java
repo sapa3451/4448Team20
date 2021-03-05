@@ -1,13 +1,14 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Board;
 
-import edu.colorado.team20.Ship;
+import edu.colorado.team20.Board.Interfaces.BoardSubject;
+import edu.colorado.team20.Board.Interfaces.ShowBehavior;
+import edu.colorado.team20.Ship.Ship;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Board implements BoardSubject{
+public abstract class Board implements BoardSubject {
     protected final char[][] board;
     protected int[][] idBoard;
     protected final HashMap<Character, Integer> alphaMap = new HashMap<>();
@@ -58,6 +59,10 @@ public abstract class Board implements BoardSubject{
 
     public void removeShip(Ship s) {
         fleet.remove(s);
+    }
+
+    public HashMap<Character, Integer> getAlphaMap() {
+        return this.alphaMap;
     }
 
     public int updateShipOnHit(int id) {
@@ -114,6 +119,9 @@ public abstract class Board implements BoardSubject{
         }
         else if (positionChar == 'Q') {
             board[row-1][alphaMap.get(col)] = 'W'; // if gets hit more than once keep at W
+        }
+        else if (positionChar == 'S') {
+            board[row-1][alphaMap.get(col)] = 'H'; // if gets hit more than once keep at W
         }
         else { // decision was a ship --> mark as D
             board[row-1][alphaMap.get(col)] = 'D'; // subtract one from row because indexing of array

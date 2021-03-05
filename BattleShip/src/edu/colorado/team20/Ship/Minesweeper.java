@@ -1,4 +1,4 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Ship;
 
 public class Minesweeper extends Ship {
     public Minesweeper(int size, String name) {

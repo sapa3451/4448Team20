@@ -1,10 +1,11 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Player.Interfaces.Behaviors;
 
-import edu.colorado.team20.Board;
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 import java.util.Scanner;
 
-public class InputShot implements ShotBehavior{
+public class InputShot implements ShotBehavior {
 
     public void shot(Board board, char colv, int row, int turnNum){
         if (colv != 'Z' && row != -1) {

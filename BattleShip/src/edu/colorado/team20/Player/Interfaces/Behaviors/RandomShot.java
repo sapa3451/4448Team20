@@ -1,10 +1,11 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Player.Interfaces.Behaviors;
 
-import edu.colorado.team20.Board;
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 import java.util.Random;
 
-public final class RandomShot implements ShotBehavior{
+public final class RandomShot implements ShotBehavior {
 
     public void shot(Board board, char col, int row, int turnNum) {
         System.out.println("The computer is now taking their shot!");

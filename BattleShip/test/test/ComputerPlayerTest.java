@@ -1,9 +1,10 @@
 package test;
 
-import edu.colorado.team20.*;
-import edu.colorado.team20.Board;
-import edu.colorado.team20.ComputerBoard;
-import edu.colorado.team20.PlayerBoard;
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Board.ComputerBoard;
+import edu.colorado.team20.Board.PlayerBoard;
+import edu.colorado.team20.Player.ComputerPlayer;
+import edu.colorado.team20.Player.Player;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

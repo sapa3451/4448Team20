@@ -1,10 +1,11 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Player.Interfaces.Behaviors;
 
-import edu.colorado.team20.Board;
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 
 import java.util.Scanner;
 
-public class InputPlacement implements PlacementBehavior{
+public class InputPlacement implements PlacementBehavior {
     public void place (int id, Board board, int size) {
         // TODO: we need to make sure that ships do not overlap
         // do they want to place the ship vertically(1) or horizontally(0)

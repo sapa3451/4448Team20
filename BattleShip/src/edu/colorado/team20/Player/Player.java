@@ -1,9 +1,9 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Player;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import edu.colorado.team20.Board;
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
+import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 public abstract class Player {
     protected final Board board; // isn't this tight coupling??

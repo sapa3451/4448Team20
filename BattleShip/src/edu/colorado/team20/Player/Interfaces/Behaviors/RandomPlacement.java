@@ -1,10 +1,11 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Player.Interfaces.Behaviors;
 
-import edu.colorado.team20.Board;
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 
 import java.util.Random;
 
-public class RandomPlacement implements PlacementBehavior{
+public class RandomPlacement implements PlacementBehavior {
     public void place (int id, Board board, int size) {
         boolean placed = false;
         while (!placed) {

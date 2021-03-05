@@ -1,6 +1,15 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Game;
 
-import edu.colorado.team20.Board;
+import edu.colorado.team20.Board.*;
+import edu.colorado.team20.Board.Interfaces.Behaviors.HiddenBoardShow;
+import edu.colorado.team20.Board.Interfaces.Behaviors.SonarBoardShow;
+import edu.colorado.team20.Player.ComputerPlayer;
+import edu.colorado.team20.Player.Player;
+import edu.colorado.team20.Player.UserPlayer;
+import edu.colorado.team20.Ship.Battleship;
+import edu.colorado.team20.Ship.Destroyer;
+import edu.colorado.team20.Ship.Minesweeper;
+import edu.colorado.team20.Ship.Ship;
 
 import java.util.Scanner;
 

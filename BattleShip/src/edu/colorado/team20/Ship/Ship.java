@@ -1,6 +1,8 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Ship;
 
-public abstract class Ship implements ShipObservers{
+import edu.colorado.team20.Ship.Interfaces.ShipObservers;
+
+public abstract class Ship implements ShipObservers {
     protected int numOccupiedBoardCells;
     protected char[] shipSections;
     protected int totShipHealth;

@@ -1,4 +1,4 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Ship;
 
 public class Destroyer extends Ship {
     public Destroyer(int size, String name) {

@@ -1,4 +1,4 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Ship;
 
 public class Battleship extends Ship {
     public Battleship (int size, String name) {

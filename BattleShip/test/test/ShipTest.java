@@ -1,6 +1,8 @@
 package test;
 
-import edu.colorado.team20.*;
+import edu.colorado.team20.Ship.Battleship;
+import edu.colorado.team20.Ship.Destroyer;
+import edu.colorado.team20.Ship.Minesweeper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

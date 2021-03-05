@@ -1,6 +1,9 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Board.Interfaces.Behaviors;
 
-public class HiddenBoardShow implements ShowBehavior{
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Board.Interfaces.ShowBehavior;
+
+public class HiddenBoardShow implements ShowBehavior {
     public void show (Board board) {
         // create arrays to hold board rows and columns
         char[] col = new char[board.getColumnSize()*3+2];
@@ -29,12 +32,15 @@ public class HiddenBoardShow implements ShowBehavior{
             } else {
                 System.out.print(row[i] + " ");
             }
-            for (int j = 0; j < board.columnSize; j++) {
+            for (int j = 0; j < board.getColumnSize(); j++) {
                 if (board.getBoard()[i][j] == 'D') {
                     System.out.print("[D]");
                 }
                 else if (board.getBoard()[i][j] == 'X') {
                     System.out.print("[X]");
+                }
+                else if (board.getBoard()[i][j] == 'H') {
+                    System.out.print("[H]");
                 }
                 else if (board.getBoard()[i][j] == 'W') {
                     System.out.print("[W]");

@@ -1,6 +1,6 @@
 package test;
 
-import edu.colorado.team20.GameManagement;
+import edu.colorado.team20.Game.GameManagement;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

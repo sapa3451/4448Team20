@@ -1,8 +1,8 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Player;
 
-import edu.colorado.team20.Board;
-
-import java.util.Scanner;
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
+import edu.colorado.team20.Player.Interfaces.Behaviors.InputShot;
 
 public final class UserPlayer extends Player{
 

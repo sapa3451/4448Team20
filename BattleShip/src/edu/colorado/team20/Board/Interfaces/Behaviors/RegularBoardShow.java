@@ -1,4 +1,7 @@
-package edu.colorado.team20;
+package edu.colorado.team20.Board.Interfaces.Behaviors;
+
+import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 
 public class RegularBoardShow implements ShowBehavior {
     public void show (Board board) {
