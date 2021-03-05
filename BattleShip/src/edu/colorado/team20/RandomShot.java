@@ -7,8 +7,8 @@ import java.util.Random;
 public final class RandomShot implements ShotBehavior{
 
     public void shot(Board board, char col, int row, int turnNum) {
-//        System.out.println("The computer is now taking their shot!");
-//        System.out.println();
+        System.out.println("The computer is now taking their shot!");
+        System.out.println();
         Random randChar = new Random();
 
         //getting a random column
