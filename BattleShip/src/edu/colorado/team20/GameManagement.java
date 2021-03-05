@@ -50,9 +50,10 @@ public class GameManagement {
             computer.getBoard().registerShip(ship);
         }
 
-        computer.getBoard().setShowBehavior(new SonarBoardShow('E',3));
-        computer.getBoard().performShow();
-        computer.getBoard().setShowBehavior(new HiddenBoardShow());
+        // testing
+//        computer.getBoard().setShowBehavior(new SonarBoardShow('E',3));
+//        computer.getBoard().performShow();
+//        computer.getBoard().setShowBehavior(new HiddenBoardShow());
 
         // give ships ids and place them
         for (Ship ship : playerFleet) {
