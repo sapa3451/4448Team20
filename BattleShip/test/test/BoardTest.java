@@ -35,11 +35,6 @@ class BoardTest {
 
     @Test
     void CheckSpot_MarkBoard() { // use this test to make sure that player can't hit the same spot twice
-        // want to check if the check spot function is working
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
         Board board = new ComputerBoard();
 
         // need to call MarkBoard to add a placement then check if place can be added again
@@ -56,6 +51,12 @@ class BoardTest {
 
         board.MarkBoard('J', 10);
         assertFalse(board.CheckSpot('J', 10));
+
+        board.SetShipPos(0,1,'A',0,2);
+        board.MarkBoard('A',1);
+        board.SetShipPos(0,1,'B',0,3);
+        board.MarkBoard('B',2);
+        board.MarkBoard('B',2);
     }
 
     @Test
@@ -102,23 +103,10 @@ class BoardTest {
     }
 
     @Test
-    void SetShipPos2() { // test to make sure that ships get placed correctly
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
+    void SetShipPos2() { // test to make sure that ships cannot overlap
         Board board = new PlayerBoard();; // setting column and row
         board.SetShipPos(0,1,'A',0,4);
-        for (int i = 0; i < 2; i++) {
-            assertEquals(board.GetPositionChar((char) ('A'), 1 + i), 'S');
-        }
-        for (int i = 2; i < 3; i ++) {
-            assertEquals(board.GetPositionChar((char) ('A'), 1 + i), 'Q');
-        }
-        for (int i = 3; i < 4; i ++) {
-            assertEquals(board.GetPositionChar((char) ('A'), 1 + i), 'S');
-        }
-        board.performShow();
+        assertEquals(false, board.SetShipPos(0,1,'A',0,4));
     }
 
     @Test
@@ -143,16 +131,9 @@ class BoardTest {
         Ship Pbattleship = new Battleship(4, "battleship");
         Ship Pdestroyer = new Destroyer(3, "destroyer");
         Ship Pminesweeper = new Minesweeper(2, "minesweeper");
-        Ship Cbattleship = new Battleship(4, "battleship");
-        Ship Cdestroyer = new Destroyer(3, "destroyer");
-        Ship Cminesweeper = new Minesweeper(2, "minesweeper");
 
         Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper};
-        Ship[] compFleet = {Cbattleship, Cdestroyer, Cminesweeper};
-        Board compBoard = new ComputerBoard(); // setting column and row
         Board playerBoard = new PlayerBoard();
-        UserPlayer player = new UserPlayer(playerBoard);
-        ComputerPlayer computer = new ComputerPlayer(playerBoard);
 
         // place player boards
         // give ships ids and place them
@@ -160,6 +141,7 @@ class BoardTest {
         int b = 1;
         int c = 1;
         for (Ship ship : playerFleet) {
+            playerBoard.registerShip(ship);
             ship.setId(game.getIdNum());
             game.setIdNum();
             String name = ship.getName();
@@ -192,6 +174,8 @@ class BoardTest {
 
         // check to see if minesweeper gets destroyed from one hit of captainQ
         Pminesweeper.updateCQ(1);
+        playerBoard.removeShip(Pminesweeper.getId());
+        playerBoard.updateShipOnHit(Pminesweeper.getId());
         assertEquals(Pminesweeper.getTotShipHealth(), 0);
         String PminesweeperPos = playerBoard.getShipStartPos(Pminesweeper.getId());
         playerBoard.updateShipChars(PminesweeperPos.charAt(0), PminesweeperPos.charAt(1) - '0', Pminesweeper.getSize(), PminesweeperPos.charAt(2) - '0');

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlacementTest {
     @Test
-    public void SingleInputPlacementTest() {
+    public void SinglePlacementTest() {
 
         System.out.println("Running SingleInputPlacement Test...........");
 
@@ -37,7 +37,7 @@ public class PlacementTest {
     }
 
     @Test
-    public void MultipleInputPlacementTest() {
+    public void MultiplePlacementTest() {
 
         System.out.println("Running MultipleInputPlacement Test...........");
 

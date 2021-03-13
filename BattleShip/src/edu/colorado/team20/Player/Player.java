@@ -32,6 +32,10 @@ public abstract class Player {
         placementBehavior = pb;
     }
 
+    public PlacementBehavior getPlacementBehavior(){
+        return placementBehavior;
+    }
+
     public void addShotFromTurn(int turnNum, String position) { shotDecisionInfo.put(turnNum, position); }
 
     public String getTurnShot(int turnNum) { return shotDecisionInfo.get(turnNum); }

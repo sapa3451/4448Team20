@@ -7,6 +7,9 @@ import java.util.Scanner;
 
 public class InputPlacement implements PlacementBehavior {
     public void place (int id, Board board, int size) {
+        if (size == 99) {
+            return;
+        }
         // TODO: we need to make sure that ships do not overlap
         // do they want to place the ship vertically(1) or horizontally(0)
         boolean validPlacement = false;

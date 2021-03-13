@@ -86,7 +86,7 @@ public class GameManagement {
 
             if(!firstSunk){ // loop through comp's fleet to find at least one sunk ship
                 for(int i = 0; i < compFleet.length; i++) {
-                    if (compFleet[i].checkSunk(compFleet[i].getSize())) {
+                    if (compFleet[i].checkSunk()) {
                         firstSunk = true;
                         break;
                     }
@@ -187,17 +187,16 @@ public class GameManagement {
         int playerCount = 0;
         int compCount = 0;
         for (int i = 0; i < playerFleet.length; i++) {
-            if (playerFleet[i].checkSunk(playerFleet[i].getSize())) {
+            if (playerFleet[i].checkSunk()) {
                 playerCount++;
             }
-            if (compFleet[i].checkSunk(compFleet[i].getSize())) {
+            if (compFleet[i].checkSunk()) {
                 compCount++;
             }
         }
         return playerCount == playerFleet.length || compCount == compFleet.length;
     }
 
-    public int getTurnNum() { return turnNum; }
     public int getIdNum() { return this.idNum; }
     public void setIdNum() { this.idNum++; }
 
