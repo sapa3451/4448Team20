@@ -5,6 +5,8 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 import java.util.Random;
 
+//Player will initially start with this behavior
+
 public final class CannonRandomShot implements ShotBehavior {
 
     public void shot(Board board, char col, int row, int turnNum) {

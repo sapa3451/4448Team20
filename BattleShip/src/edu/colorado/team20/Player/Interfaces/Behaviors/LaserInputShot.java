@@ -5,6 +5,9 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 import java.util.Scanner;
 
+//This is the start of the interface for the laser
+//TODO: before any further implementation, underwater board must be implemented
+
 public class LaserInputShot implements ShotBehavior {
     public void shot(Board board, char colv, int row, int turnNum) {
         if (colv != 'Z' && row != -1) {

@@ -15,9 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// TODO: Need to make more test cases to make sure that all
-//  cases are hit and that there will not be any missing errors that can
-//  arise later when testing the board class
+// TODO: going to need to implement tests for underwater board
 
 
 class BoardTest {
@@ -215,7 +213,5 @@ class BoardTest {
         playerBoard.updateShipChars(PdestroyerPos.charAt(0), PdestroyerPos.charAt(1) - '0', Pdestroyer.getSize(), PdestroyerPos.charAt(2) - '0');
         playerBoard.performShow();
     }
-
-    // TODO: need to create testing for ship health, make sure that it goes down when non captainQ gets hit
 
 }

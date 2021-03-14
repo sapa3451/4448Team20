@@ -11,10 +11,4 @@ public final class UserPlayer extends Player{
         placementBehavior = new InputPlacement(); //a player initially has an input behavior, both shot and placement
         shotBehavior = new CannonInputShot();
     }
-
-
-    //TODO: connecting ships with player??? email dwight
-    //TODO: captains quarters
-    //TODO: sonar radar
-    //TODO: ship health and board knowing which ships are which
 }

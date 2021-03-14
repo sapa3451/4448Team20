@@ -5,6 +5,9 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 import java.util.Random;
 
+//This is the start of the interface for the laser
+//TODO: before any further implementation, underwater board must be implemented
+
 public class LaserRandomShot implements ShotBehavior {
     public void shot(Board board, char col, int row, int turnNum) {
         System.out.println("The computer is now taking their shot!");
