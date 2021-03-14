@@ -3,8 +3,8 @@ package test;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.ComputerBoard;
 import edu.colorado.team20.Board.PlayerBoard;
-import edu.colorado.team20.Player.Interfaces.Behaviors.InputShot;
-import edu.colorado.team20.Player.Interfaces.Behaviors.RandomShot;
+import edu.colorado.team20.Player.Interfaces.Behaviors.CannonInputShot;
+import edu.colorado.team20.Player.Interfaces.Behaviors.CannonRandomShot;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ public class ShotTest {
         System.out.println("Running SingleInputShot Test...........");
 
         ShotBehavior shotBehavior;
-        shotBehavior= new InputShot();
+        shotBehavior= new CannonInputShot();
 
         Board computerBoard = new ComputerBoard();
 
@@ -32,7 +32,7 @@ public class ShotTest {
         System.out.println("Running MultipleInputShot Test...........");
 
         ShotBehavior shotBehavior;
-        shotBehavior= new InputShot();
+        shotBehavior= new CannonInputShot();
 
         Board computerBoard = new ComputerBoard();
 
@@ -55,7 +55,7 @@ public class ShotTest {
         System.out.println("Running SingleRandomShot Test...........");
 
         ShotBehavior shotBehavior;
-        shotBehavior= new RandomShot();
+        shotBehavior= new CannonRandomShot();
 
         Board playerBoard = new PlayerBoard();
 
@@ -78,7 +78,7 @@ public class ShotTest {
         System.out.println("Running MultipleRandomShot Test...........");
 
         ShotBehavior shotBehavior;
-        shotBehavior= new RandomShot();
+        shotBehavior= new CannonRandomShot();
 
         Board playerBoard = new PlayerBoard();
 

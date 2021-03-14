@@ -5,7 +5,7 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 import java.util.Scanner;
 
-public class InputShot implements ShotBehavior {
+public class CannonInputShot implements ShotBehavior {
 
     public void shot(Board board, char colv, int row, int turnNum){
         if (colv != 'Z' && row != -1) {

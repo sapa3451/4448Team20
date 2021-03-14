@@ -2,18 +2,13 @@ package test;
 
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.PlayerBoard;
-import edu.colorado.team20.Board.PlayerBoard;
 import edu.colorado.team20.Player.ComputerPlayer;
 import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
-import edu.colorado.team20.Player.Interfaces.Behaviors.InputShot;
+import edu.colorado.team20.Player.Interfaces.Behaviors.CannonInputShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
 import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
-import edu.colorado.team20.Ship.Battleship;
-import edu.colorado.team20.Ship.Destroyer;
-import edu.colorado.team20.Ship.Minesweeper;
-import edu.colorado.team20.Ship.Ship;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,7 +25,7 @@ class PlayerTest {
 
         Player testPlayer = new UserPlayer(playerBoard);
 
-        testPlayer.setShotBehavior(new InputShot());
+        testPlayer.setShotBehavior(new CannonInputShot());
 
         testPlayer.performShot(PlayerBoard, 'A', 1, 1);
         assertEquals(PlayerBoard.GetPositionChar('A', 1), 'X');

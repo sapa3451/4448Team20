@@ -5,8 +5,7 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 import java.util.Random;
 
-public final class RandomShot implements ShotBehavior {
-
+public class LaserRandomShot implements ShotBehavior {
     public void shot(Board board, char col, int row, int turnNum) {
         System.out.println("The computer is now taking their shot!");
         System.out.println();

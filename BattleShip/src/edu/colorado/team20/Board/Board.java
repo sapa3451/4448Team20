@@ -45,8 +45,20 @@ public abstract class Board implements BoardSubject {
         return this.board;
     }
 
+    public int[][] getIdBoard() {
+        return this.idBoard;
+    }
+
     public void setShowBehavior (ShowBehavior sb) {
         showBehavior = sb;
+    }
+
+    public List<Ship> getFleet () {
+        return fleet;
+    }
+
+    public HashMap<Integer, String> getStartPos () {
+        return startPos;
     }
 
     public void performShow() {
