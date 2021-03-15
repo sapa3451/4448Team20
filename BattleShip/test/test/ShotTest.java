@@ -16,6 +16,7 @@ public class ShotTest {
 
     @Test
     public void SingleInputShotTest(){
+        //test for a player shooting a single times to check and make sure board is marked
 
         System.out.println("Running SingleInputShot Test...........");
 
@@ -30,6 +31,7 @@ public class ShotTest {
 
     @Test
     public void MultipleInputShotTest(){
+        //test for a player shooting multiple times to check and make sure board is marked
 
         System.out.println("Running MultipleInputShot Test...........");
 
@@ -53,6 +55,7 @@ public class ShotTest {
 
     @Test
     public void SingleRandomShot () {
+        //test for a computer shooting a single times to check and make sure board is marked
 
         System.out.println("Running SingleRandomShot Test...........");
 
@@ -76,6 +79,7 @@ public class ShotTest {
 
     @Test
     public void MultipleRandomShot () {
+        //test for a computer shooting multiple times to check and make sure board is marked
 
         System.out.println("Running MultipleRandomShot Test...........");
 

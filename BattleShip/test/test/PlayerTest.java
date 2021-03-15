@@ -17,7 +17,7 @@ class PlayerTest {
 
     @Test
     public void SingleUserShotTest() {
-
+        //test for a player shooting a single times to check and make sure board is marked
         System.out.println("Running SingleUserShot Test...........");
 
         Board playerBoard = new PlayerBoard();
@@ -35,7 +35,7 @@ class PlayerTest {
 
     @Test
     public void MultipleUserShotTest() {
-
+        //test for a player shooting multiple times to check and make sure board is marked
         System.out.println("Running MultipleUserShot Test...........");
         Board playerBoard = new PlayerBoard();
         Board PlayerBoard = new PlayerBoard();
@@ -57,7 +57,7 @@ class PlayerTest {
 
     @Test
     public void RandomPlacementTest() {
-
+        //Random placement test for player, currently no way to test input, but random should work the same
         System.out.println("Running RandomPlacementTest...........");
 
         PlacementBehavior placementBehavior;

@@ -18,7 +18,7 @@ class ComputerPlayerTest {
 
     @Test
     public void SingleRandomShot () {
-
+        //test for a computer shooting a single times to check and make sure board is marked
         System.out.println("Running SingleRandomShot Test...........");
 
         Board playerBoard = new PlayerBoard();
@@ -41,7 +41,7 @@ class ComputerPlayerTest {
 
     @Test
     public void MultipleRandomShot () {
-
+        //test for a computer shooting multiple times to check and make sure board is marked
         System.out.println("Running MultipleRandomShot Test...........");
 
         Board playerBoard = new PlayerBoard();
@@ -73,7 +73,7 @@ class ComputerPlayerTest {
 
     @Test
     public void RandomPlacementTest() {
-
+        //Random ship placement test for computer
         System.out.println("Running RandomPlacementTest...........");
 
         PlacementBehavior placementBehavior;
