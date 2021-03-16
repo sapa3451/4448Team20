@@ -14,7 +14,7 @@ public abstract class Board implements BoardSubject {
     protected final HashMap<Character, Integer> alphaMap = new HashMap<>();
     protected final int rowSize = 10;
     protected final int columnSize = 10;
-    protected HashMap<Integer, String> startPos = new HashMap<>();
+    protected HashMap<Integer, String> shipCoordinates = new HashMap<>();
     protected HashMap<Integer, String> shipCapQPos = new HashMap<>();
     protected List<Ship> fleet;
     ShowBehavior showBehavior;
@@ -57,8 +57,8 @@ public abstract class Board implements BoardSubject {
         return fleet;
     }
 
-    public HashMap<Integer, String> getStartPos () {
-        return startPos;
+    public HashMap<Integer, String> getCoordinatesMapping(int id) {
+        return shipCoordinates;
     }
 
     public void performShow() {
@@ -147,28 +147,13 @@ public abstract class Board implements BoardSubject {
         if (id != 0 && positionChar == 'Q' || positionChar == 'W') { // captainsQ got hit
             if (updateShipOnCQHit(id) == 0) { // need to check if captainsQ is 0 health
                 // update the board to sink whole ship
-                String s = startPos.get(id);
-                int y = 0;
-                if (s.length() == 4) {
-                    y = 9;
-                }
-                else {
-                    y = Integer.parseInt(String.valueOf(s.charAt(1)));
-                }
-                updateShipChars(s.charAt(0), y, fleet.get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
+                // TODO: make this call just take the string and then redo updateShipChard to parse string and update board
+                updateShipChars(shipCoordinates.get(id));
             }
         }
-        else if (id != 0){
+        else if (id != 0) {
             if (updateShipOnHit(id) == 0) {
-                String s = startPos.get(id);
-                int y = 0;
-                if (s.length() == 4) {
-                    y = 9;
-                }
-                else {
-                    y = Integer.parseInt(String.valueOf(s.charAt(1)));
-                }
-                updateShipChars(s.charAt(0), y, fleet.get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
+                updateShipChars(shipCoordinates.get(id)); // update the board to sink whole ship
                 removeShip(id); //removes a ship as an observer when sunk
             }
         }
@@ -189,18 +174,19 @@ public abstract class Board implements BoardSubject {
         }//Checks if ship is already at that location
         else {
             if (direction == 1) { // horizontal
-
-                char indexCol=col;
+                String coordinates = ""; // string to hold coordinates
+                char indexCol = col;
                 for (int i = 0; i < size; i++) {
+                    //This checks all the values where ship would be placed and
+                    //makes sure no ships are already placed there in advanced
                     if(board[row - 1][alphaMap.get(indexCol)] != 'E'){
                         System.out.println("Ship already placed here!");
                         return false;
                     }
+                    coordinates = coordinates + indexCol + (row - 1) + ','; // add position to coordinates
                     indexCol += 1;
-                }//This checks all the values where ship would be placed and
-                //makes sure no ships are already placed there in advanced
-
-                startPos.put(id, col+String.valueOf(row-1)+1); // add start position to map
+                }
+                shipCoordinates.put(id, coordinates); // add current ship coordinates to map with id
                 for (int i = 0; i < size; i++) {
                     board[row - 1][alphaMap.get(col)] = 'S';
                     idBoard[row - 1][alphaMap.get(col)] = id;
@@ -211,16 +197,17 @@ public abstract class Board implements BoardSubject {
                 shipCapQPos.put(id, o+String.valueOf(rowC - 1)); // add captain's quarter's to map
             }
             else { // vertical
-
+                String coordinates = ""; // string to hold coordinates
                 for (int i = row; i < size+row; i++) {
+                    //This checks all the values where ship would be placed and
+                    //makes sure no ships are already placed there in advanced
                     if(board[i - 1][alphaMap.get(col)] != 'E'){
                         System.out.println("Ship already placed here!");
                         return false;
                     }
-                }//This checks all the values where ship would be placed and
-                //makes sure no ships are already placed there in advanced
-
-                startPos.put(id, col+String.valueOf(row-1)+0); // add start position to map
+                    coordinates = coordinates + col + (i - 1) + ','; // add position to coordinates
+                }
+                shipCoordinates.put(id, coordinates); // add current ship coordinates to map with id
                 for (int i = 0; i < size; i++) {
                     board[row - 1][alphaMap.get(col)] = 'S';
                     idBoard[row - 1][alphaMap.get(col)] = id;
@@ -231,7 +218,6 @@ public abstract class Board implements BoardSubject {
             }
 
         }
-        // TODO: find a way to call Show function so can make SetShipPos
         showIdBoard();
         return true;
     }
@@ -279,21 +265,21 @@ public abstract class Board implements BoardSubject {
     }
 
     // function to mark ship as all destroyed when captains' quarters destroyed
-    public void updateShipChars(char col, int row, int size, int direction) {
-        if (direction == 1) { // direction is
-            for (int i = 0; i < size; i++) { // horizontal
-                board[row][alphaMap.get(col)] = 'D';
-                col += 1;
-            }
-        }
-        else {
-            for (int i = 0; i < size; i++) { // vertical
-                board[row][alphaMap.get(col)] = 'D';
-                row += 1;
-            }
+    public void updateShipChars(String coordinates) {
+        // IMPORTANT: string row value already has zero index (do not minus 1 from row)!
+
+        // parse the coordinates in the String
+        char col = ' ';
+        int row = -1;
+        for (int i = 0; i < coordinates.length(); i=i+3) { //example String: "A1,A2,A3"
+            col = coordinates.charAt(i);
+            row = Integer.parseInt(String.valueOf(coordinates.charAt(i+1)));
+            this.board[row][alphaMap.get(col)] = 'D';
         }
     }
 
     public String getShipCaptainQPos(int id) { return this.shipCapQPos.get(id); }
-    public String getShipStartPos(int id) { return this.startPos.get(id); }
+    public String getShipCoordinates(int id) { // return specific ship coordinates
+        return this.shipCoordinates.get(id);
+    }
 }

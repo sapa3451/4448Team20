@@ -27,28 +27,13 @@ public class SurfaceMark implements MarkBehavior {
         if (id != 0 && positionChar == 'Q' || positionChar == 'W') { // captainsQ got hit
             if (board.updateShipOnCQHit(id) == 0) { // need to check if captainsQ is 0 health
                 // update the board to sink whole ship
-                String s = board.getStartPos().get(id);
-                int y = 0;
-                if (s.length() == 4) {
-                    y = 9;
-                }
-                else {
-                    y = Integer.parseInt(String.valueOf(s.charAt(1)));
-                }
-                board.updateShipChars(s.charAt(0), y, board.getFleet().get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
+                board.updateShipChars(board.getShipCoordinates(id));
+                board.removeShip(id); //removes a ship as an observer when sunk
             }
         }
         else if (id != 0){
             if (board.updateShipOnHit(id) == 0) {
-                String s = board.getStartPos().get(id);
-                int y = 0;
-                if (s.length() == 4) {
-                    y = 9;
-                }
-                else {
-                    y = Integer.parseInt(String.valueOf(s.charAt(1)));
-                }
-                board.updateShipChars(s.charAt(0), y, board.getFleet().get(id - 1).getSize(), Integer.parseInt(String.valueOf(s.charAt(2))));
+                board.updateShipChars(board.getShipCoordinates(id));
                 board.removeShip(id); //removes a ship as an observer when sunk
             }
         }

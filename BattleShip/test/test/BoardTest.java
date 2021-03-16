@@ -175,8 +175,8 @@ class BoardTest {
         playerBoard.removeShip(Pminesweeper.getId());
         playerBoard.updateShipOnHit(Pminesweeper.getId());
         assertEquals(Pminesweeper.getTotShipHealth(), 0);
-        String PminesweeperPos = playerBoard.getShipStartPos(Pminesweeper.getId());
-        playerBoard.updateShipChars(PminesweeperPos.charAt(0), PminesweeperPos.charAt(1) - '0', Pminesweeper.getSize(), PminesweeperPos.charAt(2) - '0');
+        String PminesweeperPos = playerBoard.getShipCoordinates(Pminesweeper.getId());
+        playerBoard.updateShipChars(PminesweeperPos);
         playerBoard.performShow();
 
         // testing battleship
@@ -185,15 +185,15 @@ class BoardTest {
         row = String.valueOf(pos.charAt(1));
         assertEquals(Pbattleship.getId(), 1);
 
-        // take a shot at captainQ once --> ship shuld still be alive
+        // take a shot at captainQ once --> ship should still be alive
         Pbattleship.updateCQ(1);
         assertEquals(Pbattleship.getCaptainQHealth(), 1);
         assertEquals(Pbattleship.getTotShipHealth(), 4); // make sure it still is equal;
         Pbattleship.updateCQ(1);
         assertEquals(Pbattleship.getCaptainQHealth(), 0);
         assertEquals(Pbattleship.getTotShipHealth(), 0); // make sure it still is equal;
-        String PbattleshipPos = playerBoard.getShipStartPos(Pbattleship.getId());
-        playerBoard.updateShipChars(PbattleshipPos.charAt(0), PbattleshipPos.charAt(1) - '0', Pbattleship.getSize(), PbattleshipPos.charAt(2) - '0');
+        String PbattleshipPos = playerBoard.getShipCoordinates(Pbattleship.getId());
+        playerBoard.updateShipChars(PbattleshipPos);
         playerBoard.performShow();
 
         // testing destroyer
@@ -209,8 +209,8 @@ class BoardTest {
         Pdestroyer.updateCQ(1);
         assertEquals(Pdestroyer.getCaptainQHealth(), 0);
         assertEquals(Pdestroyer.getTotShipHealth(), 0); // make sure it still is equal;
-        String PdestroyerPos = playerBoard.getShipStartPos(Pbattleship.getId());
-        playerBoard.updateShipChars(PdestroyerPos.charAt(0), PdestroyerPos.charAt(1) - '0', Pdestroyer.getSize(), PdestroyerPos.charAt(2) - '0');
+        String PdestroyerPos = playerBoard.getShipCoordinates(Pbattleship.getId());
+        playerBoard.updateShipChars(PdestroyerPos);
         playerBoard.performShow();
     }
 
