@@ -91,9 +91,9 @@ class ComputerPlayerTest {
         computerPlayer.setPlacementBehavior(randomPlacementBehavior);
         assertEquals(computerPlayer.getPlacementBehavior(), randomPlacementBehavior);
 
-        computerPlayer.performPlacement(1, 4);
-        computerPlayer.performPlacement(1, 3);
-        computerPlayer.performPlacement(1, 2);
+        computerPlayer.performPlacement(1, 4, 3);
+        computerPlayer.performPlacement(1, 3, 2);
+        computerPlayer.performPlacement(1, 2, 1);
         int count = 0;
         for (int i = 0; i < computerPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < computerPlayer.getBoard().getRowSize(); j++) {

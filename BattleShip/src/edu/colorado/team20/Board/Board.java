@@ -147,7 +147,6 @@ public abstract class Board implements BoardSubject {
         if (id != 0 && positionChar == 'Q' || positionChar == 'W') { // captainsQ got hit
             if (updateShipOnCQHit(id) == 0) { // need to check if captainsQ is 0 health
                 // update the board to sink whole ship
-                // TODO: make this call just take the string and then redo updateShipChard to parse string and update board
                 updateShipChars(shipCoordinates.get(id));
             }
         }
@@ -160,21 +159,18 @@ public abstract class Board implements BoardSubject {
         this.performShow();
     }
 
-    public boolean SetShipPos(int id, int row, char col, int direction, int size) {
+    public boolean SetShipPos(int id, int row, char col, int direction, int size, int quartersPos) {
+        // TODO: need to figure out how we are going to place submarine since not one row/col
         char positionChar = board[row-1][alphaMap.get(col)];
-        int quarters = size/2;
-        if (size == 2) {
-            quarters = 0;
-        }
         int rowC = row;
         char colC = col;
-        if (positionChar != 'E') {
+        String coordinates = ""; // string to hold coordinates
+        if (positionChar != 'E') { //Checks if ship is already at that location
             System.out.println("Ship already placed here!");
             return false;
-        }//Checks if ship is already at that location
+        }
         else {
             if (direction == 1) { // horizontal
-                String coordinates = ""; // string to hold coordinates
                 char indexCol = col;
                 for (int i = 0; i < size; i++) {
                     //This checks all the values where ship would be placed and
@@ -192,12 +188,8 @@ public abstract class Board implements BoardSubject {
                     idBoard[row - 1][alphaMap.get(col)] = id;
                     col += 1;
                 }
-                char o = (char) (colC + quarters);
-                board[rowC - 1][alphaMap.get(o)] = 'Q';
-                shipCapQPos.put(id, o+String.valueOf(rowC - 1)); // add captain's quarter's to map
             }
             else { // vertical
-                String coordinates = ""; // string to hold coordinates
                 for (int i = row; i < size+row; i++) {
                     //This checks all the values where ship would be placed and
                     //makes sure no ships are already placed there in advanced
@@ -213,9 +205,14 @@ public abstract class Board implements BoardSubject {
                     idBoard[row - 1][alphaMap.get(col)] = id;
                     row += 1;
                 }
-                board[rowC - 1 + quarters][alphaMap.get(colC)] = 'Q';
-                shipCapQPos.put(id, colC+String.valueOf(rowC + quarters - 1)); // add captain's quarter's to map
             }
+
+            int QinCoordinates = 3 * (quartersPos-1); // multiply by 3 and subtract 1 for coordinate of captainsQ0
+            char Qcol = coordinates.charAt(QinCoordinates); // get char for col
+            int Qrow = Integer.parseInt(String.valueOf(coordinates.charAt(QinCoordinates+1))); // add one to get row value
+            board[Qrow][alphaMap.get(Qcol)] = 'Q'; // mark captain's Q on board
+            System.out.println(Qcol + ", " + String.valueOf(Qrow));
+            shipCapQPos.put(id, Qcol + String.valueOf(Qrow)); // add captain's quarter's to map
 
         }
         showIdBoard();

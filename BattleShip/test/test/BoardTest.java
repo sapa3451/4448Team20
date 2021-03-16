@@ -4,6 +4,7 @@ import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.ComputerBoard;
 import edu.colorado.team20.Board.PlayerBoard;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SonarBoardShow;
+import edu.colorado.team20.Board.UnderwaterBoard;
 import edu.colorado.team20.Game.GameManagement;
 import edu.colorado.team20.Player.ComputerPlayer;
 import edu.colorado.team20.Player.UserPlayer;
@@ -50,9 +51,9 @@ class BoardTest {
         board.MarkBoard('J', 10);
         assertFalse(board.CheckSpot('J', 10));
 
-        board.SetShipPos(0,1,'A',0,2);
+        board.SetShipPos(0,1,'A',0,2, 1);
         board.MarkBoard('A',1);
-        board.SetShipPos(0,1,'B',0,3);
+        board.SetShipPos(0,1,'B',0,3, 2);
         board.MarkBoard('B',2);
         board.MarkBoard('B',2);
     }
@@ -87,7 +88,7 @@ class BoardTest {
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board board = new PlayerBoard(); // setting column and row
-        board.SetShipPos(0, 1,'A',1,4);
+        board.SetShipPos(0, 1,'A',1,4, 3);
         for (int i = 0; i < 2; i++) {
             assertEquals(board.GetPositionChar((char) ('A' + i), 1), 'S');
         }
@@ -103,8 +104,8 @@ class BoardTest {
     @Test
     void SetShipPos2() { // test to make sure that ships cannot overlap
         Board board = new PlayerBoard();; // setting column and row
-        board.SetShipPos(0,1,'A',0,4);
-        assertEquals(false, board.SetShipPos(0,1,'A',0,4));
+        board.SetShipPos(0,1,'A',0,4, 3);
+        assertEquals(false, board.SetShipPos(0,1,'A',0,4, 3));
     }
 
     @Test
@@ -114,9 +115,9 @@ class BoardTest {
         Ship minesweeper = new Minesweeper(2, "minesweeper");
         Ship[] fleet = {battleship, destroyer, minesweeper};
         Board board = new ComputerBoard(); // setting column and row
-        board.SetShipPos(1,1,'A',1,4);
-        board.SetShipPos(2,4,'B',1,3);
-        board.SetShipPos(3,4,'F',1,2);
+        board.SetShipPos(1,1,'A',1,4, 3);
+        board.SetShipPos(2,4,'B',1,3, 2);
+        board.SetShipPos(3,4,'F',1,2, 1);
 
         board.setShowBehavior(new SonarBoardShow('A', 1));
         board.performShow();
@@ -145,15 +146,15 @@ class BoardTest {
             String name = ship.getName();
             switch(name) {
                 case "battleship":
-                    playerBoard.SetShipPos(1,1,'A',1,4);
+                    playerBoard.SetShipPos(1,1,'A',1,4, 3);
                     break;
 
                 case "destroyer":
-                    playerBoard.SetShipPos(2,4,'B',1,3);
+                    playerBoard.SetShipPos(2,4,'B',1,3, 2);
                     break;
 
                 case "minesweeper":
-                    playerBoard.SetShipPos(3,4,'F',1,2);
+                    playerBoard.SetShipPos(3,4,'F',1,2, 1);
                     break;
 
                 default:
@@ -212,6 +213,13 @@ class BoardTest {
         String PdestroyerPos = playerBoard.getShipCoordinates(Pbattleship.getId());
         playerBoard.updateShipChars(PdestroyerPos);
         playerBoard.performShow();
+    }
+
+    // test underwater board
+    @Test
+    void UnderwaterBoard() {
+        Board underwaterBoard = new UnderwaterBoard(); // create underwater board
+        underwaterBoard.performShow();
     }
 
 }

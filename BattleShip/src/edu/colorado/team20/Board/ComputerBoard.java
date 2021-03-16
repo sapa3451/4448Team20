@@ -3,6 +3,7 @@ package edu.colorado.team20.Board;
 import edu.colorado.team20.Board.Interfaces.Behaviors.HiddenBoardShow;
 
 public final class ComputerBoard extends Board {
+// TODO: remove this class and make sure show behavior set somewhere else
 
     public ComputerBoard() {
         super();

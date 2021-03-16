@@ -37,6 +37,8 @@ public class GameManagement {
         Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper};
         Ship[] compFleet = {Cbattleship, Cdestroyer, Cminesweeper};
 
+        // TODO: player and computer baord interfaces being removed
+        //  we need to define showBehavior in another way (maybe in factory)
         Board playerBoard = new PlayerBoard();
         Board computerBoard = new ComputerBoard();
 
@@ -55,7 +57,7 @@ public class GameManagement {
         for (Ship ship : compFleet) {
             ship.setId(idNum);
             idNum++;
-            computer.performPlacement(ship.getId(), ship.getSize());
+            computer.performPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
             computer.getBoard().registerShip(ship);
         }
 
@@ -68,7 +70,7 @@ public class GameManagement {
         for (Ship ship : playerFleet) {
             ship.setId(idNum);
             idNum++;
-            player.performPlacement(ship.getId(), ship.getSize());
+            player.performPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
             player.getBoard().registerShip(ship);
         }
 

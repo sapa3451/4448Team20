@@ -19,8 +19,8 @@ public abstract class Player {
         return board;
     }
 
-    public void performPlacement(int id, int size) {
-        placementBehavior.place(id, this.board, size);
+    public void performPlacement(int id, int size, int quartersPos) {
+        placementBehavior.place(id, this.board, size, quartersPos);
     }
 
     public void performShot (Board board, char col, int row, int turnNum) {

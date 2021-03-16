@@ -6,7 +6,7 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import java.util.Scanner;
 
 public class InputPlacement implements PlacementBehavior {
-    public void place (int id, Board board, int size) {
+    public void place (int id, Board board, int size, int quartersPos) {
         if (size == 99) {
             return;
         }
@@ -75,7 +75,7 @@ public class InputPlacement implements PlacementBehavior {
             System.out.println("Do you want to place your ship horizontally(1) or vertically(0)? ");
             input = sc.nextLine();
             int direction = Integer.parseInt(input);
-            validPlacement = board.SetShipPos(id, rowVal, colVal, direction, size);
+            validPlacement = board.SetShipPos(id, rowVal, colVal, direction, size, quartersPos);
         }
     }
 }

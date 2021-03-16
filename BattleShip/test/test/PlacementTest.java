@@ -17,7 +17,7 @@ public class PlacementTest {
         PlacementBehavior placementBehavior;
         placementBehavior = new RandomPlacement(); //Because our placement is the same for random/input, we will use random for testing
         Board playerBoard = new PlayerBoard();
-        placementBehavior.place(1, playerBoard, 4);
+        placementBehavior.place(1, playerBoard, 4, 3);
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
             for (int j = 0; j < playerBoard.getRowSize(); j++) {
@@ -39,9 +39,9 @@ public class PlacementTest {
         PlacementBehavior placementBehavior;
         placementBehavior = new RandomPlacement(); //Because our placement is the same for random/input, we will use random for testing
         Board playerBoard = new PlayerBoard();
-        placementBehavior.place(1, playerBoard, 4);
-        placementBehavior.place(1, playerBoard, 3);
-        placementBehavior.place(1, playerBoard, 2);
+        placementBehavior.place(1, playerBoard, 4, 3);
+        placementBehavior.place(1, playerBoard, 3, 2);
+        placementBehavior.place(1, playerBoard, 2, 1);
         int count = 0;
         for (int i = 0; i < playerBoard.getColumnSize(); i++) {
             for (int j = 0; j < playerBoard.getRowSize(); j++) {

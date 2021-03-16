@@ -6,7 +6,7 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import java.util.Random;
 
 public class RandomPlacement implements PlacementBehavior {
-    public void place (int id, Board board, int size) {
+    public void place (int id, Board board, int size, int quartersPos) {
         boolean placed = false;
         while (!placed) {
             Random randOrient = new Random();
@@ -15,11 +15,11 @@ public class RandomPlacement implements PlacementBehavior {
             int nCheck = n - 3;
             char c = (char) ('A' + board.getRowSize() - 1);
             char cCheck = (char) (c - size+1);
-            placed = isPlaced(id, orientation, n, nCheck, c, cCheck, size, board);
+            placed = isPlaced(id, orientation, n, nCheck, c, cCheck, size, quartersPos, board);
         }
     }
 
-    private boolean isPlaced(int id, int orientation, int n, int nCheck, char c, char cCheck, int size, Board board) {
+    private boolean isPlaced(int id, int orientation, int n, int nCheck, char c, char cCheck, int size, int quartersPos, Board board) {
         boolean placed;
         if (orientation == 1) {
             while (c > cCheck) {
@@ -42,7 +42,7 @@ public class RandomPlacement implements PlacementBehavior {
                 n = (randNum.nextInt(10) + 1);
             }
         }
-        placed = board.SetShipPos(id, n, c, orientation, size);
+        placed = board.SetShipPos(id, n, c, orientation, size, quartersPos);
         return placed;
     }
 }

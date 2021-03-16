@@ -71,14 +71,14 @@ class PlayerTest {
 
         userPlayer.setPlacementBehavior(placementBehavior);
         assertEquals(userPlayer.getPlacementBehavior(), placementBehavior);
-        userPlayer.performPlacement(1, 99);
+        userPlayer.performPlacement(1, 99, 1);
 
         userPlayer.setPlacementBehavior(randomPlacementBehavior);
         assertEquals(userPlayer.getPlacementBehavior(), randomPlacementBehavior);
 
-        userPlayer.performPlacement(1, 4);
-        userPlayer.performPlacement(1, 3);
-        userPlayer.performPlacement(1, 2);
+        userPlayer.performPlacement(1, 4, 3);
+        userPlayer.performPlacement(1, 3, 2);
+        userPlayer.performPlacement(1, 2, 1);
         int count = 0;
         for (int i = 0; i < userPlayer.getBoard().getColumnSize(); i++) {
             for (int j = 0; j < userPlayer.getBoard().getRowSize(); j++) {

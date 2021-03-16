@@ -9,6 +9,8 @@ public abstract class Ship implements ShipObservers {
     protected String name;
     protected int id;
     protected boolean sunk;
+    // TODO: do we want to change this? Is this tight coupling?
+    protected int quartersSpot; // int to tell captainsQ spacing for boat size
 
     public Ship(int numOccupiedBoardCells, String shipName) {
         this.numOccupiedBoardCells = numOccupiedBoardCells;
@@ -28,6 +30,8 @@ public abstract class Ship implements ShipObservers {
     public String getName () {
         return this.name;
     }
+
+    public int getQuartersSpotInt() { return this.quartersSpot; }
 
     public int getTotShipHealth() { return this.totShipHealth; }
 
@@ -58,8 +62,5 @@ public abstract class Ship implements ShipObservers {
     public boolean checkSunk() {
         return sunk;
     }
-
-    // TODO: Find a way to show way how many times the captain's quarters has been hit to know if
-    //  it is going to be a destroyed ship
 }
 
