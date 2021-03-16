@@ -2,16 +2,14 @@ package test;
 
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.ComputerBoard;
+import edu.colorado.team20.Board.Interfaces.Behaviors.SubmarineShipCoordinates;
 import edu.colorado.team20.Board.PlayerBoard;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SonarBoardShow;
 import edu.colorado.team20.Board.UnderwaterBoard;
 import edu.colorado.team20.Game.GameManagement;
 import edu.colorado.team20.Player.ComputerPlayer;
 import edu.colorado.team20.Player.UserPlayer;
-import edu.colorado.team20.Ship.Battleship;
-import edu.colorado.team20.Ship.Destroyer;
-import edu.colorado.team20.Ship.Minesweeper;
-import edu.colorado.team20.Ship.Ship;
+import edu.colorado.team20.Ship.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -136,9 +134,6 @@ class BoardTest {
 
         // place player boards
         // give ships ids and place them
-        int a = 1;
-        int b = 1;
-        int c = 1;
         for (Ship ship : playerFleet) {
             playerBoard.registerShip(ship);
             ship.setId(game.getIdNum());
@@ -218,8 +213,31 @@ class BoardTest {
     // test underwater board
     @Test
     void UnderwaterBoard() {
-        Board underwaterBoard = new UnderwaterBoard(); // create underwater board
-        underwaterBoard.performShow();
+        // perform the underwater baord show
+        Board playerUnderwaterBoard = new UnderwaterBoard(); // create underwater board
+        playerUnderwaterBoard.performShow();
+
+        // create submarine
+        Ship submarine1 = new Submarine(5, "submarine");
+        Ship submarine2 = new Submarine(5, "submarine");
+        playerUnderwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+
+        GameManagement game = new GameManagement();
+        Ship[] playerFleet = {submarine1, submarine2};
+        for (Ship ship : playerFleet) {
+            playerUnderwaterBoard.registerShip(ship);
+            ship.setId(game.getIdNum());
+            game.setIdNum();
+        }
+
+        // add submarine to the board
+        // TODO: need to check if coordinates will be out of bounds --> since submarine is unique
+        playerUnderwaterBoard.SetShipPos(submarine1.getId(), 4, 'B', 0, submarine1.getSize(), submarine1.getQuartersSpotInt());
+        playerUnderwaterBoard.performShow();
+
+        // set another submarine
+        playerUnderwaterBoard.SetShipPos(submarine2.getId(), 7, 'F', 1, submarine2.getSize(), submarine2.getQuartersSpotInt());
+        playerUnderwaterBoard.performShow();
     }
 
 }

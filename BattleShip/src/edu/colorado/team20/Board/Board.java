@@ -1,6 +1,8 @@
 package edu.colorado.team20.Board;
 
+import edu.colorado.team20.Board.Interfaces.Behaviors.RegularShipCoordinates;
 import edu.colorado.team20.Board.Interfaces.BoardSubject;
+import edu.colorado.team20.Board.Interfaces.CreateShipCoordinatesBehavior;
 import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 import edu.colorado.team20.Ship.Ship;
 
@@ -18,8 +20,12 @@ public abstract class Board implements BoardSubject {
     protected HashMap<Integer, String> shipCapQPos = new HashMap<>();
     protected List<Ship> fleet;
     ShowBehavior showBehavior;
+    CreateShipCoordinatesBehavior shipCoordinatesBehavior;
+
 
     public Board() {
+        setCreateShipCoordinatesBehavior(new RegularShipCoordinates()); //set coordinate behavior to regular
+
         this.board = new char[this.rowSize][this.columnSize];
         this.idBoard = new int[this.rowSize][this.columnSize];
         char[] alphas = new char[this.rowSize];
@@ -53,16 +59,24 @@ public abstract class Board implements BoardSubject {
         showBehavior = sb;
     }
 
+    public void performShow() {
+        showBehavior.show(this); //strategy pattern, this calls to the interface and then to the specific class
+    }
+
+    public void setCreateShipCoordinatesBehavior (CreateShipCoordinatesBehavior coordBehavior) {
+        shipCoordinatesBehavior = coordBehavior;
+    }
+
+    public String performCreateShipCoordinates(int row, char col, int direction, int size) {
+        return shipCoordinatesBehavior.createShipCoordinates(row, col, direction, size);
+    }
+
     public List<Ship> getFleet () {
         return fleet;
     }
 
     public HashMap<Integer, String> getCoordinatesMapping(int id) {
         return shipCoordinates;
-    }
-
-    public void performShow() {
-        showBehavior.show(this); //strategy pattern, this calls to the interface and then to the specific class
     }
 
     public void registerShip (Ship s) {
@@ -162,56 +176,45 @@ public abstract class Board implements BoardSubject {
     public boolean SetShipPos(int id, int row, char col, int direction, int size, int quartersPos) {
         // TODO: need to figure out how we are going to place submarine since not one row/col
         char positionChar = board[row-1][alphaMap.get(col)];
-        int rowC = row;
-        char colC = col;
-        String coordinates = ""; // string to hold coordinates
+
         if (positionChar != 'E') { //Checks if ship is already at that location
             System.out.println("Ship already placed here!");
             return false;
         }
         else {
-            if (direction == 1) { // horizontal
-                char indexCol = col;
-                for (int i = 0; i < size; i++) {
-                    //This checks all the values where ship would be placed and
-                    //makes sure no ships are already placed there in advanced
-                    if(board[row - 1][alphaMap.get(indexCol)] != 'E'){
-                        System.out.println("Ship already placed here!");
-                        return false;
-                    }
-                    coordinates = coordinates + indexCol + (row - 1) + ','; // add position to coordinates
-                    indexCol += 1;
-                }
-                shipCoordinates.put(id, coordinates); // add current ship coordinates to map with id
-                for (int i = 0; i < size; i++) {
-                    board[row - 1][alphaMap.get(col)] = 'S';
-                    idBoard[row - 1][alphaMap.get(col)] = id;
-                    col += 1;
-                }
-            }
-            else { // vertical
-                for (int i = row; i < size+row; i++) {
-                    //This checks all the values where ship would be placed and
-                    //makes sure no ships are already placed there in advanced
-                    if(board[i - 1][alphaMap.get(col)] != 'E'){
-                        System.out.println("Ship already placed here!");
-                        return false;
-                    }
-                    coordinates = coordinates + col + (i - 1) + ','; // add position to coordinates
-                }
-                shipCoordinates.put(id, coordinates); // add current ship coordinates to map with id
-                for (int i = 0; i < size; i++) {
-                    board[row - 1][alphaMap.get(col)] = 'S';
-                    idBoard[row - 1][alphaMap.get(col)] = id;
-                    row += 1;
+            // get coordinates for shape of ship
+            // IMPORTANT: coordinates already takes care of zero indexing
+            String coordinates = this.performCreateShipCoordinates(row, col, direction, size);
+            System.out.println("Coordinates: " + coordinates);
+
+            char coordCol = ' ';
+            int coordRow = -1;
+
+            // check if any ships are already placed there
+            for (int i = 0; i < coordinates.length(); i=i+3) { //example String: "A1,A2,A3"
+                coordCol = coordinates.charAt(i);
+                coordRow = Integer.parseInt(String.valueOf(coordinates.charAt(i+1)));
+                if(board[coordRow][alphaMap.get(coordCol)] != 'E'){
+                    System.out.println("Ship already placed here!");
+                    return false;
                 }
             }
 
+            shipCoordinates.put(id, coordinates); // add current ship coordinates to map with id
+
+            // update the board with ship
+            for (int i = 0; i < coordinates.length(); i=i+3) { //example String: "A1,A2,A3"
+                coordCol = coordinates.charAt(i);
+                coordRow = Integer.parseInt(String.valueOf(coordinates.charAt(i+1)));
+                this.board[coordRow][alphaMap.get(coordCol)] = 'S';
+                this.idBoard[coordRow][alphaMap.get(coordCol)] = id;
+            }
+
+            // place the caprain's quarters on board and place coordinate in shipCapQ mapping
             int QinCoordinates = 3 * (quartersPos-1); // multiply by 3 and subtract 1 for coordinate of captainsQ0
             char Qcol = coordinates.charAt(QinCoordinates); // get char for col
             int Qrow = Integer.parseInt(String.valueOf(coordinates.charAt(QinCoordinates+1))); // add one to get row value
             board[Qrow][alphaMap.get(Qcol)] = 'Q'; // mark captain's Q on board
-            System.out.println(Qcol + ", " + String.valueOf(Qrow));
             shipCapQPos.put(id, Qcol + String.valueOf(Qrow)); // add captain's quarter's to map
 
         }
