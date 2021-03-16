@@ -5,6 +5,7 @@ import edu.colorado.team20.Board.ComputerBoard;
 import edu.colorado.team20.Board.PlayerBoard;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonInputShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonRandomShot;
+import edu.colorado.team20.Player.Interfaces.Behaviors.LaserRandomShot;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import org.junit.jupiter.api.Test;
 
@@ -105,6 +106,14 @@ public class ShotTest {
         }
         assertEquals(5,count);
 
+    }
+
+    @Test
+    public void LaserShotTest () {
+        ShotBehavior shotBehavior;
+        shotBehavior = new LaserRandomShot();
+        Board playerBoard = new PlayerBoard();
+        shotBehavior.shot(playerBoard, 'Z', -1, 1);
     }
 
 }

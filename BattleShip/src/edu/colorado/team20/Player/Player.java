@@ -6,7 +6,7 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 public abstract class Player {
-    private final Board board; // isn't this tight coupling??
+    private final Board board;
     PlacementBehavior placementBehavior;
     protected HashMap<Integer, String> shotDecisionInfo; // keep track of shots per round
     ShotBehavior shotBehavior;

@@ -87,8 +87,8 @@ public class GameManagement {
             turnNum++;
 
             if(!firstSunk){ // loop through comp's fleet to find at least one sunk ship
-                for(int i = 0; i < compFleet.length; i++) {
-                    if (compFleet[i].checkSunk()) {
+                for (Ship ship : compFleet) {
+                    if (ship.checkSunk()) {
                         firstSunk = true;
                         break;
                     }
