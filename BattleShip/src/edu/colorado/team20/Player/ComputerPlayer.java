@@ -8,7 +8,7 @@ public final class ComputerPlayer extends Player{
     public ComputerPlayer(Board[] board) {
         super(board);
         placementBehavior = new RandomPlacement(); //a computer initially has an random behavior, both shot and placement
-        shotBehavior = new CannonRandomShot();
+        shotBehavior = new CannonRandomShot(); //initially only has a cannon
     }
 
 }

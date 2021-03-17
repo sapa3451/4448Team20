@@ -31,10 +31,7 @@ public final class CannonRandomShot implements ShotBehavior {
             row = (randNum.nextInt(10) + 1);
         }
 
-        //TODO: need to add captain's quarters to computer ships
-
-        // add shot to map of shot decision;
-
+        //takes in only the first board, the surface board
         board[0].performMarkBoard(col, row);
     }
 }

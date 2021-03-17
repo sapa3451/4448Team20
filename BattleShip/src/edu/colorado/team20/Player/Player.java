@@ -6,8 +6,6 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 public abstract class Player {
-    // TODO: make sure that Player gets both boards,
-    //  need to change constructor to grab array of boards
     private final Board surfaceBoard;
     private final Board underwaterBoard;
     PlacementBehavior placementBehavior;

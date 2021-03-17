@@ -125,6 +125,7 @@ public class GameManagement {
                 for (Ship ship : playerFleet) {
                     if (ship.checkSunk()) {
                         firstSunkPlayer = true;
+                        //if so, the computer now has the laser
                         computer.setShotBehavior(new LaserRandomShot());
                         break;
                     }

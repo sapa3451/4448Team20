@@ -73,10 +73,8 @@ public class LaserInputShot implements ShotBehavior {
                 input = sc.nextLine(); // Read user input
             }
         }
-
-        //added a return method to this function, which is then used to call and update the board with a hit
-        // before calling method need to check if this spot is a valid move (not already been shot at)
-        board[0].performMarkBoard(colVal, rowVal);
-        board[1].performMarkBoard(colVal, rowVal);
+        //a laser will mark both boards, as below
+        board[0].performMarkBoard(colVal, rowVal); //first element of this array is the surface board
+        board[1].performMarkBoard(colVal, rowVal); //second element of the array is the underwater board
     }
 }

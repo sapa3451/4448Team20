@@ -60,6 +60,8 @@ public class LaserRandomShot implements ShotBehavior {
 
         // add shot to map of shot decision;
 
-        board[1].performMarkBoard(col, row);
+        //a laser will mark both boards, as below
+        board[0].performMarkBoard(col, row); //first element of this array is the surface board
+        board[1].performMarkBoard(col, row); //second element of the array is the underwater board
     }
 }

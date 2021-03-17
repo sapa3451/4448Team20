@@ -9,6 +9,6 @@ public final class UserPlayer extends Player{
     public UserPlayer(Board[] board) {
         super(board);
         placementBehavior = new InputPlacement(); //a player initially has an input behavior, both shot and placement
-        shotBehavior = new CannonInputShot();
+        shotBehavior = new CannonInputShot(); //initially only has a cannon
     }
 }

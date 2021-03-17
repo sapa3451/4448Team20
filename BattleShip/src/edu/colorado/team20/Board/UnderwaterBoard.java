@@ -7,7 +7,7 @@ public class UnderwaterBoard extends Board {
 
     public UnderwaterBoard() {
         super();
-        showBehavior = new UnderwaterRegularBoardShow();
+        showBehavior = new UnderwaterRegularBoardShow(); //board will start with teh regular show, must set to hidden show if computer will be using board
         markBehavior = new UnderwaterMark();
     }
 
