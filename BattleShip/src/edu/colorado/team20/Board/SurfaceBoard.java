@@ -9,8 +9,4 @@ public class SurfaceBoard extends Board{
         showBehavior = new SurfaceRegularBoardShow();
         markBehavior = new SurfaceMark();
     }
-
-    public void performMarkBoard(char col, int row){
-        markBehavior.MarkBoard(this, col, row);
-    }
 }

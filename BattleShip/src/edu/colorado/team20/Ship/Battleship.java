@@ -5,5 +5,6 @@ public class Battleship extends Ship {
         super(size, name);
         captainQHealth = 2; // Battleship has 2 health for CQ
         quartersSpot = 3;
+        underwater = false;
     }
 }

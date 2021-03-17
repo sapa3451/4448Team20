@@ -17,6 +17,12 @@ public class SurfaceMark implements MarkBehavior {
         else if (positionChar == 'Q') {
             board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'W'; // if gets hit more than once keep at W
         }
+        else if (positionChar == 'H') {
+            board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'H'; // if gets hit more than once keep at W
+        }
+        else if (positionChar == 'X') {
+            board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'X'; // if gets hit more than once keep at W
+        }
         else if (positionChar == 'S') {
             board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'H'; // if gets hit more than once keep at W
         }

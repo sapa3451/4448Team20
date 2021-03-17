@@ -1,3 +1,4 @@
+
 package edu.colorado.team20.Board.Interfaces.Behaviors;
 
 import edu.colorado.team20.Board.Board;

@@ -3,9 +3,17 @@ package test;
 import edu.colorado.team20.Board.*;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SubmarineShipCoordinates;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SonarBoardShow;
+import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceHiddenBoardShow;
+import edu.colorado.team20.Board.Interfaces.Behaviors.UnderwaterHiddenBoardShow;
 import edu.colorado.team20.Game.GameManagement;
+import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
+import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Ship.*;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,10 +23,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoardTest {
 
     @Test
-    void Show() {
+    void ShowAndGetters() {
+        PlacementBehavior placementBehavior;
+        placementBehavior = new RandomPlacement();
         Board board = new SurfaceBoard();
+        placementBehavior.place(1, board, 4, 3);
         assertEquals(10, board.getColumnSize());
         assertEquals(10, board.getRowSize());
+        HashMap<Integer, String> result = board.getCoordinatesMapping(1);
+        assertEquals(board.getCoordinatesMapping(1), result);
     }
 
     @Test
@@ -205,21 +218,26 @@ class BoardTest {
         playerUnderwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
 
         GameManagement game = new GameManagement();
-        Ship[] playerFleet = {submarine1, submarine2};
+        List<Ship> playerFleet = new ArrayList<Ship>();
+        playerFleet.add(submarine1);
+        playerFleet.add(submarine2);
         for (Ship ship : playerFleet) {
             playerUnderwaterBoard.registerShip(ship);
             ship.setId(game.getIdNum());
             game.setIdNum();
         }
 
+        assertEquals(playerFleet.get(1).getName(), playerUnderwaterBoard.getFleet().get(1).getName());
+
         // add submarine to the board
-        // TODO: need to check if coordinates will be out of bounds --> since submarine is unique
         playerUnderwaterBoard.SetShipPos(submarine1.getId(), 4, 'B', 0, submarine1.getSize(), submarine1.getQuartersSpotInt());
         playerUnderwaterBoard.performShow();
 
         // set another submarine
         playerUnderwaterBoard.SetShipPos(submarine2.getId(), 7, 'F', 1, submarine2.getSize(), submarine2.getQuartersSpotInt());
         playerUnderwaterBoard.performShow();
+
+        playerUnderwaterBoard.performMarkBoard('I', 7);
     }
 
     // test create coordinate behavior
@@ -227,6 +245,23 @@ class BoardTest {
     void CreateRegularShipCoordinate() { // test to make sure that ships cannot overlap
         Board board = new SurfaceBoard(); // setting column and row
         assertEquals(false, board.SetShipPos(0,1,'J',1,4, 3));
+    }
+
+    @Test
+    void HiddenBoardTest() {
+        //test to make sure our hidden boards do not show ships
+        PlacementBehavior placementBehavior;
+        placementBehavior = new RandomPlacement();
+        Board playerSurfaceBoard = new SurfaceBoard();
+        placementBehavior.place(1, playerSurfaceBoard, 4, 3);
+        playerSurfaceBoard.setShowBehavior(new SurfaceHiddenBoardShow());
+        playerSurfaceBoard.performShow();
+
+        Board underwaterBoard = new UnderwaterBoard();
+        underwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+        placementBehavior.place(1, underwaterBoard, 5, 5);
+        underwaterBoard.setShowBehavior(new UnderwaterHiddenBoardShow());
+        underwaterBoard.performShow();
     }
 
     // test create coordinate behavior

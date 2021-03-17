@@ -11,9 +11,5 @@ public class UnderwaterBoard extends Board {
         markBehavior = new UnderwaterMark();
     }
 
-    public void performMarkBoard(char col, int row){
-        markBehavior.MarkBoard(this, col, row);
-    }
-
     // TODO: if keeping ~ for underwater board need to update some features when checking board
 }

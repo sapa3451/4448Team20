@@ -1,16 +1,15 @@
 package edu.colorado.team20.Game;
 
 import edu.colorado.team20.Board.*;
-import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceHiddenBoardShow;
-import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceRegularBoardShow;
-import edu.colorado.team20.Board.Interfaces.Behaviors.SonarBoardShow;
+import edu.colorado.team20.Board.Interfaces.Behaviors.*;
 import edu.colorado.team20.Player.ComputerPlayer;
+import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
+import edu.colorado.team20.Player.Interfaces.Behaviors.LaserInputShot;
+import edu.colorado.team20.Player.Interfaces.Behaviors.LaserRandomShot;
+import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
 import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
-import edu.colorado.team20.Ship.Battleship;
-import edu.colorado.team20.Ship.Destroyer;
-import edu.colorado.team20.Ship.Minesweeper;
-import edu.colorado.team20.Ship.Ship;
+import edu.colorado.team20.Ship.*;
 
 import java.util.Scanner;
 
@@ -31,22 +30,29 @@ public class GameManagement {
         Ship Pbattleship = new Battleship(4, "battleship");
         Ship Pdestroyer = new Destroyer(3, "destroyer");
         Ship Pminesweeper = new Minesweeper(2, "minesweeper");
+        Ship Psub = new Submarine(5, "submarine");
         Ship Cbattleship = new Battleship(4, "battleship");
         Ship Cdestroyer = new Destroyer(3, "destroyer");
         Ship Cminesweeper = new Minesweeper(2, "minesweeper");
+        Ship Csub = new Submarine(5, "submarine");
 
-        Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper};
-        Ship[] compFleet = {Cbattleship, Cdestroyer, Cminesweeper};
+        Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper, Psub};
+        Ship[] compFleet = {Cbattleship, Cdestroyer, Cminesweeper, Csub};
 
-        // TODO: player and computer baord interfaces being removed
-        //  we need to define showBehavior in another way (maybe in factory)
         Board playerSurfaceBoard = new SurfaceBoard();
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
         Board computerSurfaceBoard = new SurfaceBoard();
-        computerSurfaceBoard.setShowBehavior(new SurfaceHiddenBoardShow());
+        Board computerUnderWaterBoard = new UnderwaterBoard();
+        Board playerUnderwaterBoard = new UnderwaterBoard();
 
-        Player player = new UserPlayer(playerSurfaceBoard);
-        Player computer = new ComputerPlayer(computerSurfaceBoard);
+        computerSurfaceBoard.setShowBehavior(new SurfaceHiddenBoardShow());
+        computerUnderWaterBoard.setShowBehavior(new UnderwaterHiddenBoardShow());
+
+        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        Board[] computerBoards = new Board[]{computerSurfaceBoard, computerUnderWaterBoard};
+
+
+        Player player = new UserPlayer(playerBoards);
+        Player computer = new ComputerPlayer(computerBoards);
 
         System.out.println("Welcome to The Battleship Game!");
         System.out.println();
@@ -58,41 +64,68 @@ public class GameManagement {
 
         // give ships ids and place them
         for (Ship ship : compFleet) {
-            ship.setId(idNum);
-            idNum++;
-            computer.performPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
-            computer.getBoard().registerShip(ship);
+            if (ship.getUnderwater() == false) {
+                ship.setId(idNum);
+                idNum++;
+                computer.getBoards()[1].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                computer.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
+                computer.getBoards()[0].registerShip(ship);
+            }
+            else {
+                ship.setId(idNum);
+                idNum++;
+                computer.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                computer.performUnderwaterPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
+                computer.getBoards()[1].registerShip(ship);
+            }
         }
 
-        // testing
-//        computer.getBoard().setShowBehavior(new SonarBoardShow('E',3));
-//        computer.getBoard().performShow();
-//        computer.getBoard().setShowBehavior(new HiddenBoardShow());
 
         // give ships ids and place them
         for (Ship ship : playerFleet) {
-            ship.setId(idNum);
-            idNum++;
-            player.performPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
-            player.getBoard().registerShip(ship);
+            if (ship.getUnderwater() == false) {
+                ship.setId(idNum);
+                idNum++;
+                player.getBoards()[0].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                player.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
+                player.getBoards()[0].registerShip(ship);
+            }
+            else {
+                ship.setId(idNum);
+                idNum++;
+                player.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                player.performUnderwaterPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
+                player.getBoards()[1].registerShip(ship);
+            }
         }
 
         // set up of game is now done. Begin taking turns. Implementing sonar pulse
-        boolean firstSunk = false;
+        boolean firstSunkComputer = false;
+        boolean firstSunkPlayer = false;
         int sonarUses = 2;
         while(!EndGame(playerFleet,compFleet)){
-                player.performShot(computer.getBoard(), 'Z', -1, this.turnNum);
+                player.performShot(computer.getBoards(), 'Z', -1, this.turnNum);
                 ChangeTurn();
 //                player.getBoard().performShow();
-                computer.performShot(player.getBoard(), 'Z', -1, this.turnNum);
+                computer.performShot(player.getBoards(), 'Z', -1, this.turnNum);
                 ChangeTurn();
             // round over updating turnNum
             turnNum++;
 
-            if(!firstSunk){ // loop through comp's fleet to find at least one sunk ship
+            if(!firstSunkComputer){ // loop through comp's fleet to find at least one sunk ship
                 for (Ship ship : compFleet) {
                     if (ship.checkSunk()) {
-                        firstSunk = true;
+                        firstSunkComputer = true;
+                        break;
+                    }
+                }
+            }
+
+            if(!firstSunkPlayer){ // loop through players fleet to find at least one sunk ship
+                for (Ship ship : playerFleet) {
+                    if (ship.checkSunk()) {
+                        firstSunkPlayer = true;
+                        computer.setShotBehavior(new LaserRandomShot());
                         break;
                     }
                 }
@@ -100,7 +133,8 @@ public class GameManagement {
 
             // checking to see if the player has sunk at least one ship from comp
             // this is to ask if they want to use a sonar
-            if (firstSunk && sonarUses!=0){ // ask about sonar use since first ship is sunk
+            if (firstSunkComputer && sonarUses!=0){ // ask about sonar use since first ship is sunk
+                player.setShotBehavior(new LaserInputShot());
                 System.out.println("Because you sunk your first opponent's ship, would you like to use a sonar pulse?");
                 System.out.println();
                 // take in user input
@@ -162,9 +196,9 @@ public class GameManagement {
                         }
                     }
                     // got a valid row and col
-                    computer.getBoard().setShowBehavior(new SonarBoardShow(colVal,rowVal));
-                    computer.getBoard().performShow();
-                    computer.getBoard().setShowBehavior(new SurfaceHiddenBoardShow());
+                    computer.getBoards()[0].setShowBehavior(new SonarBoardShow(colVal,rowVal));
+                    computer.getBoards()[0].performShow();
+                    computer.getBoards()[0].setShowBehavior(new SurfaceHiddenBoardShow());
                     // remove one sonar use
                     sonarUses--;
                 }

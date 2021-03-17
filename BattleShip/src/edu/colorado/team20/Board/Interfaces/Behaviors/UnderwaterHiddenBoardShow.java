@@ -1,8 +1,9 @@
 package edu.colorado.team20.Board.Interfaces.Behaviors;
 
 import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 
-public class UnderwaterHiddenBoardShow {
+public class UnderwaterHiddenBoardShow implements ShowBehavior {
     public void show (Board board) {
         // create arrays to hold board rows and columns
         char[] col = new char[board.getColumnSize()*3+2];
@@ -44,7 +45,7 @@ public class UnderwaterHiddenBoardShow {
                 else if (board.getBoard()[i][j] == 'W') {
                     System.out.print("[W]");
                 }
-                else { // if empty just show ~
+                else {
                     System.out.print("[~]");
                 }
             }

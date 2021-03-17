@@ -5,5 +5,6 @@ public class Destroyer extends Ship {
         super(size, name);
         captainQHealth = 2; //Destroyer has 2 health for CQ
         quartersSpot = 2;
+        underwater = false;
     }
 }

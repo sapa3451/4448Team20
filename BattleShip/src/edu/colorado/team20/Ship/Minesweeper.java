@@ -6,5 +6,6 @@ public class Minesweeper extends Ship {
         captainQHealth = 1; // minesweeper only has one health hit for captain's quarters
         totShipHealth = size;
         quartersSpot = 1;
+        underwater = false;
     }
 }

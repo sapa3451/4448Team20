@@ -9,7 +9,7 @@ import java.util.Random;
 //TODO: before any further implementation, underwater board must be implemented
 
 public class LaserRandomShot implements ShotBehavior {
-    public void shot(Board board, char col, int row, int turnNum) {
+    public void shot(Board[] board, char col, int row, int turnNum) {
         System.out.println("The computer is now taking their shot!");
         System.out.println();
         Random randChar = new Random();
@@ -25,7 +25,7 @@ public class LaserRandomShot implements ShotBehavior {
         //coordinates resulting random board space
 
 
-        while(!board.CheckSpot(col,row))
+        while(!board[0].CheckSpot(col,row))
         {//while the randomly selected spot is not available
             col = (char) ('A' + randChar.nextInt(10));
             row = (randNum.nextInt(10) + 1);
@@ -35,6 +35,31 @@ public class LaserRandomShot implements ShotBehavior {
 
         // add shot to map of shot decision;
 
-        board.performMarkBoard(col, row);
+        board[0].performMarkBoard(col, row);
+
+        randChar = new Random();
+
+        //getting a random column
+        col = (char) ('A' + randChar.nextInt(10));
+
+        randNum = new Random();
+
+        //getting a random row
+        row = (randNum.nextInt(10) + 1);
+
+        //coordinates resulting random board space
+
+
+        while(!board[1].CheckSpot(col,row))
+        {//while the randomly selected spot is not available
+            col = (char) ('A' + randChar.nextInt(10));
+            row = (randNum.nextInt(10) + 1);
+        }
+
+        //TODO: need to add captain's quarters to computer ships
+
+        // add shot to map of shot decision;
+
+        board[1].performMarkBoard(col, row);
     }
 }

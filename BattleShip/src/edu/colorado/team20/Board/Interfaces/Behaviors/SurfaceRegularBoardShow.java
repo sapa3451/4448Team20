@@ -48,6 +48,9 @@ public class SurfaceRegularBoardShow implements ShowBehavior {
                 else if (board.getBoard()[i][j] == 'W') {
                     System.out.print("[W]");
                 }
+                else if (board.getBoard()[i][j] == 'H') {
+                    System.out.print("[H]");
+                }
                 else {
                     System.out.print("[ ]");
                 }

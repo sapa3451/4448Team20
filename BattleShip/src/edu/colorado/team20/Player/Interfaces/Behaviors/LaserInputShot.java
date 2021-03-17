@@ -9,9 +9,10 @@ import java.util.Scanner;
 //TODO: before any further implementation, underwater board must be implemented
 
 public class LaserInputShot implements ShotBehavior {
-    public void shot(Board board, char colv, int row, int turnNum) {
+    public void shot(Board[] board, char colv, int row, int turnNum) {
         if (colv != 'Z' && row != -1) {
-            board.performMarkBoard(colv,row);
+            board[0].performMarkBoard(colv,row);
+            board[1].performMarkBoard(colv,row);
             return;
         }
         char colVal = ' ';
@@ -75,6 +76,7 @@ public class LaserInputShot implements ShotBehavior {
 
         //added a return method to this function, which is then used to call and update the board with a hit
         // before calling method need to check if this spot is a valid move (not already been shot at)
-        board.performMarkBoard(colVal, rowVal);
+        board[0].performMarkBoard(colVal, rowVal);
+        board[1].performMarkBoard(colVal, rowVal);
     }
 }

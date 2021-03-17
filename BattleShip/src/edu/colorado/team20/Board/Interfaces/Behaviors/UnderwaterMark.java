@@ -20,6 +20,12 @@ public class UnderwaterMark implements MarkBehavior {
         else if (positionChar == 'S') {
             board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'H'; // if gets hit more than once keep at W
         }
+        else if (positionChar == 'H') {
+            board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'H'; // if gets hit more than once keep at W
+        }
+        else if (positionChar == 'X') {
+            board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'X'; // if gets hit more than once keep at W
+        }
         else { // decision was a ship --> mark as D
             board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'D'; // subtract one from row because indexing of array
         }

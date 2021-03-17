@@ -8,25 +8,32 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 public abstract class Player {
     // TODO: make sure that Player gets both boards,
     //  need to change constructor to grab array of boards
-    private final Board board; // isn't this tight coupling??
+    private final Board surfaceBoard;
+    private final Board underwaterBoard;
     PlacementBehavior placementBehavior;
     protected HashMap<Integer, String> shotDecisionInfo; // keep track of shots per round
     ShotBehavior shotBehavior;
-    public Player(Board board) {
-        this.board = board;
+
+    public Player(Board[] board) {
+        this.surfaceBoard = board[0];
+        this.underwaterBoard = board[1];
         shotDecisionInfo = new HashMap<>(); //create an empty hashmap
     }
 
-    public Board getBoard () {
-        return board;
+    public Board[] getBoards() {
+        return new Board[]{this.surfaceBoard, this.underwaterBoard};
     }
 
-    public void performPlacement(int id, int size, int quartersPos) {
-        placementBehavior.place(id, this.board, size, quartersPos);
+    public void performSurfacePlacement(int id, int size, int quartersPos) {
+        placementBehavior.place(id, this.surfaceBoard, size, quartersPos);
+    }
+
+    public void performUnderwaterPlacement(int id, int size, int quartersPos) {
+        placementBehavior.place(id, this.underwaterBoard, size, quartersPos);
     }
 
     // TODO: try making this take in array
-    public void performShot (Board board, char col, int row, int turnNum) {
+    public void performShot (Board[] board, char col, int row, int turnNum) {
         shotBehavior.shot(board, col, row, turnNum); //using strategy method, this is a behavior (in ShotBehavior)
         this.addShotFromTurn(turnNum, col+String.valueOf(row));
     }

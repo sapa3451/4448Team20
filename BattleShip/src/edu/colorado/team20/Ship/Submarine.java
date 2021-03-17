@@ -6,5 +6,6 @@ public class Submarine extends Ship {
         super(size, name);
         captainQHealth = 2; //Submarine has 2 health for CQ
         quartersSpot = 5;
+        underwater = true;
     }
 }

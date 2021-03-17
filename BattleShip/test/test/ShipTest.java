@@ -2,7 +2,9 @@ package test;
 
 import edu.colorado.team20.Ship.Battleship;
 import edu.colorado.team20.Ship.Destroyer;
+import edu.colorado.team20.Ship.Submarine;
 import edu.colorado.team20.Ship.Minesweeper;
+
 import org.junit.jupiter.api.Test;
 import sun.security.krb5.internal.crypto.Des;
 
@@ -45,7 +47,7 @@ class ShipTest {
     }
 
     @Test
-    public void GetShipHitInfoDestroyer() { //tests to make sure health is working correctly
+    public void GetShipHitInfosubmarine() { //tests to make sure health is working correctly
         Destroyer destroyer = new Destroyer(4, "destroyer");
 
         assertEquals(5, destroyer.getTotShipHealth());
@@ -63,5 +65,28 @@ class ShipTest {
         assertEquals(0, destroyer.getTotShipHealth());
         assertEquals(0, destroyer.getCaptainQHealth());
         assertEquals(true, destroyer.checkSunk());
+    }
+
+    @Test
+    public void GetShipHitInfoSubmarine() { //tests to make sure health is working correctly
+        Submarine submarine= new Submarine(5, "submarine");
+
+        assertTrue(submarine.getUnderwater());
+
+        assertEquals(6, submarine.getTotShipHealth());
+
+        assertEquals(2, submarine.getCaptainQHealth());
+
+        submarine.update(1);
+        assertEquals(5, submarine.getTotShipHealth());
+
+        submarine.updateCQ(1);
+        assertEquals(4, submarine.getTotShipHealth());
+        assertEquals(1, submarine.getCaptainQHealth());
+
+        submarine.updateCQ(1);
+        assertEquals(0, submarine.getTotShipHealth());
+        assertEquals(0, submarine.getCaptainQHealth());
+        assertEquals(true, submarine.checkSunk());
     }
 }
