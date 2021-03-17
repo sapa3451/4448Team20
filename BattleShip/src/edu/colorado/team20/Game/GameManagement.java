@@ -1,8 +1,8 @@
 package edu.colorado.team20.Game;
 
 import edu.colorado.team20.Board.*;
-import edu.colorado.team20.Board.Interfaces.Behaviors.HiddenBoardShow;
-import edu.colorado.team20.Board.Interfaces.Behaviors.RegularBoardShow;
+import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceHiddenBoardShow;
+import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceRegularBoardShow;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SonarBoardShow;
 import edu.colorado.team20.Player.ComputerPlayer;
 import edu.colorado.team20.Player.Player;
@@ -41,9 +41,9 @@ public class GameManagement {
         // TODO: player and computer baord interfaces being removed
         //  we need to define showBehavior in another way (maybe in factory)
         Board playerSurfaceBoard = new SurfaceBoard();
-        playerSurfaceBoard.setShowBehavior(new RegularBoardShow());
+        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
         Board computerSurfaceBoard = new SurfaceBoard();
-        computerSurfaceBoard.setShowBehavior(new HiddenBoardShow());
+        computerSurfaceBoard.setShowBehavior(new SurfaceHiddenBoardShow());
 
         Player player = new UserPlayer(playerSurfaceBoard);
         Player computer = new ComputerPlayer(computerSurfaceBoard);
@@ -164,7 +164,7 @@ public class GameManagement {
                     // got a valid row and col
                     computer.getBoard().setShowBehavior(new SonarBoardShow(colVal,rowVal));
                     computer.getBoard().performShow();
-                    computer.getBoard().setShowBehavior(new HiddenBoardShow());
+                    computer.getBoard().setShowBehavior(new SurfaceHiddenBoardShow());
                     // remove one sonar use
                     sonarUses--;
                 }

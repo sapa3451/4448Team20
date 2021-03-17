@@ -3,7 +3,7 @@ package edu.colorado.team20.Board.Interfaces.Behaviors;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 
-public class RegularBoardShow implements ShowBehavior {
+public class SurfaceHiddenBoardShow implements ShowBehavior {
     public void show (Board board) {
         // create arrays to hold board rows and columns
         char[] col = new char[board.getColumnSize()*3+2];
@@ -33,17 +33,14 @@ public class RegularBoardShow implements ShowBehavior {
                 System.out.print(row[i] + " ");
             }
             for (int j = 0; j < board.getColumnSize(); j++) {
-                if (board.getBoard()[i][j] == 'X') {
+                if (board.getBoard()[i][j] == 'D') {
+                    System.out.print("[D]");
+                }
+                else if (board.getBoard()[i][j] == 'X') {
                     System.out.print("[X]");
                 }
-                else if (board.getBoard()[i][j] == 'S') {
-                    System.out.print("[S]");
-                }
-                else if (board.getBoard()[i][j] == 'Q') {
-                    System.out.print("[Q]");
-                }
-                else if (board.getBoard()[i][j] == 'D') {
-                    System.out.print("[D]");
+                else if (board.getBoard()[i][j] == 'H') {
+                    System.out.print("[H]");
                 }
                 else if (board.getBoard()[i][j] == 'W') {
                     System.out.print("[W]");

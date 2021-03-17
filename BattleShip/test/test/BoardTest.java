@@ -4,8 +4,6 @@ import edu.colorado.team20.Board.*;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SubmarineShipCoordinates;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SonarBoardShow;
 import edu.colorado.team20.Game.GameManagement;
-import edu.colorado.team20.Player.ComputerPlayer;
-import edu.colorado.team20.Player.UserPlayer;
 import edu.colorado.team20.Ship.*;
 import org.junit.jupiter.api.Test;
 
@@ -28,10 +26,10 @@ class BoardTest {
         Board board = new SurfaceBoard();
 
         // need to call MarkBoard to add a placement then check if place can be added again
-        board.MarkBoard('A', 1);
+        board.performMarkBoard('A', 1);
         assertFalse(board.CheckSpot('A', 1));
 
-        board.MarkBoard('B', 4);
+        board.performMarkBoard('B', 4);
         assertFalse(board.CheckSpot('B', 4));
 
         // need to return true since not shot at
@@ -39,14 +37,14 @@ class BoardTest {
         assertTrue(board.CheckSpot('F', 9));
         assertTrue(board.CheckSpot('D', 6));
 
-        board.MarkBoard('J', 10);
+        board.performMarkBoard('J', 10);
         assertFalse(board.CheckSpot('J', 10));
 
         board.SetShipPos(0,1,'A',0,2, 1);
-        board.MarkBoard('A',1);
+        board.performMarkBoard('A',1);
         board.SetShipPos(0,1,'B',0,3, 2);
-        board.MarkBoard('B',2);
-        board.MarkBoard('B',2);
+        board.performMarkBoard('B',2);
+        board.performMarkBoard('B',2);
     }
 
     @Test
@@ -57,13 +55,13 @@ class BoardTest {
         assertEquals(board.GetPositionChar('D', 9), 'E');
         assertEquals(board.GetPositionChar('C', 4), 'E');
 
-        board.MarkBoard('F', 4);
+        board.performMarkBoard('F', 4);
         assertEquals(board.GetPositionChar('F', 4), 'X');
-        board.MarkBoard('A', 2);
+        board.performMarkBoard('A', 2);
         assertEquals(board.GetPositionChar('A', 2), 'X');
-        board.MarkBoard('B', 3);
+        board.performMarkBoard('B', 3);
         assertEquals(board.GetPositionChar('B', 3), 'X');
-        board.MarkBoard('J', 1);
+        board.performMarkBoard('J', 1);
         assertEquals(board.GetPositionChar('J', 1), 'X');
 
     }
@@ -71,6 +69,7 @@ class BoardTest {
     @Test
     void SetShipPos1() { // test to make sure that ships get placed correctly
         Board board = new SurfaceBoard(); // setting column and row
+
         board.SetShipPos(0, 1,'A',1,4, 3);
         for (int i = 0; i < 2; i++) {
             assertEquals(board.GetPositionChar((char) ('A' + i), 1), 'S');
@@ -87,6 +86,7 @@ class BoardTest {
     @Test
     void SetShipPos2() { // test to make sure that ships cannot overlap
         Board board = new SurfaceBoard();; // setting column and row
+
         board.SetShipPos(0,1,'A',0,4, 3);
         assertEquals(false, board.SetShipPos(0,1,'A',0,4, 3));
     }
@@ -94,6 +94,7 @@ class BoardTest {
     @Test
     void SonarPulse() { // want to check if the area shows the ships correctly
         Board board = new SurfaceBoard(); // setting column and row
+
         board.SetShipPos(1,1,'A',1,4, 3);
         board.SetShipPos(2,4,'B',1,3, 2);
         board.SetShipPos(3,4,'F',1,2, 1);

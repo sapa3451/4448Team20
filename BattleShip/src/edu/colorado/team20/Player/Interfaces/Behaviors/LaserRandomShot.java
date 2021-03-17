@@ -35,6 +35,6 @@ public class LaserRandomShot implements ShotBehavior {
 
         // add shot to map of shot decision;
 
-        board.MarkBoard(col, row);
+        board.performMarkBoard(col, row);
     }
 }

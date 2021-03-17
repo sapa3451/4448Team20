@@ -12,7 +12,7 @@ public class CannonInputShot implements ShotBehavior {
 
     public void shot(Board board, char colv, int row, int turnNum){
         if (colv != 'Z' && row != -1) {
-            board.MarkBoard(colv,row);
+            board.performMarkBoard(colv,row);
             return;
         }
         char colVal = ' ';
@@ -76,6 +76,6 @@ public class CannonInputShot implements ShotBehavior {
 
         //added a return method to this function, which is then used to call and update the board with a hit
         // before calling method need to check if this spot is a valid move (not already been shot at)
-        board.MarkBoard(colVal, rowVal);
+        board.performMarkBoard(colVal, rowVal);
     }
 }

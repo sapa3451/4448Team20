@@ -1,8 +1,10 @@
 package edu.colorado.team20.Board;
 
 import edu.colorado.team20.Board.Interfaces.Behaviors.RegularShipCoordinates;
+import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceMark;
 import edu.colorado.team20.Board.Interfaces.BoardSubject;
 import edu.colorado.team20.Board.Interfaces.CreateShipCoordinatesBehavior;
+import edu.colorado.team20.Board.Interfaces.MarkBehavior;
 import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 import edu.colorado.team20.Ship.Ship;
 
@@ -21,6 +23,7 @@ public abstract class Board implements BoardSubject {
     protected List<Ship> fleet;
     ShowBehavior showBehavior;
     CreateShipCoordinatesBehavior shipCoordinatesBehavior;
+    MarkBehavior markBehavior;
 
 
     public Board() {
@@ -140,38 +143,8 @@ public abstract class Board implements BoardSubject {
         return position != 'X' && position != 'D';
     }
 
-    // function to mark board after a shot
-    // returns id of ship if it has been hit (-1 if no ship hit)
-    public void MarkBoard(char col, int row) {
-        // call check spot in the beginning to check if spot is valid
-        char positionChar = board[row-1][alphaMap.get(col)];
-
-        if (positionChar == 'E') { // if shot decision was empty --> mark as X
-            board[row-1][alphaMap.get(col)] = 'X'; // subtract one from row because indexing of array
-        }
-        else if (positionChar == 'Q') {
-            board[row-1][alphaMap.get(col)] = 'W'; // if gets hit more than once keep at W
-        }
-        else if (positionChar == 'S') {
-            board[row-1][alphaMap.get(col)] = 'H'; // if gets hit more than once keep at W
-        }
-        else { // decision was a ship --> mark as D
-            board[row-1][alphaMap.get(col)] = 'D'; // subtract one from row because indexing of array
-        }
-        int id = this.idBoard[row-1][alphaMap.get(col)];
-        if (id != 0 && positionChar == 'Q' || positionChar == 'W') { // captainsQ got hit
-            if (updateShipOnCQHit(id) == 0) { // need to check if captainsQ is 0 health
-                // update the board to sink whole ship
-                updateShipChars(shipCoordinates.get(id));
-            }
-        }
-        else if (id != 0) {
-            if (updateShipOnHit(id) == 0) {
-                updateShipChars(shipCoordinates.get(id)); // update the board to sink whole ship
-                removeShip(id); //removes a ship as an observer when sunk
-            }
-        }
-        this.performShow();
+    public void performMarkBoard(char col, int row){
+        markBehavior.MarkBoard(this, col, row);
     }
 
     public boolean SetShipPos(int id, int row, char col, int direction, int size, int quartersPos) {
