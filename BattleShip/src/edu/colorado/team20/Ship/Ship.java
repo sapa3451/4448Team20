@@ -13,10 +13,10 @@ public abstract class Ship implements ShipObservers {
     // TODO: do we want to change this? Is this tight coupling?
     protected int quartersSpot; // int to tell captainsQ spacing for boat size
 
-    public Ship(int numOccupiedBoardCells, String shipName) {
-        this.numOccupiedBoardCells = numOccupiedBoardCells;
-        this.totShipHealth = this.getSize()+1;
-        this.name = shipName;
+    public Ship() {
+        //this.numOccupiedBoardCells;
+        //this.totShipHealth = this.getSize()+1;
+        //this.name = shipName;
         this.sunk = false;
     }
 

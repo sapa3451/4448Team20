@@ -20,24 +20,36 @@ public class GameManagement {
     private int turnNum;
     private char turnInfo;
     int idNum = 1;
+    //FleetAttributes;
+    private FleetFactory fleetFactory;
+    private Ship[] playerFleet;
+    private Ship[] compFleet;
+    //Change Boards to attributes
+    private Board playerBoard;
+    private Board computerBoard;
+    //Change Users to attributes
+    private Player player;
+    private Player computer;
 
     public GameManagement() {
         turnInfo = 'P'; // set to player first always
         turnNum = 1; // initialize first round
+
+        //Initialize Fleets
+        this.fleetFactory = new FleetFactory();
+
+        String[] standardFleet={"minesweeper","destroyer","battleship","submarine"};//Set standard list of pieces
+        this.playerFleet = this.fleetFactory.createFleet(standardFleet);
+        this.compFleet = this.fleetFactory.createFleet(standardFleet);
+
+        //this.playerBoard = new PlayerBoard();
+        //this.computerBoard = new ComputerBoard();
+
+        //this.player = new UserPlayer(playerBoard);
+        //this.computer = new ComputerPlayer(computerBoard);
     }
 
     public void BeginGame() {
-        Ship Pbattleship = new Battleship(4, "battleship");
-        Ship Pdestroyer = new Destroyer(3, "destroyer");
-        Ship Pminesweeper = new Minesweeper(2, "minesweeper");
-        Ship Psub = new Submarine(5, "submarine");
-        Ship Cbattleship = new Battleship(4, "battleship");
-        Ship Cdestroyer = new Destroyer(3, "destroyer");
-        Ship Cminesweeper = new Minesweeper(2, "minesweeper");
-        Ship Csub = new Submarine(5, "submarine");
-
-        Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper, Psub};
-        Ship[] compFleet = {Cbattleship, Cdestroyer, Cminesweeper, Csub};
 
         Board playerSurfaceBoard = new SurfaceBoard();
         Board computerSurfaceBoard = new SurfaceBoard();
@@ -54,6 +66,7 @@ public class GameManagement {
         Player player = new UserPlayer(playerBoards);
         Player computer = new ComputerPlayer(computerBoards);
 
+        //Still do user input for ship placement here
         System.out.println("Welcome to The Battleship Game!");
         System.out.println();
         System.out.println();
@@ -103,12 +116,12 @@ public class GameManagement {
         boolean firstSunkComputer = false;
         boolean firstSunkPlayer = false;
         int sonarUses = 2;
-        while(!EndGame(playerFleet,compFleet)){
-                player.performShot(computer.getBoards(), 'Z', -1, this.turnNum);
-                ChangeTurn();
+        while(!EndGame()){
+            player.performShot(computer.getBoards(), 'Z', -1, this.turnNum);
+            ChangeTurn();
 //                player.getBoard().performShow();
-                computer.performShot(player.getBoards(), 'Z', -1, this.turnNum);
-                ChangeTurn();
+            computer.performShot(player.getBoards(), 'Z', -1, this.turnNum);
+            ChangeTurn();
             // round over updating turnNum
             turnNum++;
 
@@ -223,18 +236,18 @@ public class GameManagement {
 
 
     //TODO: Add end game check, more functions
-    public boolean EndGame(Ship[] playerFleet, Ship[] compFleet) {
+    public boolean EndGame() {
         int playerCount = 0;
         int compCount = 0;
-        for (int i = 0; i < playerFleet.length; i++) {
-            if (playerFleet[i].checkSunk()) {
+        for (int i = 0; i < this.playerFleet.length; i++) {
+            if (this.playerFleet[i].checkSunk()) {
                 playerCount++;
             }
-            if (compFleet[i].checkSunk()) {
+            if (this.compFleet[i].checkSunk()) {
                 compCount++;
             }
         }
-        return playerCount == playerFleet.length || compCount == compFleet.length;
+        return playerCount == this.playerFleet.length || compCount == this.compFleet.length;
     }
 
     public int getIdNum() { return this.idNum; }

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ShipTest {
     @Test
     public void GetShipInfo() {//test to make sure all ships are initiated properly
-        Minesweeper minesweeper = new Minesweeper(2, "minesweeper");
+        Minesweeper minesweeper = new Minesweeper();
 
         assertEquals(minesweeper.getSize(), 2);
 
@@ -27,7 +27,7 @@ class ShipTest {
 
     @Test
     public void GetShipHitInfoBattleShip() { //tests to make sure health is working correctly
-        Battleship battleship = new Battleship(4, "battleship");
+        Battleship battleship = new Battleship();
 
         assertEquals(5, battleship.getTotShipHealth());
 
@@ -47,18 +47,18 @@ class ShipTest {
     }
 
     @Test
-    public void GetShipHitInfosubmarine() { //tests to make sure health is working correctly
-        Destroyer destroyer = new Destroyer(4, "destroyer");
+    public void GetShipHitInfoDestroyer() { //tests to make sure health is working correctly
+        Destroyer destroyer = new Destroyer();
 
-        assertEquals(5, destroyer.getTotShipHealth());
+        assertEquals(4, destroyer.getTotShipHealth());
 
         assertEquals(2, destroyer.getCaptainQHealth());
 
         destroyer.update(1);
-        assertEquals(4, destroyer.getTotShipHealth());
+        assertEquals(3, destroyer.getTotShipHealth());
 
         destroyer.updateCQ(1);
-        assertEquals(3, destroyer.getTotShipHealth());
+        assertEquals(2, destroyer.getTotShipHealth());
         assertEquals(1, destroyer.getCaptainQHealth());
 
         destroyer.updateCQ(1);
@@ -69,7 +69,7 @@ class ShipTest {
 
     @Test
     public void GetShipHitInfoSubmarine() { //tests to make sure health is working correctly
-        Submarine submarine= new Submarine(5, "submarine");
+        Submarine submarine= new Submarine();
 
         assertTrue(submarine.getUnderwater());
 

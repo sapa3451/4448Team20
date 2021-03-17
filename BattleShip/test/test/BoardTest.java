@@ -120,9 +120,9 @@ class BoardTest {
     void CaptainsQs() {
         //want to make sure that health goes down
         GameManagement game = new GameManagement();
-        Ship Pbattleship = new Battleship(4, "battleship");
-        Ship Pdestroyer = new Destroyer(3, "destroyer");
-        Ship Pminesweeper = new Minesweeper(2, "minesweeper");
+        Ship Pbattleship = new Battleship();
+        Ship Pdestroyer = new Destroyer();
+        Ship Pminesweeper = new Minesweeper();
 
         Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper};
         Board playerBoard = new SurfaceBoard();
@@ -213,8 +213,8 @@ class BoardTest {
         playerUnderwaterBoard.performShow();
 
         // create submarine
-        Ship submarine1 = new Submarine(5, "submarine");
-        Ship submarine2 = new Submarine(5, "submarine");
+        Ship submarine1 = new Submarine();
+        Ship submarine2 = new Submarine();
         playerUnderwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
 
         GameManagement game = new GameManagement();
@@ -270,18 +270,18 @@ class BoardTest {
         Board underwaterBoard = new UnderwaterBoard(); // setting column and row
         underwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
 
-        Ship submarine1 = new Submarine(5, "submarine");
-        Ship submarine2 = new Submarine(5, "submarine");
-        Ship submarine3 = new Submarine(5, "submarine");
-        Ship submarine4 = new Submarine(5, "submarine");
-        Ship submarine5 = new Submarine(5, "submarine");
-        Ship submarine6 = new Submarine(5, "submarine");
-        Ship submarine7 = new Submarine(5, "submarine");
-        Ship submarine8 = new Submarine(5, "submarine");
-        Ship submarine9 = new Submarine(5, "submarine");
-        Ship submarine10 = new Submarine(5, "submarine");
-        Ship submarine11 = new Submarine(5, "submarine");
-        Ship submarine12 = new Submarine(5, "submarine");
+        Ship submarine1 = new Submarine();
+        Ship submarine2 = new Submarine();
+        Ship submarine3 = new Submarine();
+        Ship submarine4 = new Submarine();
+        Ship submarine5 = new Submarine();
+        Ship submarine6 = new Submarine();
+        Ship submarine7 = new Submarine();
+        Ship submarine8 = new Submarine();
+        Ship submarine9 = new Submarine();
+        Ship submarine10 = new Submarine();
+        Ship submarine11 = new Submarine();
+        Ship submarine12 = new Submarine();
 
 
         GameManagement game = new GameManagement();

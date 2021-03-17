@@ -35,7 +35,7 @@ public class LaserRandomShot implements ShotBehavior {
 
         // add shot to map of shot decision;
 
-        board[0].performMarkBoard(col, row);
+        //board[0].performMarkBoard(col, row);
 
         randChar = new Random();
 

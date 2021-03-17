@@ -17,9 +17,9 @@ public class MarkBoardInterfaceTest {
     void CheckIfMarked() { // test to make sure that MarkBoard function is marking board correctly
         MarkBehavior markBehavior;
         markBehavior = new SurfaceMark();
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
+        Ship battleship = new Battleship();
+        Ship destroyer = new Destroyer();
+        Ship minesweeper = new Minesweeper();
         Board board = new SurfaceBoard();
         minesweeper.setId(1);
         board.registerShip(minesweeper);

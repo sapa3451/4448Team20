@@ -1,11 +1,13 @@
 package edu.colorado.team20.Ship;
 
 public class Minesweeper extends Ship {
-    public Minesweeper(int size, String name) {
-        super(size, name);
-        captainQHealth = 1; // minesweeper only has one health hit for captain's quarters
-        totShipHealth = size;
-        quartersSpot = 1;
-        underwater = false;
+    public Minesweeper() {
+        super();
+        this.numOccupiedBoardCells=2;
+        this.name="minesweeper";
+        this.captainQHealth = 1; // minesweeper only has one health hit for captain's quarters
+        this.totShipHealth = this.numOccupiedBoardCells;
+        this.quartersSpot = 1;
+        this.underwater = false;
     }
 }
