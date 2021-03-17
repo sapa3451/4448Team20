@@ -1,7 +1,7 @@
 package test;
 
 import edu.colorado.team20.Board.Board;
-import edu.colorado.team20.Board.PlayerBoard;
+import edu.colorado.team20.Board.SurfaceBoard;
 import edu.colorado.team20.Player.ComputerPlayer;
 import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonInputShot;
@@ -20,15 +20,14 @@ class PlayerTest {
         //test for a player shooting a single times to check and make sure board is marked
         System.out.println("Running SingleUserShot Test...........");
 
-        Board playerBoard = new PlayerBoard();
-        Board PlayerBoard = new PlayerBoard();
+        Board playerSurfaceBoard = new SurfaceBoard();
 
-        Player testPlayer = new UserPlayer(playerBoard);
+        Player testPlayer = new UserPlayer(playerSurfaceBoard);
 
         testPlayer.setShotBehavior(new CannonInputShot());
 
-        testPlayer.performShot(PlayerBoard, 'A', 1, 1);
-        assertEquals(PlayerBoard.GetPositionChar('A', 1), 'X');
+        testPlayer.performShot(playerSurfaceBoard, 'A', 1, 1);
+        assertEquals(playerSurfaceBoard.GetPositionChar('A', 1), 'X');
 
         assertEquals("A1", testPlayer.getTurnShot(1));
     }
@@ -37,21 +36,21 @@ class PlayerTest {
     public void MultipleUserShotTest() {
         //test for a player shooting multiple times to check and make sure board is marked
         System.out.println("Running MultipleUserShot Test...........");
-        Board PlayerBoard = new PlayerBoard();
+        Board PlayerSurfaceBoard = new SurfaceBoard();
 
-        Player testPlayer = new UserPlayer(PlayerBoard);
+        Player testPlayer = new UserPlayer(PlayerSurfaceBoard);
 
-        testPlayer.performShot(PlayerBoard, 'A', 1, 1);
-        testPlayer.performShot(PlayerBoard, 'A', 2, 1);
-        testPlayer.performShot(PlayerBoard, 'A', 10, 1);
-        testPlayer.performShot(PlayerBoard, 'C', 1, 1);
-        testPlayer.performShot(PlayerBoard, 'J', 4, 1);
+        testPlayer.performShot(PlayerSurfaceBoard, 'A', 1, 1);
+        testPlayer.performShot(PlayerSurfaceBoard, 'A', 2, 1);
+        testPlayer.performShot(PlayerSurfaceBoard, 'A', 10, 1);
+        testPlayer.performShot(PlayerSurfaceBoard, 'C', 1, 1);
+        testPlayer.performShot(PlayerSurfaceBoard, 'J', 4, 1);
 
-        assertEquals(PlayerBoard.GetPositionChar('A', 1), 'X');
-        assertEquals(PlayerBoard.GetPositionChar('A', 2), 'X');
-        assertEquals(PlayerBoard.GetPositionChar('A', 10), 'X');
-        assertEquals(PlayerBoard.GetPositionChar('C', 1), 'X');
-        assertEquals(PlayerBoard.GetPositionChar('J', 4), 'X');
+        assertEquals(PlayerSurfaceBoard.GetPositionChar('A', 1), 'X');
+        assertEquals(PlayerSurfaceBoard.GetPositionChar('A', 2), 'X');
+        assertEquals(PlayerSurfaceBoard.GetPositionChar('A', 10), 'X');
+        assertEquals(PlayerSurfaceBoard.GetPositionChar('C', 1), 'X');
+        assertEquals(PlayerSurfaceBoard.GetPositionChar('J', 4), 'X');
     }
 
     @Test
@@ -63,10 +62,10 @@ class PlayerTest {
         placementBehavior = new InputPlacement();
         PlacementBehavior randomPlacementBehavior;
         randomPlacementBehavior = new RandomPlacement();
-        Board playerBoard = new PlayerBoard();
-        Player userPlayer = new ComputerPlayer(playerBoard);
+        Board playerSurfaceBoard = new SurfaceBoard();
+        Player userPlayer = new ComputerPlayer(playerSurfaceBoard);
 
-        assertEquals(playerBoard, userPlayer.getBoard());
+        assertEquals(playerSurfaceBoard, userPlayer.getBoard());
 
         userPlayer.setPlacementBehavior(placementBehavior);
         assertEquals(userPlayer.getPlacementBehavior(), placementBehavior);

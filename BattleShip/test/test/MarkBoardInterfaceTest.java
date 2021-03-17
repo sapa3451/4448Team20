@@ -1,9 +1,9 @@
 package test;
 
 import edu.colorado.team20.Board.Board;
-import edu.colorado.team20.Board.ComputerBoard;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceMark;
 import edu.colorado.team20.Board.Interfaces.MarkBehavior;
+import edu.colorado.team20.Board.SurfaceBoard;
 import edu.colorado.team20.Ship.Battleship;
 import edu.colorado.team20.Ship.Destroyer;
 import edu.colorado.team20.Ship.Minesweeper;
@@ -20,18 +20,18 @@ public class MarkBoardInterfaceTest {
         Ship battleship = new Battleship(4, "battleship");
         Ship destroyer = new Destroyer(3, "destroyer");
         Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Board board = new ComputerBoard();
+        Board board = new SurfaceBoard();
         minesweeper.setId(1);
         board.registerShip(minesweeper);
         battleship.setId(2);
         board.registerShip(battleship);
         destroyer.setId(3);
         board.registerShip(destroyer);
-        board.SetShipPos(1,4, 'F',1,2);
-        assertFalse(board.SetShipPos(3,4, 'E',1,2));
+        board.SetShipPos(1,4, 'F',1,2, 1);
+        assertFalse(board.SetShipPos(3,4, 'E',1,2, 1));
         markBehavior.MarkBoard(board,'F', 4);
         assertEquals('D', board.GetPositionChar('F', 4));
-        board.SetShipPos(2,1, 'A',1,4);
+        board.SetShipPos(2,1, 'A',1,4, 2);
         markBehavior.MarkBoard(board,'A', 1);
         assertEquals('H', board.GetPositionChar('A', 1));
     }

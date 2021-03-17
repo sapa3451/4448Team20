@@ -2,6 +2,7 @@ package edu.colorado.team20.Game;
 
 import edu.colorado.team20.Board.*;
 import edu.colorado.team20.Board.Interfaces.Behaviors.HiddenBoardShow;
+import edu.colorado.team20.Board.Interfaces.Behaviors.RegularBoardShow;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SonarBoardShow;
 import edu.colorado.team20.Player.ComputerPlayer;
 import edu.colorado.team20.Player.Player;
@@ -39,11 +40,13 @@ public class GameManagement {
 
         // TODO: player and computer baord interfaces being removed
         //  we need to define showBehavior in another way (maybe in factory)
-        Board playerBoard = new PlayerBoard();
-        Board computerBoard = new ComputerBoard();
+        Board playerSurfaceBoard = new SurfaceBoard();
+        playerSurfaceBoard.setShowBehavior(new RegularBoardShow());
+        Board computerSurfaceBoard = new SurfaceBoard();
+        computerSurfaceBoard.setShowBehavior(new HiddenBoardShow());
 
-        Player player = new UserPlayer(playerBoard);
-        Player computer = new ComputerPlayer(computerBoard);
+        Player player = new UserPlayer(playerSurfaceBoard);
+        Player computer = new ComputerPlayer(computerSurfaceBoard);
 
         System.out.println("Welcome to The Battleship Game!");
         System.out.println();

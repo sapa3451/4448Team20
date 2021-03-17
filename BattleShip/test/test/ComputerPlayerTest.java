@@ -1,8 +1,7 @@
 package test;
 
 import edu.colorado.team20.Board.Board;
-import edu.colorado.team20.Board.ComputerBoard;
-import edu.colorado.team20.Board.PlayerBoard;
+import edu.colorado.team20.Board.SurfaceBoard;
 import edu.colorado.team20.Player.ComputerPlayer;
 import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
 import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
@@ -21,17 +20,17 @@ class ComputerPlayerTest {
         //test for a computer shooting a single times to check and make sure board is marked
         System.out.println("Running SingleRandomShot Test...........");
 
-        Board playerBoard = new PlayerBoard();
-        Board computerBoard = new ComputerBoard();
+        Board playerSurfaceBoard = new SurfaceBoard();
+        Board computerSurfaceBoard = new SurfaceBoard();
 
-        Player testComputer = new ComputerPlayer(computerBoard);
+        Player testComputer = new ComputerPlayer(playerSurfaceBoard);
 
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        testComputer.performShot(playerSurfaceBoard, 'Z', -1, 1);
 
         int count = 0;
-        for (int i = 0; i < playerBoard.getColumnSize(); i++) {
-            for (int j = 0; j < playerBoard.getRowSize(); j++) {
-                if (playerBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'X') {
+        for (int i = 0; i < playerSurfaceBoard.getColumnSize(); i++) {
+            for (int j = 0; j < playerSurfaceBoard.getRowSize(); j++) {
+                if (playerSurfaceBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'X') {
                     count += 1;
                 }
             }
@@ -44,25 +43,25 @@ class ComputerPlayerTest {
         //test for a computer shooting multiple times to check and make sure board is marked
         System.out.println("Running MultipleRandomShot Test...........");
 
-        Board playerBoard = new PlayerBoard();
-        Board computerBoard = new ComputerBoard();
+        Board playerSurfaceBoard = new SurfaceBoard();
+        Board computerSurfaceBoard = new SurfaceBoard();
 
-        Player testComputer = new ComputerPlayer(computerBoard);
+        Player testComputer = new ComputerPlayer(computerSurfaceBoard);
 
         testComputer.setShotBehavior(new CannonRandomShot());
 
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
-        testComputer.performShot(playerBoard, 'Z', -1, 1);
+        testComputer.performShot(playerSurfaceBoard, 'Z', -1, 1);
+        testComputer.performShot(playerSurfaceBoard, 'Z', -1, 1);
+        testComputer.performShot(playerSurfaceBoard, 'Z', -1, 1);
+        testComputer.performShot(playerSurfaceBoard, 'Z', -1, 1);
+        testComputer.performShot(playerSurfaceBoard, 'Z', -1, 1);
 
         String lastTurn = testComputer.getTurnShot(5);
 
         int count = 0;
-        for (int i = 0; i < playerBoard.getColumnSize(); i++) {
-            for (int j = 0; j < playerBoard.getRowSize(); j++) {
-                if (playerBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'X') {
+        for (int i = 0; i < playerSurfaceBoard.getColumnSize(); i++) {
+            for (int j = 0; j < playerSurfaceBoard.getRowSize(); j++) {
+                if (playerSurfaceBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'X') {
                     count += 1;
                 }
             }
@@ -80,10 +79,10 @@ class ComputerPlayerTest {
         placementBehavior = new InputPlacement();
         PlacementBehavior randomPlacementBehavior;
         randomPlacementBehavior = new RandomPlacement();
-        Board computerBoard = new ComputerBoard();
-        Player computerPlayer = new ComputerPlayer(computerBoard);
+        Board computerSurfaceBoard = new SurfaceBoard();
+        Player computerPlayer = new ComputerPlayer(computerSurfaceBoard);
 
-        assertEquals(computerBoard, computerPlayer.getBoard());
+        assertEquals(computerSurfaceBoard, computerPlayer.getBoard());
 
         computerPlayer.setPlacementBehavior(placementBehavior);
         assertEquals(computerPlayer.getPlacementBehavior(), placementBehavior);

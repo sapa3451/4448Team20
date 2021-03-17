@@ -18,14 +18,14 @@ class BoardTest {
 
     @Test
     void Show() {
-        Board board = new ComputerBoard();
+        Board board = new SurfaceBoard();
         assertEquals(10, board.getColumnSize());
         assertEquals(10, board.getRowSize());
     }
 
     @Test
     void CheckSpot_MarkBoard() { // use this test to make sure that player can't hit the same spot twice
-        Board board = new ComputerBoard();
+        Board board = new SurfaceBoard();
 
         // need to call MarkBoard to add a placement then check if place can be added again
         board.MarkBoard('A', 1);
@@ -51,7 +51,7 @@ class BoardTest {
 
     @Test
     void CheckIfMarked() { // test to make sure that MarkBoard function is marking board correctly
-        Board board = new ComputerBoard();
+        Board board = new SurfaceBoard();
 
         assertEquals(board.GetPositionChar('A', 1), 'E');
         assertEquals(board.GetPositionChar('D', 9), 'E');
@@ -70,7 +70,7 @@ class BoardTest {
 
     @Test
     void SetShipPos1() { // test to make sure that ships get placed correctly
-        Board board = new PlayerBoard(); // setting column and row
+        Board board = new SurfaceBoard(); // setting column and row
         board.SetShipPos(0, 1,'A',1,4, 3);
         for (int i = 0; i < 2; i++) {
             assertEquals(board.GetPositionChar((char) ('A' + i), 1), 'S');
@@ -86,14 +86,14 @@ class BoardTest {
 
     @Test
     void SetShipPos2() { // test to make sure that ships cannot overlap
-        Board board = new PlayerBoard();; // setting column and row
+        Board board = new SurfaceBoard();; // setting column and row
         board.SetShipPos(0,1,'A',0,4, 3);
         assertEquals(false, board.SetShipPos(0,1,'A',0,4, 3));
     }
 
     @Test
     void SonarPulse() { // want to check if the area shows the ships correctly
-        Board board = new ComputerBoard(); // setting column and row
+        Board board = new SurfaceBoard(); // setting column and row
         board.SetShipPos(1,1,'A',1,4, 3);
         board.SetShipPos(2,4,'B',1,3, 2);
         board.SetShipPos(3,4,'F',1,2, 1);
@@ -111,7 +111,7 @@ class BoardTest {
         Ship Pminesweeper = new Minesweeper(2, "minesweeper");
 
         Ship[] playerFleet = {Pbattleship, Pdestroyer, Pminesweeper};
-        Board playerBoard = new PlayerBoard();
+        Board playerBoard = new SurfaceBoard();
 
         // place player boards
         // give ships ids and place them
