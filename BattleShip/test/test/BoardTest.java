@@ -18,10 +18,6 @@ class BoardTest {
 
     @Test
     void Show() {
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
         Board board = new ComputerBoard();
         assertEquals(10, board.getColumnSize());
         assertEquals(10, board.getRowSize());
@@ -55,10 +51,6 @@ class BoardTest {
 
     @Test
     void CheckIfMarked() { // test to make sure that MarkBoard function is marking board correctly
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
         Board board = new ComputerBoard();
 
         assertEquals(board.GetPositionChar('A', 1), 'E');
@@ -78,10 +70,6 @@ class BoardTest {
 
     @Test
     void SetShipPos1() { // test to make sure that ships get placed correctly
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
         Board board = new PlayerBoard(); // setting column and row
         board.SetShipPos(0, 1,'A',1,4, 3);
         for (int i = 0; i < 2; i++) {
@@ -105,10 +93,6 @@ class BoardTest {
 
     @Test
     void SonarPulse() { // want to check if the area shows the ships correctly
-        Ship battleship = new Battleship(4, "battleship");
-        Ship destroyer = new Destroyer(3, "destroyer");
-        Ship minesweeper = new Minesweeper(2, "minesweeper");
-        Ship[] fleet = {battleship, destroyer, minesweeper};
         Board board = new ComputerBoard(); // setting column and row
         board.SetShipPos(1,1,'A',1,4, 3);
         board.SetShipPos(2,4,'B',1,3, 2);

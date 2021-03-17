@@ -83,14 +83,15 @@ public abstract class Board implements BoardSubject {
         fleet.add(s);
     } //use of observer strategy here, this adds ships to be updated after each hit
 
-    public void removeShip(int id) {
-        for (Ship ship : fleet){
+    public void removeShip(int id) { //use of observer strategy here, this removes ships after they are sunk to longer recieve any updates
+        for (Ship ship : fleet) {
             if (id == ship.getId()) {
                 fleet.remove(ship);
-                return;
+                break;
             }
         }
-    } //use of observer strategy here, this removes ships after they are sunk to longer recieve any updates
+        return;
+    }
 
     public HashMap<Character, Integer> getAlphaMap() {
         return this.alphaMap;

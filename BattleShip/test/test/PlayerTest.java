@@ -37,10 +37,9 @@ class PlayerTest {
     public void MultipleUserShotTest() {
         //test for a player shooting multiple times to check and make sure board is marked
         System.out.println("Running MultipleUserShot Test...........");
-        Board playerBoard = new PlayerBoard();
         Board PlayerBoard = new PlayerBoard();
 
-        Player testPlayer = new UserPlayer(playerBoard);
+        Player testPlayer = new UserPlayer(PlayerBoard);
 
         testPlayer.performShot(PlayerBoard, 'A', 1, 1);
         testPlayer.performShot(PlayerBoard, 'A', 2, 1);
