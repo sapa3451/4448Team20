@@ -6,6 +6,8 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 public abstract class Player {
+    // TODO: make sure that Player gets both boards,
+    //  need to change constructor to grab array of boards
     private final Board board; // isn't this tight coupling??
     PlacementBehavior placementBehavior;
     protected HashMap<Integer, String> shotDecisionInfo; // keep track of shots per round
@@ -23,6 +25,7 @@ public abstract class Player {
         placementBehavior.place(id, this.board, size, quartersPos);
     }
 
+    // TODO: try making this take in array
     public void performShot (Board board, char col, int row, int turnNum) {
         shotBehavior.shot(board, col, row, turnNum); //using strategy method, this is a behavior (in ShotBehavior)
         this.addShotFromTurn(turnNum, col+String.valueOf(row));

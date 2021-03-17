@@ -1,11 +1,8 @@
 package test;
 
-import edu.colorado.team20.Board.Board;
-import edu.colorado.team20.Board.ComputerBoard;
+import edu.colorado.team20.Board.*;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SubmarineShipCoordinates;
-import edu.colorado.team20.Board.PlayerBoard;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SonarBoardShow;
-import edu.colorado.team20.Board.UnderwaterBoard;
 import edu.colorado.team20.Game.GameManagement;
 import edu.colorado.team20.Player.ComputerPlayer;
 import edu.colorado.team20.Player.UserPlayer;
@@ -238,6 +235,61 @@ class BoardTest {
         // set another submarine
         playerUnderwaterBoard.SetShipPos(submarine2.getId(), 7, 'F', 1, submarine2.getSize(), submarine2.getQuartersSpotInt());
         playerUnderwaterBoard.performShow();
+    }
+
+    // test create coordinate behavior
+    @Test
+    void CreateRegularShipCoordinate() { // test to make sure that ships cannot overlap
+        Board board = new SurfaceBoard(); // setting column and row
+        assertEquals(false, board.SetShipPos(0,1,'J',1,4, 3));
+    }
+
+    // test create coordinate behavior
+    @Test
+    void CreateSubmarineCoordinates() { // test to make sure that ships cannot overlap
+        Board underwaterBoard = new UnderwaterBoard(); // setting column and row
+        underwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+
+        Ship submarine1 = new Submarine(5, "submarine");
+        Ship submarine2 = new Submarine(5, "submarine");
+        Ship submarine3 = new Submarine(5, "submarine");
+        Ship submarine4 = new Submarine(5, "submarine");
+        Ship submarine5 = new Submarine(5, "submarine");
+        Ship submarine6 = new Submarine(5, "submarine");
+        Ship submarine7 = new Submarine(5, "submarine");
+        Ship submarine8 = new Submarine(5, "submarine");
+        Ship submarine9 = new Submarine(5, "submarine");
+        Ship submarine10 = new Submarine(5, "submarine");
+        Ship submarine11 = new Submarine(5, "submarine");
+        Ship submarine12 = new Submarine(5, "submarine");
+
+
+        GameManagement game = new GameManagement();
+        Ship[] playerFleet = {submarine1, submarine2};
+        for (Ship ship : playerFleet) {
+            underwaterBoard.registerShip(ship);
+            ship.setId(game.getIdNum());
+            game.setIdNum();
+        }
+
+        // place ships outside of board
+        assertEquals(false, underwaterBoard.SetShipPos(submarine1.getId(),1,'J',1, submarine1.getSize(), submarine1.getQuartersSpotInt()));
+        assertEquals(false, underwaterBoard.SetShipPos(submarine2.getId(), 1,'C',1, submarine2.getSize(), submarine2.getQuartersSpotInt()));
+        assertEquals(false, underwaterBoard.SetShipPos(submarine3.getId(), 3,'A',0, submarine3.getSize(), submarine3.getQuartersSpotInt()));
+        assertEquals(false, underwaterBoard.SetShipPos(submarine4.getId(), 10,'H',1, submarine4.getSize(), submarine4.getQuartersSpotInt()));
+        assertEquals(false, underwaterBoard.SetShipPos(submarine5.getId(), 1,'A',0, submarine5.getSize(), submarine5.getQuartersSpotInt()));
+        assertEquals(false, underwaterBoard.SetShipPos(submarine6.getId(), 1,'G',1, submarine6.getSize(), submarine6.getQuartersSpotInt()));
+
+
+
+        // place ships inside of board
+        assertEquals(true, underwaterBoard.SetShipPos(submarine7.getId(), 2,'C',1, submarine7.getSize(), submarine7.getQuartersSpotInt()));
+        assertEquals(true, underwaterBoard.SetShipPos(submarine8.getId(), 10,'G',1, submarine8.getSize(), submarine8.getQuartersSpotInt()));
+        assertEquals(true, underwaterBoard.SetShipPos(submarine9.getId(), 4,'A',1, submarine9.getSize(), submarine9.getQuartersSpotInt()));
+        assertEquals(true, underwaterBoard.SetShipPos(submarine10.getId(), 5,'J',0, submarine10.getSize(), submarine10.getQuartersSpotInt()));
+        assertEquals(true, underwaterBoard.SetShipPos(submarine11.getId(), 6,'D',0, submarine11.getSize(), submarine11.getQuartersSpotInt()));
+        assertEquals(true, underwaterBoard.SetShipPos(submarine12.getId(), 10,'A',1, submarine12.getSize(), submarine12.getQuartersSpotInt()));
+        underwaterBoard.performShow();
     }
 
 }

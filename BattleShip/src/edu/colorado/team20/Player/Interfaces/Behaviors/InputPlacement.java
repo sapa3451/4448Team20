@@ -29,6 +29,7 @@ public class InputPlacement implements PlacementBehavior {
                 // check if valid input
                 if (input.length() == 1) { // check if single letter
                     char[] col = input.toCharArray(); // set to char array
+                    // TODO: may need to change this checker if making board different sizes
                     if (col[0] >= 'A' && col[0] <= 'J') {  // check if valid column input
                         correct = true;
                         // set column value
@@ -76,6 +77,9 @@ public class InputPlacement implements PlacementBehavior {
             input = sc.nextLine();
             int direction = Integer.parseInt(input);
             validPlacement = board.SetShipPos(id, rowVal, colVal, direction, size, quartersPos);
+            if (!validPlacement) {
+                System.out.println("Ship won't fit on board with chosen row and column! Type in a valid position.");
+            }
         }
     }
 }
