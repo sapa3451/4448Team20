@@ -1,9 +1,5 @@
 package edu.colorado.team20.Game;
 
-import edu.colorado.team20.Ship.Battleship;
-import edu.colorado.team20.Ship.Destroyer;
-import edu.colorado.team20.Ship.Minesweeper;
-import edu.colorado.team20.Game.ShipFactory;
 import edu.colorado.team20.Ship.Ship;
 
 public class FleetFactory {
@@ -11,7 +7,7 @@ public class FleetFactory {
     private ShipFactory shipFactory;//Each fleet factory contains their own shipfactory
 
     public FleetFactory(){
-       shipFactory = new ShipFactory();
+       this.shipFactory = new ShipFactory();
     }
 
     public Ship[] createFleet(String[] wantedShips){
@@ -22,6 +18,6 @@ public class FleetFactory {
             myFleet[i]=this.shipFactory.createShip(wantedShips[i]);
         }
 
-        return myFleet;//Returns hardcoded list of each ship type
+        return myFleet;//Returns list of desired ship objects
     }
 }

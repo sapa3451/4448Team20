@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class GameManagement {
     // provides turn information
     // P --> user player turn
-    // C --> computer turn
+    // C --> this.computer turn
     private int turnNum;
     private char turnInfo;
     int idNum = 1;
@@ -25,8 +25,9 @@ public class GameManagement {
     private Ship[] playerFleet;
     private Ship[] compFleet;
     //Change Boards to attributes
-    private Board playerBoard;
-    private Board computerBoard;
+    private BoardSetFactory boardSetFactory;
+    private Board[] playerBoards;
+    private Board[] computerBoards;
     //Change Users to attributes
     private Player player;
     private Player computer;
@@ -35,36 +36,29 @@ public class GameManagement {
         turnInfo = 'P'; // set to player first always
         turnNum = 1; // initialize first round
 
-        //Initialize Fleets
+    //Initialize Fleets
         this.fleetFactory = new FleetFactory();
-
         String[] standardFleet={"minesweeper","destroyer","battleship","submarine"};//Set standard list of pieces
         this.playerFleet = this.fleetFactory.createFleet(standardFleet);
         this.compFleet = this.fleetFactory.createFleet(standardFleet);
 
-        //this.playerBoard = new PlayerBoard();
-        //this.computerBoard = new ComputerBoard();
+    //Initialize Boards & Set Behaviors
+        this.boardSetFactory = new BoardSetFactory();
+        String[] standardBoardSet={"surface","underwater"};
+        this.playerBoards = this.boardSetFactory.createBoardSet(standardBoardSet);
+        this.computerBoards = this.boardSetFactory.createBoardSet(standardBoardSet);
 
-        //this.player = new UserPlayer(playerBoard);
-        //this.computer = new ComputerPlayer(computerBoard);
+        this.computerBoards[0].setShowBehavior(new SurfaceHiddenBoardShow());
+        this.computerBoards[1].setShowBehavior(new UnderwaterHiddenBoardShow());
+
+        this.player = new UserPlayer(this.playerBoards);
+        this.computer = new ComputerPlayer(this.computerBoards);
+
     }
 
     public void BeginGame() {
 
-        Board playerSurfaceBoard = new SurfaceBoard();
-        Board computerSurfaceBoard = new SurfaceBoard();
-        Board computerUnderWaterBoard = new UnderwaterBoard();
-        Board playerUnderwaterBoard = new UnderwaterBoard();
 
-        computerSurfaceBoard.setShowBehavior(new SurfaceHiddenBoardShow());
-        computerUnderWaterBoard.setShowBehavior(new UnderwaterHiddenBoardShow());
-
-        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
-        Board[] computerBoards = new Board[]{computerSurfaceBoard, computerUnderWaterBoard};
-
-
-        Player player = new UserPlayer(playerBoards);
-        Player computer = new ComputerPlayer(computerBoards);
 
         //Still do user input for ship placement here
         System.out.println("Welcome to The Battleship Game!");
@@ -77,38 +71,38 @@ public class GameManagement {
 
         // give ships ids and place them
         for (Ship ship : compFleet) {
-            if (ship.getUnderwater() == false) {
+            if (!ship.getUnderwater()) {
                 ship.setId(idNum);
                 idNum++;
-                computer.getBoards()[1].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
-                computer.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
-                computer.getBoards()[0].registerShip(ship);
+                this.computer.getBoards()[1].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                this.computer.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
+                this.computer.getBoards()[0].registerShip(ship);
             }
             else {
                 ship.setId(idNum);
                 idNum++;
-                computer.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
-                computer.performUnderwaterPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
-                computer.getBoards()[1].registerShip(ship);
+                this.computer.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                this.computer.performUnderwaterPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
+                this.computer.getBoards()[1].registerShip(ship);
             }
         }
 
 
         // give ships ids and place them
         for (Ship ship : playerFleet) {
-            if (ship.getUnderwater() == false) {
+            if (!ship.getUnderwater()) {
                 ship.setId(idNum);
                 idNum++;
-                player.getBoards()[0].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
-                player.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
-                player.getBoards()[0].registerShip(ship);
+                this.player.getBoards()[0].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                this.player.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
+                this.player.getBoards()[0].registerShip(ship);
             }
             else {
                 ship.setId(idNum);
                 idNum++;
-                player.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
-                player.performUnderwaterPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
-                player.getBoards()[1].registerShip(ship);
+                this.player.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                this.player.performUnderwaterPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
+                this.player.getBoards()[1].registerShip(ship);
             }
         }
 
@@ -117,10 +111,10 @@ public class GameManagement {
         boolean firstSunkPlayer = false;
         int sonarUses = 2;
         while(!EndGame()){
-            player.performShot(computer.getBoards(), 'Z', -1, this.turnNum);
+            player.performShot(this.computer.getBoards(), 'Z', -1, this.turnNum);
             ChangeTurn();
 //                player.getBoard().performShow();
-            computer.performShot(player.getBoards(), 'Z', -1, this.turnNum);
+            this.computer.performShot(player.getBoards(), 'Z', -1, this.turnNum);
             ChangeTurn();
             // round over updating turnNum
             turnNum++;
@@ -138,8 +132,8 @@ public class GameManagement {
                 for (Ship ship : playerFleet) {
                     if (ship.checkSunk()) {
                         firstSunkPlayer = true;
-                        //if so, the computer now has the laser
-                        computer.setShotBehavior(new LaserRandomShot());
+                        //if so, the this.computer now has the laser
+                        this.computer.setShotBehavior(new LaserRandomShot());
                         break;
                     }
                 }
@@ -210,9 +204,9 @@ public class GameManagement {
                         }
                     }
                     // got a valid row and col
-                    computer.getBoards()[0].setShowBehavior(new SonarBoardShow(colVal,rowVal));
-                    computer.getBoards()[0].performShow();
-                    computer.getBoards()[0].setShowBehavior(new SurfaceHiddenBoardShow());
+                    this.computer.getBoards()[0].setShowBehavior(new SonarBoardShow(colVal,rowVal));
+                    this.computer.getBoards()[0].performShow();
+                    this.computer.getBoards()[0].setShowBehavior(new SurfaceHiddenBoardShow());
                     // remove one sonar use
                     sonarUses--;
                 }
@@ -225,7 +219,7 @@ public class GameManagement {
 
     // change the turn
     public void ChangeTurn() {
-        // change the turn to either player or computer
+        // change the turn to either player or this.computer
         turnInfo = (turnInfo == 'P') ? 'C' : 'P';
     }
 

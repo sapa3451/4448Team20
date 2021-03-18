@@ -23,7 +23,7 @@ public class ShipFactory {
         }
         else{//if not recognized prints error state
             //and returns a minesweeper to avoid crashing
-            System.out.println("Error! ShipFactory createShip(): Input Not recognized, returing minesweeper");
+            System.out.println("!!! Error! ShipFactory createShip(): Input Not recognized, returing minesweeper !!!");
             return new Minesweeper();
         }
     }
