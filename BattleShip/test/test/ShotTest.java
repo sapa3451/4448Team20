@@ -157,8 +157,8 @@ public class ShotTest {
         }
         assertEquals(3,count);
         count = 0;
-        for (int i = 0; i < playerSurfaceBoard.getColumnSize(); i++) {
-            for (int j = 0; j < playerSurfaceBoard.getRowSize(); j++) {
+        for (int i = 0; i < playerUnderwaterBoard.getColumnSize(); i++) {
+            for (int j = 0; j < playerUnderwaterBoard.getRowSize(); j++) {
                 if (playerUnderwaterBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'X') {
                     count += 1;
                 }

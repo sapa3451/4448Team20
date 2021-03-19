@@ -35,33 +35,7 @@ public class LaserRandomShot implements ShotBehavior {
 
         // add shot to map of shot decision;
 
-        //board[0].performMarkBoard(col, row);
-
-        randChar = new Random();
-
-        //getting a random column
-        col = (char) ('A' + randChar.nextInt(10));
-
-        randNum = new Random();
-
-        //getting a random row
-        row = (randNum.nextInt(10) + 1);
-
-        //coordinates resulting random board space
-
-
-        while(!board[1].CheckSpot(col,row))
-        {//while the randomly selected spot is not available
-            col = (char) ('A' + randChar.nextInt(10));
-            row = (randNum.nextInt(10) + 1);
-        }
-
-        //TODO: need to add captain's quarters to computer ships
-
-        // add shot to map of shot decision;
-
-        //a laser will mark both boards, as below
-        board[0].performMarkBoard(col, row); //first element of this array is the surface board
+        board[0].performMarkBoard(col, row);
         board[1].performMarkBoard(col, row); //second element of the array is the underwater board
     }
 }
