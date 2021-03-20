@@ -9,5 +9,6 @@ public class Battleship extends Ship {
         this.captainQHealth = 2; //Battleship has 2 health for CQ
         this.quartersSpot = 3;
         this.underwater = false;
+        this.isSub = false;
     }
 }

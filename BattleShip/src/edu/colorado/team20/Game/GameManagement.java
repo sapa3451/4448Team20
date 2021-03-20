@@ -87,17 +87,32 @@ public class GameManagement {
             }
         }
 
-
+        boolean subUnderwater = true;
+        // ask if player wants to place their sub on surface or underwater
+        System.out.println("Do you want to place your submarine underwater? (Yes)/(No)");
+        Scanner sc = new Scanner(System.in); //System.in is a standard input stream
+        String input = sc.nextLine();    //reads string
+        input = input.toUpperCase(); // set to uppercase
+        if (input.equals("NO")) { // need to check for bad input
+            subUnderwater = false;
+        }
         // give ships ids and place them
         for (Ship ship : playerFleet) {
-            if (!ship.getUnderwater()) {
+            if (!ship.getIsSub()) { // these are for ships that aren't sub so always place on surface board
                 ship.setId(idNum);
                 idNum++;
                 this.player.getBoards()[0].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
                 this.player.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
                 this.player.getBoards()[0].registerShip(ship);
             }
-            else {
+            else if(!subUnderwater){ // this is if the player decides to place their sub on the surface
+                ship.setId(idNum);
+                idNum++;
+                this.player.getBoards()[0].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                this.player.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
+                this.player.getBoards()[0].registerShip(ship);
+            }
+            else { // this is if the player decides to place their sub underwater
                 ship.setId(idNum);
                 idNum++;
                 this.player.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
@@ -113,7 +128,6 @@ public class GameManagement {
         while(!EndGame()){
             player.performShot(this.computer.getBoards(), 'Z', -1, this.turnNum);
             ChangeTurn();
-//                player.getBoard().performShow();
             this.computer.performShot(player.getBoards(), 'Z', -1, this.turnNum);
             ChangeTurn();
             // round over updating turnNum
@@ -132,11 +146,14 @@ public class GameManagement {
                 for (Ship ship : playerFleet) {
                     if (ship.checkSunk()) {
                         firstSunkPlayer = true;
-                        //if so, the this.computer now has the laser
-                        this.computer.setShotBehavior(new LaserRandomShot());
                         break;
                     }
                 }
+            }
+
+            if(firstSunkPlayer){
+                //if the computer sunk a player's ship, the computer now has the laser
+                this.computer.setShotBehavior(new LaserRandomShot());
             }
 
             // checking to see if the player has sunk at least one ship from comp
@@ -145,9 +162,7 @@ public class GameManagement {
                 player.setShotBehavior(new LaserInputShot());
                 System.out.println("Because you sunk your first opponent's ship, would you like to use a sonar pulse?");
                 System.out.println();
-                // take in user input
-                Scanner sc = new Scanner(System.in); //System.in is a standard input stream
-                String input = sc.nextLine();    //reads string
+                input = sc.nextLine(); // Read user input
                 input = input.toUpperCase(); // set to uppercase
                 if (input.equals("YES")) { // need to check for bad input
                     // use sonarBoardShow
@@ -212,9 +227,6 @@ public class GameManagement {
                 }
             }
         }
-
-        // TODO: make sure when round ends add one to the turnNum!
-
     }
 
     // change the turn

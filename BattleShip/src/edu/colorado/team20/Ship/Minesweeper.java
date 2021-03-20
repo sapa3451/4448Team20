@@ -9,5 +9,6 @@ public class Minesweeper extends Ship {
         this.totShipHealth = this.numOccupiedBoardCells;
         this.quartersSpot = 1;
         this.underwater = false;
+        this.isSub = false;
     }
 }

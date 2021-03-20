@@ -9,6 +9,7 @@ public abstract class Ship implements ShipObservers {
     protected String name;
     protected int id;
     protected boolean sunk;
+    protected boolean isSub;
     protected boolean underwater;
     // TODO: do we want to change this? Is this tight coupling?
     protected int quartersSpot; // int to tell captainsQ spacing for boat size
@@ -21,6 +22,10 @@ public abstract class Ship implements ShipObservers {
     }
 
     public void setId(int ID) { this.id = ID; }
+
+    public boolean getIsSub() {
+        return isSub;
+    }
 
     public boolean getUnderwater() {
         return underwater;

@@ -10,5 +10,6 @@ public class Submarine extends Ship {
         this.captainQHealth = 2; //Submarine has 2 health for CQ
         this.quartersSpot = 5;
         this.underwater = true;
+        this.isSub = true;
     }
 }

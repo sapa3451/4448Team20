@@ -9,5 +9,6 @@ public class Destroyer extends Ship {
         this.captainQHealth = 2; //Destroyer has 2 health for CQ
         this.quartersSpot = 2;
         this.underwater = false;
+        this.isSub = false;
     }
 }
