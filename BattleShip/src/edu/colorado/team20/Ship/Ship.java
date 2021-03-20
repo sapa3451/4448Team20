@@ -23,10 +23,6 @@ public abstract class Ship implements ShipObservers {
 
     public void setId(int ID) { this.id = ID; }
 
-    public boolean getIsSub() {
-        return isSub;
-    }
-
     public boolean getUnderwater() {
         return underwater;
     }

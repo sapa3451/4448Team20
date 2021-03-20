@@ -98,14 +98,14 @@ public class GameManagement {
         }
         // give ships ids and place them
         for (Ship ship : playerFleet) {
-            if (!ship.getIsSub()) { // these are for ships that aren't sub so always place on surface board
+            if (!ship.getUnderwater()) { // these are for ships that aren't sub so always place on surface board
                 ship.setId(idNum);
                 idNum++;
                 this.player.getBoards()[0].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
                 this.player.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
                 this.player.getBoards()[0].registerShip(ship);
             }
-            else if(!subUnderwater){ // this is if the player decides to place their sub on the surface
+            else if(!subUnderwater && ship.getUnderwater()){ // this is if the player decides to place their sub on the surface
                 ship.setId(idNum);
                 idNum++;
                 this.player.getBoards()[0].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
