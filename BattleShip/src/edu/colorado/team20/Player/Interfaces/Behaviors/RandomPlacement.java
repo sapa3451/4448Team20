@@ -42,7 +42,7 @@ public class RandomPlacement implements PlacementBehavior {
                 n = (randNum.nextInt(10) + 1);
             }
         }
-        placed = board.SetShipPos(id, n, c, orientation, size, quartersPos);
+        placed = board.SetGamePiecePos(id, n, c, orientation, size, quartersPos);
         return placed;
     }
 }

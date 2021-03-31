@@ -1,6 +1,6 @@
-package edu.colorado.team20.Ship;
+package edu.colorado.team20.GamePiece;
 
-public class Battleship extends Ship {
+public class Battleship extends GamePiece {
     public Battleship () {
         super();
         this.numOccupiedBoardCells=4;

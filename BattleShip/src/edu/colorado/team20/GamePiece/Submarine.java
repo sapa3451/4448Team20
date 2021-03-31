@@ -1,6 +1,6 @@
-package edu.colorado.team20.Ship;
+package edu.colorado.team20.GamePiece;
 
-public class Submarine extends Ship {
+public class Submarine extends GamePiece {
 
     public Submarine() {
         super();

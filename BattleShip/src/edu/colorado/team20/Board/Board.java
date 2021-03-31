@@ -1,12 +1,11 @@
 package edu.colorado.team20.Board;
 
 import edu.colorado.team20.Board.Interfaces.Behaviors.RegularShipCoordinates;
-import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceMark;
 import edu.colorado.team20.Board.Interfaces.BoardSubject;
 import edu.colorado.team20.Board.Interfaces.CreateShipCoordinatesBehavior;
 import edu.colorado.team20.Board.Interfaces.MarkBehavior;
 import edu.colorado.team20.Board.Interfaces.ShowBehavior;
-import edu.colorado.team20.Ship.Ship;
+import edu.colorado.team20.GamePiece.GamePiece;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,12 +17,13 @@ public abstract class Board implements BoardSubject {
     protected final HashMap<Character, Integer> alphaMap = new HashMap<>();
     protected final int rowSize = 10;
     protected final int columnSize = 10;
-    protected HashMap<Integer, String> shipCoordinates = new HashMap<>();
-    protected HashMap<Integer, String> shipCapQPos = new HashMap<>();
-    protected List<Ship> fleet;
+    protected HashMap<Integer, String> gamePieceCoordinates = new HashMap<>();
+    protected HashMap<Integer, String> gamePieceCapQPos = new HashMap<>();
+    protected List<GamePiece> fleet;
     ShowBehavior showBehavior;
     CreateShipCoordinatesBehavior shipCoordinatesBehavior;
     MarkBehavior markBehavior;
+    protected int id;
 
 
     public Board() {
@@ -47,7 +47,7 @@ public abstract class Board implements BoardSubject {
             // map ints to alphas
             this.alphaMap.put(alphas[i], i);
         }
-        fleet = new ArrayList<Ship>();
+        fleet = new ArrayList<GamePiece>();
     }
 
     public char[][] getBoard() {
@@ -74,22 +74,22 @@ public abstract class Board implements BoardSubject {
         return shipCoordinatesBehavior.createShipCoordinates(row, col, direction, size, this.rowSize, this.columnSize);
     }
 
-    public List<Ship> getFleet () {
+    public List<GamePiece> getFleet () {
         return fleet;
     }
 
     public HashMap<Integer, String> getCoordinatesMapping(int id) {
-        return shipCoordinates;
+        return gamePieceCoordinates;
     }
 
-    public void registerShip (Ship s) {
+    public void registerShip (GamePiece s) {
         fleet.add(s);
     } //use of observer strategy here, this adds ships to be updated after each hit
 
     public void removeShip(int id) { //use of observer strategy here, this removes ships after they are sunk to longer recieve any updates
-        for (Ship ship : fleet) {
-            if (id == ship.getId()) {
-                fleet.remove(ship);
+        for (GamePiece gamePiece : fleet) {
+            if (id == gamePiece.getId()) {
+                fleet.remove(gamePiece);
                 break;
             }
         }
@@ -100,24 +100,24 @@ public abstract class Board implements BoardSubject {
         return this.alphaMap;
     }
 
-    public int updateShipOnHit(int id) { //sending updates to ships when they get hit
+    public int updateGamePieceOnHit(int id) { //sending updates to ships when they get hit
         int health = -1;
 
-        for (Ship ship : fleet){
-            if (id == ship.getId()) {
-                ship.update(1);
+        for (GamePiece gamePiece : fleet){
+            if (id == gamePiece.getId()) {
+                gamePiece.update(1);
             }
         }
         return health;
     }
 
-    public int updateShipOnCQHit(int id) { //sending updates to ships when they get hit in the CQ
+    public int updateGamePieceOnCQHit(int id) { //sending updates to ships when they get hit in the CQ
         int health = -1;
 
-        for (Ship ship : fleet) {
-            if (id == ship.getId()) {
-                ship.updateCQ(1);
-                health = ship.getTotShipHealth();
+        for (GamePiece gamePiece : fleet) {
+            if (id == gamePiece.getId()) {
+                gamePiece.updateCQ(1);
+                health = gamePiece.getTotShipHealth();
             }
         }
         return health;
@@ -147,72 +147,7 @@ public abstract class Board implements BoardSubject {
         markBehavior.MarkBoard(this, col, row);
     }
 
-    public boolean SetShipPos(int id, int row, char col, int direction, int size, int quartersPos) {
-        // TODO: need to figure out how we are going to place submarine since not one row/col
-        char positionChar = board[row-1][alphaMap.get(col)];
-
-        if (positionChar != 'E') { //Checks if ship is already at that location
-            System.out.println("Ship already placed here!");
-            return false;
-        }
-        else {
-            // get coordinates for shape of ship
-            // IMPORTANT: coordinates already takes care of zero indexing
-            String coordinates = this.performCreateShipCoordinates(row, col, direction, size);
-            String captainsQ = "";
-            // TODO: remove after testing done
-            System.out.println("Coordinates: " + coordinates);
-            if (coordinates == "NULL") { return false; } // ship doesn't fit on board for col/row
-
-            if (coordinates.contains("-")) {
-                String[] positions = coordinates.split("-");
-                coordinates = positions[0];
-                captainsQ = positions[1];
-            }
-
-            char coordCol = ' ';
-            int coordRow = -1;
-
-            // check if any ships are already placed there
-            for (int i = 0; i < coordinates.length(); i=i+3) { //example String: "A1,A2,A3,"
-                coordCol = coordinates.charAt(i);
-                coordRow = Integer.parseInt(String.valueOf(coordinates.charAt(i+1)));
-                if(board[coordRow][alphaMap.get(coordCol)] != 'E') {
-                    System.out.println("Ship already placed here!");
-                    return false;
-                }
-            }
-
-            shipCoordinates.put(id, coordinates); // add current ship coordinates to map with id
-
-            // update the board with ship
-            for (int i = 0; i < coordinates.length(); i=i+3) { //example String: "A1,A2,A3"
-                coordCol = coordinates.charAt(i);
-                coordRow = Integer.parseInt(String.valueOf(coordinates.charAt(i+1)));
-                this.board[coordRow][alphaMap.get(coordCol)] = 'S';
-                this.idBoard[coordRow][alphaMap.get(coordCol)] = id;
-            }
-
-            // place the caprain's quarters on board and place coordinate in shipCapQ mapping
-            if (!captainsQ.isEmpty()) {
-                char Qcol = captainsQ.charAt(0);
-                int Qrow = Integer.parseInt(String.valueOf(captainsQ.charAt(1)));
-                board[Qrow][alphaMap.get(Qcol)] = 'Q'; // mark captain's Q on board
-                shipCapQPos.put(id, Qcol + String.valueOf(Qrow)); // add captain's quarter's to map
-            }
-            else {
-                //TODO: can we think of a better way to handle regular ships captainsQ
-                int QinCoordinates = 3 * (quartersPos-1); // multiply by 3 and subtract 1 for coordinate of captainsQ0
-                char Qcol = coordinates.charAt(QinCoordinates); // get char for col
-                int Qrow = Integer.parseInt(String.valueOf(coordinates.charAt(QinCoordinates+1))); // add one to get row value
-                board[Qrow][alphaMap.get(Qcol)] = 'Q'; // mark captain's Q on board
-                shipCapQPos.put(id, Qcol + String.valueOf(Qrow)); // add captain's quarter's to map
-            }
-
-        }
-        showIdBoard();
-        return true;
-    }
+    public abstract boolean SetGamePiecePos(int id, int row, char col, int direction, int size, int quartersPos);
 
     // this is just for testing purposes to show idboard
     public void showIdBoard() {
@@ -257,7 +192,7 @@ public abstract class Board implements BoardSubject {
     }
 
     // function to mark ship as all destroyed when captains' quarters destroyed
-    public void updateShipChars(String coordinates) {
+    public void updateGamePieceChars(String coordinates) {
         // IMPORTANT: string row value already has zero index (do not minus 1 from row)!
 
         // parse the coordinates in the String
@@ -270,8 +205,8 @@ public abstract class Board implements BoardSubject {
         }
     }
 
-    public String getShipCaptainQPos(int id) { return this.shipCapQPos.get(id); }
-    public String getShipCoordinates(int id) { // return specific ship coordinates
-        return this.shipCoordinates.get(id);
+    public String getGamePieceCaptainQPos(int id) { return this.gamePieceCapQPos.get(id); }
+    public String getGamePieceCoordinates(int id) { // return specific ship coordinates
+        return this.gamePieceCoordinates.get(id);
     }
 }

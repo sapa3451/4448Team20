@@ -76,7 +76,7 @@ public class InputPlacement implements PlacementBehavior {
             System.out.println("Do you want to place your ship horizontally(1) or vertically(0)? ");
             input = sc.nextLine();
             int direction = Integer.parseInt(input);
-            validPlacement = board.SetShipPos(id, rowVal, colVal, direction, size, quartersPos);
+            validPlacement = board.SetGamePiecePos(id, rowVal, colVal, direction, size, quartersPos);
             if (!validPlacement) {
                 System.out.println("Ship won't fit on board with chosen row and column! Type in a valid position.");
             }

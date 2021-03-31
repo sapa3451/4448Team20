@@ -1,8 +1,8 @@
-package edu.colorado.team20.Ship;
+package edu.colorado.team20.GamePiece;
 
-import edu.colorado.team20.Ship.Interfaces.ShipObservers;
+import edu.colorado.team20.GamePiece.Interfaces.GamePieceObserver;
 
-public abstract class Ship implements ShipObservers {
+public abstract class GamePiece implements GamePieceObserver {
     protected int numOccupiedBoardCells;
     protected int totShipHealth;
     protected int captainQHealth;
@@ -13,7 +13,7 @@ public abstract class Ship implements ShipObservers {
     // TODO: do we want to change this? Is this tight coupling?
     protected int quartersSpot; // int to tell captainsQ spacing for boat size
 
-    public Ship() {
+    public GamePiece() {
         //this.numOccupiedBoardCells;
         //this.totShipHealth = this.getSize()+1;
         //this.name = shipName;

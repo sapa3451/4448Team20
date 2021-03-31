@@ -128,9 +128,9 @@ public class ShotTest {
         Board playerUnderwaterBoard = new UnderwaterBoard();
         Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
         playerBoards[0].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
-        playerBoards[0].SetShipPos(1,2,'A',1,4,3);
+        playerBoards[0].SetGamePiecePos(1,2,'A',1,4,3);
         playerBoards[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
-        playerBoards[1].SetShipPos(1,2,'A',1,5,5);
+        playerBoards[1].SetGamePiecePos(1,2,'A',1,5,5);
         shotBehavior.shot(playerBoards, 'A', 2, 1);
         assertEquals(playerBoards[1].GetPositionChar('A',2), 'H');
         assertEquals(playerBoards[0].GetPositionChar('A',2), 'H');

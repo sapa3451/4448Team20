@@ -5,8 +5,8 @@ import edu.colorado.team20.Board.Interfaces.Behaviors.SubmarineShipCoordinates;
 import edu.colorado.team20.Game.BoardFactory;
 import edu.colorado.team20.Game.BoardSetFactory;
 import edu.colorado.team20.Game.GameManagement;
-import edu.colorado.team20.Ship.Ship;
-import edu.colorado.team20.Ship.Submarine;
+import edu.colorado.team20.GamePiece.GamePiece;
+import edu.colorado.team20.GamePiece.Submarine;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -34,17 +34,17 @@ public class BoardFactoryTest {
         Board downwaterBoard=myBoardFactory.createBoard("underwater");
         downwaterBoard.performShow();
 
-        Ship submarine1 = new Submarine();
-        Ship submarine2 = new Submarine();
+        GamePiece submarine1 = new Submarine();
+        GamePiece submarine2 = new Submarine();
         downwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
 
         GameManagement game = new GameManagement();
-        List<Ship> playerFleet = new ArrayList<Ship>();
+        List<GamePiece> playerFleet = new ArrayList<GamePiece>();
         playerFleet.add(submarine1);
         playerFleet.add(submarine2);
-        for (Ship ship : playerFleet) {
-            downwaterBoard.registerShip(ship);
-            ship.setId(game.getIdNum());
+        for (GamePiece gamePiece : playerFleet) {
+            downwaterBoard.registerShip(gamePiece);
+            gamePiece.setId(game.getIdNum());
             game.setIdNum();
         }
 
@@ -74,17 +74,17 @@ public class BoardFactoryTest {
         //////////make underwater board for testing//////////
         myBoardSet[1].performShow();
 
-        Ship submarine1 = new Submarine();
-        Ship submarine2 = new Submarine();
+        GamePiece submarine1 = new Submarine();
+        GamePiece submarine2 = new Submarine();
         myBoardSet[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
 
         GameManagement game = new GameManagement();
-        List<Ship> playerFleet = new ArrayList<Ship>();
+        List<GamePiece> playerFleet = new ArrayList<GamePiece>();
         playerFleet.add(submarine1);
         playerFleet.add(submarine2);
-        for (Ship ship : playerFleet) {
-            myBoardSet[1].registerShip(ship);
-            ship.setId(game.getIdNum());
+        for (GamePiece gamePiece : playerFleet) {
+            myBoardSet[1].registerShip(gamePiece);
+            gamePiece.setId(game.getIdNum());
             game.setIdNum();
         }
 

@@ -1,10 +1,10 @@
 package edu.colorado.team20.Game;
 
-import edu.colorado.team20.Ship.*;
+import edu.colorado.team20.GamePiece.*;
 
 
 public class ShipFactory {
-    public Ship createShip(String type){
+    public GamePiece createShip(String type){
 
         String typeFix=type.toLowerCase();
         //Does above to avoid Dev errors cuasing confusion

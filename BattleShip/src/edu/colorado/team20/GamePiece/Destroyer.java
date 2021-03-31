@@ -1,6 +1,6 @@
-package edu.colorado.team20.Ship;
+package edu.colorado.team20.GamePiece;
 
-public class Destroyer extends Ship {
+public class Destroyer extends GamePiece {
     public Destroyer() {
         super();
         this.numOccupiedBoardCells=3;

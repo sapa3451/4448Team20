@@ -1,6 +1,6 @@
 package edu.colorado.team20.Game;
 
-import edu.colorado.team20.Ship.Ship;
+import edu.colorado.team20.GamePiece.GamePiece;
 
 public class FleetFactory {
 
@@ -10,9 +10,9 @@ public class FleetFactory {
        this.shipFactory = new ShipFactory();
     }
 
-    public Ship[] createFleet(String[] wantedShips){
+    public GamePiece[] createFleet(String[] wantedShips){
         //takes in list of each desired ships type
-        Ship[] myFleet = new Ship[wantedShips.length];
+        GamePiece[] myFleet = new GamePiece[wantedShips.length];
 
         for(int i=0; i< wantedShips.length;i++){
             myFleet[i]=this.shipFactory.createShip(wantedShips[i]);

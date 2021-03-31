@@ -3,13 +3,11 @@ package edu.colorado.team20.Game;
 import edu.colorado.team20.Board.*;
 import edu.colorado.team20.Board.Interfaces.Behaviors.*;
 import edu.colorado.team20.Player.ComputerPlayer;
-import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
 import edu.colorado.team20.Player.Interfaces.Behaviors.LaserInputShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.LaserRandomShot;
-import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
 import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
-import edu.colorado.team20.Ship.*;
+import edu.colorado.team20.GamePiece.*;
 
 import java.util.Scanner;
 
@@ -22,8 +20,8 @@ public class GameManagement {
     int idNum = 1;
     //FleetAttributes;
     private FleetFactory fleetFactory;
-    private Ship[] playerFleet;
-    private Ship[] compFleet;
+    private GamePiece[] playerFleet;
+    private GamePiece[] compFleet;
     //Change Boards to attributes
     private BoardSetFactory boardSetFactory;
     private Board[] playerBoards;
@@ -70,39 +68,39 @@ public class GameManagement {
         System.out.println();
 
         // give ships ids and place them
-        for (Ship ship : compFleet) {
-            if (!ship.getUnderwater()) {
-                ship.setId(idNum);
+        for (GamePiece gamePiece : compFleet) {
+            if (!gamePiece.getUnderwater()) {
+                gamePiece.setId(idNum);
                 idNum++;
                 this.computer.getBoards()[1].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
-                this.computer.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
-                this.computer.getBoards()[0].registerShip(ship);
+                this.computer.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                this.computer.getBoards()[0].registerShip(gamePiece);
             }
             else {
-                ship.setId(idNum);
+                gamePiece.setId(idNum);
                 idNum++;
                 this.computer.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
-                this.computer.performUnderwaterPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
-                this.computer.getBoards()[1].registerShip(ship);
+                this.computer.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                this.computer.getBoards()[1].registerShip(gamePiece);
             }
         }
 
 
         // give ships ids and place them
-        for (Ship ship : playerFleet) {
-            if (!ship.getUnderwater()) {
-                ship.setId(idNum);
+        for (GamePiece gamePiece : playerFleet) {
+            if (!gamePiece.getUnderwater()) {
+                gamePiece.setId(idNum);
                 idNum++;
                 this.player.getBoards()[0].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
-                this.player.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
-                this.player.getBoards()[0].registerShip(ship);
+                this.player.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                this.player.getBoards()[0].registerShip(gamePiece);
             }
             else {
-                ship.setId(idNum);
+                gamePiece.setId(idNum);
                 idNum++;
                 this.player.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
-                this.player.performUnderwaterPlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
-                this.player.getBoards()[1].registerShip(ship);
+                this.player.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                this.player.getBoards()[1].registerShip(gamePiece);
             }
         }
 
@@ -120,8 +118,8 @@ public class GameManagement {
             turnNum++;
 
             if(!firstSunkComputer){ // loop through comp's fleet to find at least one sunk ship
-                for (Ship ship : compFleet) {
-                    if (ship.checkSunk()) {
+                for (GamePiece gamePiece : compFleet) {
+                    if (gamePiece.checkSunk()) {
                         firstSunkComputer = true;
                         break;
                     }
@@ -129,8 +127,8 @@ public class GameManagement {
             }
 
             if(!firstSunkPlayer){ // loop through players fleet to find at least one sunk ship
-                for (Ship ship : playerFleet) {
-                    if (ship.checkSunk()) {
+                for (GamePiece gamePiece : playerFleet) {
+                    if (gamePiece.checkSunk()) {
                         firstSunkPlayer = true;
                         //if so, the this.computer now has the laser
                         this.computer.setShotBehavior(new LaserRandomShot());

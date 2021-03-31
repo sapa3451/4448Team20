@@ -1,16 +1,15 @@
 package test;
 
-import edu.colorado.team20.Ship.Battleship;
-import edu.colorado.team20.Ship.Destroyer;
-import edu.colorado.team20.Ship.Submarine;
-import edu.colorado.team20.Ship.Minesweeper;
+import edu.colorado.team20.GamePiece.Battleship;
+import edu.colorado.team20.GamePiece.Destroyer;
+import edu.colorado.team20.GamePiece.Submarine;
+import edu.colorado.team20.GamePiece.Minesweeper;
 
 import org.junit.jupiter.api.Test;
-import sun.security.krb5.internal.crypto.Des;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ShipTest {
+class GamePieceTest {
     @Test
     public void GetShipInfo() {//test to make sure all ships are initiated properly
         Minesweeper minesweeper = new Minesweeper();

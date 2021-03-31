@@ -1,6 +1,6 @@
-package edu.colorado.team20.Ship;
+package edu.colorado.team20.GamePiece;
 
-public class Minesweeper extends Ship {
+public class Minesweeper extends GamePiece {
     public Minesweeper() {
         super();
         this.numOccupiedBoardCells=2;

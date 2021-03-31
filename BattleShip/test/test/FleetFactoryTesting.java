@@ -1,9 +1,8 @@
 package test;
 
 import edu.colorado.team20.Game.FleetFactory;
-import edu.colorado.team20.Game.GameManagement;
 import edu.colorado.team20.Game.ShipFactory;
-import edu.colorado.team20.Ship.Ship;
+import edu.colorado.team20.GamePiece.GamePiece;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,11 +16,11 @@ public class FleetFactoryTesting {
         //include one with Developer input error to demonstrate error handling
 
         ShipFactory myShipFactory = new ShipFactory();
-        Ship myDestroyer = myShipFactory.createShip("Destroyer");
-        Ship myMineSweeper = myShipFactory.createShip("minesweeper");
-        Ship myBattleship = myShipFactory.createShip("battleship");
-        Ship mySub = myShipFactory.createShip("submarine");
-        Ship errorShip = myShipFactory.createShip("sub");
+        GamePiece myDestroyer = myShipFactory.createShip("Destroyer");
+        GamePiece myMineSweeper = myShipFactory.createShip("minesweeper");
+        GamePiece myBattleship = myShipFactory.createShip("battleship");
+        GamePiece mySub = myShipFactory.createShip("submarine");
+        GamePiece errorGamePiece = myShipFactory.createShip("sub");
 
         assertEquals(myMineSweeper.getSize(),2);
         assertEquals(myMineSweeper.getName(),"minesweeper");
@@ -32,8 +31,8 @@ public class FleetFactoryTesting {
         assertEquals(mySub.getSize(),5);
         assertEquals(mySub.getName(),"submarine");
 
-        assertEquals(errorShip.getSize(),2);
-        assertEquals(errorShip.getName(),"minesweeper");
+        assertEquals(errorGamePiece.getSize(),2);
+        assertEquals(errorGamePiece.getName(),"minesweeper");
 
     }
 
@@ -43,7 +42,7 @@ public class FleetFactoryTesting {
         // uses the factory's "createFleet" a fleet
         String[] standardFleet={"minesweeper","destroyer","battleship","submarine"};//desired list of ships
         FleetFactory myFleetFactory = new FleetFactory();
-        Ship[] myFleet = myFleetFactory.createFleet(standardFleet);
+        GamePiece[] myFleet = myFleetFactory.createFleet(standardFleet);
 
         assertEquals(myFleet.length,4);
 

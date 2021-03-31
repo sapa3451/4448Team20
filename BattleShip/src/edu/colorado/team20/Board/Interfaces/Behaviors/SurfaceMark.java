@@ -31,15 +31,15 @@ public class SurfaceMark implements MarkBehavior {
         }
         int id = board.getIdBoard()[row-1][board.getAlphaMap().get(col)];
         if (id != 0 && positionChar == 'Q' || positionChar == 'W') { // captainsQ got hit
-            if (board.updateShipOnCQHit(id) == 0) { // need to check if captainsQ is 0 health
+            if (board.updateGamePieceOnCQHit(id) == 0) { // need to check if captainsQ is 0 health
                 // update the board to sink whole ship
-                board.updateShipChars(board.getShipCoordinates(id));
+                board.updateGamePieceChars(board.getGamePieceCoordinates(id));
                 board.removeShip(id); //removes a ship as an observer when sunk
             }
         }
         else if (id != 0){
-            if (board.updateShipOnHit(id) == 0) {
-                board.updateShipChars(board.getShipCoordinates(id));
+            if (board.updateGamePieceOnHit(id) == 0) {
+                board.updateGamePieceChars(board.getGamePieceCoordinates(id));
                 board.removeShip(id); //removes a ship as an observer when sunk
             }
         }

@@ -15,7 +15,7 @@ public class BoardFactory {
             return new UnderwaterBoard();
         }
         else{
-            System.out.println("!!! Error! BoardFactory createBoard(): Input Not recognized, returing Surface Board !!!");
+            System.out.println("!!! Error! BoardFactory createBoard(): Input Not recognized, returning Surface Board !!!");
             return new SurfaceBoard();
         }
     }
