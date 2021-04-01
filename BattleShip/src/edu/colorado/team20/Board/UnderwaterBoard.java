@@ -24,8 +24,6 @@ public class UnderwaterBoard extends Board {
             // IMPORTANT: coordinates already takes care of zero indexing
             String coordinates = this.performCreateShipCoordinates(row, col, direction, size);
             String captainsQ = "";
-            // TODO: remove after testing done
-            System.out.println("Coordinates: " + coordinates);
             if (coordinates == "NULL") { return false; } // ship doesn't fit on board for col/row
 
             // underwater boards have unique captain's Q quarters so will have info in string
@@ -63,7 +61,6 @@ public class UnderwaterBoard extends Board {
             gamePieceCapQPos.put(id, Qcol + String.valueOf(Qrow)); // add captain's quarter's to map
 
         }
-        showIdBoard();
         return true;
     }
 }

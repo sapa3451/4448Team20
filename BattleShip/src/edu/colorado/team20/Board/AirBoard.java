@@ -1,17 +1,14 @@
 package edu.colorado.team20.Board;
 
 import edu.colorado.team20.Board.Board;
-import edu.colorado.team20.Board.Interfaces.Behaviors.AirRegularBoardShow;
-import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceMark;
-import edu.colorado.team20.Board.Interfaces.Behaviors.UnderwaterMark;
-import edu.colorado.team20.Board.Interfaces.Behaviors.UnderwaterRegularBoardShow;
+import edu.colorado.team20.Board.Interfaces.Behaviors.*;
 
 public class AirBoard extends Board {
 
     public AirBoard() {
         super();
         showBehavior = new AirRegularBoardShow(); //board will start with teh regular show, must set to hidden show if computer will be using board
-        markBehavior = new SurfaceMark();
+        markBehavior = new AirMark();
         id = 1; // set id to 1 to represent starting air board
     }
 
@@ -27,8 +24,6 @@ public class AirBoard extends Board {
             // IMPORTANT: coordinates already takes care of zero indexing
             String coordinates = this.performCreateShipCoordinates(row, col, direction, size);
             String captainsQ = "";
-            // TODO: remove after testing done
-            System.out.println("Coordinates: " + coordinates);
             if (coordinates == "NULL") { return false; } // ship doesn't fit on board for col/row
 
             // get captain's Q for the plane (each plane has captQ info in string making)
@@ -66,7 +61,6 @@ public class AirBoard extends Board {
             gamePieceCapQPos.put(id, Qcol + String.valueOf(Qrow)); // add captain's quarter's to map
 
         }
-        showIdBoard();
         return true;
     }
 }

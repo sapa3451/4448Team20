@@ -9,6 +9,6 @@ public class Destroyer extends GamePiece {
         this.captainQHealth = 2; //Destroyer has 2 health for CQ
         this.quartersSpot = 2;
         this.underwater = false;
-        this.isSub = false;
+        this.inAir = false;
     }
 }

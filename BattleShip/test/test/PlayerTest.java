@@ -1,5 +1,6 @@
 package test;
 
+import edu.colorado.team20.Board.AirBoard;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SubmarineShipCoordinates;
 import edu.colorado.team20.Board.SurfaceBoard;
@@ -24,7 +25,8 @@ class PlayerTest {
 
         Board playerSurfaceBoard = new SurfaceBoard();
         Board playerUnderwaterBoard = new UnderwaterBoard();
-        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        Board playerAirBoard = new AirBoard();
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
 
         Player testPlayer = new UserPlayer(playerBoards);
 
@@ -42,7 +44,8 @@ class PlayerTest {
         System.out.println("Running MultipleUserShot Test...........");
         Board playerSurfaceBoard = new SurfaceBoard();
         Board playerUnderwaterBoard = new UnderwaterBoard();
-        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        Board playerAirBoard = new AirBoard();
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
 
         Player testPlayer = new UserPlayer(playerBoards);
 
@@ -70,7 +73,8 @@ class PlayerTest {
         randomPlacementBehavior = new RandomPlacement();
         Board playerSurfaceBoard = new SurfaceBoard();
         Board playerUnderwaterBoard = new UnderwaterBoard();
-        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        Board playerAirBoard = new AirBoard();
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
         Player userPlayer = new ComputerPlayer(playerBoards);
 
         userPlayer.setPlacementBehavior(placementBehavior);
@@ -84,10 +88,10 @@ class PlayerTest {
         userPlayer.performSurfacePlacement(1, 3, 2);
         userPlayer.performSurfacePlacement(1, 2, 1);
         int count = 0;
-        for (int i = 0; i < userPlayer.getBoards()[0].getColumnSize(); i++) {
-            for (int j = 0; j < userPlayer.getBoards()[0].getRowSize(); j++) {
-                char s = userPlayer.getBoards()[0].GetPositionChar((char) ('A' + i), 1 + j);
-                if (userPlayer.getBoards()[0].GetPositionChar((char) ('A' + i), 1 + j) == 'S' || userPlayer.getBoards()[0].GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
+        for (int i = 0; i < userPlayer.getBoards()[1].getColumnSize(); i++) {
+            for (int j = 0; j < userPlayer.getBoards()[1].getRowSize(); j++) {
+                char s = userPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j);
+                if (userPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j) == 'S' || userPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
                     count += 1;
                 }
             }
@@ -109,7 +113,8 @@ class PlayerTest {
         Board playerSurfaceBoard = new SurfaceBoard();
         Board playerUnderwaterBoard = new UnderwaterBoard();
 
-        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        Board playerAirBoard = new AirBoard();
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
         Player userPlayer = new ComputerPlayer(playerBoards);
 
         userPlayer.setPlacementBehavior(placementBehavior);
@@ -119,15 +124,15 @@ class PlayerTest {
         userPlayer.setPlacementBehavior(randomPlacementBehavior);
         assertEquals(userPlayer.getPlacementBehavior(), randomPlacementBehavior);
 
-        userPlayer.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+        userPlayer.getBoards()[2].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
         userPlayer.performUnderwaterPlacement(1, 5, 5);
         userPlayer.performUnderwaterPlacement(2, 5, 5);
         userPlayer.performUnderwaterPlacement(3, 5, 5);
         int count = 0;
-        for (int i = 0; i < userPlayer.getBoards()[1].getColumnSize(); i++) {
-            for (int j = 0; j < userPlayer.getBoards()[1].getRowSize(); j++) {
-                char s = userPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j);
-                if (userPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j) == 'S' || userPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
+        for (int i = 0; i < userPlayer.getBoards()[2].getColumnSize(); i++) {
+            for (int j = 0; j < userPlayer.getBoards()[2].getRowSize(); j++) {
+                char s = userPlayer.getBoards()[2].GetPositionChar((char) ('A' + i), 1 + j);
+                if (userPlayer.getBoards()[2].GetPositionChar((char) ('A' + i), 1 + j) == 'S' || userPlayer.getBoards()[2].GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
                     count += 1;
                 }
             }

@@ -23,8 +23,6 @@ public class SurfaceBoard extends Board{
             // IMPORTANT: coordinates already takes care of zero indexing
             String coordinates = this.performCreateShipCoordinates(row, col, direction, size);
             String captainsQ = "";
-            // TODO: remove after testing done
-            System.out.println("Coordinates: " + coordinates);
             if (coordinates == "NULL") { return false; } // ship doesn't fit on board for col/row
 
             if (coordinates.contains("-")) {
@@ -72,7 +70,6 @@ public class SurfaceBoard extends Board{
             }
 
         }
-        showIdBoard();
         return true;
     }
 }

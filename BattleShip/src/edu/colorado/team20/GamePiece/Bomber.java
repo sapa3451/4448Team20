@@ -7,8 +7,9 @@ public class Bomber extends GamePiece {
         this.numOccupiedBoardCells=5;
         this.totShipHealth = 2; // bomber only has 2 life health
         this.name="bomber";
-        this.captainQHealth = 1; //Submarine has 2 health for CQ
+        this.captainQHealth = 1;
         this.quartersSpot = 0;
-        this.underwater = true;
+        this.underwater = false;
+        this.inAir = true;
     }
 }

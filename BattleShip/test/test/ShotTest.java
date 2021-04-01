@@ -1,10 +1,14 @@
 package test;
 
+import edu.colorado.team20.Board.AirBoard;
 import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.Board.Interfaces.Behaviors.PlaneShipCoordinates;
 import edu.colorado.team20.Board.Interfaces.Behaviors.RegularShipCoordinates;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SubmarineShipCoordinates;
 import edu.colorado.team20.Board.SurfaceBoard;
 import edu.colorado.team20.Board.UnderwaterBoard;
+import edu.colorado.team20.Game.FleetFactory;
+import edu.colorado.team20.GamePiece.GamePiece;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonInputShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonRandomShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.LaserInputShot;
@@ -72,7 +76,8 @@ public class ShotTest {
 
         Board playerSurfaceBoard = new SurfaceBoard();
         Board playerUnderwaterBoard = new UnderwaterBoard();
-        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        Board playerAirBoard = new AirBoard();
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
 
         shotBehavior.shot(playerBoards, 'Z', -1,1);
 
@@ -98,7 +103,8 @@ public class ShotTest {
 
         Board playerSurfaceBoard = new SurfaceBoard();
         Board playerUnderwaterBoard = new UnderwaterBoard();
-        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        Board playerAirBoard = new AirBoard();
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
 
 
         shotBehavior.shot(playerBoards, 'Z', -1, 1);
@@ -165,6 +171,96 @@ public class ShotTest {
             }
         }
         assertEquals(3,count);
+    }
+
+    @Test
+    public void LaserDepthShotTest () {
+        //test to make sure the laser only shoots until a depth of 5
+        ShotBehavior shotBehavior;
+        shotBehavior = new LaserInputShot();
+        Board underwaterBoardNotTooDeep = new UnderwaterBoard();
+        underwaterBoardNotTooDeep.setId(-4);
+        Board underwaterBoardTooDeep = new UnderwaterBoard();
+        underwaterBoardTooDeep.setId(-5);
+        Board[] playerBoards = new Board[]{underwaterBoardTooDeep,underwaterBoardNotTooDeep};
+        shotBehavior.shot(playerBoards, 'A', 2, 1);
+        underwaterBoardTooDeep.performShow();
+        int count = 0;
+        for (int i = 0; i < underwaterBoardNotTooDeep.getColumnSize(); i++) {
+            for (int j = 0; j < underwaterBoardNotTooDeep.getRowSize(); j++) {
+                if (underwaterBoardNotTooDeep.GetPositionChar((char) ('A' + i), 1 + j) == 'X') {
+                    count += 1;
+                }
+            }
+        }
+        assertEquals(1,count);
+        count = 0;
+        for (int i = 0; i < underwaterBoardTooDeep.getColumnSize(); i++) {
+            for (int j = 0; j < underwaterBoardTooDeep.getRowSize(); j++) {
+                if (underwaterBoardTooDeep.GetPositionChar((char) ('A' + i), 1 + j) == 'X') {
+                    count += 1;
+                }
+            }
+        }
+        assertEquals(0,count);
+        shotBehavior = new LaserRandomShot();
+        shotBehavior.shot(playerBoards, 'Z', -1, 1);
+        underwaterBoardTooDeep.performShow();
+        count = 0;
+        for (int i = 0; i < underwaterBoardNotTooDeep.getColumnSize(); i++) {
+            for (int j = 0; j < underwaterBoardNotTooDeep.getRowSize(); j++) {
+                if (underwaterBoardNotTooDeep.GetPositionChar((char) ('A' + i), 1 + j) == 'X') {
+                    count += 1;
+                }
+            }
+        }
+        assertEquals(2,count);
+        count = 0;
+        for (int i = 0; i < underwaterBoardTooDeep.getColumnSize(); i++) {
+            for (int j = 0; j < underwaterBoardTooDeep.getRowSize(); j++) {
+                if (underwaterBoardTooDeep.GetPositionChar((char) ('A' + i), 1 + j) == 'X') {
+                    count += 1;
+                }
+            }
+        }
+        assertEquals(0,count);
+    }
+
+    @Test
+    public void LaserGoesThroughAllThree () {
+        //test to make sure the laser shot will now mark both boards on input
+        Board playerSurfaceBoard = new SurfaceBoard();
+        Board playerUnderwaterBoard = new UnderwaterBoard();
+        Board playerAirBoard = new AirBoard();
+
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
+
+        String[] standardFleet={"battleship","submarine", "bomber"};//Set standard list of pieces
+        FleetFactory fleetFactory = new FleetFactory();
+        GamePiece[] playerFleet = fleetFactory.createFleet(standardFleet);
+        int idNum = 1;
+        for (GamePiece gamePiece : playerFleet) {
+            for (int i = 0; i < 3; i++) {
+                playerBoards[i].registerShip(gamePiece);
+                gamePiece.setId(idNum);
+                idNum++;
+            }
+        }
+        ShotBehavior shotBehavior;
+        shotBehavior = new LaserInputShot();
+
+        playerBoards[1].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+        playerBoards[1].SetGamePiecePos(playerFleet[0].getId(),5,'C',1,4,3);
+        playerBoards[2].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+        playerBoards[2].SetGamePiecePos(playerFleet[1].getId(),5,'C',1,5,5);
+        playerBoards[0].setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
+        playerBoards[0].SetGamePiecePos(playerFleet[2].getId(),5,'C',1,5,0);
+
+        shotBehavior.shot(playerBoards, 'C', 5, 1);
+
+        assertEquals(playerBoards[2].GetPositionChar('C',5), 'H');
+        assertEquals(playerBoards[1].GetPositionChar('C',5), 'H');
+        assertEquals(playerBoards[0].GetPositionChar('C',5), 'D');
     }
 
 }

@@ -9,9 +9,8 @@ public abstract class GamePiece implements GamePieceObserver {
     protected String name;
     protected int id;
     protected boolean sunk;
-    protected boolean isSub;
     protected boolean underwater;
-    // TODO: do we want to change this? Is this tight coupling?
+    protected boolean inAir;
     protected int quartersSpot; // int to tell captainsQ spacing for boat size
 
     public GamePiece() {
@@ -25,6 +24,10 @@ public abstract class GamePiece implements GamePieceObserver {
 
     public boolean getUnderwater() {
         return underwater;
+    }
+
+    public boolean isInAir() {
+        return inAir;
     }
 
     public int getId() { return this.id; }

@@ -21,6 +21,9 @@ public class ShipFactory {
         else if(typeFix.equals("submarine")){
             return new Submarine();
         }
+        else if(typeFix.equals("bomber")){
+            return new Bomber();
+        }
         else{//if not recognized prints error state
             //and returns a minesweeper to avoid crashing
             System.out.println("!!! Error! ShipFactory createShip(): Input Not recognized, returing minesweeper !!!");

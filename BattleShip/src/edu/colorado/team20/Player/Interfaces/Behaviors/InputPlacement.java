@@ -18,7 +18,7 @@ public class InputPlacement implements PlacementBehavior {
         while(!validPlacement) {
             char colVal = ' ';
             int rowVal = -1;
-            System.out.println("Type which column (A-J) you would like to place your ship:");
+            System.out.println("Type which column (A-J) you would like to place your piece:");
             // take in user input
             Scanner sc = new Scanner(System.in); //System.in is a standard input stream
             String input = sc.nextLine();    //reads string
@@ -44,7 +44,7 @@ public class InputPlacement implements PlacementBehavior {
                 }
             }
 
-            System.out.println("Type which row (1-10) you would like to place your ship: ");
+            System.out.println("Type which row (1-10) you would like to place your piece: ");
 
             // take in user input
             input = sc.nextLine();
@@ -73,10 +73,11 @@ public class InputPlacement implements PlacementBehavior {
             // after this i have a valid colVal and rowVal
 
 
-            System.out.println("Do you want to place your ship horizontally(1) or vertically(0)? ");
+            System.out.println("Do you want to place your piece horizontally(1) or vertically(0)? ");
             input = sc.nextLine();
             int direction = Integer.parseInt(input);
             validPlacement = board.SetGamePiecePos(id, rowVal, colVal, direction, size, quartersPos);
+            board.performShow();
             if (!validPlacement) {
                 System.out.println("Ship won't fit on board with chosen row and column! Type in a valid position.");
             }

@@ -50,7 +50,16 @@ public abstract class Board implements BoardSubject {
         fleet = new ArrayList<GamePiece>();
     }
 
-    public char[][] getBoard() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+        public char[][] getBoard() {
         return this.board;
     }
 

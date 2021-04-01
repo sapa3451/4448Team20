@@ -36,18 +36,19 @@ public class GameManagement {
 
     //Initialize Fleets
         this.fleetFactory = new FleetFactory();
-        String[] standardFleet={"minesweeper","destroyer","battleship","submarine"};//Set standard list of pieces
+        String[] standardFleet={"minesweeper","destroyer","battleship","submarine", "bomber"};//Set standard list of pieces
         this.playerFleet = this.fleetFactory.createFleet(standardFleet);
         this.compFleet = this.fleetFactory.createFleet(standardFleet);
 
     //Initialize Boards & Set Behaviors
         this.boardSetFactory = new BoardSetFactory();
-        String[] standardBoardSet={"surface","underwater"};
+        String[] standardBoardSet={"air","surface","underwater"};
         this.playerBoards = this.boardSetFactory.createBoardSet(standardBoardSet);
         this.computerBoards = this.boardSetFactory.createBoardSet(standardBoardSet);
 
-        this.computerBoards[0].setShowBehavior(new SurfaceHiddenBoardShow());
-        this.computerBoards[1].setShowBehavior(new UnderwaterHiddenBoardShow());
+        this.computerBoards[0].setShowBehavior(new AirHiddenBoardShow());
+        this.computerBoards[1].setShowBehavior(new SurfaceHiddenBoardShow());
+        this.computerBoards[2].setShowBehavior(new UnderwaterHiddenBoardShow());
 
         this.player = new UserPlayer(this.playerBoards);
         this.computer = new ComputerPlayer(this.computerBoards);
@@ -66,17 +67,23 @@ public class GameManagement {
 
         // give ships ids and place them
         for (GamePiece gamePiece : compFleet) {
-            if (!gamePiece.getUnderwater()) {
+            if (gamePiece.getUnderwater()) {
                 gamePiece.setId(idNum);
                 idNum++;
-                this.computer.getBoards()[1].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
-                this.computer.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                this.computer.getBoards()[2].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                this.computer.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                this.computer.getBoards()[2].registerShip(gamePiece);
+            } else if (gamePiece.isInAir()) {
+                gamePiece.setId(idNum);
+                idNum++;
+                this.computer.getBoards()[0].setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
+                this.computer.performAirPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
                 this.computer.getBoards()[0].registerShip(gamePiece);
             } else {
                 gamePiece.setId(idNum);
                 idNum++;
-                this.computer.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
-                this.computer.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                this.computer.getBoards()[1].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                this.computer.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
                 this.computer.getBoards()[1].registerShip(gamePiece);
             }
         }
@@ -90,135 +97,147 @@ public class GameManagement {
         if (input.equals("NO")) { // need to check for bad input
             subUnderwater = false;
         }
-        // give ships ids and place them
+        idNum = 1;
         for (GamePiece gamePiece : playerFleet) {
-            if (!gamePiece.getUnderwater()) {
+            if (gamePiece.getUnderwater()) {
+                if (subUnderwater) {
+                    gamePiece.setId(idNum);
+                    idNum++;
+                    this.player.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                    System.out.println("Placing " + gamePiece.getName() + "!");
+                    this.player.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                    this.player.getBoards()[1].registerShip(gamePiece);
+                } else {
+                    gamePiece.setId(idNum);
+                    idNum++;
+                    this.player.getBoards()[2].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                    System.out.println("Placing " + gamePiece.getName() + "!");
+                    this.player.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                    this.player.getBoards()[2].registerShip(gamePiece);
+                }
+            } else if (gamePiece.isInAir()) {
                 gamePiece.setId(idNum);
-                for (GamePiece ship : playerFleet) {
-                    if (!ship.getUnderwater()) { // these are for ships that aren't sub so always place on surface board
-                        ship.setId(idNum);
-                        idNum++;
-                        this.player.getBoards()[0].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
-                        this.player.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
-                        this.player.getBoards()[0].registerShip(gamePiece);
-                    } else if (!subUnderwater && ship.getUnderwater()) { // this is if the player decides to place their sub on the surface
-                        ship.setId(idNum);
-                        idNum++;
-                        this.player.getBoards()[0].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
-                        this.player.performSurfacePlacement(ship.getId(), ship.getSize(), ship.getQuartersSpotInt());
-                        this.player.getBoards()[0].registerShip(ship);
-                    } else { // this is if the player decides to place their sub underwater
-                        ship.setId(idNum);
-                        idNum++;
-                        this.player.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
-                        this.player.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
-                        this.player.getBoards()[1].registerShip(gamePiece);
+                idNum++;
+                this.player.getBoards()[0].setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
+                System.out.println("Placing " + gamePiece.getName() + "!");
+                this.player.performAirPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                this.player.getBoards()[0].registerShip(gamePiece);
+            } else {
+                gamePiece.setId(idNum);
+                idNum++;
+                this.player.getBoards()[1].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                System.out.println("Placing " + gamePiece.getName() + "!");
+                this.player.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                this.player.getBoards()[1].registerShip(gamePiece);
+            }
+        }
+        // set up of game is now done. Begin taking turns. Implementing sonar pulse
+        boolean firstSunkComputer = false;
+        boolean firstSunkPlayer = false;
+        int sonarUses = 2;
+        while (!EndGame()) {
+            player.performShot(this.computer.getBoards(), 'Z', -1, this.turnNum);
+            ChangeTurn();
+            this.computer.performShot(player.getBoards(), 'Z', -1, this.turnNum);
+            ChangeTurn();
+            // round over updating turnNum
+            turnNum++;
+
+            if (!firstSunkComputer) { // loop through comp's fleet to find at least one sunk ship
+                for (GamePiece compGamePiece : compFleet) {
+                    if (compGamePiece.checkSunk()) {
+                        firstSunkComputer = true;
+                        break;
                     }
                 }
+            }
 
-                // set up of game is now done. Begin taking turns. Implementing sonar pulse
-                boolean firstSunkComputer = false;
-                boolean firstSunkPlayer = false;
-                int sonarUses = 2;
-                while (!EndGame()) {
-                    player.performShot(this.computer.getBoards(), 'Z', -1, this.turnNum);
-                    ChangeTurn();
-                    this.computer.performShot(player.getBoards(), 'Z', -1, this.turnNum);
-                    ChangeTurn();
-                    // round over updating turnNum
-                    turnNum++;
+            if (!firstSunkPlayer) { // loop through players fleet to find at least one sunk ship
+                for (GamePiece playerGamePiece : playerFleet) {
+                    if (playerGamePiece.checkSunk()) {
+                        firstSunkPlayer = true;
+                        break;
+                    }
+                }
+            }
 
-                    if (!firstSunkComputer) { // loop through comp's fleet to find at least one sunk ship
-                        for (GamePiece compGamePiece : compFleet) {
-                            if (compGamePiece.checkSunk()) {
-                                firstSunkComputer = true;
-                                break;
+            if (firstSunkPlayer) {
+                //if the computer sunk a player's ship, the computer now has the laser
+                this.computer.setShotBehavior(new LaserRandomShot());
+            }
+
+            // checking to see if the player has sunk at least one ship from comp
+            // this is to ask if they want to use a sonar
+            if (firstSunkComputer && sonarUses != 0) { // ask about sonar use since first ship is sunk
+                player.setShotBehavior(new LaserInputShot());
+                System.out.println("Because you sunk your first opponent's ship, would you like to use a sonar pulse?");
+                System.out.println();
+                input = sc.nextLine(); // Read user input
+                input = input.toUpperCase(); // set to uppercase
+                if (input.equals("YES")) { // need to check for bad input
+                    // use sonarBoardShow
+                    char colVal = ' ';
+                    int rowVal = -1;
+                    System.out.println("Type which column (A-J) you would like your sonar pulse center to be: ");
+                    // take in user input
+                    input = sc.nextLine();    //reads string
+                    input = input.toUpperCase(); // set to uppercase
+                    // we want to check input is okay for column
+                    boolean correct = false;
+                    while (!correct) {
+                        // check if valid input
+                        if (input.length() == 1) { // check if single letter
+                            char[] col = input.toCharArray(); // set to char array
+                            if (col[0] >= 'A' && col[0] <= 'J') {  // check if valid column input
+                                correct = true;
+                                // set column value
+                                colVal = col[0];
                             }
                         }
-                    }
-
-                    if (!firstSunkPlayer) { // loop through players fleet to find at least one sunk ship
-                        for (GamePiece playerGamePiece : playerFleet) {
-                            if (playerGamePiece.checkSunk()) {
-                                firstSunkPlayer = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (firstSunkPlayer) {
-                        //if the computer sunk a player's ship, the computer now has the laser
-                        this.computer.setShotBehavior(new LaserRandomShot());
-                    }
-
-                    // checking to see if the player has sunk at least one ship from comp
-                    // this is to ask if they want to use a sonar
-                    if (firstSunkComputer && sonarUses != 0) { // ask about sonar use since first ship is sunk
-                        player.setShotBehavior(new LaserInputShot());
-                        System.out.println("Because you sunk your first opponent's ship, would you like to use a sonar pulse?");
-                        System.out.println();
-                        input = sc.nextLine(); // Read user input
-                        input = input.toUpperCase(); // set to uppercase
-                        if (input.equals("YES")) { // need to check for bad input
-                            // use sonarBoardShow
-                            char colVal = ' ';
-                            int rowVal = -1;
-                            System.out.println("Type which column (A-J) you would like your sonar pulse center to be: ");
-                            // take in user input
-                            input = sc.nextLine();    //reads string
+                        // invalid input
+                        if (!correct) {
+                            System.out.println("Invalid column! Please enter a valid column (A-J): ");
+                            input = sc.nextLine(); // Read user input
                             input = input.toUpperCase(); // set to uppercase
-                            // we want to check input is okay for column
-                            boolean correct = false;
-                            while (!correct) {
-                                // check if valid input
-                                if (input.length() == 1) { // check if single letter
-                                    char[] col = input.toCharArray(); // set to char array
-                                    if (col[0] >= 'A' && col[0] <= 'J') {  // check if valid column input
-                                        correct = true;
-                                        // set column value
-                                        colVal = col[0];
-                                    }
-                                }
-                                // invalid input
-                                if (!correct) {
-                                    System.out.println("Invalid column! Please enter a valid column (A-J): ");
-                                    input = sc.nextLine(); // Read user input
-                                    input = input.toUpperCase(); // set to uppercase
-                                }
-                            }
-
-                            System.out.println("Type which row (1-10) you would like your sonar pulse center to be: ");
-
-                            // take in user input
-                            input = sc.nextLine();
-
-                            // we want to check input is okay for column
-                            correct = false;
-                            while (!correct) {
-                                // check if valid input
-                                try {
-                                    // checking valid integer using parseInt() method
-                                    rowVal = Integer.parseInt(input); // set value
-                                } catch (NumberFormatException e) { // throw error and get input again
-                                    System.out.println("Invalid row! Please enter a valid row (1-10):");
-                                    input = sc.nextLine(); // Read user input
-                                }
-
-                                if (rowVal > 0 && rowVal <= 10) { // check if row value is within board
-                                    correct = true;
-                                } else {
-                                    System.out.println("Invalid row! Please enter a valid row (1-10):");
-                                    input = sc.nextLine(); // Read user input
-                                }
-                            }
-                            // got a valid row and col
-                            this.computer.getBoards()[0].setShowBehavior(new SonarBoardShow(colVal, rowVal));
-                            this.computer.getBoards()[0].performShow();
-                            this.computer.getBoards()[0].setShowBehavior(new SurfaceHiddenBoardShow());
-                            // remove one sonar use
-                            sonarUses--;
                         }
                     }
+
+                    System.out.println("Type which row (1-10) you would like your sonar pulse center to be: ");
+
+                    // take in user input
+                    input = sc.nextLine();
+
+                    // we want to check input is okay for column
+                    correct = false;
+                    while (!correct) {
+                        // check if valid input
+                        try {
+                            // checking valid integer using parseInt() method
+                            rowVal = Integer.parseInt(input); // set value
+                        } catch (NumberFormatException e) { // throw error and get input again
+                            System.out.println("Invalid row! Please enter a valid row (1-10):");
+                            input = sc.nextLine(); // Read user input
+                        }
+
+                        if (rowVal > 0 && rowVal <= 10) { // check if row value is within board
+                            correct = true;
+                        } else {
+                            System.out.println("Invalid row! Please enter a valid row (1-10):");
+                            input = sc.nextLine(); // Read user input
+                        }
+                    }
+                    // got a valid row and col
+                    this.computer.getBoards()[1].setShowBehavior(new SonarBoardShow(colVal, rowVal));
+                    this.computer.getBoards()[1].performShow();
+                    this.computer.getBoards()[1].setShowBehavior(new SurfaceHiddenBoardShow());
+                    this.computer.getBoards()[0].setShowBehavior(new SonarBoardShow(colVal, rowVal));
+                    this.computer.getBoards()[0].performShow();
+                    this.computer.getBoards()[0].setShowBehavior(new AirHiddenBoardShow());
+                    this.computer.getBoards()[2].setShowBehavior(new SonarBoardShow(colVal, rowVal));
+                    this.computer.getBoards()[2].performShow();
+                    this.computer.getBoards()[2].setShowBehavior(new UnderwaterHiddenBoardShow());
+                    // remove one sonar use
+                    sonarUses--;
                 }
             }
         }

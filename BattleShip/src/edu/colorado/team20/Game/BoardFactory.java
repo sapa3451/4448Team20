@@ -14,6 +14,9 @@ public class BoardFactory {
         else if(typeFix.equals("underwater")){
             return new UnderwaterBoard();
         }
+        else if(typeFix.equals("air")){
+            return new AirBoard();
+        }
         else{
             System.out.println("!!! Error! BoardFactory createBoard(): Input Not recognized, returning Surface Board !!!");
             return new SurfaceBoard();

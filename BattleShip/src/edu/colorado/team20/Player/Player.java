@@ -6,6 +6,7 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 public abstract class Player {
+    private final Board airBoard;
     private final Board surfaceBoard;
     private final Board underwaterBoard;
     PlacementBehavior placementBehavior;
@@ -13,14 +14,14 @@ public abstract class Player {
     ShotBehavior shotBehavior;
 
     public Player(Board[] board) {
-        this.surfaceBoard = board[0];
-        this.underwaterBoard = board[1];
-        //TODO: add air board
+        this.airBoard = board[0];
+        this.surfaceBoard = board[1];
+        this.underwaterBoard = board[2];
         shotDecisionInfo = new HashMap<>(); //create an empty hashmap
     }
 
     public Board[] getBoards() {
-        return new Board[]{this.surfaceBoard, this.underwaterBoard};
+        return new Board[]{this.airBoard, this.surfaceBoard, this.underwaterBoard};
     }
 
     public void performSurfacePlacement(int id, int size, int quartersPos) {
@@ -29,6 +30,10 @@ public abstract class Player {
 
     public void performUnderwaterPlacement(int id, int size, int quartersPos) {
         placementBehavior.place(id, this.underwaterBoard, size, quartersPos);
+    }
+
+    public void performAirPlacement(int id, int size, int quartersPos) {
+        placementBehavior.place(id, this.airBoard, size, quartersPos);
     }
 
     // TODO: try making this take in array

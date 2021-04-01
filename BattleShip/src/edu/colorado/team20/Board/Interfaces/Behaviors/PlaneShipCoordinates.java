@@ -2,7 +2,7 @@ package edu.colorado.team20.Board.Interfaces.Behaviors;
 
 import edu.colorado.team20.Board.Interfaces.CreateShipCoordinatesBehavior;
 
-public class BomberShipCoordinates implements CreateShipCoordinatesBehavior {
+public class PlaneShipCoordinates implements CreateShipCoordinatesBehavior {
 
     public String createShipCoordinates(int row, char col, int direction, int size, int rowSize, int colSize) {
         String coordinates = ""; // string to hold coordinates
@@ -10,7 +10,7 @@ public class BomberShipCoordinates implements CreateShipCoordinatesBehavior {
 
         // find minimums for board --> handle out of bounds for board
         final char colMinVal = 'A';
-        final char colMaxVal = (char) (colMinVal + colSize);
+        final char colMaxVal = (char) (colMinVal + colSize-1);
         final int rowMinVal = 0;
         final int rowMaxVal = rowSize; // need to consider zero indexing for this
 

@@ -11,8 +11,12 @@ import java.util.Scanner;
 public class LaserInputShot implements ShotBehavior {
     public void shot(Board[] board, char colv, int row, int turnNum) {
         if (colv != 'Z' && row != -1) {
-            board[0].performMarkBoard(colv,row);
-            board[1].performMarkBoard(colv,row);
+            //a laser will mark all available boards, as below
+            for (int i = 0; i < board.length; i++){
+                if (board[i].getId() > -5) {
+                    board[i].performMarkBoard(colv, row);
+                }
+            }
             return;
         }
         char colVal = ' ';
@@ -73,8 +77,11 @@ public class LaserInputShot implements ShotBehavior {
                 input = sc.nextLine(); // Read user input
             }
         }
-        //a laser will mark both boards, as below
-        board[0].performMarkBoard(colVal, rowVal); //first element of this array is the surface board
-        board[1].performMarkBoard(colVal, rowVal); //second element of the array is the underwater board
+        //a laser will mark all available boards, as below
+        for (int i = 0; i < board.length; i++){
+            if (board[i].getId() > -5) {
+                board[i].performMarkBoard(colVal, rowVal);
+            }
+        }
     }
 }

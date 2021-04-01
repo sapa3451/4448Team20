@@ -32,6 +32,6 @@ public final class CannonRandomShot implements ShotBehavior {
         }
 
         //takes in only the first board, the surface board
-        board[0].performMarkBoard(col, row);
+        board[1].performMarkBoard(col, row);
     }
 }

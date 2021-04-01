@@ -3,11 +3,9 @@ package test;
 import edu.colorado.team20.Board.*;
 import edu.colorado.team20.Board.Interfaces.Behaviors.*;
 import edu.colorado.team20.Game.GameManagement;
-import edu.colorado.team20.Player.ComputerPlayer;
 import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
 import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.GamePiece.*;
-import edu.colorado.team20.Player.Player;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -324,7 +322,7 @@ class BoardTest {
         // add plane to Air board
         GamePiece bomber = new Bomber();
         bomber.setId(1);
-        playerAirBoard.setCreateShipCoordinatesBehavior(new BomberShipCoordinates());
+        playerAirBoard.setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
         playerAirBoard.SetGamePiecePos(bomber.getId(), 3, 'C', 0, bomber.getSize(), bomber.getQuartersSpotInt());
         playerAirBoard.performShow();
 

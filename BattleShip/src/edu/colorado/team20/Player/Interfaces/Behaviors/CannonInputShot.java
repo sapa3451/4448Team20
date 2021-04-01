@@ -75,6 +75,6 @@ public class CannonInputShot implements ShotBehavior {
         }
 
         //takes in only the first board, the surface board
-        board[0].performMarkBoard(colVal, rowVal);
+        board[1].performMarkBoard(colVal, rowVal);
     }
 }

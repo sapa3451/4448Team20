@@ -1,5 +1,6 @@
 package test;
 
+import edu.colorado.team20.Board.AirBoard;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.SurfaceBoard;
 import edu.colorado.team20.Board.UnderwaterBoard;
@@ -23,7 +24,8 @@ class ComputerPlayerTest {
 
         Board playerSurfaceBoard = new SurfaceBoard();
         Board playerUnderwaterBoard = new UnderwaterBoard();
-        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        Board playerAirBoard = new AirBoard();
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
 
         Player testComputer = new ComputerPlayer(playerBoards);
 
@@ -47,7 +49,8 @@ class ComputerPlayerTest {
 
         Board playerSurfaceBoard = new SurfaceBoard();
         Board playerUnderwaterBoard = new UnderwaterBoard();
-        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        Board playerAirBoard = new AirBoard();
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
 
         Player testComputer = new ComputerPlayer(playerBoards);
 
@@ -84,7 +87,8 @@ class ComputerPlayerTest {
         randomPlacementBehavior = new RandomPlacement();
         Board playerSurfaceBoard = new SurfaceBoard();
         Board playerUnderwaterBoard = new UnderwaterBoard();
-        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        Board playerAirBoard = new AirBoard();
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
         Player computerPlayer = new ComputerPlayer(playerBoards);
 
         computerPlayer.setPlacementBehavior(placementBehavior);
@@ -97,10 +101,10 @@ class ComputerPlayerTest {
         computerPlayer.performSurfacePlacement(1, 3, 2);
         computerPlayer.performSurfacePlacement(1, 2, 1);
         int count = 0;
-        for (int i = 0; i < computerPlayer.getBoards()[0].getColumnSize(); i++) {
-            for (int j = 0; j < computerPlayer.getBoards()[0].getRowSize(); j++) {
-                char s = computerPlayer.getBoards()[0].GetPositionChar((char) ('A' + i), 1 + j);
-                if (computerPlayer.getBoards()[0].GetPositionChar((char) ('A' + i), 1 + j) == 'S' || computerPlayer.getBoards()[0].GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
+        for (int i = 0; i < computerPlayer.getBoards()[1].getColumnSize(); i++) {
+            for (int j = 0; j < computerPlayer.getBoards()[1].getRowSize(); j++) {
+                char s = computerPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j);
+                if (computerPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j) == 'S' || computerPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
                     count += 1;
                 }
             }
