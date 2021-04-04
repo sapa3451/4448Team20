@@ -54,7 +54,7 @@ public class GameManagement {
         System.out.println();
         System.out.println();
 
-        System.out.println("You will place your ships, and then you will fire the first shot to being your battle. Good luck!");
+        System.out.println("You will place your ships, and then you will fire the first shot to begin your battle. Good luck!");
         System.out.println();
         System.out.println();
 
@@ -87,8 +87,20 @@ public class GameManagement {
         Scanner sc = new Scanner(System.in); //System.in is a standard input stream
         String input = sc.nextLine();    //reads string
         input = input.toUpperCase(); // set to uppercase
-        if (input.equals("NO")) { // need to check for bad input
-            subUnderwater = false;
+        boolean validInput = false;
+        while(!validInput){
+            if(input.equals("YES")){
+                validInput = true;
+            }
+            else if (input.equals("NO")) {
+                validInput = true;
+                subUnderwater = false;
+            }
+            else{
+                System.out.println("Invalid input! Please enter (Yes) or (No): ");
+                input = sc.nextLine();
+                input = input.toUpperCase();
+            }
         }
         idNum = 1;
         for (GamePiece gamePiece : playerFleet) {
@@ -163,75 +175,87 @@ public class GameManagement {
             // this is to ask if they want to use a sonar
             if (firstSunkComputer && sonarUses != 0) { // ask about sonar use since first ship is sunk
                 player.setShotBehavior(new LaserInputShot());
-                System.out.println("Because you sunk your first opponent's ship, would you like to use a sonar pulse?");
-                System.out.println();
+                System.out.println("Because you sunk your first opponent's ship, would you like to use a sonar pulse? (Yes)/(No)");
                 input = sc.nextLine(); // Read user input
                 input = input.toUpperCase(); // set to uppercase
-                if (input.equals("YES")) { // need to check for bad input
-                    // use sonarBoardShow
-                    char colVal = ' ';
-                    int rowVal = -1;
-                    System.out.println("Type which column (A-J) you would like your sonar pulse center to be: ");
-                    // take in user input
-                    input = sc.nextLine();    //reads string
-                    input = input.toUpperCase(); // set to uppercase
-                    // we want to check input is okay for column
-                    boolean correct = false;
-                    while (!correct) {
-                        // check if valid input
-                        if (input.length() == 1) { // check if single letter
-                            char[] col = input.toCharArray(); // set to char array
-                            if (col[0] >= 'A' && col[0] <= 'J') {  // check if valid column input
-                                correct = true;
-                                // set column value
-                                colVal = col[0];
+                validInput = false;
+                while(!validInput){
+                    if (input.equals("YES")) {
+                        validInput = true;
+                        // use sonarBoardShow
+                        char colVal = ' ';
+                        int rowVal = -1;
+                        System.out.println("Type which column (A-J) you would like your sonar pulse center to be: ");
+                        // take in user input
+                        input = sc.nextLine();    //reads string
+                        input = input.toUpperCase(); // set to uppercase
+                        // we want to check input is okay for column
+                        boolean correct = false;
+                        while (!correct) {
+                            // check if valid input
+                            if (input.length() == 1) { // check if single letter
+                                char[] col = input.toCharArray(); // set to char array
+                                if (col[0] >= 'A' && col[0] <= 'J') {  // check if valid column input
+                                    correct = true;
+                                    // set column value
+                                    colVal = col[0];
+                                }
+                            }
+                            // invalid input
+                            if (!correct) {
+                                System.out.println("Invalid column! Please enter a valid column (A-J): ");
+                                input = sc.nextLine(); // Read user input
+                                input = input.toUpperCase(); // set to uppercase
                             }
                         }
-                        // invalid input
-                        if (!correct) {
-                            System.out.println("Invalid column! Please enter a valid column (A-J): ");
-                            input = sc.nextLine(); // Read user input
-                            input = input.toUpperCase(); // set to uppercase
+
+                        System.out.println("Type which row (1-10) you would like your sonar pulse center to be: ");
+
+                        // take in user input
+                        input = sc.nextLine();
+
+                        // we want to check input is okay for column
+                        correct = false;
+                        while (!correct) {
+                            // check if valid input
+                            try {
+                                // checking valid integer using parseInt() method
+                                rowVal = Integer.parseInt(input); // set value
+                            } catch (NumberFormatException e) { // throw error and get input again
+                                System.out.println("Invalid row! Please enter a valid row (1-10):");
+                                input = sc.nextLine(); // Read user input
+                            }
+
+                            if (rowVal > 0 && rowVal <= 10) { // check if row value is within board
+                                correct = true;
+                            } else {
+                                System.out.println("Invalid row! Please enter a valid row (1-10):");
+                                input = sc.nextLine(); // Read user input
+                            }
                         }
+                        // got a valid row and col
+                        this.computer.getBoards()[1].setShowBehavior(new SonarBoardShow(colVal, rowVal));
+                        this.computer.getBoards()[1].performShow();
+                        this.computer.getBoards()[1].setShowBehavior(new SurfaceHiddenBoardShow());
+                        this.computer.getBoards()[0].setShowBehavior(new SonarBoardShow(colVal, rowVal));
+                        this.computer.getBoards()[0].performShow();
+                        this.computer.getBoards()[0].setShowBehavior(new AirHiddenBoardShow());
+                        this.computer.getBoards()[2].setShowBehavior(new SonarBoardShow(colVal, rowVal));
+                        this.computer.getBoards()[2].performShow();
+                        this.computer.getBoards()[2].setShowBehavior(new UnderwaterHiddenBoardShow());
+                        // remove one sonar use
+                        sonarUses--;
                     }
-
-                    System.out.println("Type which row (1-10) you would like your sonar pulse center to be: ");
-
-                    // take in user input
-                    input = sc.nextLine();
-
-                    // we want to check input is okay for column
-                    correct = false;
-                    while (!correct) {
-                        // check if valid input
-                        try {
-                            // checking valid integer using parseInt() method
-                            rowVal = Integer.parseInt(input); // set value
-                        } catch (NumberFormatException e) { // throw error and get input again
-                            System.out.println("Invalid row! Please enter a valid row (1-10):");
-                            input = sc.nextLine(); // Read user input
-                        }
-
-                        if (rowVal > 0 && rowVal <= 10) { // check if row value is within board
-                            correct = true;
-                        } else {
-                            System.out.println("Invalid row! Please enter a valid row (1-10):");
-                            input = sc.nextLine(); // Read user input
-                        }
+                    else if (input.equals("NO")) {
+                        validInput = true;
                     }
-                    // got a valid row and col
-                    this.computer.getBoards()[1].setShowBehavior(new SonarBoardShow(colVal, rowVal));
-                    this.computer.getBoards()[1].performShow();
-                    this.computer.getBoards()[1].setShowBehavior(new SurfaceHiddenBoardShow());
-                    this.computer.getBoards()[0].setShowBehavior(new SonarBoardShow(colVal, rowVal));
-                    this.computer.getBoards()[0].performShow();
-                    this.computer.getBoards()[0].setShowBehavior(new AirHiddenBoardShow());
-                    this.computer.getBoards()[2].setShowBehavior(new SonarBoardShow(colVal, rowVal));
-                    this.computer.getBoards()[2].performShow();
-                    this.computer.getBoards()[2].setShowBehavior(new UnderwaterHiddenBoardShow());
-                    // remove one sonar use
-                    sonarUses--;
+                    else{
+                        System.out.println("Invalid input! Please enter (Yes) or (No): ");
+                        input = sc.nextLine();
+                        input = input.toUpperCase();
+                    }
                 }
+
             }
         }
     }
