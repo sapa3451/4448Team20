@@ -9,25 +9,21 @@ public class ShipFactory {
         String typeFix=type.toLowerCase();
         //Does above to avoid Dev errors cuasing confusion
         //checks for current possible ship types
-        if(typeFix.equals("minesweeper")){
-            return new Minesweeper();
-        }
-        else if(typeFix.equals("destroyer")){
-            return new Destroyer();
-        }
-        else if (typeFix.equals("battleship")){
-            return new Battleship();
-        }
-        else if(typeFix.equals("submarine")){
-            return new Submarine();
-        }
-        else if(typeFix.equals("bomber")){
-            return new Bomber();
-        }
-        else{//if not recognized prints error state
-            //and returns a minesweeper to avoid crashing
-            System.out.println("!!! Error! ShipFactory createShip(): Input Not recognized, returing minesweeper !!!");
-            return new Minesweeper();
+        switch (typeFix) {
+            case "minesweeper":
+                return new Minesweeper();
+            case "destroyer":
+                return new Destroyer();
+            case "battleship":
+                return new Battleship();
+            case "submarine":
+                return new Submarine();
+            case "bomber":
+                return new Bomber();
+            default: //if not recognized prints error state
+                //and returns a minesweeper to avoid crashing
+                System.out.println("!!! Error! ShipFactory createShip(): Input Not recognized, returing minesweeper !!!");
+                return new Minesweeper();
         }
     }
 }

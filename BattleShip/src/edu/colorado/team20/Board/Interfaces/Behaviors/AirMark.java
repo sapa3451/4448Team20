@@ -4,6 +4,7 @@ import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.MarkBehavior;
 
 public class AirMark implements MarkBehavior {
+    @SuppressWarnings("DuplicatedCode")
     public void MarkBoard(Board board, char col, int row){
         // call check spot in the beginning to check if spot is valid
         char positionChar = board.getBoard()[row-1][board.getAlphaMap().get(col)];

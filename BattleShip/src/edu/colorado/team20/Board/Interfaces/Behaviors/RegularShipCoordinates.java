@@ -1,6 +1,5 @@
 package edu.colorado.team20.Board.Interfaces.Behaviors;
 
-import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.CreateShipCoordinatesBehavior;
 
 public class RegularShipCoordinates implements CreateShipCoordinatesBehavior {
@@ -11,7 +10,6 @@ public class RegularShipCoordinates implements CreateShipCoordinatesBehavior {
         final char colMinVal = 'A';
         final char colMaxVal = (char) (colMinVal + colSize);
         final int rowMinVal = 0;
-        final int rowMaxVal = rowSize; // need to consider zero indexing for this
 
         if (direction == 1) { // horizontal
             // need to check if ship is in column's bounds
@@ -32,7 +30,7 @@ public class RegularShipCoordinates implements CreateShipCoordinatesBehavior {
         }
         else { // vertical
             // need to check if ship is in row's bounds
-            if ((row + size) > rowMaxVal) { // check if whole ship fits in row
+            if ((row + size) > rowSize) { // check if whole ship fits in row
                 return "NULL"; // return NULL as failure
             }
 

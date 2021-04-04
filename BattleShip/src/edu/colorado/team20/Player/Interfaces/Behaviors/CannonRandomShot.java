@@ -9,7 +9,7 @@ import java.util.Random;
 
 public final class CannonRandomShot implements ShotBehavior {
 
-    public void shot(Board[] board, char col, int row, int turnNum) {
+    public void shot(Board[] board, char col, int row) {
         System.out.println("The computer is now taking their shot!");
         System.out.println();
         Random randChar = new Random();

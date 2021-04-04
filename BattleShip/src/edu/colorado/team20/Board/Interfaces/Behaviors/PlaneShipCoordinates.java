@@ -12,7 +12,6 @@ public class PlaneShipCoordinates implements CreateShipCoordinatesBehavior {
         final char colMinVal = 'A';
         final char colMaxVal = (char) (colMinVal + colSize-1);
         final int rowMinVal = 0;
-        final int rowMaxVal = rowSize; // need to consider zero indexing for this
 
         // need to check if ship is in column's bounds
         if ((char) (col + 1) > colMaxVal) { // check if whole plane fits in column
@@ -24,7 +23,7 @@ public class PlaneShipCoordinates implements CreateShipCoordinatesBehavior {
         if ((row - 2) < rowMinVal) { // need to check row above for other piece
             return "NULL";
         }
-        if ((row + 2) > rowMaxVal) { // need to check row above for other piece
+        if ((row + 2) > rowSize) { // need to check row above for other piece
             return "NULL";
         }
 

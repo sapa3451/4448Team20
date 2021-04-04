@@ -9,7 +9,7 @@ import java.util.Random;
 //TODO: before any further implementation, underwater board must be implemented
 
 public class LaserRandomShot implements ShotBehavior {
-    public void shot(Board[] board, char col, int row, int turnNum) {
+    public void shot(Board[] board, char col, int row) {
         System.out.println("The computer is now taking their shot!");
         System.out.println();
         Random randChar = new Random();
@@ -36,9 +36,9 @@ public class LaserRandomShot implements ShotBehavior {
         // add shot to map of shot decision;
 
         //a laser will mark all available boards, as below
-        for (int i = 0; i < board.length; i++){
-            if (board[i].getId() > -5) {
-                board[i].performMarkBoard(col, row);
+        for (Board value : board) {
+            if (value.getId() > -5) {
+                value.performMarkBoard(col, row);
             }
         }
     }

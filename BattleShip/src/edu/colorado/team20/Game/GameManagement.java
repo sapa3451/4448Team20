@@ -12,46 +12,39 @@ import edu.colorado.team20.GamePiece.*;
 import java.util.Scanner;
 
 public class GameManagement {
-    // provides turn information
-    // P --> user player turn
-    // C --> this.computer turn
     private int turnNum;
     private char turnInfo;
     int idNum = 1;
-    //FleetAttributes;
-    private FleetFactory fleetFactory;
-    private GamePiece[] playerFleet;
-    private GamePiece[] compFleet;
-    //Change Boards to attributes
-    private BoardSetFactory boardSetFactory;
-    private Board[] playerBoards;
-    private Board[] computerBoards;
+    private final GamePiece[] playerFleet;
+    private final GamePiece[] compFleet;
     //Change Users to attributes
-    private Player player;
-    private Player computer;
+    private final Player player;
+    private final Player computer;
 
     public GameManagement() {
         turnInfo = 'P'; // set to player first always
         turnNum = 1; // initialize first round
 
     //Initialize Fleets
-        this.fleetFactory = new FleetFactory();
+        //FleetAttributes;
+        FleetFactory fleetFactory = new FleetFactory();
         String[] standardFleet={"minesweeper","destroyer","battleship","submarine", "bomber"};//Set standard list of pieces
-        this.playerFleet = this.fleetFactory.createFleet(standardFleet);
-        this.compFleet = this.fleetFactory.createFleet(standardFleet);
+        this.playerFleet = fleetFactory.createFleet(standardFleet);
+        this.compFleet = fleetFactory.createFleet(standardFleet);
 
     //Initialize Boards & Set Behaviors
-        this.boardSetFactory = new BoardSetFactory();
+        //Change Boards to attributes
+        BoardSetFactory boardSetFactory = new BoardSetFactory();
         String[] standardBoardSet={"air","surface","underwater"};
-        this.playerBoards = this.boardSetFactory.createBoardSet(standardBoardSet);
-        this.computerBoards = this.boardSetFactory.createBoardSet(standardBoardSet);
+        Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
+        Board[] computerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
-        this.computerBoards[0].setShowBehavior(new AirHiddenBoardShow());
-        this.computerBoards[1].setShowBehavior(new SurfaceHiddenBoardShow());
-        this.computerBoards[2].setShowBehavior(new UnderwaterHiddenBoardShow());
+        computerBoards[0].setShowBehavior(new AirHiddenBoardShow());
+        computerBoards[1].setShowBehavior(new SurfaceHiddenBoardShow());
+        computerBoards[2].setShowBehavior(new UnderwaterHiddenBoardShow());
 
-        this.player = new UserPlayer(this.playerBoards);
-        this.computer = new ComputerPlayer(this.computerBoards);
+        this.player = new UserPlayer(playerBoards);
+        this.computer = new ComputerPlayer(computerBoards);
 
     }
 
@@ -100,7 +93,7 @@ public class GameManagement {
         idNum = 1;
         for (GamePiece gamePiece : playerFleet) {
             if (gamePiece.getUnderwater()) {
-                if (subUnderwater) {
+                if (!subUnderwater) {
                     gamePiece.setId(idNum);
                     idNum++;
                     this.player.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());

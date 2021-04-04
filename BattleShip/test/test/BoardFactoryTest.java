@@ -39,7 +39,7 @@ public class BoardFactoryTest {
         downwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
 
         GameManagement game = new GameManagement();
-        List<GamePiece> playerFleet = new ArrayList<GamePiece>();
+        List<GamePiece> playerFleet = new ArrayList<>();
         playerFleet.add(submarine1);
         playerFleet.add(submarine2);
         for (GamePiece gamePiece : playerFleet) {
@@ -79,7 +79,7 @@ public class BoardFactoryTest {
         myBoardSet[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
 
         GameManagement game = new GameManagement();
-        List<GamePiece> playerFleet = new ArrayList<GamePiece>();
+        List<GamePiece> playerFleet = new ArrayList<>();
         playerFleet.add(submarine1);
         playerFleet.add(submarine2);
         for (GamePiece gamePiece : playerFleet) {

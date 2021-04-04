@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class SonarBoardShow implements ShowBehavior {
-    int row;
-    char col;
+    final int row;
+    final char col;
     public SonarBoardShow(char c, int i) {
         this.row = i - 1; // subtract one for zero indexing
         this.col = c;

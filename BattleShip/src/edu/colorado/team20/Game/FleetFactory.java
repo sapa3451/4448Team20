@@ -4,7 +4,7 @@ import edu.colorado.team20.GamePiece.GamePiece;
 
 public class FleetFactory {
 
-    private ShipFactory shipFactory;//Each fleet factory contains their own shipfactory
+    private final ShipFactory shipFactory;//Each fleet factory contains their own shipfactory
 
     public FleetFactory(){
        this.shipFactory = new ShipFactory();

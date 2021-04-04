@@ -2,8 +2,8 @@ package test;
 
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceMark;
+import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceRegularBoardShow;
 import edu.colorado.team20.Board.Interfaces.MarkBehavior;
-import edu.colorado.team20.Board.SurfaceBoard;
 import edu.colorado.team20.GamePiece.Battleship;
 import edu.colorado.team20.GamePiece.Destroyer;
 import edu.colorado.team20.GamePiece.Minesweeper;
@@ -20,7 +20,9 @@ public class MarkBoardInterfaceTest {
         GamePiece battleship = new Battleship();
         GamePiece destroyer = new Destroyer();
         GamePiece minesweeper = new Minesweeper();
-        Board board = new SurfaceBoard();
+        Board board = new Board();
+        board.setMarkBehavior(new SurfaceMark());
+        board.setShowBehavior(new SurfaceRegularBoardShow());
         minesweeper.setId(1);
         board.registerShip(minesweeper);
         battleship.setId(2);

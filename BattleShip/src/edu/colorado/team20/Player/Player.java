@@ -10,7 +10,7 @@ public abstract class Player {
     private final Board surfaceBoard;
     private final Board underwaterBoard;
     PlacementBehavior placementBehavior;
-    protected HashMap<Integer, String> shotDecisionInfo; // keep track of shots per round
+    protected final HashMap<Integer, String> shotDecisionInfo; // keep track of shots per round
     ShotBehavior shotBehavior;
 
     public Player(Board[] board) {
@@ -38,7 +38,7 @@ public abstract class Player {
 
     // TODO: try making this take in array
     public void performShot (Board[] board, char col, int row, int turnNum) {
-        shotBehavior.shot(board, col, row, turnNum); //using strategy method, this is a behavior (in ShotBehavior)
+        shotBehavior.shot(board, col, row); //using strategy method, this is a behavior (in ShotBehavior)
         this.addShotFromTurn(turnNum, col+String.valueOf(row));
     }
 

@@ -4,7 +4,7 @@ import edu.colorado.team20.Board.*;
 
 public class BoardSetFactory {
 
-    private BoardFactory boardFactory;
+    private final BoardFactory boardFactory;
 
     public BoardSetFactory(){this.boardFactory = new BoardFactory();}
 

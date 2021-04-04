@@ -11,15 +11,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Board implements BoardSubject {
+public class Board implements BoardSubject {
     protected final char[][] board;
-    protected int[][] idBoard;
+    protected final int[][] idBoard;
     protected final HashMap<Character, Integer> alphaMap = new HashMap<>();
     protected final int rowSize = 10;
     protected final int columnSize = 10;
-    protected HashMap<Integer, String> gamePieceCoordinates = new HashMap<>();
-    protected HashMap<Integer, String> gamePieceCapQPos = new HashMap<>();
-    protected List<GamePiece> fleet;
+    protected final HashMap<Integer, String> gamePieceCoordinates = new HashMap<>();
+    protected final HashMap<Integer, String> gamePieceCapQPos = new HashMap<>();
+    protected final List<GamePiece> fleet;
     ShowBehavior showBehavior;
     CreateShipCoordinatesBehavior shipCoordinatesBehavior;
     MarkBehavior markBehavior;
@@ -47,7 +47,7 @@ public abstract class Board implements BoardSubject {
             // map ints to alphas
             this.alphaMap.put(alphas[i], i);
         }
-        fleet = new ArrayList<GamePiece>();
+        fleet = new ArrayList<>();
     }
 
     public int getId() {
@@ -71,6 +71,10 @@ public abstract class Board implements BoardSubject {
         showBehavior = sb;
     }
 
+    public void setMarkBehavior (MarkBehavior mb) {
+        markBehavior = mb;
+    }
+
     public void performShow() {
         showBehavior.show(this); //strategy pattern, this calls to the interface and then to the specific class
     }
@@ -87,7 +91,7 @@ public abstract class Board implements BoardSubject {
         return fleet;
     }
 
-    public HashMap<Integer, String> getCoordinatesMapping(int id) {
+    public HashMap<Integer, String> getCoordinatesMapping() {
         return gamePieceCoordinates;
     }
 
@@ -102,7 +106,6 @@ public abstract class Board implements BoardSubject {
                 break;
             }
         }
-        return;
     }
 
     public HashMap<Character, Integer> getAlphaMap() {
@@ -156,7 +159,68 @@ public abstract class Board implements BoardSubject {
         markBehavior.MarkBoard(this, col, row);
     }
 
-    public abstract boolean SetGamePiecePos(int id, int row, char col, int direction, int size, int quartersPos);
+    public boolean SetGamePiecePos(int id, int row, char col, int direction, int size, int quartersPos) {
+        char positionChar = board[row-1][alphaMap.get(col)];
+
+        if (positionChar != 'E') { //Checks if ship is already at that location
+            System.out.println("Ship already placed here!");
+            return false;
+        }
+        else {
+            // get coordinates for shape of ship
+            // IMPORTANT: coordinates already takes care of zero indexing
+            String coordinates = this.performCreateShipCoordinates(row, col, direction, size);
+            String captainsQ = "";
+            if (coordinates.equals("NULL")) { return false; } // ship doesn't fit on board for col/row
+
+            if (coordinates.contains("-")) {
+                String[] positions = coordinates.split("-");
+                coordinates = positions[0];
+                captainsQ = positions[1];
+            }
+
+            char coordCol;
+            int coordRow;
+
+            // check if any ships are already placed there
+            for (int i = 0; i < coordinates.length(); i=i+3) { //example String: "A1,A2,A3,"
+                coordCol = coordinates.charAt(i);
+                coordRow = Integer.parseInt(String.valueOf(coordinates.charAt(i+1)));
+                if(board[coordRow][alphaMap.get(coordCol)] != 'E') {
+                    System.out.println("Piece already placed here!");
+                    return false;
+                }
+            }
+
+            gamePieceCoordinates.put(id, coordinates); // add current ship coordinates to map with id
+
+            // update the board with ship
+            for (int i = 0; i < coordinates.length(); i=i+3) { //example String: "A1,A2,A3"
+                coordCol = coordinates.charAt(i);
+                coordRow = Integer.parseInt(String.valueOf(coordinates.charAt(i+1)));
+                this.board[coordRow][alphaMap.get(coordCol)] = 'S';
+                this.idBoard[coordRow][alphaMap.get(coordCol)] = id;
+            }
+
+            // place the caprain's quarters on board and place coordinate in shipCapQ mapping
+            if (!captainsQ.isEmpty()) {
+                char Qcol = captainsQ.charAt(0);
+                int Qrow = Integer.parseInt(String.valueOf(captainsQ.charAt(1)));
+                board[Qrow][alphaMap.get(Qcol)] = 'Q'; // mark captain's Q on board
+                gamePieceCapQPos.put(id, Qcol + String.valueOf(Qrow)); // add captain's quarter's to map
+            }
+            else {
+                int QinCoordinates = 3 * (quartersPos-1); // multiply by 3 and subtract 1 for coordinate of captainsQ0
+                char Qcol = coordinates.charAt(QinCoordinates); // get char for col
+                int Qrow = Integer.parseInt(String.valueOf(coordinates.charAt(QinCoordinates+1))); // add one to get row value
+                board[Qrow][alphaMap.get(Qcol)] = 'Q'; // mark captain's Q on board
+                gamePieceCapQPos.put(id, Qcol + String.valueOf(Qrow)); // add captain's quarter's to map
+            }
+
+        }
+        showIdBoard();
+        return true;
+    }
 
     // this is just for testing purposes to show idboard
     public void showIdBoard() {
@@ -205,8 +269,8 @@ public abstract class Board implements BoardSubject {
         // IMPORTANT: string row value already has zero index (do not minus 1 from row)!
 
         // parse the coordinates in the String
-        char col = ' ';
-        int row = -1;
+        char col;
+        int row;
         for (int i = 0; i < coordinates.length(); i=i+3) { //example String: "A1,A2,A3"
             col = coordinates.charAt(i);
             row = Integer.parseInt(String.valueOf(coordinates.charAt(i+1)));

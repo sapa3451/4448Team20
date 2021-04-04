@@ -36,7 +36,7 @@ public class AirRegularBoardShow implements ShowBehavior {
                 if (board.getBoard()[i][j] == 'X') {
                     System.out.print("[X]");
                 }
-                else if (board.getBoard()[i][j] == 'P') { // P for plane
+                else if (board.getBoard()[i][j] == 'S') { // P for plane
                     System.out.print("[P]");
                 }
                 else if (board.getBoard()[i][j] == 'Q') {

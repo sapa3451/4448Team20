@@ -15,8 +15,6 @@ public abstract class GamePiece implements GamePieceObserver {
 
     public GamePiece() {
         //this.numOccupiedBoardCells;
-        //this.totShipHealth = this.getSize()+1;
-        //this.name = shipName;
         this.sunk = false;
     }
 

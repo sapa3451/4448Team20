@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class CannonInputShot implements ShotBehavior {
 
 
-    public void shot(Board[] board, char colv, int row, int turnNum){
+    public void shot(Board[] board, char colv, int row){
         if (colv != 'Z' && row != -1) {
             board[0].performMarkBoard(colv,row);
             return;

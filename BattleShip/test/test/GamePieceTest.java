@@ -42,7 +42,7 @@ class GamePieceTest {
         battleship.updateCQ(1);
         assertEquals(0, battleship.getTotShipHealth());
         assertEquals(0, battleship.getCaptainQHealth());
-        assertEquals(true, battleship.checkSunk());
+        assertTrue(battleship.checkSunk());
     }
 
     @Test
@@ -63,7 +63,7 @@ class GamePieceTest {
         destroyer.updateCQ(1);
         assertEquals(0, destroyer.getTotShipHealth());
         assertEquals(0, destroyer.getCaptainQHealth());
-        assertEquals(true, destroyer.checkSunk());
+        assertTrue(destroyer.checkSunk());
     }
 
     @Test
@@ -86,6 +86,6 @@ class GamePieceTest {
         submarine.updateCQ(1);
         assertEquals(0, submarine.getTotShipHealth());
         assertEquals(0, submarine.getCaptainQHealth());
-        assertEquals(true, submarine.checkSunk());
+        assertTrue(submarine.checkSunk());
     }
 }
