@@ -48,7 +48,7 @@ public class GameManagement {
         System.out.println();
         System.out.println();
 
-        System.out.println("You will place your ships, and then you will fire the first shot to being your battle. Good luck!");
+        System.out.println("You will place your ships, and then you will fire the first shot to begin your battle. Good luck!");
         System.out.println();
         System.out.println();
 
@@ -195,7 +195,9 @@ public class GameManagement {
                 System.out.println("Because you sunk your first opponent's ship, would you like to use a sonar pulse? (Yes)/(No)");
                 input = sc.nextLine(); // Read user input
                 input = input.toUpperCase(); // set to uppercase
+
                 boolean validInput = false;
+
                 while(!validInput){
                     if (input.equals("YES")) {
                         validInput = true;
