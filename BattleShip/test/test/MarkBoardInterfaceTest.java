@@ -1,8 +1,8 @@
 package test;
 
 import edu.colorado.team20.Board.Board;
-import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceMark;
-import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceRegularBoardShow;
+import edu.colorado.team20.Board.Interfaces.Behaviors.Mark;
+import edu.colorado.team20.Board.Interfaces.Behaviors.RegularShow;
 import edu.colorado.team20.Board.Interfaces.MarkBehavior;
 import edu.colorado.team20.GamePiece.Battleship;
 import edu.colorado.team20.GamePiece.Destroyer;
@@ -16,13 +16,13 @@ public class MarkBoardInterfaceTest {
     @Test
     void CheckIfMarked() { // test to make sure that MarkBoard function is marking board correctly
         MarkBehavior markBehavior;
-        markBehavior = new SurfaceMark();
+        markBehavior = new Mark();
         GamePiece battleship = new Battleship();
         GamePiece destroyer = new Destroyer();
         GamePiece minesweeper = new Minesweeper();
         Board board = new Board();
-        board.setMarkBehavior(new SurfaceMark());
-        board.setShowBehavior(new SurfaceRegularBoardShow());
+        board.setMarkBehavior(new Mark());
+        board.setShowBehavior(new RegularShow());
         minesweeper.setId(1);
         board.registerShip(minesweeper);
         battleship.setId(2);

@@ -37,7 +37,7 @@ public class LaserRandomShot implements ShotBehavior {
 
         //a laser will mark all available boards, as below
         for (Board value : board) {
-            if (value.getId() > -5) {
+            if (value.getzValue() > -5) {
                 value.performMarkBoard(col, row);
             }
         }

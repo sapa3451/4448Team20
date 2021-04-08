@@ -12,18 +12,18 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Board implements BoardSubject {
-    protected final char[][] board;
-    protected final int[][] idBoard;
-    protected final HashMap<Character, Integer> alphaMap = new HashMap<>();
-    protected final int rowSize = 10;
-    protected final int columnSize = 10;
-    protected final HashMap<Integer, String> gamePieceCoordinates = new HashMap<>();
-    protected final HashMap<Integer, String> gamePieceCapQPos = new HashMap<>();
-    protected final List<GamePiece> fleet;
+    private final char[][] board;
+    private final int[][] idBoard;
+    private final HashMap<Character, Integer> alphaMap = new HashMap<>();
+    private final int rowSize = 10;
+    private final int columnSize = 10;
+    private final HashMap<Integer, String> gamePieceCoordinates = new HashMap<>();
+    private final HashMap<Integer, String> gamePieceCapQPos = new HashMap<>();
+    private final List<GamePiece> fleet;
     ShowBehavior showBehavior;
     CreateShipCoordinatesBehavior shipCoordinatesBehavior;
     MarkBehavior markBehavior;
-    protected int id;
+    private int zValue;
 
 
     public Board() {
@@ -50,12 +50,12 @@ public class Board implements BoardSubject {
         fleet = new ArrayList<>();
     }
 
-    public int getId() {
-        return id;
+    public int getzValue() {
+        return zValue;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setzValue(int zValue) {
+        this.zValue = zValue;
     }
 
 
@@ -118,6 +118,7 @@ public class Board implements BoardSubject {
         for (GamePiece gamePiece : fleet){
             if (id == gamePiece.getId()) {
                 gamePiece.update(1);
+                health = gamePiece.getTotShipHealth();
             }
         }
         return health;

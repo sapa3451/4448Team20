@@ -13,7 +13,7 @@ public class LaserInputShot implements ShotBehavior {
         if (colv != 'Z' && row != -1) {
             //a laser will mark all available boards, as below
             for (Board value : board) {
-                if (value.getId() > -5) {
+                if (value.getzValue() > -5) {
                     value.performMarkBoard(colv, row);
                 }
             }
@@ -79,7 +79,7 @@ public class LaserInputShot implements ShotBehavior {
         }
         //a laser will mark all available boards, as below
         for (Board value : board) {
-            if (value.getId() > -5) {
+            if (value.getzValue() > -5) {
                 value.performMarkBoard(colVal, rowVal);
             }
         }

@@ -17,6 +17,7 @@ public abstract class Player {
         this.airBoard = board[0];
         this.surfaceBoard = board[1];
         this.underwaterBoard = board[2];
+
         shotDecisionInfo = new HashMap<>(); //create an empty hashmap
     }
 

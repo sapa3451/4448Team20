@@ -33,9 +33,9 @@ public class GameManagement {
         Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
         Board[] computerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
-        computerBoards[0].setShowBehavior(new AirHiddenBoardShow());
-        computerBoards[1].setShowBehavior(new SurfaceHiddenBoardShow());
-        computerBoards[2].setShowBehavior(new UnderwaterHiddenBoardShow());
+        computerBoards[0].setShowBehavior(new HiddenShow());
+        computerBoards[1].setShowBehavior(new HiddenShow());
+        computerBoards[2].setShowBehavior(new HiddenShow());
 
         this.player = new UserPlayer(playerBoards);
         this.computer = new ComputerPlayer(computerBoards);
@@ -255,13 +255,13 @@ public class GameManagement {
                         // got a valid row and col
                         this.computer.getBoards()[1].setShowBehavior(new SonarBoardShow(colVal, rowVal));
                         this.computer.getBoards()[1].performShow();
-                        this.computer.getBoards()[1].setShowBehavior(new SurfaceHiddenBoardShow());
+                        this.computer.getBoards()[1].setShowBehavior(new HiddenShow());
                         this.computer.getBoards()[0].setShowBehavior(new SonarBoardShow(colVal, rowVal));
                         this.computer.getBoards()[0].performShow();
-                        this.computer.getBoards()[0].setShowBehavior(new AirHiddenBoardShow());
+                        this.computer.getBoards()[0].setShowBehavior(new HiddenShow());
                         this.computer.getBoards()[2].setShowBehavior(new SonarBoardShow(colVal, rowVal));
                         this.computer.getBoards()[2].performShow();
-                        this.computer.getBoards()[2].setShowBehavior(new UnderwaterHiddenBoardShow());
+                        this.computer.getBoards()[2].setShowBehavior(new HiddenShow());
                         // remove one sonar use
                         sonarUses--;
                     }

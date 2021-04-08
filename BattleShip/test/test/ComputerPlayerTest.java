@@ -21,16 +21,16 @@ class ComputerPlayerTest {
         System.out.println("Running SingleRandomShot Test...........");
 
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
 
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new UnderwaterMark());
-        playerUnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());
+        playerUnderwaterBoard.setMarkBehavior(new Mark());
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());
 
         Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new AirMark());
-        playerAirBoard.setShowBehavior(new AirRegularBoardShow());
+        playerAirBoard.setMarkBehavior(new Mark());
+        playerAirBoard.setShowBehavior(new RegularShow());
 
         Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
 
@@ -55,16 +55,16 @@ class ComputerPlayerTest {
         System.out.println("Running MultipleRandomShot Test...........");
 
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
 
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new UnderwaterMark());
-        playerUnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());
+        playerUnderwaterBoard.setMarkBehavior(new Mark());
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());
 
         Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new AirMark());
-        playerAirBoard.setShowBehavior(new AirRegularBoardShow());
+        playerAirBoard.setMarkBehavior(new Mark());
+        playerAirBoard.setShowBehavior(new RegularShow());
 
         Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
 
@@ -102,16 +102,16 @@ class ComputerPlayerTest {
         PlacementBehavior randomPlacementBehavior;
         randomPlacementBehavior = new RandomPlacement();
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
 
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new UnderwaterMark());
-        playerUnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());
+        playerUnderwaterBoard.setMarkBehavior(new Mark());
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());
 
         Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new AirMark());
-        playerAirBoard.setShowBehavior(new AirRegularBoardShow());
+        playerAirBoard.setMarkBehavior(new Mark());
+        playerAirBoard.setShowBehavior(new RegularShow());
 
         Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
         Player computerPlayer = new ComputerPlayer(playerBoards);

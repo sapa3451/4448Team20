@@ -1,8 +1,8 @@
 package test;
 
 import edu.colorado.team20.Board.Board;
-import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceMark;
-import edu.colorado.team20.Board.Interfaces.Behaviors.SurfaceRegularBoardShow;
+import edu.colorado.team20.Board.Interfaces.Behaviors.Mark;
+import edu.colorado.team20.Board.Interfaces.Behaviors.RegularShow;
 import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
 import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import org.junit.jupiter.api.Test;
@@ -18,8 +18,8 @@ public class PlacementTest {
         PlacementBehavior placementBehavior;
         placementBehavior = new RandomPlacement(); //Because our placement is the same for random/input, we will use random for testing
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
         placementBehavior.place(1, playerSurfaceBoard, 4, 3);
         int count = 0;
         for (int i = 0; i < playerSurfaceBoard.getColumnSize(); i++) {
@@ -42,8 +42,8 @@ public class PlacementTest {
         PlacementBehavior placementBehavior;
         placementBehavior = new RandomPlacement(); //Because our placement is the same for random/input, we will use random for testing
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
         placementBehavior.place(1, playerSurfaceBoard, 4, 3);
         placementBehavior.place(1, playerSurfaceBoard, 3, 2);
         placementBehavior.place(1, playerSurfaceBoard, 2, 1);

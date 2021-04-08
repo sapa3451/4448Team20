@@ -12,27 +12,27 @@ public class BoardFactory {
         switch (typeFix) {
             case "air":
                 Board AirBoard = new Board();
-                AirBoard.setShowBehavior(new AirRegularBoardShow());
-                AirBoard.setMarkBehavior(new AirMark());
-                AirBoard.setId(1);
+                AirBoard.setShowBehavior(new RegularShow());
+                AirBoard.setMarkBehavior(new Mark());
+                AirBoard.setzValue(1);
                 return AirBoard;
             case "underwater":
                 Board UnderwaterBoard = new Board();
-                UnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());
-                UnderwaterBoard.setMarkBehavior(new UnderwaterMark());
-                UnderwaterBoard.setId(-1);
+                UnderwaterBoard.setShowBehavior(new RegularShow());
+                UnderwaterBoard.setMarkBehavior(new Mark());
+                UnderwaterBoard.setzValue(-1);
                 return UnderwaterBoard;
             case "surface":
                 Board SurfaceBoard = new Board();
-                SurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
-                SurfaceBoard.setMarkBehavior(new SurfaceMark());
-                SurfaceBoard.setId(0);
+                SurfaceBoard.setShowBehavior(new RegularShow());
+                SurfaceBoard.setMarkBehavior(new Mark());
+                SurfaceBoard.setzValue(0);
                 return SurfaceBoard;
             default:
                 Board ErrorBoard = new Board();
-                ErrorBoard.setShowBehavior(new SurfaceRegularBoardShow());
-                ErrorBoard.setMarkBehavior(new SurfaceMark());
-                ErrorBoard.setId(0);
+                ErrorBoard.setShowBehavior(new RegularShow());
+                ErrorBoard.setMarkBehavior(new Mark());
+                ErrorBoard.setzValue(0);
                 System.out.println("!!! Error! BoardFactory createBoard(): Input Not recognized, returning Surface Board !!!");
                 return ErrorBoard;
         }

@@ -3,10 +3,7 @@ package edu.colorado.team20.Board.Interfaces.Behaviors;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.MarkBehavior;
 
-//This is the start of the interface for our plan to mark surface/underwater stuff
-//TODO: before any further implementation, underwater board must be implemented
-
-public class UnderwaterMark implements MarkBehavior {
+public class Mark implements MarkBehavior {
     public void MarkBoard(Board board, char col, int row){
         // call check spot in the beginning to check if spot is valid
         char positionChar = board.getBoard()[row-1][board.getAlphaMap().get(col)];
@@ -17,14 +14,14 @@ public class UnderwaterMark implements MarkBehavior {
         else if (positionChar == 'Q') {
             board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'W'; // if gets hit more than once keep at W
         }
-        else if (positionChar == 'S') {
-            board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'H'; // if gets hit more than once keep at W
-        }
         else if (positionChar == 'H') {
             board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'H'; // if gets hit more than once keep at W
         }
         else if (positionChar == 'X') {
             board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'X'; // if gets hit more than once keep at W
+        }
+        else if (positionChar == 'S') {
+            board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'H'; // if gets hit more than once keep at W
         }
         else { // decision was a ship --> mark as D
             board.getBoard()[row-1][board.getAlphaMap().get(col)] = 'D'; // subtract one from row because indexing of array

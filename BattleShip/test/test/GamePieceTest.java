@@ -21,6 +21,8 @@ class GamePieceTest {
         minesweeper.setId(1);
         assertEquals(minesweeper.getId(), 1);
 
+        assertFalse(minesweeper.isInAir());
+
 
     }
 

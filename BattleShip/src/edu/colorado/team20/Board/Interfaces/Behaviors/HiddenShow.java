@@ -3,7 +3,7 @@ package edu.colorado.team20.Board.Interfaces.Behaviors;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 
-public class AirHiddenBoardShow implements ShowBehavior {
+public class HiddenShow implements ShowBehavior {
     public void show (Board board) {
         // create arrays to hold board rows and columns
         char[] col = new char[board.getColumnSize()*3+2];
@@ -46,7 +46,15 @@ public class AirHiddenBoardShow implements ShowBehavior {
                     System.out.print("[W]");
                 }
                 else {
-                    System.out.print("[^]");
+                    if (board.getzValue() > 0) {
+                        System.out.print("[^]");
+                    }
+                    else if (board.getzValue() < 0) {
+                        System.out.print("[~]");
+                    }
+                    else if (board.getzValue() == 0) {
+                        System.out.print("[ ]");
+                    }
                 }
             }
             System.out.println();

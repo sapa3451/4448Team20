@@ -27,11 +27,11 @@ public class ShotTest {
         shotBehavior= new CannonInputShot();
 
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new UnderwaterMark());
-        playerUnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());// create underwater board
+        playerUnderwaterBoard.setMarkBehavior(new Mark());
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());// create underwater board
         Board[] computerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
 
         shotBehavior.shot(computerBoards,'A',1);
@@ -48,11 +48,11 @@ public class ShotTest {
         shotBehavior= new CannonInputShot();
 
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new UnderwaterMark());
-        playerUnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());// create underwater board
+        playerUnderwaterBoard.setMarkBehavior(new Mark());
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());// create underwater board
         Board[] computerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
 
         shotBehavior.shot(computerBoards,'A',1);
@@ -78,16 +78,16 @@ public class ShotTest {
         shotBehavior= new CannonRandomShot();
 
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
 
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new UnderwaterMark());
-        playerUnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());
+        playerUnderwaterBoard.setMarkBehavior(new Mark());
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());
 
         Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new AirMark());
-        playerAirBoard.setShowBehavior(new AirRegularBoardShow());
+        playerAirBoard.setMarkBehavior(new Mark());
+        playerAirBoard.setShowBehavior(new RegularShow());
 
         Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
 
@@ -114,16 +114,16 @@ public class ShotTest {
         shotBehavior= new CannonRandomShot();
 
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
 
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new UnderwaterMark());
-        playerUnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());
+        playerUnderwaterBoard.setMarkBehavior(new Mark());
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());
 
         Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new AirMark());
-        playerAirBoard.setShowBehavior(new AirRegularBoardShow());
+        playerAirBoard.setMarkBehavior(new Mark());
+        playerAirBoard.setShowBehavior(new RegularShow());
 
         Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
 
@@ -152,11 +152,11 @@ public class ShotTest {
         ShotBehavior shotBehavior;
         shotBehavior = new LaserInputShot();
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new UnderwaterMark());
-        playerUnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());// create underwater board
+        playerUnderwaterBoard.setMarkBehavior(new Mark());
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());// create underwater board
         Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
         playerBoards[0].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
         playerBoards[0].SetGamePiecePos(1,2,'A',1,4,3);
@@ -173,11 +173,11 @@ public class ShotTest {
         ShotBehavior shotBehavior;
         shotBehavior = new LaserRandomShot();
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new UnderwaterMark());
-        playerUnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());// create underwater board
+        playerUnderwaterBoard.setMarkBehavior(new Mark());
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());// create underwater board
         Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
         shotBehavior.shot(playerBoards, 'Z', -1);
         shotBehavior.shot(playerBoards, 'Z', -1);
@@ -209,16 +209,16 @@ public class ShotTest {
         shotBehavior = new LaserInputShot();
 
         Board underwaterBoardNotTooDeep = new Board();
-        underwaterBoardNotTooDeep.setMarkBehavior(new UnderwaterMark());
-        underwaterBoardNotTooDeep.setShowBehavior(new UnderwaterRegularBoardShow());// create underwater board
+        underwaterBoardNotTooDeep.setMarkBehavior(new Mark());
+        underwaterBoardNotTooDeep.setShowBehavior(new RegularShow());// create underwater board
 
-        underwaterBoardNotTooDeep.setId(-4);
+        underwaterBoardNotTooDeep.setzValue(-4);
 
         Board underwaterBoardTooDeep = new Board();
-        underwaterBoardTooDeep.setMarkBehavior(new UnderwaterMark());
-        underwaterBoardTooDeep.setShowBehavior(new UnderwaterRegularBoardShow());// create underwater board
+        underwaterBoardTooDeep.setMarkBehavior(new Mark());
+        underwaterBoardTooDeep.setShowBehavior(new RegularShow());// create underwater board
 
-        underwaterBoardTooDeep.setId(-5);
+        underwaterBoardTooDeep.setzValue(-5);
         Board[] playerBoards = new Board[]{underwaterBoardTooDeep,underwaterBoardNotTooDeep};
         shotBehavior.shot(playerBoards, 'A', 2);
         underwaterBoardTooDeep.performShow();
@@ -267,16 +267,16 @@ public class ShotTest {
     public void LaserGoesThroughAllThree () {
         //test to make sure the laser shot will now mark both boards on input
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
-        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
 
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new UnderwaterMark());
-        playerUnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());
+        playerUnderwaterBoard.setMarkBehavior(new Mark());
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());
 
         Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new AirMark());
-        playerAirBoard.setShowBehavior(new AirRegularBoardShow());
+        playerAirBoard.setMarkBehavior(new Mark());
+        playerAirBoard.setShowBehavior(new RegularShow());
 
         Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
 
@@ -299,12 +299,15 @@ public class ShotTest {
         playerBoards[2].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
         playerBoards[2].SetGamePiecePos(playerFleet[1].getId(),5,'C',1,5,5);
         playerBoards[0].setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
-        playerBoards[0].SetGamePiecePos(playerFleet[2].getId(),5,'C',1,5,0);
+        playerBoards[0].SetGamePiecePos(playerFleet[2].getId(),4,'C',1,5,0);
 
         shotBehavior.shot(playerBoards, 'C', 5);
 
         assertEquals(playerBoards[2].GetPositionChar('C',5), 'H');
         assertEquals(playerBoards[1].GetPositionChar('C',5), 'H');
+        assertEquals(playerBoards[0].GetPositionChar('C',5), 'H');
+
+        shotBehavior.shot(playerBoards, 'C', 4);
         assertEquals(playerBoards[0].GetPositionChar('C',5), 'D');
     }
 
