@@ -11,6 +11,10 @@ import edu.colorado.team20.Player.Interfaces.Behaviors.LaserRandomShot;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Scanner;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 //TODO: going to need to add tests for laser shot
@@ -309,6 +313,57 @@ public class ShotTest {
 
         shotBehavior.shot(playerBoards, 'C', 4);
         assertEquals(playerBoards[0].GetPositionChar('C',5), 'D');
+    }
+
+    @Test
+    public void CheckAlreadyShotPositions() {
+        Board playerSurfaceBoard = new Board();
+        playerSurfaceBoard.setMarkBehavior(new Mark());
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
+
+        Board playerUnderwaterBoard = new Board();
+        playerUnderwaterBoard.setMarkBehavior(new Mark());
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());
+
+        Board playerAirBoard = new Board();
+        playerAirBoard.setMarkBehavior(new Mark());
+        playerAirBoard.setShowBehavior(new RegularShow());
+
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
+
+        ShotBehavior shotBehavior = new CannonInputShot();
+
+        // make first shot
+        String input = "A" + "\n" + "1";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        shotBehavior.shot(playerBoards, 'Z', -1);
+
+        // need to check if game output saying shot was already made at first position
+        String input2 = "A" + "\n" + "1" + "\n" + "C" + "\n" + "3";
+        InputStream in2 = new ByteArrayInputStream(input2.getBytes());
+        System.setIn(in2);
+
+        shotBehavior.shot(playerBoards, 'Z', -1);
+
+        // test laser shot for same spot
+        shotBehavior = new LaserInputShot();
+
+        // make first shot
+        String input3 = "F" + "\n" + "5";
+        InputStream in3 = new ByteArrayInputStream(input3.getBytes());
+        System.setIn(in3);
+
+        shotBehavior.shot(playerBoards, 'Z', -1);
+
+        // need to check if game output saying shot was already made at first position
+        String input4 = "F" + "\n" + "5" + "\n" + "E" + "\n" + "3";
+        InputStream in4 = new ByteArrayInputStream(input4.getBytes());
+        System.setIn(in4);
+
+        shotBehavior.shot(playerBoards, 'Z', -1);
+
     }
 
 }

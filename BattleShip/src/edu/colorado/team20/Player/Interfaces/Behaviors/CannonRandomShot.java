@@ -25,7 +25,7 @@ public final class CannonRandomShot implements ShotBehavior {
         //coordinates resulting random board space
 
 
-        while(!board[0].CheckSpot(col,row))
+        while(!board[1].CheckSpot(col,row))
         {//while the randomly selected spot is not available
             col = (char) ('A' + randChar.nextInt(10));
             row = (randNum.nextInt(10) + 1);
