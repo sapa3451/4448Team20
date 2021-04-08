@@ -1,6 +1,8 @@
 package edu.colorado.team20.Player;
 
 import java.util.HashMap;
+import java.util.Random;
+
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
@@ -36,10 +38,22 @@ public abstract class Player {
         placementBehavior.place(id, this.airBoard, size, quartersPos);
     }
 
-    // TODO: try making this take in array
     public void performShot (Board[] board, char col, int row, int turnNum) {
-        shotBehavior.shot(board, col, row); //using strategy method, this is a behavior (in ShotBehavior)
-        this.addShotFromTurn(turnNum, col+String.valueOf(row));
+        // TODO: see if this needs to be here or somewhere else
+        if (turnNum < 2) { // first two rounds doesn't have bad luck
+            shotBehavior.shot(board, col, row); // using strategy method, this is a behavior (in ShotBehavior)
+            this.addShotFromTurn(turnNum, col+String.valueOf(row));
+        }
+        else {
+            // call random player luck --> if get bad luck skip their turn
+            if (!this.getPlayerBadLuck()) {
+                shotBehavior.shot(board, col, row); // using strategy method, this is a behavior (in ShotBehavior)
+                this.addShotFromTurn(turnNum, col+String.valueOf(row));
+            }
+            else {
+                System.out.println("Bad luck has struck! You lost a turn!");
+            }
+        }
     }
 
     public void setPlacementBehavior(PlacementBehavior pb){
@@ -56,5 +70,15 @@ public abstract class Player {
 
     public void setShotBehavior(ShotBehavior sb) {
         shotBehavior = sb;
+    }
+
+    public boolean getPlayerBadLuck() {
+        // create instance of Random class
+        Random rand = new Random();
+
+        // get player bad luck --> 30% chance a getting bad luck
+        int num = rand.nextInt(99);
+        if (num < 25) { return true; }
+        else { return false; }
     }
 }

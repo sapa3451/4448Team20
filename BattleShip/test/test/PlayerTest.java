@@ -3,13 +3,18 @@ package test;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.Behaviors.*;
 import edu.colorado.team20.Player.ComputerPlayer;
+import edu.colorado.team20.Player.Interfaces.Behaviors.CannonRandomShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonInputShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
 import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
+import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -171,5 +176,33 @@ class PlayerTest {
         }
         assertEquals(15, count);
 
+    }
+
+    @Test
+    public void TestBadLuck() { // make sure that bad luck happens at least once
+        // loop through shot ten times and need to check if got bad luck once
+        Board playerSurfaceBoard = new Board();
+        playerSurfaceBoard.setMarkBehavior(new SurfaceMark());
+        playerSurfaceBoard.setShowBehavior(new SurfaceRegularBoardShow());
+
+        Board playerUnderwaterBoard = new Board();
+        playerUnderwaterBoard.setMarkBehavior(new UnderwaterMark());
+        playerUnderwaterBoard.setShowBehavior(new UnderwaterRegularBoardShow());
+
+        Board playerAirBoard = new Board();
+        playerAirBoard.setMarkBehavior(new AirMark());
+        playerAirBoard.setShowBehavior(new AirRegularBoardShow());
+
+        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
+        Player userPlayer = new UserPlayer(playerBoards);
+        userPlayer.setShotBehavior(new CannonRandomShot());
+
+        char col = 'A';
+        int row = 1;
+        for (int i = 0; i < 10; i++) {
+            userPlayer.performShot(playerBoards, col, row, i);
+            col++;
+            row++;
+        }
     }
 }
