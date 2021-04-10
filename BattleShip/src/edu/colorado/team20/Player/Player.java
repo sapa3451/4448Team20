@@ -11,6 +11,7 @@ public abstract class Player {
     private final Board airBoard;
     private final Board surfaceBoard;
     private final Board underwaterBoard;
+    private final Board[] boards;
     PlacementBehavior placementBehavior;
     protected final HashMap<Integer, String> shotDecisionInfo; // keep track of shots per round
     ShotBehavior shotBehavior;
@@ -19,8 +20,8 @@ public abstract class Player {
         this.airBoard = board[0];
         this.surfaceBoard = board[1];
         this.underwaterBoard = board[2];
-
         shotDecisionInfo = new HashMap<>(); //create an empty hashmap
+        this.boards = board;
     }
 
     public Board[] getBoards() {
@@ -71,6 +72,10 @@ public abstract class Player {
 
     public void setShotBehavior(ShotBehavior sb) {
         shotBehavior = sb;
+    }
+
+    public ShotBehavior getShotBehavior() {
+        return shotBehavior;
     }
 
     public boolean getPlayerBadLuck() {

@@ -137,4 +137,12 @@ class ComputerPlayerTest {
         assertEquals(9, count);
 
     }
+
+    @Test
+    public void smartAITest() {
+        int i = 1;
+        int j = 1;
+        String toAdd = "" + (char) ('A' + i) + (1 + j);
+        System.out.println(toAdd);
+    }
 }

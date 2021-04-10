@@ -10,10 +10,10 @@ import java.util.Scanner;
 public class CannonInputShot implements ShotBehavior {
 
 
-    public void shot(Board[] board, char colv,  int row) {
+    public boolean shot(Board[] board, char colv,  int row) {
         if (colv != 'Z' && row != -1) {
             board[0].performMarkBoard(colv,row);
-            return;
+            return true;
         }
         char colVal = ' ';
         int rowVal = -1;
@@ -85,5 +85,6 @@ public class CannonInputShot implements ShotBehavior {
 
         //takes in only the first board, the surface board
         board[1].performMarkBoard(colVal, rowVal);
+        return true;
     }
 }

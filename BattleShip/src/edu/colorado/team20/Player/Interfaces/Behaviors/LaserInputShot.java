@@ -9,7 +9,7 @@ import java.util.Scanner;
 //TODO: before any further implementation, underwater board must be implemented
 
 public class LaserInputShot implements ShotBehavior {
-    public void shot(Board[] board, char colv, int row) {
+    public boolean shot(Board[] board, char colv, int row) {
         if (colv != 'Z' && row != -1) {
             //a laser will mark all available boards, as below
             for (Board value : board) {
@@ -17,7 +17,7 @@ public class LaserInputShot implements ShotBehavior {
                     value.performMarkBoard(colv, row);
                 }
             }
-            return;
+            return true;
         }
         char colVal = ' ';
         int rowVal = -1;
@@ -96,5 +96,6 @@ public class LaserInputShot implements ShotBehavior {
                 value.performMarkBoard(colVal, rowVal);
             }
         }
+        return true;
     }
 }

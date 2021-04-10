@@ -153,7 +153,7 @@ public class Board implements BoardSubject {
     // function to check if spot was already shot at
     public boolean CheckSpot(char col, int row) {
         char position = board[row-1][alphaMap.get(col)];// subtract one from row because indexing of array
-        return position != 'X' && position != 'D';
+        return position != 'X' && position != 'D' && position != 'H';
     }
 
     public void performMarkBoard(char col, int row){
