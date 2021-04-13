@@ -82,9 +82,9 @@ public abstract class Player {
         // create instance of Random class
         Random rand = new Random();
 
-        // get player bad luck --> 30% chance a getting bad luck
+        // get player bad luck --> 10% chance a getting bad luck
         int num = rand.nextInt(99);
-        if (num < 25) { return true; }
+        if (num < 10) { return true; }
         else { return false; }
     }
 }
