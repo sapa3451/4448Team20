@@ -6,6 +6,7 @@ import java.util.Random;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.GameProbabilities.CreateController;
 import edu.colorado.team20.GameProbabilities.GameProbabilitiesController;
+import edu.colorado.team20.Player.Interfaces.Behaviors.LaserInputShot;
 import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
@@ -50,6 +51,7 @@ public abstract class Player {
     public void performTurn(Board[] board, char col, int row, int turnNum) {
         if (turnNum <= 2) { // first two rounds doesn't call probController
             shotBehavior.shot(board, col, row); // using strategy method, this is a behavior (in ShotBehavior)
+            // TODO: is this actually getting the correct col and row??
             this.addShotFromTurn(turnNum, col+String.valueOf(row));
         }
         else {
@@ -57,13 +59,19 @@ public abstract class Player {
             String outcome = useProbController();
 
             switch (outcome) {
-                case "bad": {
+                case "bad": { // bad luck happens --> lose turn
                     System.out.println("Bad luck has struck! Your ship malfunctioned and you lost a turn!");
+                    this.addShotFromTurn(turnNum, "badLuck");
                     break;
                 }
-                case "good": {
-                    // TODO: need to determine what happens when good luck strikes\
-                    System.out.println("Good luck has struck!");
+                case "good": { // good luck happens -->
+                    // TODO: the shots are not getting added into the map correctly --> needs to be fixed
+                    shotBehavior.shot(board, col, row); // using strategy method, this is a behavior (in ShotBehavior)
+                    this.addShotFromTurn(turnNum, col+String.valueOf(row));
+                    System.out.println("Good luck has struck! You get an extra shot!");
+                    shotBehavior.shot(board, 'Z', -1); // using strategy method, this is a behavior (in ShotBehavior)
+                    // TODO: when mapping gets fixed, add both shots into one turn for a mapping
+                    this.addShotFromTurn(turnNum, col+String.valueOf(row));
                     break;
                 }
                 default: {

@@ -12,6 +12,9 @@ import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings("unused")
@@ -239,12 +242,6 @@ class PlayerTest {
 
         Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
         Player userPlayer = new UserPlayer(playerBoards);
-        userPlayer.setShotBehavior(new CannonRandomShot());
-
-        for (int i = 1; i < 21; i++) {
-            System.out.println("Turn Num: " + i);
-            userPlayer.performTurn(playerBoards, 'Z', -1, i);
-        }
 
         userPlayer.setShotBehavior(new CannonInputShot());
 
@@ -253,8 +250,19 @@ class PlayerTest {
         for (int i = 1; i < 11; i++) {
             System.out.println("Turn Num: " + i);
             userPlayer.performTurn(playerBoards, col, row, i);
+            String input = col +  "\n" +  1 + "\n";
+            InputStream in = new ByteArrayInputStream(input.getBytes());
+            System.setIn(in);
             col++;
             row++;
         }
+
+        userPlayer.setShotBehavior(new CannonRandomShot());
+
+        for (int i = 1; i < 21; i++) {
+            System.out.println("Turn Num: " + i);
+            userPlayer.performTurn(playerBoards, 'Z', -1, i);
+        }
+
     }
 }

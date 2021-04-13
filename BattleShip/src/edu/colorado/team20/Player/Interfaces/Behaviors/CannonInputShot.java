@@ -12,7 +12,7 @@ public class CannonInputShot implements ShotBehavior {
 
     public boolean shot(Board[] board, char colv,  int row) {
         if (colv != 'Z' && row != -1) {
-            board[0].performMarkBoard(colv,row);
+            board[1].performMarkBoard(colv,row);
             return true;
         }
         char colVal = ' ';
