@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 import edu.colorado.team20.Board.Board;
+import edu.colorado.team20.GameProbabilities.CreateController;
+import edu.colorado.team20.GameProbabilities.GameProbabilitiesController;
 import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
@@ -15,6 +17,7 @@ public abstract class Player {
     PlacementBehavior placementBehavior;
     protected final HashMap<Integer, String> shotDecisionInfo; // keep track of shots per round
     ShotBehavior shotBehavior;
+    GameProbabilitiesController probController = new GameProbabilitiesController(); // player has access to calling probabilities commands
 
     public Player(Board[] board) {
         this.airBoard = board[0];
@@ -22,6 +25,10 @@ public abstract class Player {
         this.underwaterBoard = board[2];
         shotDecisionInfo = new HashMap<>(); //create an empty hashmap
         this.boards = board;
+
+        // create command controller
+        CreateController controllerCreator = new CreateController();
+        probController = controllerCreator.createController();
     }
 
     public Board[] getBoards() {
@@ -40,21 +47,31 @@ public abstract class Player {
         placementBehavior.place(id, this.airBoard, size, quartersPos);
     }
 
-    public void performShot (Board[] board, char col, int row, int turnNum) {
-        // TODO: see if this needs to be here or somewhere else
-        if (turnNum < 2) { // first two rounds doesn't have bad luck
+    public void performTurn(Board[] board, char col, int row, int turnNum) {
+        if (turnNum <= 2) { // first two rounds doesn't call probController
             shotBehavior.shot(board, col, row); // using strategy method, this is a behavior (in ShotBehavior)
             this.addShotFromTurn(turnNum, col+String.valueOf(row));
         }
         else {
-            // call random player luck --> if get bad luck skip their turn
-            if (!this.getPlayerBadLuck()) {
-                shotBehavior.shot(board, col, row); // using strategy method, this is a behavior (in ShotBehavior)
-                this.addShotFromTurn(turnNum, col+String.valueOf(row));
+            // probController calls commands to determine how turn goes
+            String outcome = useProbController();
+
+            switch (outcome) {
+                case "bad": {
+                    System.out.println("Bad luck has struck! Your ship malfunctioned and you lost a turn!");
+                    break;
+                }
+                case "good": {
+                    // TODO: need to determine what happens when good luck strikes\
+                    System.out.println("Good luck has struck!");
+                    break;
+                }
+                default: {
+                    shotBehavior.shot(board, col, row); // using strategy method, this is a behavior (in ShotBehavior)
+                    this.addShotFromTurn(turnNum, col+String.valueOf(row));
+                }
             }
-            else {
-                System.out.println("Bad luck has struck! You lost a turn!");
-            }
+
         }
     }
 
@@ -78,13 +95,18 @@ public abstract class Player {
         return shotBehavior;
     }
 
-    public boolean getPlayerBadLuck() {
-        // create instance of Random class
-        Random rand = new Random();
+    public String useProbController() {
+        // call bad luck then good luck in order
+        if (probController.doCommand(0)) { // bad luck has happens
+            return "bad";
+        }
+        else if (probController.doCommand(1)) { // good luck happens
+            return "good";
+        }
+        else { // normal turn happens
+            return "";
+        }
 
-        // get player bad luck --> 10% chance a getting bad luck
-        int num = rand.nextInt(99);
-        if (num < 10) { return true; }
-        else { return false; }
     }
+
 }

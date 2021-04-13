@@ -8,13 +8,9 @@ import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonInputShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
 import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
-import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,7 +40,7 @@ class PlayerTest {
 
         testPlayer.setShotBehavior(new CannonInputShot());
 
-        testPlayer.performShot(playerBoards, 'A', 1, 1);
+        testPlayer.performTurn(playerBoards, 'A', 1, 1);
         assertEquals(playerBoards[0].GetPositionChar('A', 1), 'X');
 
         assertEquals("A1", testPlayer.getTurnShot(1));
@@ -70,11 +66,11 @@ class PlayerTest {
 
         Player testPlayer = new UserPlayer(playerBoards);
 
-        testPlayer.performShot(playerBoards, 'A', 1, 1);
-        testPlayer.performShot(playerBoards, 'A', 2, 1);
-        testPlayer.performShot(playerBoards, 'A', 10, 1);
-        testPlayer.performShot(playerBoards, 'C', 1, 1);
-        testPlayer.performShot(playerBoards, 'J', 4, 1);
+        testPlayer.performTurn(playerBoards, 'A', 1, 1);
+        testPlayer.performTurn(playerBoards, 'A', 2, 1);
+        testPlayer.performTurn(playerBoards, 'A', 10, 1);
+        testPlayer.performTurn(playerBoards, 'C', 1, 1);
+        testPlayer.performTurn(playerBoards, 'J', 4, 1);
 
         assertEquals(playerBoards[0].GetPositionChar('A', 1), 'X');
         assertEquals(playerBoards[0].GetPositionChar('A', 2), 'X');
@@ -245,10 +241,18 @@ class PlayerTest {
         Player userPlayer = new UserPlayer(playerBoards);
         userPlayer.setShotBehavior(new CannonRandomShot());
 
+        for (int i = 1; i < 21; i++) {
+            System.out.println("Turn Num: " + i);
+            userPlayer.performTurn(playerBoards, 'Z', -1, i);
+        }
+
+        userPlayer.setShotBehavior(new CannonInputShot());
+
         char col = 'A';
         int row = 1;
-        for (int i = 0; i < 10; i++) {
-            userPlayer.performShot(playerBoards, col, row, i);
+        for (int i = 1; i < 11; i++) {
+            System.out.println("Turn Num: " + i);
+            userPlayer.performTurn(playerBoards, col, row, i);
             col++;
             row++;
         }

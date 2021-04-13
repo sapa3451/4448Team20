@@ -36,7 +36,7 @@ class ComputerPlayerTest {
 
         Player testComputer = new ComputerPlayer(playerBoards);
 
-        testComputer.performShot(playerBoards, 'Z', -1, 1);
+        testComputer.performTurn(playerBoards, 'Z', -1, 1);
 
         int count = 0;
         for (int i = 0; i < playerSurfaceBoard.getColumnSize(); i++) {
@@ -72,11 +72,11 @@ class ComputerPlayerTest {
 
         testComputer.setShotBehavior(new CannonRandomShot());
 
-        testComputer.performShot(playerBoards, 'Z', -1, 1);
-        testComputer.performShot(playerBoards, 'Z', -1, 1);
-        testComputer.performShot(playerBoards, 'Z', -1, 1);
-        testComputer.performShot(playerBoards, 'Z', -1, 1);
-        testComputer.performShot(playerBoards, 'Z', -1, 1);
+        testComputer.performTurn(playerBoards, 'Z', -1, 1);
+        testComputer.performTurn(playerBoards, 'Z', -1, 1);
+        testComputer.performTurn(playerBoards, 'Z', -1, 1);
+        testComputer.performTurn(playerBoards, 'Z', -1, 1);
+        testComputer.performTurn(playerBoards, 'Z', -1, 1);
 
         String lastTurn = testComputer.getTurnShot(5);
 

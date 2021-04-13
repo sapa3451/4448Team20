@@ -22,7 +22,7 @@ public final class ComputerPlayer extends Player{
     * random shots as Z-1 and attempted and failed (already hit there) multiple times
     * This is for now, if we wanna change the data structure used for this, totally okay with me
     * Below is a long list of loops, checks, and such to ensure the AI is making the right moves that are informed based on previous shots*/
-    public void performShot (Board[] board, char col, int row, int turnNum) {
+    public void performTurn(Board[] board, char col, int row, int turnNum) {
         this.addToShotStack(board);
         if (shotStack.isEmpty()) {  //if stack is empty, a random shot will happen
             shotBehavior.shot(board, 'Z', -1);

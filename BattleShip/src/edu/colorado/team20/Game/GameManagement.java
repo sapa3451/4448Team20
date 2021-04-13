@@ -9,7 +9,6 @@ import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
 import edu.colorado.team20.GamePiece.*;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class GameManagement {
@@ -158,9 +157,9 @@ public class GameManagement {
         boolean firstSunkPlayer = false;
         int sonarUses = 2;
         while (!EndGame()) {
-            player.performShot(this.computer.getBoards(), 'Z', -1, this.turnNum);
+            player.performTurn(this.computer.getBoards(), 'Z', -1, this.turnNum);
             ChangeTurn();
-            this.computer.performShot(player.getBoards(), 'Z', -1, this.turnNum);
+            this.computer.performTurn(player.getBoards(), 'Z', -1, this.turnNum);
             ChangeTurn();
             // round over updating turnNum
             turnNum++;
