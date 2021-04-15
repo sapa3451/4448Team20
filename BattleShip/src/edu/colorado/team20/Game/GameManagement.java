@@ -32,16 +32,17 @@ public class GameManagement {
         Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
         Board[] computerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
-        computerBoards[0].setShowBehavior(new HiddenShow());
-        computerBoards[1].setShowBehavior(new HiddenShow());
-        computerBoards[2].setShowBehavior(new HiddenShow());
-
         this.player = new UserPlayer(playerBoards);
         this.computer = new ComputerPlayer(computerBoards);
 
+        for (Board board : this.computer.getBoards()) {
+            board.setShowBehavior(new HiddenShow());
+        }
+
+
     }
 
-    public void InitializeGame(){
+    public void InitializeGame() {
         //Still do user input for ship placement here
         System.out.println("Welcome to The Battleship Game!");
         System.out.println();
@@ -66,7 +67,7 @@ public class GameManagement {
         input = input.toUpperCase(); // set to uppercase
 
         //Checks for bad input
-        while(!input.equalsIgnoreCase("bomber")&&!input.equalsIgnoreCase("submarine")&&!input.equalsIgnoreCase("battleship")){
+        while (!input.equalsIgnoreCase("bomber") && !input.equalsIgnoreCase("submarine") && !input.equalsIgnoreCase("battleship")) {
             System.out.println("Invalid optional ship type");
             System.out.println("For your 6th unit you may choose additional:");
             System.out.println("(Bomber)");
@@ -77,7 +78,7 @@ public class GameManagement {
         }
 
         FleetFactory fleetFactory = new FleetFactory();
-        String[] inputFleet={"minesweeper","destroyer","battleship","submarine", "bomber",input};//Set standard list of pieces w/ user input
+        String[] inputFleet = {"minesweeper", "destroyer", "battleship", "submarine", "bomber", input};//Set standard list of pieces w/ user input
         this.playerFleet = fleetFactory.createFleet(inputFleet);
 
 //!!!!!!!!!!!!!!! Add random extra ship !!!!!!!!!!!!!!!!!!!!!
@@ -88,21 +89,45 @@ public class GameManagement {
             if (gamePiece.getUnderwater()) {
                 gamePiece.setId(idNum);
                 idNum++;
-                this.computer.getBoards()[2].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                for (Board board : this.computer.getBoards()) {
+                    if (board.getzValue() < 0) {
+                        board.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                    }
+                }
                 this.computer.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
-                this.computer.getBoards()[2].registerShip(gamePiece);
+                for (Board board : this.computer.getBoards()) {
+                    if (board.getzValue() < 0) {
+                        board.registerShip(gamePiece);
+                    }
+                }
             } else if (gamePiece.isInAir()) {
                 gamePiece.setId(idNum);
                 idNum++;
-                this.computer.getBoards()[0].setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
+                for (Board board : this.computer.getBoards()) {
+                    if (board.getzValue() > 0) {
+                        board.setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
+                    }
+                }
                 this.computer.performAirPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
-                this.computer.getBoards()[0].registerShip(gamePiece);
+                for (Board board : this.computer.getBoards()) {
+                    if (board.getzValue() > 0) {
+                        board.registerShip(gamePiece);
+                    }
+                }
             } else {
                 gamePiece.setId(idNum);
                 idNum++;
-                this.computer.getBoards()[1].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                for (Board board : this.computer.getBoards()) {
+                    if (board.getzValue() == 0) {
+                        board.setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                    }
+                }
                 this.computer.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
-                this.computer.getBoards()[1].registerShip(gamePiece);
+                for (Board board : this.computer.getBoards()) {
+                    if (board.getzValue() == 0) {
+                        board.registerShip(gamePiece);
+                    }
+                }
             }
         }
 
@@ -115,7 +140,7 @@ public class GameManagement {
                 input = sc.nextLine();    //reads string
                 input = input.toUpperCase(); // set to uppercase
 
-                while(!input.equalsIgnoreCase("no") && !input.equalsIgnoreCase("yes")){
+                while (!input.equalsIgnoreCase("no") && !input.equalsIgnoreCase("yes")) {
                     System.out.println("Invalid input! Please enter (Yes) or (No): ");
                     input = sc.nextLine();
                     input = input.toUpperCase();
@@ -124,35 +149,67 @@ public class GameManagement {
                 if (input.equalsIgnoreCase("no")) {
                     gamePiece.setId(idNum);
                     idNum++;
-                    this.player.getBoards()[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                    for (Board board : this.player.getBoards()) {
+                        if (board.getzValue() == 0) {
+                            board.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                        }
+                    }
+                        System.out.println("Placing " + gamePiece.getName() + "!");
+                        this.player.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                        for (Board board : this.player.getBoards()) {
+                            if (board.getzValue() == 0) {
+                                board.registerShip(gamePiece);
+                            }
+                        }
+                    } else{
+                        gamePiece.setId(idNum);
+                        idNum++;
+                        for (Board board : this.player.getBoards()) {
+                            if (board.getzValue() < 0) {
+                                board.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                            }
+                        }
+                        System.out.println("Placing " + gamePiece.getName() + "!");
+                        this.player.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                        for (Board board : this.player.getBoards()) {
+                            if (board.getzValue() < 0) {
+                                board.registerShip(gamePiece);
+                            }
+                        }
+                    }
+                } else if (gamePiece.isInAir()) {
+                    gamePiece.setId(idNum);
+                    idNum++;
+                    for (Board board : this.player.getBoards()) {
+                        if (board.getzValue() > 0) {
+                            board.setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
+                        }
+                    }
                     System.out.println("Placing " + gamePiece.getName() + "!");
-                    this.player.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
-                    this.player.getBoards()[1].registerShip(gamePiece);
+                    this.player.performAirPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                    for (Board board : this.player.getBoards()) {
+                        if (board.getzValue() > 0) {
+                            board.registerShip(gamePiece);
+                        }
+                    }
                 } else {
                     gamePiece.setId(idNum);
                     idNum++;
-                    this.player.getBoards()[2].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                    for (Board board : this.player.getBoards()) {
+                        if (board.getzValue() == 0) {
+                            board.setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                        }
+                    }
                     System.out.println("Placing " + gamePiece.getName() + "!");
-                    this.player.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
-                    this.player.getBoards()[2].registerShip(gamePiece);
+                    this.player.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                    for (Board board : this.player.getBoards()) {
+                        if (board.getzValue() == 0) {
+                            board.registerShip(gamePiece);
+                        }
+                    }
                 }
-            } else if (gamePiece.isInAir()) {
-                gamePiece.setId(idNum);
-                idNum++;
-                this.player.getBoards()[0].setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
-                System.out.println("Placing " + gamePiece.getName() + "!");
-                this.player.performAirPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
-                this.player.getBoards()[0].registerShip(gamePiece);
-            } else {
-                gamePiece.setId(idNum);
-                idNum++;
-                this.player.getBoards()[1].setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
-                System.out.println("Placing " + gamePiece.getName() + "!");
-                this.player.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
-                this.player.getBoards()[1].registerShip(gamePiece);
             }
         }
-    }
 
     public boolean Sonar(boolean firstSunkComputer,int sonarUses){
         Scanner sc = new Scanner(System.in); //System.in is a standard input stream
@@ -220,15 +277,11 @@ public class GameManagement {
                         }
                     }
                     // got a valid row and col
-                    this.computer.getBoards()[1].setShowBehavior(new SonarBoardShow(colVal, rowVal));
-                    this.computer.getBoards()[1].performShow();
-                    this.computer.getBoards()[1].setShowBehavior(new HiddenShow());
-                    this.computer.getBoards()[0].setShowBehavior(new SonarBoardShow(colVal, rowVal));
-                    this.computer.getBoards()[0].performShow();
-                    this.computer.getBoards()[0].setShowBehavior(new HiddenShow());
-                    this.computer.getBoards()[2].setShowBehavior(new SonarBoardShow(colVal, rowVal));
-                    this.computer.getBoards()[2].performShow();
-                    this.computer.getBoards()[2].setShowBehavior(new HiddenShow());
+                    for (Board board : this.computer.getBoards()){
+                        board.setShowBehavior(new SonarBoardShow(colVal, rowVal));
+                        board.performShow();
+                        board.setShowBehavior(new HiddenShow());
+                    }
                     return true;
                 }
                 else if (input.equals("NO")) {

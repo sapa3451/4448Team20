@@ -11,9 +11,6 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 public abstract class Player {
-    private final Board airBoard;
-    private final Board surfaceBoard;
-    private final Board underwaterBoard;
     private final Board[] boards;
     PlacementBehavior placementBehavior;
     protected final HashMap<Integer, String> shotDecisionInfo; // keep track of shots per round
@@ -21,9 +18,6 @@ public abstract class Player {
     GameProbabilitiesController probController = new GameProbabilitiesController(); // player has access to calling probabilities commands
 
     public Player(Board[] board) {
-        this.airBoard = board[0];
-        this.surfaceBoard = board[1];
-        this.underwaterBoard = board[2];
         shotDecisionInfo = new HashMap<>(); //create an empty hashmap
         this.boards = board;
 
@@ -33,19 +27,31 @@ public abstract class Player {
     }
 
     public Board[] getBoards() {
-        return new Board[]{this.airBoard, this.surfaceBoard, this.underwaterBoard};
+        return boards;
     }
 
     public void performSurfacePlacement(int id, int size, int quartersPos) {
-        placementBehavior.place(id, this.surfaceBoard, size, quartersPos);
+        for (Board board : this.boards){
+            if (board.getzValue() == 0){
+                placementBehavior.place(id, board, size, quartersPos);
+            }
+        }
     }
 
     public void performUnderwaterPlacement(int id, int size, int quartersPos) {
-        placementBehavior.place(id, this.underwaterBoard, size, quartersPos);
+        for (Board board : this.boards){
+            if (board.getzValue() < 0){
+                placementBehavior.place(id, board, size, quartersPos);
+            }
+        }
     }
 
     public void performAirPlacement(int id, int size, int quartersPos) {
-        placementBehavior.place(id, this.airBoard, size, quartersPos);
+        for (Board board : this.boards){
+            if (board.getzValue() > 0){
+                placementBehavior.place(id, board, size, quartersPos);
+            }
+        }
     }
 
     public void performTurn(Board[] board, char col, int row, int turnNum) {

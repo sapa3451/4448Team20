@@ -78,7 +78,13 @@ public class LaserInputShot implements ShotBehavior {
                 }
             }
 
-            if (!board[1].CheckSpot(colVal, rowVal)) { // board already been shot or destroyed here
+            boolean allSpotsAlreadyHit = true;
+            for (Board value : board) { //checking to make sure the spot that will be shot at next is not already hit on all three boards
+                if (value.CheckSpot((char) (colVal), rowVal)) {
+                    allSpotsAlreadyHit = false;
+                }
+            }
+            if (allSpotsAlreadyHit) { // board already been shot or destroyed here
                 System.out.println("This position has already been shot at! Please enter another valid position.");
                 System.out.println("Type which column (A-J) you would like to target: ");
                 input = sc.nextLine(); // Read user input
@@ -86,9 +92,6 @@ public class LaserInputShot implements ShotBehavior {
                 processedShot = true;
             }
         }
-
-        // TODO: we need to think of a way to handle when cannon has hit surface board but not the rest of the boards
-        //  since we are only checking the surface board for re-shots
 
         //a laser will mark all available boards, as below
         for (Board value : board) {
