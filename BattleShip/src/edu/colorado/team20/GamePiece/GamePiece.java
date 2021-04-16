@@ -9,8 +9,8 @@ public abstract class GamePiece implements GamePieceObserver {
     protected String name;
     protected int id;
     protected boolean sunk;
-    protected boolean underwater;
-    protected boolean inAir;
+    protected boolean goesUnderwater;
+    protected boolean goesInAir;
     protected int quartersSpot; // int to tell captainsQ spacing for boat size
 
     public GamePiece() {
@@ -20,12 +20,12 @@ public abstract class GamePiece implements GamePieceObserver {
 
     public void setId(int ID) { this.id = ID; }
 
-    public boolean getUnderwater() {
-        return underwater;
+    public boolean canbeUnderwater() {
+        return goesUnderwater;
     }
 
-    public boolean isInAir() {
-        return inAir;
+    public boolean canbeInAir() {
+        return goesInAir;
     }
 
     public int getId() { return this.id; }

@@ -8,7 +8,7 @@ public class Battleship extends GamePiece {
         this.name="battleship";
         this.captainQHealth = 2; //Battleship has 2 health for CQ
         this.quartersSpot = 3;
-        this.underwater = false;
-        this.inAir = false;
+        this.goesUnderwater = false;
+        this.goesInAir = false;
     }
 }

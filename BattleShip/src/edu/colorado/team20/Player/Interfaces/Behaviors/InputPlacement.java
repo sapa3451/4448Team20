@@ -73,26 +73,34 @@ public class InputPlacement implements PlacementBehavior {
             // after this i have a valid colVal and rowVal
 
 
+//            System.out.println("Do you want to place your piece horizontally(1) or vertically(0)? ");
+//            input = sc.nextLine();
+//            boolean validInput = false;
+//            int direction = -1;
+//            while(!validInput){
+//                try {
+//                    direction = Integer.parseInt(input);
+//                }catch(NumberFormatException e) {
+//                    System.out.println("Input is not an int value. Please enter 1 for horizontal or 0 for vertical.");
+//                    input = sc.nextLine();
+//                    direction = Integer.parseInt(input);
+//                }
+//                if(direction == 0 || direction ==1){
+//                    validInput = true;
+//                }
+//                else {
+//                    System.out.println("Invalid input! Please enter 1 for horizontal or 0 for vertical.");
+//                    input = sc.nextLine(); // Read user input
+//                }
+//            }
             System.out.println("Do you want to place your piece horizontally(1) or vertically(0)? ");
             input = sc.nextLine();
-            boolean validInput = false;
-            int direction = -1;
-            while(!validInput){
-                try {
-                    direction = Integer.parseInt(input);
-                }catch(NumberFormatException e) {
+            while(!input.equalsIgnoreCase("0") && !input.equalsIgnoreCase("1")){
                     System.out.println("Input is not an int value. Please enter 1 for horizontal or 0 for vertical.");
                     input = sc.nextLine();
-                    direction = Integer.parseInt(input);
-                }
-                if(direction == 0 || direction ==1){
-                    validInput = true;
-                }
-                else {
-                    System.out.println("Invalid input! Please enter 1 for horizontal or 0 for vertical.");
-                    input = sc.nextLine(); // Read user input
-                }
             }
+            int direction = Integer.parseInt(input);
+
             validPlacement = board.SetGamePiecePos(id, rowVal, colVal, direction, size, quartersPos);
             board.performShow();
             if (!validPlacement) {

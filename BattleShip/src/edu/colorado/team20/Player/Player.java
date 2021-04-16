@@ -89,6 +89,8 @@ public abstract class Player {
         }
     }
 
+    public void performSpecialShot(Board[] board, char col, int row){shotBehavior.shot(board, col, row);}
+
     public void setPlacementBehavior(PlacementBehavior pb){
         placementBehavior = pb;
     }

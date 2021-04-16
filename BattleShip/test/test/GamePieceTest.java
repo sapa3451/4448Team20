@@ -21,7 +21,7 @@ class GamePieceTest {
         minesweeper.setId(1);
         assertEquals(minesweeper.getId(), 1);
 
-        assertFalse(minesweeper.isInAir());
+        assertFalse(minesweeper.canbeInAir());
 
 
     }
@@ -72,7 +72,7 @@ class GamePieceTest {
     public void GetShipHitInfoSubmarine() { //tests to make sure health is working correctly
         Submarine submarine= new Submarine();
 
-        assertTrue(submarine.getUnderwater());
+        assertTrue(submarine.canbeUnderwater());
 
         assertEquals(6, submarine.getTotShipHealth());
 

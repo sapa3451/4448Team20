@@ -8,7 +8,7 @@ public class Minesweeper extends GamePiece {
         this.captainQHealth = 1; // minesweeper only has one health hit for captain's quarters
         this.totShipHealth = this.numOccupiedBoardCells;
         this.quartersSpot = 1;
-        this.underwater = false;
-        this.inAir = false;
+        this.goesUnderwater = false;
+        this.goesInAir = false;
     }
 }

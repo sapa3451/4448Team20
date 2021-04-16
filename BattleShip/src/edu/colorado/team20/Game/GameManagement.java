@@ -3,8 +3,11 @@ package edu.colorado.team20.Game;
 import edu.colorado.team20.Board.*;
 import edu.colorado.team20.Board.Interfaces.Behaviors.*;
 import edu.colorado.team20.Player.ComputerPlayer;
+import edu.colorado.team20.Player.Interfaces.Behaviors.BombRun;
+import edu.colorado.team20.Player.Interfaces.Behaviors.CannonBarrage;
 import edu.colorado.team20.Player.Interfaces.Behaviors.LaserInputShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.LaserRandomShot;
+import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
 import edu.colorado.team20.GamePiece.*;
@@ -86,7 +89,7 @@ public class GameManagement {
 
         // give ships ids and place them
         for (GamePiece gamePiece : compFleet) {
-            if (gamePiece.getUnderwater()) {
+            if (gamePiece.canbeUnderwater()) {
                 gamePiece.setId(idNum);
                 idNum++;
                 for (Board board : this.computer.getBoards()) {
@@ -100,7 +103,7 @@ public class GameManagement {
                         board.registerShip(gamePiece);
                     }
                 }
-            } else if (gamePiece.isInAir()) {
+            } else if (gamePiece.canbeInAir()) {
                 gamePiece.setId(idNum);
                 idNum++;
                 for (Board board : this.computer.getBoards()) {
@@ -133,7 +136,7 @@ public class GameManagement {
 
         idNum = 1;
         for (GamePiece gamePiece : playerFleet) {
-            if (gamePiece.getUnderwater()) {//For if piece is submarine since they initialize to be underwater
+            if (gamePiece.canbeUnderwater()) {//For if piece is submarine since they initialize to be underwater
 
                 // ask if player wants to place their sub on surface or underwater
                 System.out.println("Do you want to place your " + gamePiece.getName() + " underwater? (Yes)/(No)");
@@ -177,7 +180,7 @@ public class GameManagement {
                             }
                         }
                     }
-                } else if (gamePiece.isInAir()) {
+                } else if (gamePiece.canbeInAir()) {
                     gamePiece.setId(idNum);
                     idNum++;
                     for (Board board : this.player.getBoards()) {
@@ -297,11 +300,33 @@ public class GameManagement {
         return false;
     }
 
+    public boolean SpecialShot(int specialUses){
+        if (specialUses!=0){
+            System.out.println("Do you want to use your Bomb Run Ability? (Yes)/(No)");
+            Scanner sc = new Scanner(System.in);
+            String input = sc.nextLine(); // Read user input
+
+            while(!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"))
+            {
+                System.out.println("Invalid input! Please enter (Yes) or (No): ");
+                input = sc.nextLine();
+            }
+
+            if(input.equalsIgnoreCase("yes")){ return true; }
+            else{ return false; }
+        }
+        else{
+            System.out.println("You have no remaining special shots");
+            return false;
+        }
+    }
+
     public void BeginGame() {
         // set up of game is now done. Begin taking turns. Implementing sonar pulse
         boolean firstSunkComputer = false;
         boolean firstSunkPlayer = false;
         int sonarUses = 2;
+        int specialUses = 2;
         while (!EndGame()) {
             player.performTurn(this.computer.getBoards(), 'Z', -1, this.turnNum);
             ChangeTurn();
@@ -338,6 +363,18 @@ public class GameManagement {
             boolean yesSonar = Sonar(firstSunkComputer,sonarUses);
             if(yesSonar){
                 sonarUses--;
+            }
+
+            //Checks to see if player wants to use their special shot
+            //if so: changes shot behavior, performs BombRun/Shot, changes behavior back,
+            // reduces their remaining available special shot count
+            boolean yesSpecial = SpecialShot(specialUses);
+            if(yesSpecial){
+                ShotBehavior prevShotBev = this.player.getShotBehavior();
+                this.player.setShotBehavior(new CannonBarrage());
+                this.player.performSpecialShot(this.computer.getBoards(),'Z',-1);
+                this.player.setShotBehavior(prevShotBev);
+                specialUses--;
             }
         }
     }

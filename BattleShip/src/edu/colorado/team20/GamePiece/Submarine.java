@@ -9,7 +9,7 @@ public class Submarine extends GamePiece {
         this.name="submarine";
         this.captainQHealth = 2; //Submarine has 2 health for CQ
         this.quartersSpot = 5;
-        this.underwater = true;
-        this.inAir = false;
+        this.goesUnderwater = true;
+        this.goesInAir = false;
     }
 }

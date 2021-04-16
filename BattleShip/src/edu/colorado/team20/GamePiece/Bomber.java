@@ -9,7 +9,7 @@ public class Bomber extends GamePiece {
         this.name="bomber";
         this.captainQHealth = 1;
         this.quartersSpot = 0;
-        this.underwater = false;
-        this.inAir = true;
+        this.goesUnderwater = false;
+        this.goesInAir = true;
     }
 }
