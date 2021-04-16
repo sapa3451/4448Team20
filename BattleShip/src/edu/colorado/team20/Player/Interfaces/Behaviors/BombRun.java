@@ -35,15 +35,28 @@ public class BombRun implements ShotBehavior{
             input = sc.nextLine();    //reads string
         }
 
+    //Takes in which row user wants to BombRun if they want horizontal, checks for bad input
         if(input.equalsIgnoreCase("1")){
             System.out.println("Type which row (1-10) you would like to target: ");
             input = sc.nextLine();
             int rowInput = Integer.parseInt(input); // set value to int
 
+            try {
+                // checking valid integer using parseInt() method
+                rowInput = Integer.parseInt(input); // set value to int
+            }
+            catch (NumberFormatException e) { // throw error and get input again
+            }
+            //If bad input throws in loop
             while(rowInput < 1 || rowInput > 10){//Checking for user error
                 System.out.println("Invalid row! Please enter a valid row (1-10):");
                 input = sc.nextLine(); // Read user input
-                rowInput = Integer.parseInt(input); // set value
+                try {
+                    // checking valid integer using parseInt() method
+                    rowInput = Integer.parseInt(input); // set value to int
+                }
+                catch (NumberFormatException e) { // throw error and get input again
+                }
             }
 
             //Do Actual Stuff
@@ -53,10 +66,12 @@ public class BombRun implements ShotBehavior{
             //
         }
 
+    //Takes in which column user wants to BombRun if they want horizontal, checks for bad input
         else{
             System.out.println("Type which column (A-J) you would like to target: ");
             input = sc.nextLine();
 
+            //Checking for bad input here
             while(input.toCharArray()[0] < 'A' || input.toCharArray()[0] > 'J'){//Checking for user error
                 System.out.println("Invalid column! Please enter a valid column (A-J): ");
                 input = sc.nextLine(); // Read user input

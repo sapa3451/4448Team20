@@ -93,6 +93,8 @@ public class InputPlacement implements PlacementBehavior {
 //                    input = sc.nextLine(); // Read user input
 //                }
 //            }
+
+            //Gets direction (1=horizontal,0=vertical) and checks for bad input
             System.out.println("Do you want to place your piece horizontally(1) or vertically(0)? ");
             input = sc.nextLine();
             while(!input.equalsIgnoreCase("0") && !input.equalsIgnoreCase("1")){

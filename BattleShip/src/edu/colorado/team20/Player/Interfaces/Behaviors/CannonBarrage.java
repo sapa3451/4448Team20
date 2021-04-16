@@ -23,7 +23,7 @@ public class CannonBarrage implements ShotBehavior {
         System.out.println("You've Decided to do a Cannon Barrage");
         System.out.println("You must now choose where you want to center the barrage");
 
-        //Gets user input for Column coordinate, checks for bad input
+    //Gets user input for Column coordinate, checks for bad input
         System.out.println("Type which column (A-J) you would like to target: ");
         Scanner sc = new Scanner(System.in); //System.in is a standard input stream
         String input = sc.nextLine();    //reads string
@@ -34,17 +34,29 @@ public class CannonBarrage implements ShotBehavior {
         }
         colVal=input.toCharArray()[0];
 
-        //Gets user input for Row coordinate, checks for bad input
+    //Gets user input for Row coordinate, checks for bad input
         System.out.println("Type which row (1-10) you would like to target: ");
         input = sc.nextLine();
-        int rowInput = Integer.parseInt(input); // set value to int
-
+        int rowInput = -1;
+        try {
+            // checking valid integer using parseInt() method
+            rowInput = Integer.parseInt(input); // set value to int
+        }
+        catch (NumberFormatException e) { // throw error and get input again
+        }
         while(rowInput < 1 || rowInput > 10){//Checking for user error
             System.out.println("Invalid row! Please enter a valid row (1-10):");
             input = sc.nextLine(); // Read user input
-            rowInput = Integer.parseInt(input); // set value
+            try {
+                // checking valid integer using parseInt() method
+                rowInput = Integer.parseInt(input); // set value to int
+            }
+            catch (NumberFormatException e) { // throw error and get input again
+            }
         }
         rowVal=rowInput;
+
+    //Marks board, checks if going off board first
         board[1].performMarkBoard(colVal,rowVal);
         if(colVal>'A'){
             colVal+=-1;
