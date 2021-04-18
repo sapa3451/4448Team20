@@ -48,6 +48,7 @@ public class Board implements BoardSubject {
             this.alphaMap.put(alphas[i], i);
         }
         fleet = new ArrayList<>();
+        zValue = 0;
     }
 
     public int getzValue() {
@@ -164,7 +165,6 @@ public class Board implements BoardSubject {
         char positionChar = board[row-1][alphaMap.get(col)];
 
         if (positionChar != 'E') { //Checks if ship is already at that location
-            System.out.println("Ship already placed here!");
             return false;
         }
         else {
@@ -188,7 +188,6 @@ public class Board implements BoardSubject {
                 coordCol = coordinates.charAt(i);
                 coordRow = Integer.parseInt(String.valueOf(coordinates.charAt(i+1)));
                 if(board[coordRow][alphaMap.get(coordCol)] != 'E') {
-                    System.out.println("Piece already placed here!");
                     return false;
                 }
             }
@@ -219,50 +218,7 @@ public class Board implements BoardSubject {
             }
 
         }
-        showIdBoard();
         return true;
-    }
-
-    // this is just for testing purposes to show idboard
-    public void showIdBoard() {
-        char[] col = new char[columnSize*3+2];
-        int [] row = new int[rowSize];
-        char start = 'A';
-        col[0] = ' ';
-
-        for (int i = 1; i < this.columnSize*3-1; i = i + 3) {
-            col[i+1] = ' ';
-            col[i+2] = ' ';
-            col[i+3] = start;
-            start += 1;
-        }
-        for (int i = 0; i < this.rowSize; i++) {
-            row[i] = i+1;
-        }
-
-        // print board
-        for (int i = 0; i < this.rowSize; i++) {
-            if (i == 0) {
-                System.out.println(col);
-            }
-
-            // this conditional fixes number lining
-            if (row[i] >= 10) {
-                System.out.print(row[i]);
-            } else {
-                System.out.print(row[i] + " ");
-            }
-            for (int j = 0; j < this.columnSize; j++) {
-                if (this.idBoard[i][j] == 0) {
-                    System.out.print("[ ]");
-                }
-                else {
-                    System.out.print("[" + this.idBoard[i][j] + "]");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 
     // function to mark ship as all destroyed when captains' quarters destroyed

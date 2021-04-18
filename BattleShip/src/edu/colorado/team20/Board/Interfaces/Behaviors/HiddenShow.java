@@ -6,6 +6,15 @@ import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 public class HiddenShow implements ShowBehavior {
     public void show (Board board) {
         // create arrays to hold board rows and columns
+        if (board.getzValue() > 0) {
+            System.out.println("**********COMPUTER AIR BOARD**********");
+        }
+        else if (board.getzValue() < 0) {
+            System.out.println("**********COMPUTER UNDERWATER BOARD**********");
+        }
+        else if (board.getzValue() == 0) {
+            System.out.println("**********COMPUTER SURFACE BOARD**********");
+        }
         char[] col = new char[board.getColumnSize()*3+2];
         int [] row = new int[board.getRowSize()];
         char start = 'A';

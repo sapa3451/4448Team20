@@ -2,6 +2,7 @@ package test;
 
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.Behaviors.*;
+import edu.colorado.team20.Game.BoardSetFactory;
 import edu.colorado.team20.Game.FleetFactory;
 import edu.colorado.team20.GamePiece.GamePiece;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonInputShot;
@@ -30,16 +31,12 @@ public class ShotTest {
         ShotBehavior shotBehavior;
         shotBehavior= new CannonInputShot();
 
-        Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new Mark());
-        playerSurfaceBoard.setShowBehavior(new RegularShow());
-        Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
-        playerUnderwaterBoard.setShowBehavior(new RegularShow());// create underwater board
-        Board[] computerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        BoardSetFactory boardSetFactory = new BoardSetFactory();
+        String[] standardBoardSet={"air","surface","underwater"};
+        Board[] computerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
         shotBehavior.shot(computerBoards,'A',1);
-        assertEquals(computerBoards[0].GetPositionChar('A',1), 'X');
+        assertEquals(computerBoards[1].GetPositionChar('A',1), 'X');
     }
 
     @Test
@@ -50,14 +47,10 @@ public class ShotTest {
 
         ShotBehavior shotBehavior;
         shotBehavior= new CannonInputShot();
+        BoardSetFactory boardSetFactory = new BoardSetFactory();
 
-        Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new Mark());
-        playerSurfaceBoard.setShowBehavior(new RegularShow());
-        Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
-        playerUnderwaterBoard.setShowBehavior(new RegularShow());// create underwater board
-        Board[] computerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        String[] standardBoardSet={"air","surface","underwater"};
+        Board[] computerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
         shotBehavior.shot(computerBoards,'A',1);
         shotBehavior.shot(computerBoards, 'A', 2);
@@ -65,11 +58,11 @@ public class ShotTest {
         shotBehavior.shot(computerBoards, 'C', 1);
         shotBehavior.shot(computerBoards, 'J', 4);
 
-        assertEquals(computerBoards[0].GetPositionChar('A',1), 'X');
-        assertEquals(computerBoards[0].GetPositionChar('A',2), 'X');
-        assertEquals(computerBoards[0].GetPositionChar('A',10), 'X');
-        assertEquals(computerBoards[0].GetPositionChar('C',1), 'X');
-        assertEquals(computerBoards[0].GetPositionChar('J',4), 'X');
+        assertEquals(computerBoards[1].GetPositionChar('A',1), 'X');
+        assertEquals(computerBoards[1].GetPositionChar('A',2), 'X');
+        assertEquals(computerBoards[1].GetPositionChar('A',10), 'X');
+        assertEquals(computerBoards[1].GetPositionChar('C',1), 'X');
+        assertEquals(computerBoards[1].GetPositionChar('J',4), 'X');
     }
 
     @Test
@@ -85,15 +78,7 @@ public class ShotTest {
         playerSurfaceBoard.setMarkBehavior(new Mark());
         playerSurfaceBoard.setShowBehavior(new RegularShow());
 
-        Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
-        playerUnderwaterBoard.setShowBehavior(new RegularShow());
-
-        Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new Mark());
-        playerAirBoard.setShowBehavior(new RegularShow());
-
-        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
+        Board[] playerBoards = new Board[]{playerSurfaceBoard};
 
         shotBehavior.shot(playerBoards, 'Z', -1);
 
@@ -117,19 +102,9 @@ public class ShotTest {
         ShotBehavior shotBehavior;
         shotBehavior= new CannonRandomShot();
 
-        Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new Mark());
-        playerSurfaceBoard.setShowBehavior(new RegularShow());
-
-        Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
-        playerUnderwaterBoard.setShowBehavior(new RegularShow());
-
-        Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new Mark());
-        playerAirBoard.setShowBehavior(new RegularShow());
-
-        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
+        BoardSetFactory boardSetFactory = new BoardSetFactory();
+        String[] standardBoardSet={"air","surface","underwater"};
+        Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
 
         shotBehavior.shot(playerBoards, 'Z', -1);
@@ -139,9 +114,9 @@ public class ShotTest {
         shotBehavior.shot(playerBoards, 'Z', -1);
 
         int count = 0;
-        for (int i = 0; i < playerSurfaceBoard.getColumnSize(); i++) {
-            for (int j = 0; j < playerSurfaceBoard.getRowSize(); j++) {
-                if (playerSurfaceBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'X') {
+        for (int i = 0; i < playerBoards[1].getColumnSize(); i++) {
+            for (int j = 0; j < playerBoards[1].getRowSize(); j++) {
+                if (playerBoards[1].GetPositionChar((char) ('A' + i), 1 + j) == 'X') {
                     count += 1;
                 }
             }

@@ -29,6 +29,6 @@ public class SpecialShotTest {
         playerUnderwaterBoard.setShowBehavior(new RegularShow());// create underwater board
         Board[] computerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
 
-        shotBehavior.shot(computerBoards,'Z',-1);
+        shotBehavior.shot(computerBoards,'A',1);
     }
 }

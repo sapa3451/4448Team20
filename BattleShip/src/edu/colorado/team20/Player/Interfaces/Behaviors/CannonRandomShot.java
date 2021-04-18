@@ -12,6 +12,13 @@ import java.util.Random;
 public final class CannonRandomShot implements ShotBehavior {
 
     public boolean shot(Board[] board, char col, int row) {
+        Board surface = new Board();
+        for (Board boards : board){
+            if (boards.getzValue() == 0){
+                surface = boards;
+                break;
+            }
+        }
         if (col == 'Z' && row == -1) {
             System.out.println("The computer is now taking their shot!");
             System.out.println();
@@ -27,14 +34,8 @@ public final class CannonRandomShot implements ShotBehavior {
 
             //coordinates resulting random board space
 
-
-            while (!board[1].CheckSpot(col, row)) {//while the randomly selected spot is not available
-                col = (char) ('A' + randChar.nextInt(10));
-                row = (randNum.nextInt(10) + 1);
-            }
-
             //takes in only the first board, the surface board
-            board[1].performMarkBoard(col, row);
+            surface.performMarkBoard(col, row);
         }
         /*This is where the AI gets "smart." This long list of checks, loops, and such is making sure that the computer is accurately and randomly
          * choosing its next informed shot. see comments below */
@@ -49,12 +50,12 @@ public final class CannonRandomShot implements ShotBehavior {
                 int direction = (randNum.nextInt(4) + 1); //random direction chosen
                 if (direction == 1) {
                     if (col != 'J') { //making sure that the next shot wont go out of bounds, i.e. this direction goes one to the right, so col != J
-                        if (board[1].GetPositionChar(col, row) == 'W') { //if it finds that it has hit a captains quarters, destroy the ship!
-                            board[1].performMarkBoard(col, row);
+                        if (surface.GetPositionChar(col, row) == 'W') { //if it finds that it has hit a captains quarters, destroy the ship!
+                            surface.performMarkBoard(col, row);
                             return true;
                         }
-                        if (board[1].CheckSpot((char) (col + 1), row)) { //checking to make sure the spot that will be shot at next is not already hit on the surface board
-                            board[1].performMarkBoard((char) (col + 1), row); //checks pass, so now we can go an mark the board appropriately
+                        if (surface.CheckSpot((char) (col + 1), row)) { //checking to make sure the spot that will be shot at next is not already hit on the surface board
+                            surface.performMarkBoard((char) (col + 1), row); //checks pass, so now we can go an mark the board appropriately
                             shot = true; //telling the loop that we performed a successful shot to return true
                         } else {
                             check.add('1'); //here is where we add to the list if this direction fails, if all directions fail, it returns
@@ -67,12 +68,12 @@ public final class CannonRandomShot implements ShotBehavior {
                 /* Every if statement below has the same exact logic as this first one above, refer to comments above for understanding*/
                 else if (direction == 2) {
                     if (row != 10) {
-                        if (board[1].GetPositionChar(col, row) == 'W') {
-                            board[1].performMarkBoard(col, row);
+                        if (surface.GetPositionChar(col, row) == 'W') {
+                            surface.performMarkBoard(col, row);
                             return true;
                         }
-                        if (board[1].CheckSpot(col, row + 1)) {
-                            board[1].performMarkBoard(col, row + 1);
+                        if (surface.CheckSpot(col, row + 1)) {
+                            surface.performMarkBoard(col, row + 1);
                             shot = true;
                         } else {
                             check.add('2');
@@ -84,12 +85,12 @@ public final class CannonRandomShot implements ShotBehavior {
                 }
                 else if (direction == 3) {
                     if (col != 'A') {
-                        if (board[1].GetPositionChar(col, row) == 'W') {
-                            board[1].performMarkBoard(col, row);
+                        if (surface.GetPositionChar(col, row) == 'W') {
+                            surface.performMarkBoard(col, row);
                             return true;
                         }
-                        if (board[1].CheckSpot((char) (col - 1), row)) {
-                            board[1].performMarkBoard((char) (col - 1), row);
+                        if (surface.CheckSpot((char) (col - 1), row)) {
+                            surface.performMarkBoard((char) (col - 1), row);
                             shot = true;
                         } else {
                             check.add('3');
@@ -101,12 +102,12 @@ public final class CannonRandomShot implements ShotBehavior {
                 }
                 else if (direction == 4) {
                     if (row != 1) {
-                        if (board[1].GetPositionChar(col, row) == 'W') {
-                            board[1].performMarkBoard(col, row);
+                        if (surface.GetPositionChar(col, row) == 'W') {
+                            surface.performMarkBoard(col, row);
                             return true;
                         }
-                        if (board[1].CheckSpot(col, row - 1)) {
-                            board[1].performMarkBoard(col, row - 1);
+                        if (surface.CheckSpot(col, row - 1)) {
+                            surface.performMarkBoard(col, row - 1);
                             shot = true;
                         } else {
                             check.add('4');

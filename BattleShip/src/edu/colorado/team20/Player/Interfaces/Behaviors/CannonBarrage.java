@@ -27,6 +27,7 @@ public class CannonBarrage implements ShotBehavior {
         System.out.println("Type which column (A-J) you would like to target: ");
         Scanner sc = new Scanner(System.in); //System.in is a standard input stream
         String input = sc.nextLine();    //reads string
+        input = input.toUpperCase(); // set to uppercase
 
         while(input.toCharArray()[0] < 'A' || input.toCharArray()[0] > 'J'){//Checking for user error
             System.out.println("Invalid column! Please enter a valid column (A-J): ");

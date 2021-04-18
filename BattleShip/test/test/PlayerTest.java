@@ -2,6 +2,7 @@ package test;
 
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.Behaviors.*;
+import edu.colorado.team20.Game.BoardSetFactory;
 import edu.colorado.team20.Player.ComputerPlayer;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonRandomShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
@@ -44,7 +45,7 @@ class PlayerTest {
         testPlayer.setShotBehavior(new CannonInputShot());
 
         testPlayer.performTurn(playerBoards, 'A', 1, 1);
-        assertEquals(playerBoards[0].GetPositionChar('A', 1), 'X');
+        assertEquals(playerBoards[1].GetPositionChar('A', 1), 'X');
 
         assertEquals("A1", testPlayer.getTurnShot(1));
     }
@@ -75,11 +76,11 @@ class PlayerTest {
         testPlayer.performTurn(playerBoards, 'C', 1, 1);
         testPlayer.performTurn(playerBoards, 'J', 4, 1);
 
-        assertEquals(playerBoards[0].GetPositionChar('A', 1), 'X');
-        assertEquals(playerBoards[0].GetPositionChar('A', 2), 'X');
-        assertEquals(playerBoards[0].GetPositionChar('A', 10), 'X');
-        assertEquals(playerBoards[0].GetPositionChar('C', 1), 'X');
-        assertEquals(playerBoards[0].GetPositionChar('J', 4), 'X');
+        assertEquals(playerBoards[1].GetPositionChar('A', 1), 'X');
+        assertEquals(playerBoards[1].GetPositionChar('A', 2), 'X');
+        assertEquals(playerBoards[1].GetPositionChar('A', 10), 'X');
+        assertEquals(playerBoards[1].GetPositionChar('C', 1), 'X');
+        assertEquals(playerBoards[1].GetPositionChar('J', 4), 'X');
     }
 
     @Test
@@ -132,26 +133,17 @@ class PlayerTest {
     @Test
     public void UnderwaterPlacementTest() {
         //Random placement test for player, currently no way to test input, but random should work the same
-        System.out.println("Running RandomPlacementTest...........");
+        System.out.println("Running UnderwaterPlacementTest...........");
 
         PlacementBehavior placementBehavior;
         placementBehavior = new InputPlacement();
         PlacementBehavior randomPlacementBehavior;
         randomPlacementBehavior = new RandomPlacement();
 
-        Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new Mark());
-        playerSurfaceBoard.setShowBehavior(new RegularShow());
+        BoardSetFactory boardSetFactory = new BoardSetFactory();
+        String[] standardBoardSet={"air","surface","underwater"};
+        Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
-        Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
-        playerUnderwaterBoard.setShowBehavior(new RegularShow());
-
-        Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new Mark());
-        playerAirBoard.setShowBehavior(new RegularShow());
-
-        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
         Player userPlayer = new ComputerPlayer(playerBoards);
 
         userPlayer.setPlacementBehavior(placementBehavior);
@@ -188,19 +180,10 @@ class PlayerTest {
         PlacementBehavior randomPlacementBehavior;
         randomPlacementBehavior = new RandomPlacement();
 
-        Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new Mark());
-        playerSurfaceBoard.setShowBehavior(new RegularShow());
+        BoardSetFactory boardSetFactory = new BoardSetFactory();
+        String[] standardBoardSet={"air","surface","underwater"};
+        Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
-        Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
-        playerUnderwaterBoard.setShowBehavior(new RegularShow());
-
-        Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new Mark());
-        playerAirBoard.setShowBehavior(new RegularShow());
-
-        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
         Player userPlayer = new ComputerPlayer(playerBoards);
 
         userPlayer.setPlacementBehavior(placementBehavior);

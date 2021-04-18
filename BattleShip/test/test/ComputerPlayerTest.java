@@ -2,12 +2,18 @@ package test;
 
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.Behaviors.*;
+import edu.colorado.team20.Game.BoardSetFactory;
+import edu.colorado.team20.Game.FleetFactory;
+import edu.colorado.team20.GamePiece.GamePiece;
 import edu.colorado.team20.Player.ComputerPlayer;
 import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
+import edu.colorado.team20.Player.Interfaces.Behaviors.LaserRandomShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonRandomShot;
 import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
+import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import edu.colorado.team20.Player.Player;
+import edu.colorado.team20.Player.UserPlayer;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,15 +30,7 @@ class ComputerPlayerTest {
         playerSurfaceBoard.setMarkBehavior(new Mark());
         playerSurfaceBoard.setShowBehavior(new RegularShow());
 
-        Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
-        playerUnderwaterBoard.setShowBehavior(new RegularShow());
-
-        Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new Mark());
-        playerAirBoard.setShowBehavior(new RegularShow());
-
-        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
+        Board[] playerBoards = new Board[]{playerSurfaceBoard};
 
         Player testComputer = new ComputerPlayer(playerBoards);
 
@@ -58,15 +56,7 @@ class ComputerPlayerTest {
         playerSurfaceBoard.setMarkBehavior(new Mark());
         playerSurfaceBoard.setShowBehavior(new RegularShow());
 
-        Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
-        playerUnderwaterBoard.setShowBehavior(new RegularShow());
-
-        Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new Mark());
-        playerAirBoard.setShowBehavior(new RegularShow());
-
-        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
+        Board[] playerBoards = new Board[]{playerSurfaceBoard};
 
         Player testComputer = new ComputerPlayer(playerBoards);
 
@@ -78,7 +68,6 @@ class ComputerPlayerTest {
         testComputer.performTurn(playerBoards, 'Z', -1, 1);
         testComputer.performTurn(playerBoards, 'Z', -1, 1);
 
-        String lastTurn = testComputer.getTurnShot(5);
 
         int count = 0;
         for (int i = 0; i < playerSurfaceBoard.getColumnSize(); i++) {
@@ -140,9 +129,100 @@ class ComputerPlayerTest {
 
     @Test
     public void smartAITest() {
-        int i = 1;
-        int j = 1;
-        String toAdd = "" + (char) ('A' + i) + (1 + j);
-        System.out.println(toAdd);
+        FleetFactory fleetFactory = new FleetFactory();
+        String[] inputFleet = {"minesweeper", "destroyer", "battleship", "submarine", "bomber"};//Set standard list of pieces w/ user input
+        GamePiece[] playerFleet = fleetFactory.createFleet(inputFleet);
+
+        BoardSetFactory boardSetFactory = new BoardSetFactory();
+        String[] standardBoardSet = {"air", "surface", "underwater"};
+        Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
+        Board[] computerBoards = boardSetFactory.createBoardSet(standardBoardSet);
+
+        Player computerPlayer = new ComputerPlayer(computerBoards);
+        ShotBehavior shot = computerPlayer.getShotBehavior();
+        Player userPlayer = new UserPlayer(playerBoards);
+
+        int idNum = 0;
+
+        userPlayer.setPlacementBehavior(new RandomPlacement());
+        for (GamePiece gamePiece : playerFleet) {
+            if (gamePiece.canbeUnderwater()) {
+                gamePiece.setId(idNum);
+                idNum++;
+                for (Board board : userPlayer.getBoards()) {
+                    if (board.getzValue() < 0) {
+                        board.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                    }
+                }
+                userPlayer.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                for (Board board : userPlayer.getBoards()) {
+                    if (board.getzValue() < 0) {
+                        board.registerShip(gamePiece);
+                    }
+                }
+            } else if (gamePiece.canbeInAir()) {
+                gamePiece.setId(idNum);
+                idNum++;
+                for (Board board : userPlayer.getBoards()) {
+                    if (board.getzValue() > 0) {
+                        board.setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
+                    }
+                }
+                userPlayer.performAirPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                for (Board board : userPlayer.getBoards()) {
+                    if (board.getzValue() > 0) {
+                        board.registerShip(gamePiece);
+                    }
+                }
+            } else {
+                gamePiece.setId(idNum);
+                idNum++;
+                for (Board board : userPlayer.getBoards()) {
+                    if (board.getzValue() == 0) {
+                        board.setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                    }
+                }
+                userPlayer.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
+                for (Board board : userPlayer.getBoards()) {
+                    if (board.getzValue() == 0) {
+                        board.registerShip(gamePiece);
+                    }
+                }
+            }
+        }
+        boolean allShipsSunk = false;
+        while (allShipsSunk == false) {
+            boolean firstShipSunk = false;
+            for (int i = 0; i < playerBoards[1].getColumnSize(); i++) {
+                for (int j = 0; j < playerBoards[1].getRowSize(); j++) {
+                    if (playerBoards[1].GetPositionChar((char) ('A' + i), 1 + j) == 'D') {
+                        firstShipSunk = true;
+                    }
+                }
+            }
+            if (firstShipSunk == true){
+                computerPlayer.setShotBehavior(new LaserRandomShot());
+            }
+            allShipsSunk = true;
+            for (Board boards : playerBoards) {
+                for (int i = 0; i < boards.getColumnSize(); i++) {
+                    for (int j = 0; j < boards.getRowSize(); j++) {
+                        if (boards.GetPositionChar((char) ('A' + i), 1 + j) == 'S' || boards.GetPositionChar((char) ('A' + i), 1 + j) == 'Q' || boards.GetPositionChar((char) ('A' + i), 1 + j) == 'W') {
+                            computerPlayer.performTurn(playerBoards, 'Z', -1, 1);
+                        }
+                    }
+                }
+            }
+            for (Board boards : playerBoards) {
+                for (int i = 0; i < boards.getColumnSize(); i++) {
+                    for (int j = 0; j < boards.getRowSize(); j++) {
+                        if (boards.GetPositionChar((char) ('A' + i), 1 + j) == 'S' || boards.GetPositionChar((char) ('A' + i), 1 + j) == 'Q' || boards.GetPositionChar((char) ('A' + i), 1 + j) == 'H') {
+                            allShipsSunk = false;
+                        }
+                    }
+                }
+            }
+        }
+        assertTrue(allShipsSunk);
     }
 }
