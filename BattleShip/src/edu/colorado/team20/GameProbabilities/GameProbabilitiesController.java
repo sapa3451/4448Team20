@@ -7,7 +7,7 @@ import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
 
 public class GameProbabilitiesController {
-    Command[] probCommands;
+    private Command[] probCommands;
 
     public GameProbabilitiesController() {
         // create array to hold prob commands
