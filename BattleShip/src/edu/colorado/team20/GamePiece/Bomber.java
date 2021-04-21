@@ -1,7 +1,8 @@
 package edu.colorado.team20.GamePiece;
 
 /**
- * Description:
+ * Description: class that extends GamePiece to define Bomber game piece with
+ * specified attributes and constructor
  */
 public class Bomber extends GamePiece {
 

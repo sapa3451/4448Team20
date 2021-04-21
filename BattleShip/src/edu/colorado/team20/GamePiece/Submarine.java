@@ -1,7 +1,8 @@
 package edu.colorado.team20.GamePiece;
 
 /**
- * Description:
+ * Description: class that extends GamePiece to define Submarine game piece with
+ * specified attributes and constructor
  */
 public class Submarine extends GamePiece {
 

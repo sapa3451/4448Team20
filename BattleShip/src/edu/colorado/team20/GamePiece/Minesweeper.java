@@ -1,7 +1,8 @@
 package edu.colorado.team20.GamePiece;
 
 /**
- * Description:
+ * Description: class that extends GamePiece to define Minesweeper game piece with
+ * specified attributes and constructor
  */
 public class Minesweeper extends GamePiece {
     public Minesweeper() {

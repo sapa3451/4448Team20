@@ -3,7 +3,8 @@ package edu.colorado.team20.GamePiece;
 import edu.colorado.team20.GamePiece.Interfaces.GamePieceObserver;
 
 /**
- * Description:
+ * Description: abstract class that defines methods that game pieces should have
+ * as well as implementing the Observer pattern interface methods that are required
  */
 public abstract class GamePiece implements GamePieceObserver {
     protected int numOccupiedBoardCells;
@@ -46,9 +47,9 @@ public abstract class GamePiece implements GamePieceObserver {
     public int getTotShipHealth() { return this.totShipHealth; }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: method that updates the current game piece's health using observer pattern
+     * Params: damage value that is taken from the game piece's health
+     * Returns: boolean value to show if game piece still has health or is destroyed
      */
     public boolean update(int damage) { //Use of the observer strategy here, function in ShipObservers
         this.totShipHealth = this.totShipHealth - damage;
@@ -62,9 +63,9 @@ public abstract class GamePiece implements GamePieceObserver {
     public int getCaptainQHealth() { return this.captainQHealth; }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: method that updates the current game piece's captain's Q health using the obeserver pattern
+     * Params: damage value that is subtracted from the game piece's health
+     * Returns: boolean value to show if game piece still has health or is destoryed
      */
     public boolean updateCQ(int damage) { //Use of the observer strategy here, function in ShipObservers
         this.captainQHealth = this.captainQHealth - damage;
