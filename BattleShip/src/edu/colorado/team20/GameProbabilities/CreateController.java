@@ -4,7 +4,8 @@ import edu.colorado.team20.GameProbabilities.Interfaces.Commands.BadLuckCommand;
 import edu.colorado.team20.GameProbabilities.Interfaces.Commands.GoodLuckCommand;
 
 /**
- * Description:
+ * Description: This class is the primary class that creates the controller that the player will use throughout the game for their bad luck and good luck chances
+ * Uses the command pattern
  */
 public class CreateController {
     // creating all game turn probabilities

@@ -3,13 +3,13 @@ package edu.colorado.team20.Game;
 import edu.colorado.team20.GamePiece.*;
 
 /**
- * Description:
+ * Description: The factory pattern is deployed here used in FleetFactory to create the pieces that will be used
  */
 public class GamePieceFactory {
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function is the main factory method for the pieces, used by the fleet factory, this creates the pieces to go into the fleet
+     * Params: the pieces to create
+     * Returns: the fleet that was created
      */
     public GamePiece createShip(String type){
 

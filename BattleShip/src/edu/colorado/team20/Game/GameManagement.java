@@ -12,7 +12,10 @@ import edu.colorado.team20.GamePiece.*;
 import java.util.Scanner;
 
 /**
- * Description:
+ * Description: Game Management is where the buck of the game is managed. Here, we initialize the Factories, the players, the shot types, and all
+ * other information we need for the game to properly run. It consists of multiple functions that handle different responsibilities such as initialization
+ * where the ships are placed and the extra piece is chosen, beginning the game where the shots, special abilities, and the main game happens, and checking
+ * when the game has ended. This takes care of a lot of the main User I/O for the game to properly run.
  */
 public class GameManagement {
     private int turnNum;
@@ -45,9 +48,9 @@ public class GameManagement {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function finds the special piece that the user has chosen and gives them a special ability based on which extra piece they chose.
+     * Params: extra piece chosen by player
+     * Returns: none
      */
 //Sets global string variable to keep track of which special the player can use
     public void setSpecialType(String extraShip){
@@ -66,9 +69,10 @@ public class GameManagement {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This is where the bulk of game initialization happens. Here, the user and the computer both will place there ships. The board is updated,
+     *              the proper special shots and pieces are given, and the game is ready to begin once this function ends.
+     * Params: none
+     * Returns: none
      */
     public void InitializeGame() {
         //Still do user input for ship placement here
@@ -240,11 +244,12 @@ public class GameManagement {
         }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: When a player uses their sonar ability, this function is called to grab the input, check to make sure they have enough uses available,
+     *              and shows the enemies board with the given input on their sonar. if the user is out of sonar uses, they must select another option
+     * Params: amount of sonar uses left
+     * Returns: if the sonar performed successfully
      */
-    public void Sonar(int sonarUses) {
+    public boolean Sonar(int sonarUses) {
         Scanner sc = new Scanner(System.in); //System.in is a standard input stream
         String input = " ";
         if (sonarUses != 0) { // ask about sonar use since first ship is sunk
@@ -308,16 +313,19 @@ public class GameManagement {
                 board.setShowBehavior(new HiddenShow());
             }
             sonarUses--;
+            return true;
         }
         else {
             System.out.println("You are all out of Sonar Shots! Try something else!");
+            return false;
         }
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: When a player uses their special ability, this function is called to grab the input, check to make sure they have enough uses available,
+     *              and performs the special shot. if they do not have enough special abilities, they must choose another option.
+     * Params: amount of special shot uses left
+     * Returns: if the special shot performed successfully
      */
     public boolean SpecialShot(int specialUses){
         //Checks to see if they have remain special shots left
@@ -337,9 +345,11 @@ public class GameManagement {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This is where the bulk of the game happens. We have a loops set up that runs until the game ends. Until it does, the game will
+     *              go back and forth between the user and computer for them to take their turns. the shots, the players abilities, the menu for the player to
+     *              choose from, and other main game functions are all taken care of in this function
+     * Params: none
+     * Returns: none
      */
     public void BeginGame() {
         // set up of game is now done. Begin taking turns. Implementing sonar pulse
@@ -388,8 +398,11 @@ public class GameManagement {
                 //If they do use it subtracts 1 from their remaining special shots
                 if(SpecialShot(specialUses)){
                     specialUses--;
+                    justShowed = false;;
                 }
-                justShowed = false;
+                else {
+                    justShowed = true;
+                }
             }
             else if (intInput == 3){
                 for (Board boards : computer.getBoards()){
@@ -404,8 +417,12 @@ public class GameManagement {
                 justShowed = true;
             }
             else if (intInput == 5 && firstSunkComputer){
-                Sonar(sonarUses);
-                justShowed = false;
+                if (Sonar(sonarUses)){
+                    justShowed = false;
+                }
+                else {
+                    justShowed = true;
+                }
             }
             else{
                 System.out.println("Please Select a Valid Option!!!");
@@ -433,9 +450,10 @@ public class GameManagement {
 
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function is called once every loop in BeginGame. This checks to see if all of a players pieces are sunk. If it finds that
+     *              one player does have all of their pieces sunk, we will end the game and display a message.
+     * Params: none
+     * Returns: true for end of game, false otherwise
      */
     public boolean EndGame() {
         int playerCount = 0;
@@ -447,6 +465,12 @@ public class GameManagement {
             if (this.compFleet[i].checkSunk()) {
                 compCount++;
             }
+        }
+        if (playerCount == this.playerFleet.length){
+            System.out.println("You have won! Your skill and strategy has allowed you to defeat your enemy and sink their entire fleet. Future enemies will fear you!");
+        }
+        else if (compCount == this.compFleet.length) {
+            System.out.println("You have lost! You did not successfully defend against your enemies attacks. You may have lost this battle, but the war is far from over.");
         }
         return playerCount == this.playerFleet.length || compCount == this.compFleet.length;
     }

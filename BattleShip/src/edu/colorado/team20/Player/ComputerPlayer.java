@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description:
+ * Description: An extension of the Player class, this subclass sets up the Computer's behaviors and inherits all other functions besides performTurn.
+ * Here in performTurn, the computer uses a special function in order to gain and keep knowledge of where they have hit their enemies ships.
  */
 public final class ComputerPlayer extends Player{
     private final List<String> shotStack;
@@ -20,15 +21,14 @@ public final class ComputerPlayer extends Player{
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This perform shot is specific to computer player. This utilizes the shot stack I made so we can have a semi-smart AI
+    *                I tried using the turn information hashmap we have, but ran into some problems with it storing
+    *                random shots as Z-1 and attempted and failed (already hit there) multiple times
+    *                Below is a long list of loops, checks, and such to ensure the AI is making the right moves that are informed based on previous shots
+     * Params: the enemy board, and row, column, and turnNum used specifically for testing
+     * Returns: none
      */
-    /* This perform shot is specific to computer player
-    * This utilizes the shot stack I made so we can have a semi-smart AI
-    * I tried using the turn information hashmap we have, but ran into some problems with it storing
-    * random shots as Z-1 and attempted and failed (already hit there) multiple times
-    * Below is a long list of loops, checks, and such to ensure the AI is making the right moves that are informed based on previous shots*/
+    @Override
     public void performTurn(Board[] board, char col, int row, int turnNum) {
         this.addToShotStack(board);
         if (shotStack.isEmpty()) {  //if stack is empty, a random shot will happen
@@ -56,12 +56,12 @@ public final class ComputerPlayer extends Player{
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function goes through and finds every spot that it needs to add to its stack. It finds the Hs and Ws,
+     *              gets the position, and then adds that to the stack. If the cord is already in the stack, it will not add it again.
+     * Params: the board the check
+     * Returns: none
      */
-    /*This function goes through and finds every spot that it needs to add to its stack. It finds the Hs and Ws, gets the position, and then adds that
-    * to the stack. If the cord is already in the stack, it will not add it again.*/
+
     public void addToShotStack(Board[] board) {
         for (Board value : board) {
             for (int i = 0; i < value.getColumnSize(); i++) {
@@ -78,13 +78,12 @@ public final class ComputerPlayer extends Player{
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function will remove a cord from the stack if necessary. When a ship is destroyed, it removes all cords associated with
+     *              that ship from the stack. This only removes the cord IF there is no ships below/above that have been hit.
+     *              If there is a hit above/below, the cord will stay in the stack regardless if it destroyed a ship below.
+     * Params: the board the check
+     * Returns: none
      */
-    /* This function will remove a cord from the stack if necessary. When a ship is destroyed, it removes all cords associated with that ship from the stack.
-    * This only removes the cord IF there is no ships below/above that have been hit. If there is a hit above/below, the cord will stay in the stack regardless
-    * if it destroyed a ship below.*/
     public void removeFromShotStack(Board[] board) {
         for (Board value : board) {
             for (int i = 0; i < value.getColumnSize(); i++) {

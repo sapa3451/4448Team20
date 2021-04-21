@@ -5,7 +5,7 @@ import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonInputShot;
 
 /**
- * Description:
+ * Description: An extension of the Player class, this subclass sets up the User's behaviors and inherits all other functions.
  */
 public final class UserPlayer extends Player{
 

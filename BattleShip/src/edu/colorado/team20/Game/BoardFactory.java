@@ -4,14 +4,14 @@ import edu.colorado.team20.Board.*;
 import edu.colorado.team20.Board.Interfaces.Behaviors.*;
 
 /**
- * Description:
+ * Description: The factory pattern is deployed here used in Game Management to create the boards that will be used
  */
 public class BoardFactory {
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function is the main factory method for the boards, the wanted board has a type, and if the type is entered, the board will be created
+     * Params: type of board to create
+     * Returns: the board that was created
      */
     public Board createBoard(String type){
 
