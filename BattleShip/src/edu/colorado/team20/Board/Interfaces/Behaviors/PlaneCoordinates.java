@@ -1,12 +1,12 @@
 package edu.colorado.team20.Board.Interfaces.Behaviors;
 
-import edu.colorado.team20.Board.Interfaces.CreateShipCoordinatesBehavior;
+import edu.colorado.team20.Board.Interfaces.CreateCoordinatesBehavior;
 
 /**
- * Description:
+ * Description: This implements the CreateCoordinatesBehavior, where for each type of ship, there is a specific way the proper cords
+ * are created. In this case, we have a plane's coords being created, such as the bomber.
  */
-
-public class PlaneCoordinates implements CreateShipCoordinatesBehavior {
+public class PlaneCoordinates implements CreateCoordinatesBehavior {
     public String createShipCoordinates(int row, char col, int direction, int size, int rowSize, int colSize) {
         String coordinates = ""; // string to hold coordinates
         String captainsQ = "";

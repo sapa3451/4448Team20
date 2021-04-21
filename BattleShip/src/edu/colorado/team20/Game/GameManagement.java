@@ -99,7 +99,7 @@ public class GameManagement {
                 idNum++;
                 for (Board board : this.computer.getBoards()) {
                     if (board.getzValue() < 0) {
-                        board.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
+                        board.setCreateCoordinatesBehavior(new SubmarineCoordinates());
                     }
                 }
                 this.computer.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
@@ -113,7 +113,7 @@ public class GameManagement {
                 idNum++;
                 for (Board board : this.computer.getBoards()) {
                     if (board.getzValue() > 0) {
-                        board.setCreateShipCoordinatesBehavior(new PlaneCoordinates());
+                        board.setCreateCoordinatesBehavior(new PlaneCoordinates());
                     }
                 }
                 this.computer.performAirPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
@@ -127,7 +127,7 @@ public class GameManagement {
                 idNum++;
                 for (Board board : this.computer.getBoards()) {
                     if (board.getzValue() == 0) {
-                        board.setCreateShipCoordinatesBehavior(new LinearCoordinates());
+                        board.setCreateCoordinatesBehavior(new LinearCoordinates());
                     }
                 }
                 this.computer.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
@@ -159,7 +159,7 @@ public class GameManagement {
                     idNum++;
                     for (Board board : this.player.getBoards()) {
                         if (board.getzValue() == 0) {
-                            board.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
+                            board.setCreateCoordinatesBehavior(new SubmarineCoordinates());
                         }
                     }
                         System.out.println("Placing " + gamePiece.getName() + "!");
@@ -174,7 +174,7 @@ public class GameManagement {
                         idNum++;
                         for (Board board : this.player.getBoards()) {
                             if (board.getzValue() < 0) {
-                                board.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
+                                board.setCreateCoordinatesBehavior(new SubmarineCoordinates());
                             }
                         }
                         System.out.println("Placing " + gamePiece.getName() + "!");
@@ -190,7 +190,7 @@ public class GameManagement {
                     idNum++;
                     for (Board board : this.player.getBoards()) {
                         if (board.getzValue() > 0) {
-                            board.setCreateShipCoordinatesBehavior(new PlaneCoordinates());
+                            board.setCreateCoordinatesBehavior(new PlaneCoordinates());
                         }
                     }
                     System.out.println("Placing " + gamePiece.getName() + "!");
@@ -205,7 +205,7 @@ public class GameManagement {
                     idNum++;
                     for (Board board : this.player.getBoards()) {
                         if (board.getzValue() == 0) {
-                            board.setCreateShipCoordinatesBehavior(new LinearCoordinates());
+                            board.setCreateCoordinatesBehavior(new LinearCoordinates());
                         }
                     }
                     System.out.println("Placing " + gamePiece.getName() + "!");

@@ -8,7 +8,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * Description:
+ * Description: This behavior, using the strategy pattern, implements the show behavior for the board. Here, this is the sonar show.
+ * This is used for a player when they use the sonar shot. It will show the ships in teh specified location on all boards.
  */
 public class SonarBoardShow implements ShowBehavior {
     final int row;

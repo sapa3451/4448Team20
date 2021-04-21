@@ -3,10 +3,22 @@ package edu.colorado.team20.Board.Interfaces.Behaviors;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 
-/**
- * Description:
- */
 
+/**
+ * Description: This behavior, using the strategy pattern, implements the show behavior for the board. Here, this is the regular show.
+ * This is used for a player to see their own board, it shows all ships, hits, and misses on every board.
+ * E = Empty
+ * H = Hit
+ * X = Miss
+ * W = Weak CQ
+ * Q = CQ
+ * D = Destroyed
+ * S = Ship
+ * P = Plane
+ * [~] = Underwater
+ * [ ] = Surface
+ * [*] = Air
+ */
 public class RegularShow implements ShowBehavior {
     public void show(Board board) {
         // create arrays to hold board rows and columns

@@ -2,7 +2,7 @@ package edu.colorado.team20.Board;
 
 import edu.colorado.team20.Board.Interfaces.Behaviors.LinearCoordinates;
 import edu.colorado.team20.Board.Interfaces.BoardSubject;
-import edu.colorado.team20.Board.Interfaces.CreateShipCoordinatesBehavior;
+import edu.colorado.team20.Board.Interfaces.CreateCoordinatesBehavior;
 import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 import edu.colorado.team20.GamePiece.GamePiece;
 
@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+/**
+ * Description: The Board class is where the majority of the responsibilities dealing with each board in the game happens. A board's size can be changed,
+ * but is set at a 10x10. The Board class communicates with GamePiece upon hits, handles calls to show the board, as well as the main functions of
+ * marking each board upon a hit whether it be a miss or hit and placing pieces at the start of the game. Each board also has a z value that indicates whether it
+ * is above the sea, below the sea, or on the sea surface.
+ */
 public class Board implements BoardSubject {
     private final char[][] board;
     private final int[][] idBoard;
@@ -20,12 +27,12 @@ public class Board implements BoardSubject {
     private final HashMap<Integer, String> gamePieceCapQPos = new HashMap<>();
     private final List<GamePiece> fleet;
     private ShowBehavior showBehavior;
-    private CreateShipCoordinatesBehavior shipCoordinatesBehavior;
+    private CreateCoordinatesBehavior coordinatesBehavior;
     private int zValue;
 
 
     public Board() {
-        setCreateShipCoordinatesBehavior(new LinearCoordinates()); //set coordinate behavior to regular
+        setCreateCoordinatesBehavior(new LinearCoordinates()); //set coordinate behavior to regular
 
         this.board = new char[this.rowSize][this.columnSize];
         this.idBoard = new int[this.rowSize][this.columnSize];
@@ -35,7 +42,7 @@ public class Board implements BoardSubject {
         for (int i = 0; i < this.rowSize; i++) {
             for (int j = 0; j < this.columnSize; j++) {
                 this.board[i][j] = 'E';
-                this.idBoard[i][j] = 0; // 0 means no ship id is there (ids go from 1,2,...)
+                this.idBoard[i][j] = 0; // 0 means no piece id is there (ids go from 1,2,...)
                 alphas[i] = (char) ('A' + i);
             }
         }
@@ -70,25 +77,26 @@ public class Board implements BoardSubject {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This calls to the specific show behavior that is specified for a board. The show function makes use of the
+     *              board array that each board has, that is marked with characters for their status
+     * Params: none
+     * Returns: none
      */
     public void performShow() {
         showBehavior.show(this); //strategy pattern, this calls to the interface and then to the specific class
     }
 
-    public void setCreateShipCoordinatesBehavior (CreateShipCoordinatesBehavior coordBehavior) {
-        shipCoordinatesBehavior = coordBehavior;
+    public void setCreateCoordinatesBehavior(CreateCoordinatesBehavior coordBehavior) {
+        coordinatesBehavior = coordBehavior;
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This calls to the specific coordinates behavior that is specified for a board and the piece that is placed
+     * Params: row where player wants piece, column where player wants piece, direction the player wants the piece, size of the piece
+     * Returns: A string that contains the coordinates of the piece, with a ',' as the deliminator
      */
-    public String performCreateShipCoordinates(int row, char col, int direction, int size) {
-        return shipCoordinatesBehavior.createShipCoordinates(row, col, direction, size, this.rowSize, this.columnSize);
+    public String performCreateCoordinates(int row, char col, int direction, int size) {
+        return coordinatesBehavior.createShipCoordinates(row, col, direction, size, this.rowSize, this.columnSize);
     }
 
     public List<GamePiece> getFleet () {
@@ -100,20 +108,20 @@ public class Board implements BoardSubject {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This registers a piece into the list of pieces that need to be updated, using the observer pattern
+     * Params: a game piece to be added
+     * Returns: none
      */
     public void registerShip (GamePiece s) {
         fleet.add(s);
-    } //use of observer strategy here, this adds ships to be updated after each hit
+    } //use of observer strategy here, this adds pieces to be updated after each hit
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This removes a piece from the list of pieces that need to be updated once a  piece is destroyed ,as it no longer needs updates
+     * Params: id of the destroyed  piece
+     * Returns: none
      */
-    public void removeShip(int id) { //use of observer strategy here, this removes ships after they are sunk to longer recieve any updates
+    public void removeShip(int id) { //use of observer strategy here, this removes  pieces after they are sunk to longer recieve any updates
         for (GamePiece gamePiece : fleet) {
             if (id == gamePiece.getId()) {
                 fleet.remove(gamePiece);
@@ -127,11 +135,11 @@ public class Board implements BoardSubject {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This updates a piece on a normal hit, with a damage of 1, and calls the specific game piece to then update their health
+     * Params: a  pieces id to be updated
+     * Returns: the new health of the  piece
      */
-    public int updateGamePieceOnHit(int id) { //sending updates to ships when they get hit
+    public int updateGamePieceOnHit(int id) { //sending updates to pieces when they get hit
         int health = -1;
 
         for (GamePiece gamePiece : fleet){
@@ -144,11 +152,12 @@ public class Board implements BoardSubject {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This updates a piece on a captain's quarters hit, with a damage of 1, and calls the specific game piece to then update their health
+     *              and captains quarters health
+     * Params: a pieces id to be updated
+     * Returns: the new health of the piece
      */
-    public int updateGamePieceOnCQHit(int id) { //sending updates to ships when they get hit in the CQ
+    public int updateGamePieceOnCQHit(int id) { //sending updates to pieces when they get hit in the CQ
         int health = -1;
 
         for (GamePiece gamePiece : fleet) {
@@ -173,9 +182,9 @@ public class Board implements BoardSubject {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This will check and see if a spot has already been marked, if yes, true, if no ,false
+     * Params: column and row to be checked
+     * Returns: true or false
      */
     public boolean CheckSpot(char col, int row) {
         char position = board[row-1][alphaMap.get(col)];// subtract one from row because indexing of array
@@ -183,9 +192,15 @@ public class Board implements BoardSubject {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function is where the marking of the board takes place upon each shot fired. If handles all hits, misses, and CQ hits.
+     *              This uses the board array that is specified for the board to add the markings to that array.
+     *              E = Empty
+     *              H = Hit
+     *              X = Miss
+     *              W = Weak CQ
+     *              D = Destroyed
+     * Params: the column and row to be marked
+     * Returns: none
      */
     public void MarkBoard(char col, int row){
         // call check spot in the beginning to check if spot is valid
@@ -206,43 +221,47 @@ public class Board implements BoardSubject {
         else if (positionChar == 'S') {
             this.getBoard()[row-1][this.getAlphaMap().get(col)] = 'H'; // if gets hit more than once keep at W
         }
-        else { // decision was a ship --> mark as D
+        else { // decision was a piece --> mark as D
             this.getBoard()[row-1][this.getAlphaMap().get(col)] = 'D'; // subtract one from row because indexing of array
         }
         int id = this.getIdBoard()[row-1][this.getAlphaMap().get(col)];
         if (id != 0 && positionChar == 'Q' || positionChar == 'W') { // captainsQ got hit
             if (this.updateGamePieceOnCQHit(id) == 0) { // need to check if captainsQ is 0 health
-                // update the this.to sink whole ship
+                // update the this.to sink whole piece
                 this.updateGamePieceChars(this.getGamePieceCoordinates(id));
-                this.removeShip(id); //removes a ship as an observer when sunk
+                this.removeShip(id); //removes a piece as an observer when sunk
             }
         }
         else if (id != 0){
             if (this.updateGamePieceOnHit(id) == 0) {
                 this.updateGamePieceChars(this.getGamePieceCoordinates(id));
-                this.removeShip(id); //removes a ship as an observer when sunk
+                this.removeShip(id); //removes a piece as an observer when sunk
             }
         }
         this.performShow();
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function calls the the specified coordinate behavior that each board gets for each piece. Once coordinates are created,
+     *              It will make sure that there is not a piece placed there and that it can fit on the given board. If those pass, we then add the piece
+     *              to our gamePieceCoordinates structure, that has the id of each piece as well as marks the piece on the board array for each given
+     *              board. It also calculates the captains quarters, and marks it with a Q. If placement was successful, it returns true, if not, false.
+     * Params: the pieces id to be placed, the row and column where it is to be placed, the direction it is to be placed, the size of the piece,
+     *         and the position of the captains quarters relative to its size.
+     * Returns: true or false
      */
     public boolean SetGamePiecePos(int id, int row, char col, int direction, int size, int quartersPos) {
         char positionChar = board[row-1][alphaMap.get(col)];
 
-        if (positionChar != 'E') { //Checks if ship is already at that location
+        if (positionChar != 'E') { //Checks if piece is already at that location
             return false;
         }
         else {
-            // get coordinates for shape of ship
+            // get coordinates for shape of piece
             // IMPORTANT: coordinates already takes care of zero indexing
-            String coordinates = this.performCreateShipCoordinates(row, col, direction, size);
+            String coordinates = this.performCreateCoordinates(row, col, direction, size);
             String captainsQ = "";
-            if (coordinates.equals("NULL")) { return false; } // ship doesn't fit on board for col/row
+            if (coordinates.equals("NULL")) { return false; } // piece doesn't fit on board for col/row
 
             if (coordinates.contains("-")) {
                 String[] positions = coordinates.split("-");
@@ -253,7 +272,7 @@ public class Board implements BoardSubject {
             char coordCol;
             int coordRow;
 
-            // check if any ships are already placed there
+            // check if any pieces are already placed there
             for (int i = 0; i < coordinates.length(); i=i+3) { //example String: "A1,A2,A3,"
                 coordCol = coordinates.charAt(i);
                 coordRow = Integer.parseInt(String.valueOf(coordinates.charAt(i+1)));
@@ -262,9 +281,9 @@ public class Board implements BoardSubject {
                 }
             }
 
-            gamePieceCoordinates.put(id, coordinates); // add current ship coordinates to map with id
+            gamePieceCoordinates.put(id, coordinates); // add current piece coordinates to map with id
 
-            // update the board with ship
+            // update the board with piece
             for (int i = 0; i < coordinates.length(); i=i+3) { //example String: "A1,A2,A3"
                 coordCol = coordinates.charAt(i);
                 coordRow = Integer.parseInt(String.valueOf(coordinates.charAt(i+1)));
@@ -272,7 +291,7 @@ public class Board implements BoardSubject {
                 this.idBoard[coordRow][alphaMap.get(coordCol)] = id;
             }
 
-            // place the caprain's quarters on board and place coordinate in shipCapQ mapping
+            // place the caprain's quarters on board and place coordinate in pieceCapQ mapping
             if (!captainsQ.isEmpty()) {
                 char Qcol = captainsQ.charAt(0);
                 int Qrow = Integer.parseInt(String.valueOf(captainsQ.charAt(1)));
@@ -292,9 +311,10 @@ public class Board implements BoardSubject {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function will update the board when a piece is completely destroyed by a hit, marking the board array with D where the piece.
+     *              This would happen, for instance, when a captains quarters was hit twice.
+     * Params: a string of coordinates where the piece was
+     * Returns: none
      */
     public void updateGamePieceChars(String coordinates) {
         // IMPORTANT: string row value already has zero index (do not minus 1 from row)!
@@ -310,7 +330,7 @@ public class Board implements BoardSubject {
     }
     
     public String getGamePieceCaptainQPos(int id) { return this.gamePieceCapQPos.get(id); }
-    public String getGamePieceCoordinates(int id) { // return specific ship coordinates
+    public String getGamePieceCoordinates(int id) { // return specific piece coordinates
         return this.gamePieceCoordinates.get(id);
     }
 }

@@ -152,7 +152,7 @@ class PlayerTest {
         userPlayer.setPlacementBehavior(randomPlacementBehavior);
         assertEquals(userPlayer.getPlacementBehavior(), randomPlacementBehavior);
 
-        userPlayer.getBoards()[2].setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
+        userPlayer.getBoards()[2].setCreateCoordinatesBehavior(new SubmarineCoordinates());
         userPlayer.performUnderwaterPlacement(1, 5, 5);
         userPlayer.performUnderwaterPlacement(2, 5, 5);
         userPlayer.performUnderwaterPlacement(3, 5, 5);
@@ -192,7 +192,7 @@ class PlayerTest {
         userPlayer.setPlacementBehavior(randomPlacementBehavior);
         assertEquals(userPlayer.getPlacementBehavior(), randomPlacementBehavior);
 
-        userPlayer.getBoards()[2].setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
+        userPlayer.getBoards()[2].setCreateCoordinatesBehavior(new SubmarineCoordinates());
         userPlayer.performAirPlacement(1, 5, 5);
         userPlayer.performAirPlacement(2, 5, 5);
         userPlayer.performAirPlacement(3, 5, 5);

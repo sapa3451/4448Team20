@@ -151,7 +151,7 @@ class ComputerPlayerTest {
                 idNum++;
                 for (Board board : userPlayer.getBoards()) {
                     if (board.getzValue() < 0) {
-                        board.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
+                        board.setCreateCoordinatesBehavior(new SubmarineCoordinates());
                     }
                 }
                 userPlayer.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
@@ -165,7 +165,7 @@ class ComputerPlayerTest {
                 idNum++;
                 for (Board board : userPlayer.getBoards()) {
                     if (board.getzValue() > 0) {
-                        board.setCreateShipCoordinatesBehavior(new PlaneCoordinates());
+                        board.setCreateCoordinatesBehavior(new PlaneCoordinates());
                     }
                 }
                 userPlayer.performAirPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
@@ -179,7 +179,7 @@ class ComputerPlayerTest {
                 idNum++;
                 for (Board board : userPlayer.getBoards()) {
                     if (board.getzValue() == 0) {
-                        board.setCreateShipCoordinatesBehavior(new LinearCoordinates());
+                        board.setCreateCoordinatesBehavior(new LinearCoordinates());
                     }
                 }
                 userPlayer.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());

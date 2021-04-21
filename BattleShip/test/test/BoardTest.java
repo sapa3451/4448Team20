@@ -216,7 +216,7 @@ class BoardTest {
         // create submarine
         GamePiece submarine1 = new Submarine();
         GamePiece submarine2 = new Submarine();
-        playerUnderwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
+        playerUnderwaterBoard.setCreateCoordinatesBehavior(new SubmarineCoordinates());
 
         GameManagement game = new GameManagement();
         List<GamePiece> playerFleet = new ArrayList<>();
@@ -262,7 +262,7 @@ class BoardTest {
 
         Board underwaterBoard = new Board();
         underwaterBoard.setShowBehavior(new RegularShow());// create underwater board
-        underwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
+        underwaterBoard.setCreateCoordinatesBehavior(new SubmarineCoordinates());
         placementBehavior.place(1, underwaterBoard, 5, 5);
         underwaterBoard.setShowBehavior(new HiddenShow());
         underwaterBoard.performShow();
@@ -273,7 +273,7 @@ class BoardTest {
     void CreateSubmarineCoordinates() { // test to make sure that ships cannot overlap
         Board underwaterBoard = new Board();
         underwaterBoard.setShowBehavior(new RegularShow());// create underwater board
-        underwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
+        underwaterBoard.setCreateCoordinatesBehavior(new SubmarineCoordinates());
 
         GamePiece submarine1 = new Submarine();
         GamePiece submarine2 = new Submarine();
@@ -328,7 +328,7 @@ class BoardTest {
         // add plane to Air board
         GamePiece bomber = new Bomber();
         bomber.setId(1);
-        playerAirBoard.setCreateShipCoordinatesBehavior(new PlaneCoordinates());
+        playerAirBoard.setCreateCoordinatesBehavior(new PlaneCoordinates());
         playerAirBoard.SetGamePiecePos(bomber.getId(), 3, 'C', 0, bomber.getSize(), bomber.getQuartersSpotInt());
         playerAirBoard.performShow();
 

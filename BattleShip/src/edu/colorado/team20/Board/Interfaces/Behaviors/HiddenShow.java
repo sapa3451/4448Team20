@@ -5,7 +5,19 @@ import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 
 
 /**
- * Description:
+ * Description: This behavior, using the strategy pattern, implements the show behavior for the board. Here, this is the hidden show.
+ * This is used when a human is playing against a computer. This will print all boards that has its un-hit ships hidden but all hits and misses shown.
+ * E = Empty
+ * H = Hit
+ * X = Miss
+ * W = Weak CQ
+ * D = Destroyed
+ * S = Ship
+ * P = Plane
+ * Q = CQ
+ * [~] = Underwater
+ * [ ] = Surface
+ * [*] = Air
  */
 public class HiddenShow implements ShowBehavior {
     public void show (Board board) {

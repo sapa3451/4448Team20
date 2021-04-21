@@ -136,9 +136,9 @@ public class ShotTest {
          
         playerUnderwaterBoard.setShowBehavior(new RegularShow());// create underwater board
         Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
-        playerBoards[0].setCreateShipCoordinatesBehavior(new LinearCoordinates());
+        playerBoards[0].setCreateCoordinatesBehavior(new LinearCoordinates());
         playerBoards[0].SetGamePiecePos(1,2,'A',1,4,3);
-        playerBoards[1].setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
+        playerBoards[1].setCreateCoordinatesBehavior(new SubmarineCoordinates());
         playerBoards[1].SetGamePiecePos(1,2,'A',1,5,5);
         shotBehavior.shot(playerBoards, 'A', 2);
         assertEquals(playerBoards[1].GetPositionChar('A',2), 'H');
@@ -272,11 +272,11 @@ public class ShotTest {
         ShotBehavior shotBehavior;
         shotBehavior = new LaserInputShot();
 
-        playerBoards[1].setCreateShipCoordinatesBehavior(new LinearCoordinates());
+        playerBoards[1].setCreateCoordinatesBehavior(new LinearCoordinates());
         playerBoards[1].SetGamePiecePos(playerFleet[0].getId(),5,'C',1,4,3);
-        playerBoards[2].setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
+        playerBoards[2].setCreateCoordinatesBehavior(new SubmarineCoordinates());
         playerBoards[2].SetGamePiecePos(playerFleet[1].getId(),5,'C',1,5,5);
-        playerBoards[0].setCreateShipCoordinatesBehavior(new PlaneCoordinates());
+        playerBoards[0].setCreateCoordinatesBehavior(new PlaneCoordinates());
         playerBoards[0].SetGamePiecePos(playerFleet[2].getId(),4,'C',1,5,0);
 
         shotBehavior.shot(playerBoards, 'C', 5);
