@@ -12,7 +12,7 @@ public class GoodLuckCommand implements Command {
     }
 
     public boolean execute() {
-        if (goodLuckCalc.calcGoodLuck()) { return true; } // bad luck happens
-        else { return false; } // bad luck doesn't happen
+        if (goodLuckCalc.calcGoodLuck()) { return true; } // good luck happens
+        else { return false; } // good luck doesn't happen
     }
 }

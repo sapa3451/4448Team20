@@ -5,12 +5,12 @@ import edu.colorado.team20.GameProbabilities.Interfaces.Commands.GoodLuckCommand
 
 public class CreateController {
     // creating all game turn probabilities
-    BadLuckCalc badLuckCalc = new BadLuckCalc();
-    GoodLuckCalc goodLuckCalc = new GoodLuckCalc();
+    private BadLuckCalc badLuckCalc = new BadLuckCalc();
+    private GoodLuckCalc goodLuckCalc = new GoodLuckCalc();
 
     // creating commands
-    BadLuckCommand callBadLuckCommand = new BadLuckCommand(badLuckCalc);
-    GoodLuckCommand callGoodLuckCommand = new GoodLuckCommand(goodLuckCalc);
+    private BadLuckCommand callBadLuckCommand = new BadLuckCommand(badLuckCalc);
+    private GoodLuckCommand callGoodLuckCommand = new GoodLuckCommand(goodLuckCalc);
 
     public GameProbabilitiesController createController() {
         GameProbabilitiesController controller = new GameProbabilitiesController();

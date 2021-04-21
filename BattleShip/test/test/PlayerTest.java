@@ -209,8 +209,8 @@ class PlayerTest {
         assertEquals(15, count);
     }
     @Test
-    public void TestBadLuck() { // make sure that bad luck happens at least once
-        // loop through shot ten times and need to check if got bad luck once
+    public void TestProbController() { // make sure that luck probabilities happens at least once
+        // loop through
         Board playerSurfaceBoard = new Board();
         playerSurfaceBoard.setMarkBehavior(new Mark());
         playerSurfaceBoard.setShowBehavior(new RegularShow());
