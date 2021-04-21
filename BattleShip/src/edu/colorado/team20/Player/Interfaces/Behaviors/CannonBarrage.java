@@ -57,18 +57,27 @@ public class CannonBarrage implements ShotBehavior {
         rowVal=rowInput;
 
     //Marks board, checks if going off board first
-        board[1].MarkBoard(colVal,rowVal);
-        board[0].MarkBoard(colVal,rowVal);
+        for (Board value : board) {
+            if (value.getzValue() < 1) {
+                value.MarkBoard(colVal, rowVal);
+            }
+        }
         //Checks if might go off board to left
         if(colVal>'A'){
             colVal+=-1;
             if(rowVal>1) {
-                board[1].MarkBoard(colVal,rowVal-1);
-                board[0].MarkBoard(colVal,rowVal-1);
+                for (Board value : board) {
+                    if (value.getzValue() < 1) {
+                       value.MarkBoard(colVal, rowVal - 1);
+                    }
+                }
             }
             if(rowVal<10) {
-                board[1].MarkBoard(colVal,rowVal+1);
-                board[0].MarkBoard(colVal,rowVal+1);
+                for (Board value : board) {
+                    if (value.getzValue() < 1) {
+                        value.MarkBoard(colVal, rowVal + 1);
+                    }
+                }
             }
             colVal+=1;
         }
@@ -76,16 +85,24 @@ public class CannonBarrage implements ShotBehavior {
         if(colVal<'J'){
             colVal+=1;
             if(rowVal>1){
-                board[1].MarkBoard(colVal,rowVal-1);
-                board[0].MarkBoard(colVal,rowVal-1);
+                for (Board value : board) {
+                    if (value.getzValue() < 1) {
+                        value.MarkBoard(colVal, rowVal - 1);
+                    }
+                }
             }
             if(rowVal<10){
-                board[1].MarkBoard(colVal,rowVal+1);
-                board[0].MarkBoard(colVal,rowVal+1);
+                for (Board value : board) {
+                    if (value.getzValue() < 1) {
+                        value.MarkBoard(colVal, rowVal + 1);
+                    }
+                }
 
             }
         }
-
+        for (Board value : board) {
+            value.performShow();
+        }
         return true;
     }
 }

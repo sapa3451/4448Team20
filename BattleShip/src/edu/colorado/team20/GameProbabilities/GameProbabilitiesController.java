@@ -6,7 +6,7 @@ import edu.colorado.team20.GameProbabilities.Interfaces.Command;
  * Description: controller that follows along Command Pattern that implements delegation to call commands from other classes
  */
 public class GameProbabilitiesController {
-    private Command[] probCommands;
+    private final Command[] probCommands;
 
     // constructor
     public GameProbabilitiesController() {

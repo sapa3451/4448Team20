@@ -63,10 +63,10 @@ public final class ComputerPlayer extends Player{
     /*This function goes through and finds every spot that it needs to add to its stack. It finds the Hs and Ws, gets the position, and then adds that
     * to the stack. If the cord is already in the stack, it will not add it again.*/
     public void addToShotStack(Board[] board) {
-        for (int k = 0; k < board.length; k++) {
-            for (int i = 0; i < board[k].getColumnSize(); i++) {
-                for (int j = 0; j < board[k].getRowSize(); j++) {
-                    if (board[k].GetPositionChar((char) ('A' + i), 1 + j) == 'H' || board[k].GetPositionChar((char) ('A' + i), 1 + j) == 'W') {
+        for (Board value : board) {
+            for (int i = 0; i < value.getColumnSize(); i++) {
+                for (int j = 0; j < value.getRowSize(); j++) {
+                    if (value.GetPositionChar((char) ('A' + i), 1 + j) == 'H' || value.GetPositionChar((char) ('A' + i), 1 + j) == 'W') {
                         String toAdd = "" + (char) ('A' + i) + (1 + j);
                         if (!shotStack.contains(toAdd)) {
                             shotStack.add(0, toAdd);
@@ -86,17 +86,17 @@ public final class ComputerPlayer extends Player{
     * This only removes the cord IF there is no ships below/above that have been hit. If there is a hit above/below, the cord will stay in the stack regardless
     * if it destroyed a ship below.*/
     public void removeFromShotStack(Board[] board) {
-        for (int k = 0; k < board.length; k++) {
-            for (int i = 0; i < board[k].getColumnSize(); i++) {
-                for (int j = 0; j < board[k].getRowSize(); j++) {
-                    if (board[k].GetPositionChar((char) ('A' + i), 1 + j) == 'D') {
+        for (Board value : board) {
+            for (int i = 0; i < value.getColumnSize(); i++) {
+                for (int j = 0; j < value.getRowSize(); j++) {
+                    if (value.GetPositionChar((char) ('A' + i), 1 + j) == 'D') {
                         boolean allBoards = true;
-                        for (int m = 0; m < board.length; m++) {
-                            if (board[m].GetPositionChar((char) ('A' + i), 1 + j) == 'H') {
+                        for (Board item : board) {
+                            if (item.GetPositionChar((char) ('A' + i), 1 + j) == 'H') {
                                 allBoards = false;
                             }
                         }
-                        if (allBoards == true) {
+                        if (allBoards) {
                             String toRemove = "" + (char) ('A' + i) + (1 + j);
                             shotStack.remove(toRemove);
                         }

@@ -16,11 +16,6 @@ public class BombRun implements ShotBehavior{
             return true;
         }//For DevTest Skip
 
-        char colVal = ' ';
-        int rowVal = -1;
-
-        boolean validIput = false;
-
         System.out.println("You've Decided to do a Bomb Run");
         System.out.println("Do you want to do a horizontal(1) or vertical(0) bomb run?");
 
@@ -59,17 +54,17 @@ public class BombRun implements ShotBehavior{
             }
 
             //Do Actual Stuff
-            for(char i ='A'; i<'A'+board[1].getRowSize();i+=2){
-
-                board[1].MarkBoard(i,rowInput);
-                board[1].MarkBoard(i,rowInput);
-                board[2].MarkBoard(i,rowInput);
-
+            for (Board value : board) {
+                if (value.getzValue() < 1) {
+                    for(char i ='A'; i<'A'+value.getRowSize();i+=2) {
+                        value.MarkBoard(i, rowInput);
+                    }
+                }
             }
             //
         }
 
-    //Takes in which column user wants to BombRun if they want horizontal, checks for bad input
+    //Takes in which column user wants to BombRun if they want vertical, checks for bad input
         else{
             System.out.println("Type which column (A-J) you would like to target: ");
             input = sc.nextLine();
@@ -81,13 +76,16 @@ public class BombRun implements ShotBehavior{
             }
             //Do Actual Stuff
             char col=input.toCharArray()[0];
-            for(int i=1; i<board[1].getColumnSize();i+=2){
-
-                board[1].MarkBoard(col,i);
-                board[1].MarkBoard(col,i);
-                board[2].MarkBoard(col,i);
-
+            for (Board value : board) {
+                if (value.getzValue() < 1) {
+                    for (int i = 0; i < value.getColumnSize(); i+=2) {
+                        value.MarkBoard(col, i);
+                    }
+                }
             }
+        }
+        for (Board value : board) {
+            value.performShow();
         }
 
         return true;

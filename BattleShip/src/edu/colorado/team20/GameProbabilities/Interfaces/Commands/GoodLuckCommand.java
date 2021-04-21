@@ -20,7 +20,8 @@ public class GoodLuckCommand implements Command {
      * Returns: boolean value
      */
     public boolean execute() {
-        if (goodLuckCalc.calcGoodLuck()) { return true; } // good luck happens
-        else { return false; } // good luck doesn't happen
+        // good luck happens
+        // good luck doesn't happen
+        return goodLuckCalc.calcGoodLuck();
     }
 }

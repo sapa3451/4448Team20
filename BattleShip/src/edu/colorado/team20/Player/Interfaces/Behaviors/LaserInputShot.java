@@ -99,6 +99,9 @@ public class LaserInputShot implements ShotBehavior {
                 value.MarkBoard(colVal, rowVal);
             }
         }
+        for (Board value : board) {
+            value.performShow();
+        }
         return true;
     }
 }

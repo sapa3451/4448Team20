@@ -110,7 +110,6 @@ public class GameManagement {
         this.playerFleet = fleetFactory.createFleet(inputFleet);
         setSpecialType(input);//Sets special ability based on chosen extra ship
 
-//!!!!!!!!!!!!!!! Add random extra ship !!!!!!!!!!!!!!!!!!!!!
         this.compFleet = fleetFactory.createFleet(inputFleet);
 
         // give ships ids and place them
@@ -323,31 +322,12 @@ public class GameManagement {
     public boolean SpecialShot(int specialUses){
         //Checks to see if they have remain special shots left
 
-        if (specialUses!=0){
-            //If so then checks to see if they want to use
-            System.out.println("Do you want to use your Special Shot Ability? (Yes)/(No)");
-            Scanner sc = new Scanner(System.in);
-            String input = sc.nextLine(); // Read user input
-
-            //Checks for user error
-            while(!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"))
-            {
-                System.out.println("Invalid input! Please enter (Yes) or (No): ");
-                input = sc.nextLine();
-            }
-
-            //If yes sets to special shot behavior, makes shot, and sets back
-            //Returns true to let game managment know a special shot was used
-            if(input.equalsIgnoreCase("yes"))
-            {
-                ShotBehavior prevShotBev = this.player.getShotBehavior();
-                this.player.setShotBehavior(this.specialType);
-                this.player.performSpecialShot(this.computer.getBoards(),'Z',-1);
-                this.player.setShotBehavior(prevShotBev);
-                return true;
-            }
-            //If no returns false cause no special used
-            else{ return false; }
+        if (specialUses!=0) {
+            ShotBehavior prevShotBev = this.player.getShotBehavior();
+            this.player.setShotBehavior(this.specialType);
+            this.player.performSpecialShot(this.computer.getBoards(), 'Z', -1);
+            this.player.setShotBehavior(prevShotBev);
+            return true;
         }
         else{
             System.out.println("You have no remaining special shots!");
@@ -388,15 +368,22 @@ public class GameManagement {
             System.out.println("2. Use Special Ability Against Enemy");
             System.out.println("3. Show Enemy Boards");
             System.out.println("4. Show Your Boards");
-            if (firstSunkComputer == true) {
+            if (firstSunkComputer) {
                 System.out.println("5. Use Sonar Shot Against Enemy");
             }
-            int input = Integer.parseInt(sc.nextLine());
-            if (input == 1){
+            String input = sc.nextLine();
+            int intInput;
+            if (input.equals("1") || input.equals("2") || input.equals("3") || input.equals("4") || input.equals("5")) {
+                intInput = Integer.parseInt(input);
+            }
+            else {
+                intInput = 0;
+            }
+            if (intInput == 1){
                 player.performTurn(this.computer.getBoards(), 'Z', -1, this.turnNum);
                 justShowed = false;
             }
-            else if (input == 2){
+            else if (intInput == 2){
                 //Calls specialShot helper to see if player wants to use it and lets them if able
                 //If they do use it subtracts 1 from their remaining special shots
                 if(SpecialShot(specialUses)){
@@ -404,19 +391,19 @@ public class GameManagement {
                 }
                 justShowed = false;
             }
-            else if (input == 3){
+            else if (intInput == 3){
                 for (Board boards : computer.getBoards()){
                     boards.performShow();
                 }
                 justShowed = true;
             }
-            else if (input == 4){
+            else if (intInput == 4){
                 for (Board boards : player.getBoards()){
                     boards.performShow();
                 }
                 justShowed = true;
             }
-            else if (input == 5 && firstSunkComputer == true){
+            else if (intInput == 5 && firstSunkComputer){
                 Sonar(sonarUses);
                 justShowed = false;
             }
@@ -424,7 +411,7 @@ public class GameManagement {
                 System.out.println("Please Select a Valid Option!!!");
                 justShowed = true;
             }
-            if (justShowed == false) {
+            if (!justShowed) {
                 this.computer.performTurn(player.getBoards(), 'Z', -1, this.turnNum);
                 // round over updating turnNum
                 turnNum++;

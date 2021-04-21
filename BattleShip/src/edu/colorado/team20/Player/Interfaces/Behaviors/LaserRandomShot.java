@@ -33,7 +33,7 @@ public class LaserRandomShot implements ShotBehavior {
                 }
             }
             //checking for the random correct shot here
-            while (allSpotsAlreadyHit == true) {//while the randomly selected spot is not available
+            while (allSpotsAlreadyHit) {//while the randomly selected spot is not available
                 col = (char) ('A' + randChar.nextInt(10));
                 row = (randNum.nextInt(10) + 1);
                 for (Board value : board) {
@@ -56,7 +56,7 @@ public class LaserRandomShot implements ShotBehavior {
         else {
             List<Character> check = new ArrayList<>(); //this is a list that will keep track of whether or not the computer can no longer make an informed shot with the given cord
             boolean shot = false;
-            while (shot == false) {
+            while (!shot) {
                 if (check.contains('1') && check.contains('2') && check.contains('3') && check.contains('4')) {
                     return false; //this is saying that the cord must be removed from the stack
                 }
@@ -76,7 +76,7 @@ public class LaserRandomShot implements ShotBehavior {
                                 allSpotsAlreadyHit = false;
                             }
                         }
-                        if (allSpotsAlreadyHit == false) { //checks pass, so now we can go an mark all the boards appropriately
+                        if (!allSpotsAlreadyHit) { //checks pass, so now we can go an mark all the boards appropriately
                             for (Board value : board) {
                                 if (value.getzValue() > -5) {
                                     value.MarkBoard((char) (col + 1), row);
@@ -106,7 +106,7 @@ public class LaserRandomShot implements ShotBehavior {
                                 allSpotsAlreadyHit = false;
                             }
                         }
-                        if (allSpotsAlreadyHit == false) {
+                        if (!allSpotsAlreadyHit) {
                             for (Board value : board) {
                                 if (value.getzValue() > -5) {
                                     value.MarkBoard(col, row + 1);
@@ -135,7 +135,7 @@ public class LaserRandomShot implements ShotBehavior {
                                 allSpotsAlreadyHit = false;
                             }
                         }
-                        if (allSpotsAlreadyHit == false) {
+                        if (!allSpotsAlreadyHit) {
                             for (Board value : board) {
                                 if (value.getzValue() > -5) {
                                     value.MarkBoard((char) (col - 1), row);
@@ -164,7 +164,7 @@ public class LaserRandomShot implements ShotBehavior {
                                 allSpotsAlreadyHit = false;
                             }
                         }
-                        if (allSpotsAlreadyHit == false) {
+                        if (!allSpotsAlreadyHit) {
                             for (Board value : board) {
                                 if (value.getzValue() > -5) {
                                     value.MarkBoard(col, row - 1);
@@ -181,6 +181,9 @@ public class LaserRandomShot implements ShotBehavior {
 
                 }
             }
+        }
+        for (Board value : board) {
+            value.performShow();
         }
         return true;
     }

@@ -6,8 +6,6 @@ import edu.colorado.team20.Player.Interfaces.Behaviors.BombRun;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class SpecialShotTest {
 
     @Test

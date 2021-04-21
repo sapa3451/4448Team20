@@ -13,7 +13,7 @@ public abstract class Player {
     private final Board[] boards;
     protected PlacementBehavior placementBehavior;
     protected ShotBehavior shotBehavior;
-    protected GameProbabilitiesController probController; // player has access to calling probabilities commands
+    protected final GameProbabilitiesController probController; // player has access to calling probabilities commands
 
     public Player(Board[] board) {
         this.boards = board;

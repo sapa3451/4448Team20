@@ -89,6 +89,11 @@ public class CannonInputShot implements ShotBehavior {
                 value.MarkBoard(colVal, rowVal);
             }
         }
+        for (Board value : board) {
+            if (value.getzValue() == 0) {
+                value.performShow();
+            }
+        }
         return true;
     }
 }

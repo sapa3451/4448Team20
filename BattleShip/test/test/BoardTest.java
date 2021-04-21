@@ -161,8 +161,6 @@ class BoardTest {
 
         // get the captains quarters of the minesweeper
         String pos = playerBoard.getGamePieceCaptainQPos(3);
-        String col = String.valueOf(pos.charAt(0));
-        String row = String.valueOf(pos.charAt(1));
         assertEquals(Pminesweeper.getId(), 3);
 
         // check to see if minesweeper gets destroyed from one hit of captainQ
@@ -175,7 +173,6 @@ class BoardTest {
         playerBoard.performShow();
 
         // testing battleship
-        pos = playerBoard.getGamePieceCaptainQPos(1);
         assertEquals(pbattleship.getId(), 1);
 
         // take a shot at captainQ once --> ship should still be alive

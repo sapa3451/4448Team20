@@ -8,12 +8,12 @@ import edu.colorado.team20.GameProbabilities.Interfaces.Commands.GoodLuckCommand
  */
 public class CreateController {
     // creating all game turn probabilities
-    private BadLuckCalc badLuckCalc = new BadLuckCalc();
-    private GoodLuckCalc goodLuckCalc = new GoodLuckCalc();
+    private final BadLuckCalc badLuckCalc = new BadLuckCalc();
+    private final GoodLuckCalc goodLuckCalc = new GoodLuckCalc();
 
     // creating commands
-    private BadLuckCommand callBadLuckCommand = new BadLuckCommand(badLuckCalc);
-    private GoodLuckCommand callGoodLuckCommand = new GoodLuckCommand(goodLuckCalc);
+    private final BadLuckCommand callBadLuckCommand = new BadLuckCommand(badLuckCalc);
+    private final GoodLuckCommand callGoodLuckCommand = new GoodLuckCommand(goodLuckCalc);
 
     /**
      * Description: function to create a controller and set it's command slots and return the new controller

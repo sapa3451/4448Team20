@@ -18,8 +18,7 @@ public class BadLuckCalc {
 
         // get player bad luck --> 10% chance a getting bad luck
         int num = rand.nextInt(99);
-        if (num < 10) { return true; }
-        else { return false; }
+        return num < 10;
     }
 
 }

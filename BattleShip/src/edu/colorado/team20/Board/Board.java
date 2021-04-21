@@ -238,7 +238,6 @@ public class Board implements BoardSubject {
                 this.removeShip(id); //removes a piece as an observer when sunk
             }
         }
-        this.performShow();
     }
 
     /**
@@ -317,54 +316,11 @@ public class Board implements BoardSubject {
      * Returns: none
      */
 
-    // this is just for testing purposes to show idboard
-    public void showIdBoard() {
-        char[] col = new char[columnSize*3+2];
-        int [] row = new int[rowSize];
-        char start = 'A';
-        col[0] = ' ';
-
-        for (int i = 1; i < this.columnSize*3-1; i = i + 3) {
-            col[i+1] = ' ';
-            col[i+2] = ' ';
-            col[i+3] = start;
-            start += 1;
-        }
-        for (int i = 0; i < this.rowSize; i++) {
-            row[i] = i+1;
-        }
-
-        // print board
-        for (int i = 0; i < this.rowSize; i++) {
-            if (i == 0) {
-                System.out.println(col);
-            }
-
-            // this conditional fixes number lining
-            if (row[i] >= 10) {
-                System.out.print(row[i]);
-            } else {
-                System.out.print(row[i] + " ");
-            }
-            for (int j = 0; j < this.columnSize; j++) {
-                if (this.idBoard[i][j] == 0) {
-                    System.out.print("[ ]");
-                }
-                else {
-                    System.out.print("[" + this.idBoard[i][j] + "]");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
     //Takes in a Coord and returns the ID at that position
     public int getIDatCoord(char col,int row){
 
         int numCol=alphaMap.get(col);
-        int idAt = this.idBoard[row-1][numCol];
-        return idAt;
+        return this.idBoard[row-1][numCol];
     }
 
     // function to mark ship as all destroyed when captains' quarters destroyed

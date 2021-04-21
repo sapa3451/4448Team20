@@ -191,7 +191,7 @@ class ComputerPlayerTest {
             }
         }
         boolean allShipsSunk = false;
-        while (allShipsSunk == false) {
+        while (!allShipsSunk) {
             boolean firstShipSunk = false;
             for (int i = 0; i < playerBoards[1].getColumnSize(); i++) {
                 for (int j = 0; j < playerBoards[1].getRowSize(); j++) {
@@ -200,7 +200,7 @@ class ComputerPlayerTest {
                     }
                 }
             }
-            if (firstShipSunk == true){
+            if (firstShipSunk){
                 computerPlayer.setShotBehavior(new LaserRandomShot());
             }
             allShipsSunk = true;

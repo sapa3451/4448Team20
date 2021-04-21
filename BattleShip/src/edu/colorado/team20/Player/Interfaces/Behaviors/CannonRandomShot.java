@@ -44,7 +44,7 @@ public final class CannonRandomShot implements ShotBehavior {
         else {
             List<Character> check = new ArrayList<>(); //this is a list that will keep track of whether or not the computer can no longer make an informed shot with the given cord
             boolean shot = false;
-            while (shot == false) {
+            while (!shot) {
                 if (check.contains('1') && check.contains('2') && check.contains('3') && check.contains('4')) {
                     return false; //this is saying that the cord must be removed from the stack
                 }
@@ -119,6 +119,11 @@ public final class CannonRandomShot implements ShotBehavior {
                         check.add('4');
                     }
                 }
+            }
+        }
+        for (Board value : board) {
+            if (value.getzValue() == 0) {
+                value.performShow();
             }
         }
         return true;
