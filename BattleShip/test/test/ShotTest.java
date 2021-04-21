@@ -17,8 +17,6 @@ import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//TODO: going to need to add tests for laser shot
-
 public class ShotTest {
 
     @Test

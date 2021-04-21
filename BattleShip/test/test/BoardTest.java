@@ -332,8 +332,6 @@ class BoardTest {
         playerAirBoard.SetGamePiecePos(bomber.getId(), 3, 'C', 0, bomber.getSize(), bomber.getQuartersSpotInt());
         playerAirBoard.performShow();
 
-        //TODO: create more tests to check plane stays in bounds
-
     }
 
 }

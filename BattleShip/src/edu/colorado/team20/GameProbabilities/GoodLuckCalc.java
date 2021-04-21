@@ -3,13 +3,14 @@ package edu.colorado.team20.GameProbabilities;
 import java.util.Random;
 
 /**
- * Description:
+ * Description: class that is used to calculate good luck
  */
 public class GoodLuckCalc {
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: function to calculate if good luck is suppose to happen to the player, return bool
+     * value to represent if good luck is true or not
+     * Params: none
+     * Returns: boolean value
      */
     public boolean calcGoodLuck() {
         // create instance of Random class

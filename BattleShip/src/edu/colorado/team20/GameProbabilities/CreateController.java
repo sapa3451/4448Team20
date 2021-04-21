@@ -16,9 +16,9 @@ public class CreateController {
     private GoodLuckCommand callGoodLuckCommand = new GoodLuckCommand(goodLuckCalc);
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: function to create a controller and set it's command slots and return the new controller
+     * Params: none
+     * Returns: returns the new controller with slots commands set
      */
     public GameProbabilitiesController createController() {
         GameProbabilitiesController controller = new GameProbabilitiesController();
