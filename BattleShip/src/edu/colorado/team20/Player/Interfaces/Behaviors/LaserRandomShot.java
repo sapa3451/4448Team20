@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * Description:
+ */
 public class LaserRandomShot implements ShotBehavior {
     public boolean shot(Board[] board, char col, int row) {
         if (col == 'Z' && row == -1) {
@@ -45,7 +47,7 @@ public class LaserRandomShot implements ShotBehavior {
             //a laser will mark all available boards, as below
             for (Board value : board) {
                 if (value.getzValue() > -5) {
-                    value.performMarkBoard(col, row);
+                    value.MarkBoard(col, row);
                 }
             }
         }
@@ -64,7 +66,7 @@ public class LaserRandomShot implements ShotBehavior {
                     if (col != 'J') { //making sure that the next shot wont go out of bounds, i.e. this direction goes one to the right, so col != J
                         for (Board value : board) { //if it finds that it has hit a captains quarters, destroy the ship!
                             if (value.GetPositionChar(col,row) == 'W') {
-                                value.performMarkBoard(col, row);
+                                value.MarkBoard(col, row);
                                 return true;
                             }
                         }
@@ -77,7 +79,7 @@ public class LaserRandomShot implements ShotBehavior {
                         if (allSpotsAlreadyHit == false) { //checks pass, so now we can go an mark all the boards appropriately
                             for (Board value : board) {
                                 if (value.getzValue() > -5) {
-                                    value.performMarkBoard((char) (col + 1), row);
+                                    value.MarkBoard((char) (col + 1), row);
                                 }
                             }
                             shot = true; //telling the loop that we performed a successful shot to return true
@@ -94,7 +96,7 @@ public class LaserRandomShot implements ShotBehavior {
                     if (row != 10) {
                         for (Board value : board) {
                             if (value.GetPositionChar(col,row) == 'W') {
-                                value.performMarkBoard(col, row);
+                                value.MarkBoard(col, row);
                                 return true;
                             }
                         }
@@ -107,7 +109,7 @@ public class LaserRandomShot implements ShotBehavior {
                         if (allSpotsAlreadyHit == false) {
                             for (Board value : board) {
                                 if (value.getzValue() > -5) {
-                                    value.performMarkBoard(col, row + 1);
+                                    value.MarkBoard(col, row + 1);
                                 }
                             }
                             shot = true;
@@ -123,7 +125,7 @@ public class LaserRandomShot implements ShotBehavior {
                     if (col != 'A') {
                         for (Board value : board) {
                             if (value.GetPositionChar(col,row) == 'W') {
-                                value.performMarkBoard(col, row);
+                                value.MarkBoard(col, row);
                                 return true;
                             }
                         }
@@ -136,7 +138,7 @@ public class LaserRandomShot implements ShotBehavior {
                         if (allSpotsAlreadyHit == false) {
                             for (Board value : board) {
                                 if (value.getzValue() > -5) {
-                                    value.performMarkBoard((char) (col - 1), row);
+                                    value.MarkBoard((char) (col - 1), row);
                                 }
                             }
                             shot = true;
@@ -152,7 +154,7 @@ public class LaserRandomShot implements ShotBehavior {
                     if (row != 1) {
                         for (Board value : board) {
                             if (value.GetPositionChar(col,row) == 'W') {
-                                value.performMarkBoard(col, row);
+                                value.MarkBoard(col, row);
                                 return true;
                             }
                         }
@@ -165,7 +167,7 @@ public class LaserRandomShot implements ShotBehavior {
                         if (allSpotsAlreadyHit == false) {
                             for (Board value : board) {
                                 if (value.getzValue() > -5) {
-                                    value.performMarkBoard(col, row - 1);
+                                    value.MarkBoard(col, row - 1);
                                 }
                             }
                             shot = true;

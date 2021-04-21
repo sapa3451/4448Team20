@@ -27,15 +27,15 @@ class PlayerTest {
         System.out.println("Running SingleUserShot Test...........");
 
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new Mark());
+         
         playerSurfaceBoard.setShowBehavior(new RegularShow());
 
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
+         
         playerUnderwaterBoard.setShowBehavior(new RegularShow());
 
         Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new Mark());
+         
         playerAirBoard.setShowBehavior(new RegularShow());
 
         Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
@@ -47,7 +47,6 @@ class PlayerTest {
         testPlayer.performTurn(playerBoards, 'A', 1, 1);
         assertEquals(playerBoards[1].GetPositionChar('A', 1), 'X');
 
-        assertEquals("A1", testPlayer.getTurnShot(1));
     }
 
     @Test
@@ -55,15 +54,15 @@ class PlayerTest {
         //test for a player shooting multiple times to check and make sure board is marked
         System.out.println("Running MultipleUserShot Test...........");
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new Mark());
+         
         playerSurfaceBoard.setShowBehavior(new RegularShow());
 
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
+         
         playerUnderwaterBoard.setShowBehavior(new RegularShow());
 
         Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new Mark());
+         
         playerAirBoard.setShowBehavior(new RegularShow());
 
         Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
@@ -93,15 +92,15 @@ class PlayerTest {
         PlacementBehavior randomPlacementBehavior;
         randomPlacementBehavior = new RandomPlacement();
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new Mark());
+         
         playerSurfaceBoard.setShowBehavior(new RegularShow());
 
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
+         
         playerUnderwaterBoard.setShowBehavior(new RegularShow());
 
         Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new Mark());
+         
         playerAirBoard.setShowBehavior(new RegularShow());
 
         Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
@@ -153,7 +152,7 @@ class PlayerTest {
         userPlayer.setPlacementBehavior(randomPlacementBehavior);
         assertEquals(userPlayer.getPlacementBehavior(), randomPlacementBehavior);
 
-        userPlayer.getBoards()[2].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+        userPlayer.getBoards()[2].setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
         userPlayer.performUnderwaterPlacement(1, 5, 5);
         userPlayer.performUnderwaterPlacement(2, 5, 5);
         userPlayer.performUnderwaterPlacement(3, 5, 5);
@@ -193,7 +192,7 @@ class PlayerTest {
         userPlayer.setPlacementBehavior(randomPlacementBehavior);
         assertEquals(userPlayer.getPlacementBehavior(), randomPlacementBehavior);
 
-        userPlayer.getBoards()[2].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+        userPlayer.getBoards()[2].setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
         userPlayer.performAirPlacement(1, 5, 5);
         userPlayer.performAirPlacement(2, 5, 5);
         userPlayer.performAirPlacement(3, 5, 5);
@@ -212,15 +211,15 @@ class PlayerTest {
     public void TestProbController() { // make sure that luck probabilities happens at least once
         // loop through
         Board playerSurfaceBoard = new Board();
-        playerSurfaceBoard.setMarkBehavior(new Mark());
+         
         playerSurfaceBoard.setShowBehavior(new RegularShow());
 
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
+         
         playerUnderwaterBoard.setShowBehavior(new RegularShow());
 
         Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new Mark());
+         
         playerAirBoard.setShowBehavior(new RegularShow());
 
         Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};

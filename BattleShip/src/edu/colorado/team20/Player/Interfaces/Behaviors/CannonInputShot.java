@@ -5,14 +5,14 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 import java.util.Scanner;
 
-//Player will initially start with this behavior
+/**
+ * Description:
+ */
 
 public class CannonInputShot implements ShotBehavior {
-
-
     public boolean shot(Board[] board, char colv,  int row) {
         if (colv != 'Z' && row != -1) {
-            board[1].performMarkBoard(colv,row);
+            board[1].MarkBoard(colv,row);
             return true;
         }
         char colVal = ' ';
@@ -86,7 +86,7 @@ public class CannonInputShot implements ShotBehavior {
         //takes in only the first board, the surface board
         for (Board value : board) {
             if (value.getzValue() == 0) {
-                value.performMarkBoard(colVal, rowVal);
+                value.MarkBoard(colVal, rowVal);
             }
         }
         return true;

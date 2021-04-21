@@ -3,7 +3,6 @@ package edu.colorado.team20.Game;
 import edu.colorado.team20.Board.*;
 import edu.colorado.team20.Board.Interfaces.Behaviors.*;
 import edu.colorado.team20.Player.ComputerPlayer;
-import edu.colorado.team20.Player.Interfaces.Behaviors.BombRun;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonBarrage;
 import edu.colorado.team20.Player.Interfaces.Behaviors.LaserInputShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.LaserRandomShot;
@@ -14,9 +13,12 @@ import edu.colorado.team20.GamePiece.*;
 
 import java.util.Scanner;
 
+/**
+ * Description:
+ */
 public class GameManagement {
     private int turnNum;
-    int idNum = 1;
+    private int idNum = 1;
     private GamePiece[] playerFleet;
     private GamePiece[] compFleet;
     //Change Users to attributes
@@ -26,7 +28,7 @@ public class GameManagement {
     public GameManagement() {
         turnNum = 1; // initialize first round
 
-    //Initialize Boards & Set Behaviors
+        //Initialize Boards & Set Behaviors
         //Change Boards to attributes
         BoardSetFactory boardSetFactory = new BoardSetFactory();
         String[] standardBoardSet={"air","surface","underwater"};
@@ -43,6 +45,11 @@ public class GameManagement {
 
     }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public void InitializeGame() {
         //Still do user input for ship placement here
         System.out.println("Welcome to The Battleship Game!");
@@ -92,7 +99,7 @@ public class GameManagement {
                 idNum++;
                 for (Board board : this.computer.getBoards()) {
                     if (board.getzValue() < 0) {
-                        board.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                        board.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
                     }
                 }
                 this.computer.performUnderwaterPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
@@ -106,7 +113,7 @@ public class GameManagement {
                 idNum++;
                 for (Board board : this.computer.getBoards()) {
                     if (board.getzValue() > 0) {
-                        board.setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
+                        board.setCreateShipCoordinatesBehavior(new PlaneCoordinates());
                     }
                 }
                 this.computer.performAirPlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
@@ -120,7 +127,7 @@ public class GameManagement {
                 idNum++;
                 for (Board board : this.computer.getBoards()) {
                     if (board.getzValue() == 0) {
-                        board.setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                        board.setCreateShipCoordinatesBehavior(new LinearCoordinates());
                     }
                 }
                 this.computer.performSurfacePlacement(gamePiece.getId(), gamePiece.getSize(), gamePiece.getQuartersSpotInt());
@@ -152,7 +159,7 @@ public class GameManagement {
                     idNum++;
                     for (Board board : this.player.getBoards()) {
                         if (board.getzValue() == 0) {
-                            board.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                            board.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
                         }
                     }
                         System.out.println("Placing " + gamePiece.getName() + "!");
@@ -167,7 +174,7 @@ public class GameManagement {
                         idNum++;
                         for (Board board : this.player.getBoards()) {
                             if (board.getzValue() < 0) {
-                                board.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+                                board.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
                             }
                         }
                         System.out.println("Placing " + gamePiece.getName() + "!");
@@ -183,7 +190,7 @@ public class GameManagement {
                     idNum++;
                     for (Board board : this.player.getBoards()) {
                         if (board.getzValue() > 0) {
-                            board.setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
+                            board.setCreateShipCoordinatesBehavior(new PlaneCoordinates());
                         }
                     }
                     System.out.println("Placing " + gamePiece.getName() + "!");
@@ -198,7 +205,7 @@ public class GameManagement {
                     idNum++;
                     for (Board board : this.player.getBoards()) {
                         if (board.getzValue() == 0) {
-                            board.setCreateShipCoordinatesBehavior(new RegularShipCoordinates());
+                            board.setCreateShipCoordinatesBehavior(new LinearCoordinates());
                         }
                     }
                     System.out.println("Placing " + gamePiece.getName() + "!");
@@ -212,6 +219,11 @@ public class GameManagement {
             }
         }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public void Sonar(int sonarUses) {
         Scanner sc = new Scanner(System.in); //System.in is a standard input stream
         String input = " ";
@@ -282,6 +294,11 @@ public class GameManagement {
         }
     }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public void SpecialShot(int specialUses){
         if (specialUses!=0){
             System.out.println("Do you want to use your Bomb Run Ability? (Yes)/(No)");
@@ -313,6 +330,11 @@ public class GameManagement {
         }
     }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public void BeginGame() {
         // set up of game is now done. Begin taking turns. Implementing sonar pulse
         Scanner sc = new Scanner(System.in);
@@ -392,7 +414,11 @@ public class GameManagement {
     }
 
 
-    //TODO: Add end game check, more functions
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public boolean EndGame() {
         int playerCount = 0;
         int compCount = 0;

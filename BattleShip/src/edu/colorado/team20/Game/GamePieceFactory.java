@@ -2,13 +2,18 @@ package edu.colorado.team20.Game;
 
 import edu.colorado.team20.GamePiece.*;
 
-
-public class ShipFactory {
+/**
+ * Description:
+ */
+public class GamePieceFactory {
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public GamePiece createShip(String type){
 
         String typeFix=type.toLowerCase();
-        //Does above to avoid Dev errors cuasing confusion
-        //checks for current possible ship types
         switch (typeFix) {
             case "minesweeper":
                 return new Minesweeper();

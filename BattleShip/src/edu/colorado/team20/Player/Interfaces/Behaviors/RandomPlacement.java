@@ -5,6 +5,9 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 
 import java.util.Random;
 
+/**
+ * Description:
+ */
 public class RandomPlacement implements PlacementBehavior {
     public void place (int id, Board board, int size, int quartersPos) {
         boolean placed = false;

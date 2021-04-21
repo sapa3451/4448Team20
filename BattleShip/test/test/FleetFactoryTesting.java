@@ -1,7 +1,7 @@
 package test;
 
 import edu.colorado.team20.Game.FleetFactory;
-import edu.colorado.team20.Game.ShipFactory;
+import edu.colorado.team20.Game.GamePieceFactory;
 import edu.colorado.team20.GamePiece.GamePiece;
 import org.junit.jupiter.api.Test;
 
@@ -15,12 +15,12 @@ public class FleetFactoryTesting {
         // uses the factory's "createShip" method to make each type of ship
         //include one with Developer input error to demonstrate error handling
 
-        ShipFactory myShipFactory = new ShipFactory();
-        GamePiece myDestroyer = myShipFactory.createShip("Destroyer");
-        GamePiece myMineSweeper = myShipFactory.createShip("minesweeper");
-        GamePiece myBattleship = myShipFactory.createShip("battleship");
-        GamePiece mySub = myShipFactory.createShip("submarine");
-        GamePiece errorGamePiece = myShipFactory.createShip("sub");
+        GamePieceFactory myGamePieceFactory = new GamePieceFactory();
+        GamePiece myDestroyer = myGamePieceFactory.createShip("Destroyer");
+        GamePiece myMineSweeper = myGamePieceFactory.createShip("minesweeper");
+        GamePiece myBattleship = myGamePieceFactory.createShip("battleship");
+        GamePiece mySub = myGamePieceFactory.createShip("submarine");
+        GamePiece errorGamePiece = myGamePieceFactory.createShip("sub");
 
         assertEquals(myMineSweeper.getSize(),2);
         assertEquals(myMineSweeper.getName(),"minesweeper");

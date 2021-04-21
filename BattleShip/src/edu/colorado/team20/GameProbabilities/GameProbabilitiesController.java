@@ -1,11 +1,10 @@
 package edu.colorado.team20.GameProbabilities;
 
 import edu.colorado.team20.GameProbabilities.Interfaces.Command;
-import edu.colorado.team20.GameProbabilities.Interfaces.Commands.BadLuckCommand;
-import edu.colorado.team20.GameProbabilities.Interfaces.Commands.GoodLuckCommand;
-import edu.colorado.team20.Player.Player;
-import edu.colorado.team20.Player.UserPlayer;
 
+/**
+ * Description:
+ */
 public class GameProbabilitiesController {
     private Command[] probCommands;
 
@@ -18,6 +17,11 @@ public class GameProbabilitiesController {
         this.probCommands[slot] = command;
     }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public boolean doCommand(int slot) {
         return probCommands[slot].execute();
     }

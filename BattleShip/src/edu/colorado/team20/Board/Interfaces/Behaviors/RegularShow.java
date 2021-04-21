@@ -3,6 +3,10 @@ package edu.colorado.team20.Board.Interfaces.Behaviors;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 
+/**
+ * Description:
+ */
+
 public class RegularShow implements ShowBehavior {
     public void show(Board board) {
         // create arrays to hold board rows and columns

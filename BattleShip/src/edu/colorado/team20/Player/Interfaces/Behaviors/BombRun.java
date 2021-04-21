@@ -3,17 +3,16 @@ package edu.colorado.team20.Player.Interfaces.Behaviors;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
-import java.util.Locale;
 import java.util.Scanner;
 
-
+/**
+ * Description:
+ */
 public class BombRun implements ShotBehavior{
-
-    //Implements the BombRun Ability
     public boolean shot(Board[] board, char colv,  int row) {
 
         if (colv != 'Z' && row != -1) {
-            board[1].performMarkBoard(colv,row);
+            board[1].MarkBoard(colv,row);
             return true;
         }//For DevTest Skip
 
@@ -61,7 +60,7 @@ public class BombRun implements ShotBehavior{
 
             //Do Actual Stuff
             for(char i ='A'; i<'A'+board[1].getRowSize();i+=2){
-                board[1].performMarkBoard(i,rowInput);
+                board[1].MarkBoard(i,rowInput);
             }
             //
         }
@@ -79,7 +78,7 @@ public class BombRun implements ShotBehavior{
             //Do Actual Stuff
             char col=input.toCharArray()[0];
             for(int i=1; i<board[1].getColumnSize();i+=2){
-                board[1].performMarkBoard(col,i);
+                board[1].MarkBoard(col,i);
             }
             //
         }

@@ -1,7 +1,7 @@
 package test;
 
 import edu.colorado.team20.Board.*;
-import edu.colorado.team20.Board.Interfaces.Behaviors.SubmarineShipCoordinates;
+import edu.colorado.team20.Board.Interfaces.Behaviors.SubmarineCoordinates;
 import edu.colorado.team20.Game.BoardFactory;
 import edu.colorado.team20.Game.BoardSetFactory;
 import edu.colorado.team20.Game.GameManagement;
@@ -27,7 +27,7 @@ public class BoardFactoryTest {
 
         assertEquals(upwaterBoard.GetPositionChar('A', 1), 'E');
         assertEquals(upwaterBoard.GetPositionChar('F', 4), 'E');
-        upwaterBoard.performMarkBoard('F', 4);
+        upwaterBoard.MarkBoard('F', 4);
         assertEquals(upwaterBoard.GetPositionChar('F', 4), 'X');
 
     //////////make underwater board for testing//////////
@@ -36,7 +36,7 @@ public class BoardFactoryTest {
 
         GamePiece submarine1 = new Submarine();
         GamePiece submarine2 = new Submarine();
-        downwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+        downwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
 
         GameManagement game = new GameManagement();
         List<GamePiece> playerFleet = new ArrayList<>();
@@ -68,7 +68,7 @@ public class BoardFactoryTest {
 
         assertEquals(myBoardSet[0].GetPositionChar('A', 1), 'E');
         assertEquals(myBoardSet[0].GetPositionChar('F', 4), 'E');
-        myBoardSet[0].performMarkBoard('F', 4);
+        myBoardSet[0].MarkBoard('F', 4);
         assertEquals(myBoardSet[0].GetPositionChar('F', 4), 'X');
 
         //////////make underwater board for testing//////////
@@ -76,7 +76,7 @@ public class BoardFactoryTest {
 
         GamePiece submarine1 = new Submarine();
         GamePiece submarine2 = new Submarine();
-        myBoardSet[1].setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+        myBoardSet[1].setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
 
         GameManagement game = new GameManagement();
         List<GamePiece> playerFleet = new ArrayList<>();

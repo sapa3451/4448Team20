@@ -5,13 +5,14 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 
 import java.util.Scanner;
 
+/**
+ * Description:
+ */
 public class InputPlacement implements PlacementBehavior {
     public void place (int id, Board board, int size, int quartersPos) {
         if (size == 99) {
             return;
         }
-        // TODO: we need to make sure that ships do not overlap
-        // do they want to place the ship vertically(1) or horizontally(0)
         boolean validPlacement = false;
 
         // we want to check input is okay for column
@@ -29,7 +30,6 @@ public class InputPlacement implements PlacementBehavior {
                 // check if valid input
                 if (input.length() == 1) { // check if single letter
                     char[] col = input.toCharArray(); // set to char array
-                    // TODO: may need to change this checker if making board different sizes
                     if (col[0] >= 'A' && col[0] <= 'J') {  // check if valid column input
                         correct = true;
                         // set column value
@@ -70,31 +70,6 @@ public class InputPlacement implements PlacementBehavior {
                     input = sc.nextLine(); // Read user input
                 }
             }
-            // after this i have a valid colVal and rowVal
-
-
-//            System.out.println("Do you want to place your piece horizontally(1) or vertically(0)? ");
-//            input = sc.nextLine();
-//            boolean validInput = false;
-//            int direction = -1;
-//            while(!validInput){
-//                try {
-//                    direction = Integer.parseInt(input);
-//                }catch(NumberFormatException e) {
-//                    System.out.println("Input is not an int value. Please enter 1 for horizontal or 0 for vertical.");
-//                    input = sc.nextLine();
-//                    direction = Integer.parseInt(input);
-//                }
-//                if(direction == 0 || direction ==1){
-//                    validInput = true;
-//                }
-//                else {
-//                    System.out.println("Invalid input! Please enter 1 for horizontal or 0 for vertical.");
-//                    input = sc.nextLine(); // Read user input
-//                }
-//            }
-
-            //Gets direction (1=horizontal,0=vertical) and checks for bad input
             System.out.println("Do you want to place your piece horizontally(1) or vertically(0)? ");
             input = sc.nextLine();
             while(!input.equalsIgnoreCase("0") && !input.equalsIgnoreCase("1")){

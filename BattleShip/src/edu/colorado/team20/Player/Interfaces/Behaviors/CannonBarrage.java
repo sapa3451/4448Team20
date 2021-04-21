@@ -2,16 +2,18 @@ package edu.colorado.team20.Player.Interfaces.Behaviors;
 
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
-import java.util.Locale;
+
 import java.util.Scanner;
 
+/**
+ * Description:
+ */
 public class CannonBarrage implements ShotBehavior {
 
-    //Implements the CannonBarrage Ability
     public boolean shot(Board[] board, char colv,  int row) {
 
         if (colv != 'Z' && row != -1) {
-            board[1].performMarkBoard(colv,row);
+            board[1].MarkBoard(colv,row);
             return true;
         }//For DevTest Skip
 
@@ -58,17 +60,17 @@ public class CannonBarrage implements ShotBehavior {
         rowVal=rowInput;
 
     //Marks board, checks if going off board first
-        board[1].performMarkBoard(colVal,rowVal);
+        board[1].MarkBoard(colVal,rowVal);
         if(colVal>'A'){
             colVal+=-1;
-            if(rowVal>1){board[1].performMarkBoard(colVal,rowVal-1);}
-            if(rowVal<10){board[1].performMarkBoard(colVal,rowVal+1);}
+            if(rowVal>1){board[1].MarkBoard(colVal,rowVal-1);}
+            if(rowVal<10){board[1].MarkBoard(colVal,rowVal+1);}
             colVal+=1;
         }
         if(colVal<'J'){
             colVal+=1;
-            if(rowVal>1){board[1].performMarkBoard(colVal,rowVal-1);}
-            if(rowVal<10){board[1].performMarkBoard(colVal,rowVal+1);}
+            if(rowVal>1){board[1].MarkBoard(colVal,rowVal-1);}
+            if(rowVal<10){board[1].MarkBoard(colVal,rowVal+1);}
         }
         return true;
     }

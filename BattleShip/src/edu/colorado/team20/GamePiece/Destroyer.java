@@ -1,5 +1,8 @@
 package edu.colorado.team20.GamePiece;
 
+/**
+ * Description:
+ */
 public class Destroyer extends GamePiece {
     public Destroyer() {
         super();

@@ -2,7 +2,10 @@ package edu.colorado.team20.Board.Interfaces.Behaviors;
 
 import edu.colorado.team20.Board.Interfaces.CreateShipCoordinatesBehavior;
 
-public class RegularShipCoordinates implements CreateShipCoordinatesBehavior {
+/**
+ * Description:
+ */
+public class LinearCoordinates implements CreateShipCoordinatesBehavior {
     public String createShipCoordinates(int row, char col, int direction, int size, int rowSize, int colSize) {
         String coordinates = ""; // string to hold coordinates
 

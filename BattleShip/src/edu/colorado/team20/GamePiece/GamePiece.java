@@ -2,6 +2,9 @@ package edu.colorado.team20.GamePiece;
 
 import edu.colorado.team20.GamePiece.Interfaces.GamePieceObserver;
 
+/**
+ * Description:
+ */
 public abstract class GamePiece implements GamePieceObserver {
     protected int numOccupiedBoardCells;
     protected int totShipHealth;
@@ -13,8 +16,8 @@ public abstract class GamePiece implements GamePieceObserver {
     protected boolean goesInAir;
     protected int quartersSpot; // int to tell captainsQ spacing for boat size
 
+
     public GamePiece() {
-        //this.numOccupiedBoardCells;
         this.sunk = false;
     }
 
@@ -42,6 +45,11 @@ public abstract class GamePiece implements GamePieceObserver {
 
     public int getTotShipHealth() { return this.totShipHealth; }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public boolean update(int damage) { //Use of the observer strategy here, function in ShipObservers
         this.totShipHealth = this.totShipHealth - damage;
         if (this.totShipHealth == 0) {
@@ -53,6 +61,11 @@ public abstract class GamePiece implements GamePieceObserver {
 
     public int getCaptainQHealth() { return this.captainQHealth; }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public boolean updateCQ(int damage) { //Use of the observer strategy here, function in ShipObservers
         this.captainQHealth = this.captainQHealth - damage;
         this.totShipHealth = this.totShipHealth - damage;
@@ -60,7 +73,6 @@ public abstract class GamePiece implements GamePieceObserver {
             // set tot health to 0
             this.update(this.totShipHealth);
             this.sunk = true;
-            //System.out.println("You've destroyed the " + this.getName() + " captain's quarters! " + this.getName() + " is now destroyed!");
             return true; // return true --> ship is destroyed
         }
         return false; // return false --> ship still has health

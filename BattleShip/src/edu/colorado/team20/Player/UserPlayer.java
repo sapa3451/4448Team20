@@ -3,8 +3,10 @@ package edu.colorado.team20.Player;
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonInputShot;
-import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
 
+/**
+ * Description:
+ */
 public final class UserPlayer extends Player{
 
     public UserPlayer(Board[] board) {

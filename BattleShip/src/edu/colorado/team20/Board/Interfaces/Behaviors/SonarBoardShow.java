@@ -7,6 +7,9 @@ import javafx.util.Pair;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Description:
+ */
 public class SonarBoardShow implements ShowBehavior {
     final int row;
     final char col;
@@ -16,6 +19,15 @@ public class SonarBoardShow implements ShowBehavior {
     }
     public void show (Board board) {
         // create arrays to hold board rows and columns
+        if (board.getzValue() > 0) {
+            System.out.println("**********PLAYER AIR BOARD**********");
+        }
+        else if (board.getzValue() < 0) {
+            System.out.println("**********PLAYER UNDERWATER BOARD**********");
+        }
+        else if (board.getzValue() == 0) {
+            System.out.println("**********PLAYER SURFACE BOARD**********");
+        }
         char[] columns = new char[board.getColumnSize()*3+2];
         int [] rows = new int[board.getRowSize()];
         char start = 'A';
@@ -126,7 +138,15 @@ public class SonarBoardShow implements ShowBehavior {
                         System.out.print("[X]");
                     }
                     else {
-                        System.out.print("[ ]");
+                        if (board.getzValue() > 0) {
+                            System.out.print("[^]");
+                        }
+                        else if (board.getzValue() < 0) {
+                            System.out.print("[~]");
+                        }
+                        else if (board.getzValue() == 0) {
+                            System.out.print("[ ]");
+                        }
                     }
                 }
             }

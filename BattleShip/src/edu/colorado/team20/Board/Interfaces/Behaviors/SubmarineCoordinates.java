@@ -3,7 +3,11 @@ package edu.colorado.team20.Board.Interfaces.Behaviors;
 
 import edu.colorado.team20.Board.Interfaces.CreateShipCoordinatesBehavior;
 
-public class SubmarineShipCoordinates implements CreateShipCoordinatesBehavior {
+/**
+ * Description:
+ */
+public class SubmarineCoordinates implements CreateShipCoordinatesBehavior {
+
     public String createShipCoordinates(int row, char col, int direction, int size, int rowSize, int colSize) {
         String coordinates = ""; // string to hold coordinates
         String captainsQ = "";

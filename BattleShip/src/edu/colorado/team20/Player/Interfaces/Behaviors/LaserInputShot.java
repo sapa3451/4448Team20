@@ -5,16 +5,16 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 import java.util.Scanner;
 
-//This is the start of the interface for the laser
-//TODO: before any further implementation, underwater board must be implemented
-
+/**
+ * Description:
+ */
 public class LaserInputShot implements ShotBehavior {
     public boolean shot(Board[] board, char colv, int row) {
         if (colv != 'Z' && row != -1) {
             //a laser will mark all available boards, as below
             for (Board value : board) {
                 if (value.getzValue() > -5) {
-                    value.performMarkBoard(colv, row);
+                    value.MarkBoard(colv, row);
                 }
             }
             return true;
@@ -96,7 +96,7 @@ public class LaserInputShot implements ShotBehavior {
         //a laser will mark all available boards, as below
         for (Board value : board) {
             if (value.getzValue() > -5) {
-                value.performMarkBoard(colVal, rowVal);
+                value.MarkBoard(colVal, rowVal);
             }
         }
         return true;

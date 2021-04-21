@@ -1,9 +1,8 @@
 package edu.colorado.team20.Board;
 
-import edu.colorado.team20.Board.Interfaces.Behaviors.RegularShipCoordinates;
+import edu.colorado.team20.Board.Interfaces.Behaviors.LinearCoordinates;
 import edu.colorado.team20.Board.Interfaces.BoardSubject;
 import edu.colorado.team20.Board.Interfaces.CreateShipCoordinatesBehavior;
-import edu.colorado.team20.Board.Interfaces.MarkBehavior;
 import edu.colorado.team20.Board.Interfaces.ShowBehavior;
 import edu.colorado.team20.GamePiece.GamePiece;
 
@@ -20,14 +19,13 @@ public class Board implements BoardSubject {
     private final HashMap<Integer, String> gamePieceCoordinates = new HashMap<>();
     private final HashMap<Integer, String> gamePieceCapQPos = new HashMap<>();
     private final List<GamePiece> fleet;
-    ShowBehavior showBehavior;
-    CreateShipCoordinatesBehavior shipCoordinatesBehavior;
-    MarkBehavior markBehavior;
+    private ShowBehavior showBehavior;
+    private CreateShipCoordinatesBehavior shipCoordinatesBehavior;
     private int zValue;
 
 
     public Board() {
-        setCreateShipCoordinatesBehavior(new RegularShipCoordinates()); //set coordinate behavior to regular
+        setCreateShipCoordinatesBehavior(new LinearCoordinates()); //set coordinate behavior to regular
 
         this.board = new char[this.rowSize][this.columnSize];
         this.idBoard = new int[this.rowSize][this.columnSize];
@@ -59,8 +57,7 @@ public class Board implements BoardSubject {
         this.zValue = zValue;
     }
 
-
-        public char[][] getBoard() {
+    public char[][] getBoard() {
         return this.board;
     }
 
@@ -72,10 +69,11 @@ public class Board implements BoardSubject {
         showBehavior = sb;
     }
 
-    public void setMarkBehavior (MarkBehavior mb) {
-        markBehavior = mb;
-    }
-
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public void performShow() {
         showBehavior.show(this); //strategy pattern, this calls to the interface and then to the specific class
     }
@@ -84,6 +82,11 @@ public class Board implements BoardSubject {
         shipCoordinatesBehavior = coordBehavior;
     }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public String performCreateShipCoordinates(int row, char col, int direction, int size) {
         return shipCoordinatesBehavior.createShipCoordinates(row, col, direction, size, this.rowSize, this.columnSize);
     }
@@ -96,10 +99,20 @@ public class Board implements BoardSubject {
         return gamePieceCoordinates;
     }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public void registerShip (GamePiece s) {
         fleet.add(s);
     } //use of observer strategy here, this adds ships to be updated after each hit
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public void removeShip(int id) { //use of observer strategy here, this removes ships after they are sunk to longer recieve any updates
         for (GamePiece gamePiece : fleet) {
             if (id == gamePiece.getId()) {
@@ -113,6 +126,11 @@ public class Board implements BoardSubject {
         return this.alphaMap;
     }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public int updateGamePieceOnHit(int id) { //sending updates to ships when they get hit
         int health = -1;
 
@@ -125,6 +143,11 @@ public class Board implements BoardSubject {
         return health;
     }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public int updateGamePieceOnCQHit(int id) { //sending updates to ships when they get hit in the CQ
         int health = -1;
 
@@ -148,19 +171,66 @@ public class Board implements BoardSubject {
     public char GetPositionChar(char col, int row) {
         return board[row-1][alphaMap.get(col)];
     }
-    // show the opponent the player's board
-    // shows opponent what spots they hit and destroyed ships
 
-    // function to check if spot was already shot at
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public boolean CheckSpot(char col, int row) {
         char position = board[row-1][alphaMap.get(col)];// subtract one from row because indexing of array
         return position != 'X' && position != 'D' && position != 'H';
     }
 
-    public void performMarkBoard(char col, int row){
-        markBehavior.MarkBoard(this, col, row);
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
+    public void MarkBoard(char col, int row){
+        // call check spot in the beginning to check if spot is valid
+        char positionChar = this.getBoard()[row-1][this.getAlphaMap().get(col)];
+
+        if (positionChar == 'E') { // if shot decision was empty --> mark as X
+            this.getBoard()[row-1][this.getAlphaMap().get(col)] = 'X'; // subtract one from row because indexing of array
+        }
+        else if (positionChar == 'Q') {
+            this.getBoard()[row-1][this.getAlphaMap().get(col)] = 'W'; // if gets hit more than once keep at W
+        }
+        else if (positionChar == 'H') {
+            this.getBoard()[row-1][this.getAlphaMap().get(col)] = 'H'; // if gets hit more than once keep at W
+        }
+        else if (positionChar == 'X') {
+            this.getBoard()[row-1][this.getAlphaMap().get(col)] = 'X'; // if gets hit more than once keep at W
+        }
+        else if (positionChar == 'S') {
+            this.getBoard()[row-1][this.getAlphaMap().get(col)] = 'H'; // if gets hit more than once keep at W
+        }
+        else { // decision was a ship --> mark as D
+            this.getBoard()[row-1][this.getAlphaMap().get(col)] = 'D'; // subtract one from row because indexing of array
+        }
+        int id = this.getIdBoard()[row-1][this.getAlphaMap().get(col)];
+        if (id != 0 && positionChar == 'Q' || positionChar == 'W') { // captainsQ got hit
+            if (this.updateGamePieceOnCQHit(id) == 0) { // need to check if captainsQ is 0 health
+                // update the this.to sink whole ship
+                this.updateGamePieceChars(this.getGamePieceCoordinates(id));
+                this.removeShip(id); //removes a ship as an observer when sunk
+            }
+        }
+        else if (id != 0){
+            if (this.updateGamePieceOnHit(id) == 0) {
+                this.updateGamePieceChars(this.getGamePieceCoordinates(id));
+                this.removeShip(id); //removes a ship as an observer when sunk
+            }
+        }
+        this.performShow();
     }
 
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public boolean SetGamePiecePos(int id, int row, char col, int direction, int size, int quartersPos) {
         char positionChar = board[row-1][alphaMap.get(col)];
 
@@ -221,7 +291,11 @@ public class Board implements BoardSubject {
         return true;
     }
 
-    // function to mark ship as all destroyed when captains' quarters destroyed
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public void updateGamePieceChars(String coordinates) {
         // IMPORTANT: string row value already has zero index (do not minus 1 from row)!
 
@@ -234,7 +308,7 @@ public class Board implements BoardSubject {
             this.board[row][alphaMap.get(col)] = 'D';
         }
     }
-
+    
     public String getGamePieceCaptainQPos(int id) { return this.gamePieceCapQPos.get(id); }
     public String getGamePieceCoordinates(int id) { // return specific ship coordinates
         return this.gamePieceCoordinates.get(id);

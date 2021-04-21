@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-//Player will initially start with this behavior
+/**
+ * Description:
+ */
 
 public final class CannonRandomShot implements ShotBehavior {
 
@@ -35,7 +37,7 @@ public final class CannonRandomShot implements ShotBehavior {
             //coordinates resulting random board space
 
             //takes in only the first board, the surface board
-            surface.performMarkBoard(col, row);
+            surface.MarkBoard(col, row);
         }
         /*This is where the AI gets "smart." This long list of checks, loops, and such is making sure that the computer is accurately and randomly
          * choosing its next informed shot. see comments below */
@@ -51,11 +53,11 @@ public final class CannonRandomShot implements ShotBehavior {
                 if (direction == 1) {
                     if (col != 'J') { //making sure that the next shot wont go out of bounds, i.e. this direction goes one to the right, so col != J
                         if (surface.GetPositionChar(col, row) == 'W') { //if it finds that it has hit a captains quarters, destroy the ship!
-                            surface.performMarkBoard(col, row);
+                            surface.MarkBoard(col, row);
                             return true;
                         }
                         if (surface.CheckSpot((char) (col + 1), row)) { //checking to make sure the spot that will be shot at next is not already hit on the surface board
-                            surface.performMarkBoard((char) (col + 1), row); //checks pass, so now we can go an mark the board appropriately
+                            surface.MarkBoard((char) (col + 1), row); //checks pass, so now we can go an mark the board appropriately
                             shot = true; //telling the loop that we performed a successful shot to return true
                         } else {
                             check.add('1'); //here is where we add to the list if this direction fails, if all directions fail, it returns
@@ -69,11 +71,11 @@ public final class CannonRandomShot implements ShotBehavior {
                 else if (direction == 2) {
                     if (row != 10) {
                         if (surface.GetPositionChar(col, row) == 'W') {
-                            surface.performMarkBoard(col, row);
+                            surface.MarkBoard(col, row);
                             return true;
                         }
                         if (surface.CheckSpot(col, row + 1)) {
-                            surface.performMarkBoard(col, row + 1);
+                            surface.MarkBoard(col, row + 1);
                             shot = true;
                         } else {
                             check.add('2');
@@ -86,11 +88,11 @@ public final class CannonRandomShot implements ShotBehavior {
                 else if (direction == 3) {
                     if (col != 'A') {
                         if (surface.GetPositionChar(col, row) == 'W') {
-                            surface.performMarkBoard(col, row);
+                            surface.MarkBoard(col, row);
                             return true;
                         }
                         if (surface.CheckSpot((char) (col - 1), row)) {
-                            surface.performMarkBoard((char) (col - 1), row);
+                            surface.MarkBoard((char) (col - 1), row);
                             shot = true;
                         } else {
                             check.add('3');
@@ -103,11 +105,11 @@ public final class CannonRandomShot implements ShotBehavior {
                 else if (direction == 4) {
                     if (row != 1) {
                         if (surface.GetPositionChar(col, row) == 'W') {
-                            surface.performMarkBoard(col, row);
+                            surface.MarkBoard(col, row);
                             return true;
                         }
                         if (surface.CheckSpot(col, row - 1)) {
-                            surface.performMarkBoard(col, row - 1);
+                            surface.MarkBoard(col, row - 1);
                             shot = true;
                         } else {
                             check.add('4');

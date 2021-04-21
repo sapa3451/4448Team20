@@ -2,7 +2,15 @@ package edu.colorado.team20.GameProbabilities;
 
 import java.util.Random;
 
+/**
+ * Description:
+ */
 public class GoodLuckCalc {
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
     public boolean calcGoodLuck() {
         // create instance of Random class
         Random rand = new Random();

@@ -14,8 +14,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// TODO: going to need to implement tests for underwater board
-
 
 class BoardTest {
 
@@ -25,7 +23,6 @@ class BoardTest {
         placementBehavior = new RandomPlacement();
 
         Board board = new Board();
-        board.setMarkBehavior(new Mark());
         board.setShowBehavior(new RegularShow());
 
         placementBehavior.place(1, board, 4, 3);
@@ -38,14 +35,13 @@ class BoardTest {
     @Test
     void CheckSpot_MarkBoard() { // use this test to make sure that player can't hit the same spot twice
         Board board = new Board();
-        board.setMarkBehavior(new Mark());
         board.setShowBehavior(new RegularShow());
 
         // need to call MarkBoard to add a placement then check if place can be added again
-        board.performMarkBoard('A', 1);
+        board.MarkBoard('A', 1);
         assertFalse(board.CheckSpot('A', 1));
 
-        board.performMarkBoard('B', 4);
+        board.MarkBoard('B', 4);
         assertFalse(board.CheckSpot('B', 4));
 
         // need to return true since not shot at
@@ -53,33 +49,32 @@ class BoardTest {
         assertTrue(board.CheckSpot('F', 9));
         assertTrue(board.CheckSpot('D', 6));
 
-        board.performMarkBoard('J', 10);
+        board.MarkBoard('J', 10);
         assertFalse(board.CheckSpot('J', 10));
 
         board.SetGamePiecePos(0,1,'A',0,2, 1);
-        board.performMarkBoard('A',1);
+        board.MarkBoard('A',1);
         board.SetGamePiecePos(0,1,'B',0,3, 2);
-        board.performMarkBoard('B',2);
-        board.performMarkBoard('B',2);
+        board.MarkBoard('B',2);
+        board.MarkBoard('B',2);
     }
 
     @Test
     void CheckIfMarked() { // test to make sure that MarkBoard function is marking board correctly
         Board board = new Board();
-        board.setMarkBehavior(new Mark());
         board.setShowBehavior(new RegularShow());
 
         assertEquals(board.GetPositionChar('A', 1), 'E');
         assertEquals(board.GetPositionChar('D', 9), 'E');
         assertEquals(board.GetPositionChar('C', 4), 'E');
 
-        board.performMarkBoard('F', 4);
+        board.MarkBoard('F', 4);
         assertEquals(board.GetPositionChar('F', 4), 'X');
-        board.performMarkBoard('A', 2);
+        board.MarkBoard('A', 2);
         assertEquals(board.GetPositionChar('A', 2), 'X');
-        board.performMarkBoard('B', 3);
+        board.MarkBoard('B', 3);
         assertEquals(board.GetPositionChar('B', 3), 'X');
-        board.performMarkBoard('J', 1);
+        board.MarkBoard('J', 1);
         assertEquals(board.GetPositionChar('J', 1), 'X');
 
     }
@@ -87,7 +82,6 @@ class BoardTest {
     @Test
     void SetShipPos1() { // test to make sure that ships get placed correctly
         Board board = new Board();
-        board.setMarkBehavior(new Mark());
         board.setShowBehavior(new RegularShow()); // setting column and row
 
         board.SetGamePiecePos(0, 1,'A',1,4, 3);
@@ -106,7 +100,6 @@ class BoardTest {
     @Test
     void SetShipPos2() { // test to make sure that ships cannot overlap
         Board board = new Board();
-        board.setMarkBehavior(new Mark());
         board.setShowBehavior(new RegularShow()); // setting column and row
 
         board.SetGamePiecePos(0,1,'A',0,4, 3);
@@ -116,7 +109,6 @@ class BoardTest {
     @Test
     void SonarPulse() { // want to check if the area shows the ships correctly
         Board board = new Board();
-        board.setMarkBehavior(new Mark());
         board.setShowBehavior(new RegularShow()); // setting column and row
 
         board.SetGamePiecePos(1,1,'A',1,4, 3);
@@ -137,7 +129,6 @@ class BoardTest {
 
         GamePiece[] playerFleet = {pbattleship, Pdestroyer, Pminesweeper};
         Board playerBoard = new Board();
-        playerBoard.setMarkBehavior(new Mark());
         playerBoard.setShowBehavior(new RegularShow());
 
         // place player boards
@@ -219,14 +210,13 @@ class BoardTest {
     void UnderwaterBoard() {
         // perform the underwater baord show
         Board playerUnderwaterBoard = new Board();
-        playerUnderwaterBoard.setMarkBehavior(new Mark());
         playerUnderwaterBoard.setShowBehavior(new RegularShow());// create underwater board
         playerUnderwaterBoard.performShow();
 
         // create submarine
         GamePiece submarine1 = new Submarine();
         GamePiece submarine2 = new Submarine();
-        playerUnderwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+        playerUnderwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
 
         GameManagement game = new GameManagement();
         List<GamePiece> playerFleet = new ArrayList<>();
@@ -248,14 +238,13 @@ class BoardTest {
         playerUnderwaterBoard.SetGamePiecePos(submarine2.getId(), 7, 'F', 1, submarine2.getSize(), submarine2.getQuartersSpotInt());
         playerUnderwaterBoard.performShow();
 
-        playerUnderwaterBoard.performMarkBoard('I', 7);
+        playerUnderwaterBoard.MarkBoard('I', 7);
     }
 
     // test create coordinate behavior
     @Test
     void CreateRegularShipCoordinate() { // test to make sure that ships cannot overlap
         Board board = new Board();
-        board.setMarkBehavior(new Mark());
         board.setShowBehavior(new RegularShow()); // setting column and row
         assertFalse(board.SetGamePiecePos(0, 1, 'J', 1, 4, 3));
     }
@@ -266,16 +255,14 @@ class BoardTest {
         PlacementBehavior placementBehavior;
         placementBehavior = new RandomPlacement();
         Board playerBoard = new Board();
-        playerBoard.setMarkBehavior(new Mark());
         playerBoard.setShowBehavior(new RegularShow());
         placementBehavior.place(1, playerBoard, 4, 3);
         playerBoard.setShowBehavior(new HiddenShow());
         playerBoard.performShow();
 
         Board underwaterBoard = new Board();
-        underwaterBoard.setMarkBehavior(new Mark());
         underwaterBoard.setShowBehavior(new RegularShow());// create underwater board
-        underwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+        underwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
         placementBehavior.place(1, underwaterBoard, 5, 5);
         underwaterBoard.setShowBehavior(new HiddenShow());
         underwaterBoard.performShow();
@@ -285,9 +272,8 @@ class BoardTest {
     @Test
     void CreateSubmarineCoordinates() { // test to make sure that ships cannot overlap
         Board underwaterBoard = new Board();
-        underwaterBoard.setMarkBehavior(new Mark());
         underwaterBoard.setShowBehavior(new RegularShow());// create underwater board
-        underwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineShipCoordinates());
+        underwaterBoard.setCreateShipCoordinatesBehavior(new SubmarineCoordinates());
 
         GamePiece submarine1 = new Submarine();
         GamePiece submarine2 = new Submarine();
@@ -336,14 +322,13 @@ class BoardTest {
     void AirBoard() {
         // create Boards
         Board playerAirBoard = new Board();
-        playerAirBoard.setMarkBehavior(new Mark());
         playerAirBoard.setShowBehavior(new RegularShow());
         playerAirBoard.performShow();
 
         // add plane to Air board
         GamePiece bomber = new Bomber();
         bomber.setId(1);
-        playerAirBoard.setCreateShipCoordinatesBehavior(new PlaneShipCoordinates());
+        playerAirBoard.setCreateShipCoordinatesBehavior(new PlaneCoordinates());
         playerAirBoard.SetGamePiecePos(bomber.getId(), 3, 'C', 0, bomber.getSize(), bomber.getQuartersSpotInt());
         playerAirBoard.performShow();
 
