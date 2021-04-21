@@ -3,9 +3,7 @@ package edu.colorado.team20.Game;
 import edu.colorado.team20.Board.*;
 import edu.colorado.team20.Board.Interfaces.Behaviors.*;
 import edu.colorado.team20.Player.ComputerPlayer;
-import edu.colorado.team20.Player.Interfaces.Behaviors.CannonBarrage;
-import edu.colorado.team20.Player.Interfaces.Behaviors.LaserInputShot;
-import edu.colorado.team20.Player.Interfaces.Behaviors.LaserRandomShot;
+import edu.colorado.team20.Player.Interfaces.Behaviors.*;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
@@ -24,6 +22,7 @@ public class GameManagement {
     //Change Users to attributes
     private final Player player;
     private final Player computer;
+    private ShotBehavior specialType;
 
     public GameManagement() {
         turnNum = 1; // initialize first round
@@ -43,6 +42,27 @@ public class GameManagement {
         }
 
 
+    }
+
+    /**
+     * Description:
+     * Params:
+     * Returns:
+     */
+//Sets global string variable to keep track of which special the player can use
+    public void setSpecialType(String extraShip){
+        if(extraShip.equalsIgnoreCase("bomber")){
+            this.specialType= new BombRun();
+        }
+        else if(extraShip.equalsIgnoreCase("battleship")){
+            this.specialType= new CannonBarrage();
+        }
+        else if(extraShip.equalsIgnoreCase("submarine")){
+            this.specialType= new TorpedoShot();
+        }
+        else{//Dev error somehow
+            this.specialType= new CannonBarrage();
+        }
     }
 
     /**
@@ -88,6 +108,7 @@ public class GameManagement {
         FleetFactory fleetFactory = new FleetFactory();
         String[] inputFleet = {"minesweeper", "destroyer", "battleship", "submarine", "bomber", input};//Set standard list of pieces w/ user input
         this.playerFleet = fleetFactory.createFleet(inputFleet);
+        setSpecialType(input);//Sets special ability based on chosen extra ship
 
 //!!!!!!!!!!!!!!! Add random extra ship !!!!!!!!!!!!!!!!!!!!!
         this.compFleet = fleetFactory.createFleet(inputFleet);
@@ -299,34 +320,39 @@ public class GameManagement {
      * Params:
      * Returns:
      */
-    public void SpecialShot(int specialUses){
+    public boolean SpecialShot(int specialUses){
+        //Checks to see if they have remain special shots left
+
         if (specialUses!=0){
-            System.out.println("Do you want to use your Bomb Run Ability? (Yes)/(No)");
+            //If so then checks to see if they want to use
+            System.out.println("Do you want to use your Special Shot Ability? (Yes)/(No)");
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine(); // Read user input
 
+            //Checks for user error
             while(!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"))
             {
                 System.out.println("Invalid input! Please enter (Yes) or (No): ");
                 input = sc.nextLine();
             }
 
-            if(input.equalsIgnoreCase("yes")){
-                //Checks to see if player wants to use their special shot
-                //if so: changes shot behavior, performs BombRun/Shot, changes behavior back,
-                // reduces their remaining available special shot count
+            //If yes sets to special shot behavior, makes shot, and sets back
+            //Returns true to let game managment know a special shot was used
+            if(input.equalsIgnoreCase("yes"))
+            {
                 ShotBehavior prevShotBev = this.player.getShotBehavior();
-                this.player.setShotBehavior(new CannonBarrage());
+                this.player.setShotBehavior(this.specialType);
                 this.player.performSpecialShot(this.computer.getBoards(),'Z',-1);
                 this.player.setShotBehavior(prevShotBev);
-                specialUses--;
+                return true;
             }
-            else{
-
-            }
+            //If no returns false cause no special used
+            else{ return false; }
         }
         else{
-            System.out.println("You have no remaining special shots");
+            System.out.println("You have no remaining special shots!");
+            return false;
+
         }
     }
 
@@ -344,6 +370,7 @@ public class GameManagement {
         int sonarUses = 2;
         int specialUses = 2;
         while (!EndGame()) {
+
             if (!firstSunkComputer) { // loop through comp's fleet to find at least one sunk ship
                 for (GamePiece compGamePiece : compFleet) {
                     if (compGamePiece.checkSunk()) {
@@ -370,7 +397,11 @@ public class GameManagement {
                 justShowed = false;
             }
             else if (input == 2){
-                SpecialShot(specialUses);
+                //Calls specialShot helper to see if player wants to use it and lets them if able
+                //If they do use it subtracts 1 from their remaining special shots
+                if(SpecialShot(specialUses)){
+                    specialUses--;
+                }
                 justShowed = false;
             }
             else if (input == 3){

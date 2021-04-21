@@ -60,7 +60,11 @@ public class BombRun implements ShotBehavior{
 
             //Do Actual Stuff
             for(char i ='A'; i<'A'+board[1].getRowSize();i+=2){
+
                 board[1].MarkBoard(i,rowInput);
+                board[1].MarkBoard(i,rowInput);
+                board[2].MarkBoard(i,rowInput);
+
             }
             //
         }
@@ -78,9 +82,12 @@ public class BombRun implements ShotBehavior{
             //Do Actual Stuff
             char col=input.toCharArray()[0];
             for(int i=1; i<board[1].getColumnSize();i+=2){
+
                 board[1].MarkBoard(col,i);
+                board[1].MarkBoard(col,i);
+                board[2].MarkBoard(col,i);
+
             }
-            //
         }
 
         return true;

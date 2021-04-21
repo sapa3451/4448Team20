@@ -2,7 +2,6 @@ package edu.colorado.team20.Player.Interfaces.Behaviors;
 
 import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
-
 import java.util.Scanner;
 
 /**
@@ -17,12 +16,10 @@ public class CannonBarrage implements ShotBehavior {
             return true;
         }//For DevTest Skip
 
-        char colVal = ' ';
-        int rowVal = -1;
+        char colVal;
+        int rowVal;
 
-        boolean validIput = false;
-
-        System.out.println("You've Decided to do a Cannon Barrage");
+        System.out.println("You've Decided to use a Cannon Barrage");
         System.out.println("You must now choose where you want to center the barrage");
 
     //Gets user input for Column coordinate, checks for bad input
@@ -61,17 +58,34 @@ public class CannonBarrage implements ShotBehavior {
 
     //Marks board, checks if going off board first
         board[1].MarkBoard(colVal,rowVal);
+        board[0].MarkBoard(colVal,rowVal);
+        //Checks if might go off board to left
         if(colVal>'A'){
             colVal+=-1;
-            if(rowVal>1){board[1].MarkBoard(colVal,rowVal-1);}
-            if(rowVal<10){board[1].MarkBoard(colVal,rowVal+1);}
+            if(rowVal>1) {
+                board[1].MarkBoard(colVal,rowVal-1);
+                board[0].MarkBoard(colVal,rowVal-1);
+            }
+            if(rowVal<10) {
+                board[1].MarkBoard(colVal,rowVal+1);
+                board[0].MarkBoard(colVal,rowVal+1);
+            }
             colVal+=1;
         }
+        //Checks if might go off board to right
         if(colVal<'J'){
             colVal+=1;
-            if(rowVal>1){board[1].MarkBoard(colVal,rowVal-1);}
-            if(rowVal<10){board[1].MarkBoard(colVal,rowVal+1);}
+            if(rowVal>1){
+                board[1].MarkBoard(colVal,rowVal-1);
+                board[0].MarkBoard(colVal,rowVal-1);
+            }
+            if(rowVal<10){
+                board[1].MarkBoard(colVal,rowVal+1);
+                board[0].MarkBoard(colVal,rowVal+1);
+
+            }
         }
+
         return true;
     }
 }

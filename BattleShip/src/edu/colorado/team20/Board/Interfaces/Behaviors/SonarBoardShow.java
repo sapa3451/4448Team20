@@ -21,13 +21,13 @@ public class SonarBoardShow implements ShowBehavior {
     public void show (Board board) {
         // create arrays to hold board rows and columns
         if (board.getzValue() > 0) {
-            System.out.println("**********PLAYER AIR BOARD**********");
+            System.out.println("**********COMPUTER AIR BOARD**********");
         }
         else if (board.getzValue() < 0) {
-            System.out.println("**********PLAYER UNDERWATER BOARD**********");
+            System.out.println("**********COMPUTER UNDERWATER BOARD**********");
         }
         else if (board.getzValue() == 0) {
-            System.out.println("**********PLAYER SURFACE BOARD**********");
+            System.out.println("**********COMPUTER SURFACE BOARD**********");
         }
         char[] columns = new char[board.getColumnSize()*3+2];
         int [] rows = new int[board.getRowSize()];

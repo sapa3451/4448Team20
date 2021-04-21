@@ -334,4 +334,17 @@ class BoardTest {
 
     }
 
+    @Test
+    void getIDatCoordTest(){
+        Board board = new Board();
+        board.setShowBehavior(new RegularShow()); // setting column and row
+        //Initializes Board
+        board.SetGamePiecePos(3,3,'C',0,4, 3);
+        board.SetGamePiecePos(2,4,'E',0,3, 3);
+        //Places to ships on board
+        assertEquals(board.getIDatCoord('E',5),2);
+        assertEquals(board.getIDatCoord('C',3),3);
+        //Checks to see if expected IDs are at correct coordinate
+    }
+
 }
