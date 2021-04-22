@@ -31,9 +31,8 @@ public class GameManagement {
         turnNum = 1; // initialize first round
 
         //Initialize Boards & Set Behaviors
-        //Change Boards to attributes
         BoardSetFactory boardSetFactory = new BoardSetFactory();
-        String[] standardBoardSet={"air","surface","underwater"};
+        int[] standardBoardSet={1,0,-1};
         Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
         Board[] computerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
@@ -312,7 +311,6 @@ public class GameManagement {
                 board.performShow();
                 board.setShowBehavior(new HiddenShow());
             }
-            sonarUses--;
             return true;
         }
         else {
@@ -398,7 +396,7 @@ public class GameManagement {
                 //If they do use it subtracts 1 from their remaining special shots
                 if(SpecialShot(specialUses)){
                     specialUses--;
-                    justShowed = false;;
+                    justShowed = false;
                 }
                 else {
                     justShowed = true;
@@ -419,6 +417,7 @@ public class GameManagement {
             else if (intInput == 5 && firstSunkComputer){
                 if (Sonar(sonarUses)){
                     justShowed = false;
+                    sonarUses--;
                 }
                 else {
                     justShowed = true;

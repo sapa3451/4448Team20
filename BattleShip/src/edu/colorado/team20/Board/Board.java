@@ -310,13 +310,10 @@ public class Board implements BoardSubject {
     }
 
     /**
-     * Description: This function will update the board when a piece is completely destroyed by a hit, marking the board array with D where the piece.
-     *              This would happen, for instance, when a captains quarters was hit twice.
-     * Params: a string of coordinates where the piece was
-     * Returns: none
+     * Description: This functions returns whatever ID is at a certain coordinate on the board. If 0 theres no piece there
+     * Params: col and row coord
+     * Returns: ID at position on ID board
      */
-
-    //Takes in a Coord and returns the ID at that position
     public int getIDatCoord(char col,int row){
 
         int numCol=alphaMap.get(col);
@@ -324,7 +321,12 @@ public class Board implements BoardSubject {
     }
 
     // function to mark ship as all destroyed when captains' quarters destroyed
-
+    /**
+     * Description: This function will update the board when a piece is completely destroyed by a hit, marking the board array with D where the piece.
+     *              This would happen, for instance, when a captains quarters was hit twice.
+     * Params: a string of coordinates where the piece was
+     * Returns: none
+     */
     public void updateGamePieceChars(String coordinates) {
         // IMPORTANT: string row value already has zero index (do not minus 1 from row)!
 

@@ -6,10 +6,16 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import java.util.Scanner;
 
 /**
- * Description:
+ * Description: Used by player intially before sinking first ship
+ * Takes in user input for a single coord and marks only surface board at that location. Checks for bad input
+ * Then shows surface board to player. "Default" Shot Type for player
  */
-
 public class CannonInputShot implements ShotBehavior {
+    /**
+     * Description: Marks surface board either at user input or passed coords for dev test, then shows updated board
+     * Params: a set of boards at different z elevations to mark, and the column and row coords for dev test shot
+     * Returns: true
+     */
     public boolean shot(Board[] board, char colv,  int row) {
         if (colv != 'Z' && row != -1) {
             board[1].MarkBoard(colv,row);

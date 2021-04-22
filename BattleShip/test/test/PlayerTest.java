@@ -140,7 +140,7 @@ class PlayerTest {
         randomPlacementBehavior = new RandomPlacement();
 
         BoardSetFactory boardSetFactory = new BoardSetFactory();
-        String[] standardBoardSet={"air","surface","underwater"};
+        int[] standardBoardSet={1,0,-1};
         Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
         Player userPlayer = new ComputerPlayer(playerBoards);
@@ -180,7 +180,7 @@ class PlayerTest {
         randomPlacementBehavior = new RandomPlacement();
 
         BoardSetFactory boardSetFactory = new BoardSetFactory();
-        String[] standardBoardSet={"air","surface","underwater"};
+        int[] standardBoardSet={1,0,-1};
         Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
         Player userPlayer = new ComputerPlayer(playerBoards);

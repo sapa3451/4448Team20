@@ -13,7 +13,6 @@ public class LinearCoordinates implements CreateCoordinatesBehavior {
         // find minimums for board --> handle out of bounds for board
         final char colMinVal = 'A';
         final char colMaxVal = (char) (colMinVal + colSize);
-        final int rowMinVal = 0;
 
         if (direction == 1) { // horizontal
             // need to check if ship is in column's bounds

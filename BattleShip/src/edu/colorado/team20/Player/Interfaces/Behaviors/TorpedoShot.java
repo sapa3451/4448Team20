@@ -5,10 +5,18 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 import java.util.Scanner;
 
+/**
+ * Description: A shot behavior that gets used when place decides to use a special shot
+ * Ability for if player chooses an extra submarine. Shoots at single position, if ship there its sunk instantly
+ * based on user input. Hits surface or underwater board only hitting one and hit an underwater ship first
+ */
 public class TorpedoShot implements ShotBehavior {
 
     /**
-     * Description:
+     * Description: Takes in user input for coords of torpedo target, then checks ID at coord to see if ship there if
+     * so it instantly sets ship health to 0, marks ship as destroyed and updates boards
+     * Params: a set of boards at different z elevations, and the column and row coords for dev test
+     * Returns: true
      */
     public boolean shot(Board[] board, char colv, int row) {
         if (colv != 'Z' && row != -1) {
@@ -16,8 +24,8 @@ public class TorpedoShot implements ShotBehavior {
             return true;
         }//For DevTest Skip
 
-        char colVal = ' ';
-        int rowVal = -1;
+        char colVal;
+        int rowVal;
 
         System.out.println("You've Decided to use a Torpedo Shot");
         System.out.println("You must now choose where launch your torpedo");
@@ -59,7 +67,6 @@ public class TorpedoShot implements ShotBehavior {
         //Checks IDs at surface and Underwater Board
         int UnderwaterID = board[2].getIDatCoord(colVal,rowVal);
         int SurfaceID = board[1].getIDatCoord(colVal,rowVal);
-        int remainHP = -3;
 
     //First checks to see if there is a sub underwater and if so sinks it
         if(UnderwaterID!=0){

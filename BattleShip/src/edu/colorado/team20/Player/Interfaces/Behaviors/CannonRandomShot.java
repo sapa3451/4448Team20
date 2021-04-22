@@ -8,11 +8,18 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Description:
+ * Description: Used by CP intially before sinking first ship
+ * Takes a shot at the surface board, at random coord, unless previous shot was a hit. If so randomly shoots one space
+ * away from previous shot.
+ * "Default" Shot Type for CP
  */
-
 public final class CannonRandomShot implements ShotBehavior {
-
+    /**
+     * Description: Marks surface board either at random location, or 1 off from previous shot that was a hit
+     * or passed coords for dev test, then shows updated board
+     * Params: a set of boards at different z elevations to mark, and the column and row coords for dev test shot
+     * Returns: true
+     */
     public boolean shot(Board[] board, char col, int row) {
         Board surface = new Board();
         for (Board boards : board){

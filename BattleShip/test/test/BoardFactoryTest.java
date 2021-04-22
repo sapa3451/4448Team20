@@ -22,7 +22,7 @@ public class BoardFactoryTest {
         BoardFactory myBoardFactory = new BoardFactory();
 
     //////////make surface board for testing//////////
-        Board upwaterBoard=myBoardFactory.createBoard("surface");
+        Board upwaterBoard=myBoardFactory.createBoard(0);
         upwaterBoard.performShow();
 
         assertEquals(upwaterBoard.GetPositionChar('A', 1), 'E');
@@ -31,7 +31,7 @@ public class BoardFactoryTest {
         assertEquals(upwaterBoard.GetPositionChar('F', 4), 'X');
 
     //////////make underwater board for testing//////////
-        Board downwaterBoard=myBoardFactory.createBoard("underwater");
+        Board downwaterBoard=myBoardFactory.createBoard(-1);
         downwaterBoard.performShow();
 
         GamePiece submarine1 = new Submarine();
@@ -51,14 +51,14 @@ public class BoardFactoryTest {
         assertEquals(playerFleet.get(1).getName(), downwaterBoard.getFleet().get(1).getName());
 
     //////////make input error board (defaults to surface) for testing//////////
-        Board errorBoard=myBoardFactory.createBoard("abovewater");
+        Board errorBoard=myBoardFactory.createBoard(1);
         errorBoard.performShow();
     }
 
     @Test
     void BoardSetFactoryTest(){
 
-        String[] standardBoardSet={"surface","underwater"};
+        int[] standardBoardSet={0,-1};
         BoardSetFactory myBoardSetFactory = new BoardSetFactory();
 
         Board[] myBoardSet=myBoardSetFactory.createBoardSet(standardBoardSet);

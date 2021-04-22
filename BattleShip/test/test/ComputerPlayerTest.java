@@ -134,7 +134,7 @@ class ComputerPlayerTest {
         GamePiece[] playerFleet = fleetFactory.createFleet(inputFleet);
 
         BoardSetFactory boardSetFactory = new BoardSetFactory();
-        String[] standardBoardSet = {"air", "surface", "underwater"};
+        int[] standardBoardSet = {1, 0, -1};
         Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
         Board[] computerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 

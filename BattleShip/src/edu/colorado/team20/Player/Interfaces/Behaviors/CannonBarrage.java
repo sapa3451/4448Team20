@@ -5,10 +5,16 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import java.util.Scanner;
 
 /**
- * Description:
+ * Description: A shot behavior that gets used when place decides to use a special shot
+ * Ability for if player chooses an extra battleship. Makes shot for 3x3 X shape
+ * based on user input. Hits surface and air board
  */
 public class CannonBarrage implements ShotBehavior {
-
+    /**
+     * Description: Takes in user input for center of barrage, then marks board accordingly
+     * Params: a set of boards at different z elevations, and the column and row coords for dev test
+     * Returns: true and assumes shot sucessful
+     */
     public boolean shot(Board[] board, char colv,  int row) {
 
         if (colv != 'Z' && row != -1) {

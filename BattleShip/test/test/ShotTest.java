@@ -29,7 +29,7 @@ public class ShotTest {
         shotBehavior= new CannonInputShot();
 
         BoardSetFactory boardSetFactory = new BoardSetFactory();
-        String[] standardBoardSet={"air","surface","underwater"};
+        int[] standardBoardSet={1,0,-1};
         Board[] computerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
         shotBehavior.shot(computerBoards,'A',1);
@@ -46,7 +46,7 @@ public class ShotTest {
         shotBehavior= new CannonInputShot();
         BoardSetFactory boardSetFactory = new BoardSetFactory();
 
-        String[] standardBoardSet={"air","surface","underwater"};
+        int[] standardBoardSet={1,0,-1};
         Board[] computerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
         shotBehavior.shot(computerBoards,'A',1);
@@ -100,7 +100,7 @@ public class ShotTest {
         shotBehavior= new CannonRandomShot();
 
         BoardSetFactory boardSetFactory = new BoardSetFactory();
-        String[] standardBoardSet={"air","surface","underwater"};
+        int[] standardBoardSet={1,0,-1};
         Board[] playerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
 

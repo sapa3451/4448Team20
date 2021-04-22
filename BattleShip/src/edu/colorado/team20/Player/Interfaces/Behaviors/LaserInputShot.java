@@ -6,9 +6,17 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import java.util.Scanner;
 
 /**
- * Description:
+ * Description: Activiated after user sinks first ship
+ * Takes in user input for a single coord and marks boards at every elevation at that location. Checks for bad input
+ * Then shows each board marked this way to player
+ * "Upgraded shot for user"
  */
 public class LaserInputShot implements ShotBehavior {
+    /**
+     * Description: Marks every board either at user input or passed coords for dev test, then shows updated boards
+     * Params: a set of boards at different z elevations, and the column and row coords for dev test
+     * Returns: true
+     */
     public boolean shot(Board[] board, char colv, int row) {
         if (colv != 'Z' && row != -1) {
             //a laser will mark all available boards, as below
@@ -80,7 +88,7 @@ public class LaserInputShot implements ShotBehavior {
 
             boolean allSpotsAlreadyHit = true;
             for (Board value : board) { //checking to make sure the spot that will be shot at next is not already hit on all three boards
-                if (value.CheckSpot((char) (colVal), rowVal)) {
+                if (value.CheckSpot((colVal), rowVal)) {
                     allSpotsAlreadyHit = false;
                 }
             }

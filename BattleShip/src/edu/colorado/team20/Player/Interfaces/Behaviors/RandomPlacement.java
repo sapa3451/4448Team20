@@ -6,9 +6,16 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import java.util.Random;
 
 /**
- * Description:
+ * Description: Places a ship on a passed board based on randomization.
+ * Randomizes a first position coord to then randomly decides of peice should go either vertically(down) or horizontally(right)
+ * Checks if desired position would go off board or collide with another ship on board, if so randomizez new info
  */
 public class RandomPlacement implements PlacementBehavior {
+    /**
+     * Description: Randomizes a location to place a game peice on a passed board, and saves info for later use
+     * Params: an ID number to identify the ship later, the board to place the ship on, the size of the ship, the position on the ship of the Captain Quaters
+     * Returns: nothing
+     */
     public void place (int id, Board board, int size, int quartersPos) {
         boolean placed = false;
         while (!placed) {

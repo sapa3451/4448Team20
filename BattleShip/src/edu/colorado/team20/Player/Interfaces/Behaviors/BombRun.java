@@ -6,9 +6,16 @@ import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import java.util.Scanner;
 
 /**
- * Description:
+ * Description: A shot behavior that gets used when place decides to use a special shot
+ * Ability for if player chooses an extra bomber. Makes shot for every other coord in a line(vertical or horizontal)
+ * based on user input. Hits surface and underwater board
  */
 public class BombRun implements ShotBehavior{
+    /**
+     * Description: Takes in user input for horizontal or vertical, and then col or row to do, then marks board accordingly
+     * Params: a set of boards at different z elevations, and the column and row coords for dev test
+     * Returns: true and assumes shot sucessful
+     */
     public boolean shot(Board[] board, char colv,  int row) {
 
         if (colv != 'Z' && row != -1) {

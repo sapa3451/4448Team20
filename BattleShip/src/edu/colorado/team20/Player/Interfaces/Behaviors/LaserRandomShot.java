@@ -8,9 +8,18 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Description:
+ * Description: Used by CP after sinking first ship
+ * Takes a shot at the board at every every elevation, at random coord, unless previous shot was a hit. If so randomly shoots one space
+ * away from previous shot.
+ * "Upgrade" Shot Type for CP
  */
 public class LaserRandomShot implements ShotBehavior {
+    /**
+     * Description: Marks board at every elevation either at random location, or 1 off from previous shot that was a hit
+     * or passed coords for dev test, then shows updated board
+     * Params: a set of boards at different z elevations to mark, and the column and row coords for dev test shot
+     * Returns: true
+     */
     public boolean shot(Board[] board, char col, int row) {
         if (col == 'Z' && row == -1) {
             System.out.println("The computer is now taking their shot!");
