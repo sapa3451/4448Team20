@@ -26,4 +26,5 @@ Joe Petrafeso-Crosby <br />
 Vanessa Reyes <br />
 Priscila Trevino: I am a 4th year student majoring in computer science and minoring in Applied Math. <br />
 Salvatore Pacifico <br />
-**To get our project running, please refer to the appendix of our final report to see the instructions for installation. **
+<br />
+**To get our project running, please refer to the appendix of our final report to see the instructions for installation.**
