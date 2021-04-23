@@ -23,8 +23,8 @@ The new features included in our game are:
 <br />
 Group Members: <br />
 Joe Petrafeso-Crosby <br />
-Vanessa Reyes: I am a 3rd year Computer Science major at CU Boulder. <br />
+Vanessa Reyes <br />
 Priscila Trevino: I am a 4th year student majoring in computer science and minoring in Applied Math. <br />
-Salvatore Pacifico <br />
+Salvatore Pacifico: A junior majoring in Computer Science with a minor in Biomedical Engineering. <br />
 <br />
 **To get our project running, please refer to the appendix of our final report to see the instructions for installation.**
