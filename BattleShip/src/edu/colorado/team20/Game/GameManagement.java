@@ -250,7 +250,7 @@ public class GameManagement {
      */
     public boolean Sonar(int sonarUses) {
         Scanner sc = new Scanner(System.in); //System.in is a standard input stream
-        String input = " ";
+        String input;
         if (sonarUses != 0) { // ask about sonar use since first ship is sunk
             player.setShotBehavior(new LaserInputShot());
             System.out.println("Using Sonar Shot!");
@@ -352,7 +352,7 @@ public class GameManagement {
     public void BeginGame() {
         // set up of game is now done. Begin taking turns. Implementing sonar pulse
         Scanner sc = new Scanner(System.in);
-        boolean justShowed = false;
+        boolean justShowed;
         boolean firstSunkComputer = false;
         boolean firstSunkPlayer = false;
         int sonarUses = 2;

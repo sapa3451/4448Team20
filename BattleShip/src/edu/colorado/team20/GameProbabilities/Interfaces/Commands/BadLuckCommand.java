@@ -22,7 +22,8 @@ public class BadLuckCommand implements Command {
      * Returns: boolean value
      */
     public boolean execute() {
-        if (badLuckCalc.calcBadLuck()) { return true; } // bad luck happens
-        else { return false; } // bad luck doesn't happen
+        // bad luck happens
+        // bad luck doesn't happen
+        return badLuckCalc.calcBadLuck();
     }
 }
