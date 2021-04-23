@@ -18,7 +18,7 @@ The new features included in our game are:
 **Torpedo Shot:** Special shot type if you choose Submarine as your extra game piece for your fleet. Gives you an extra shot for your turn and can only shoot underwater or sea surface board. 
 <br />
 **Bomb Rub:** Special shot type if you choose Bomber as your extra game piece for your fleet. Shoots every other block in a row or column. <br />
-**Good/Bad Luck Chance:** 12% good luck, 10% bad luck ___________ 
+**Good/Bad Luck Chance:** After the 2nd round of the game, each turn there is a chance of a player getting good or bad luck. There is a 12% chance of getting good luck and 10% chance of bad luck each round. If the player gets good luck then they lose their turn shot that round but if they get good luck they receive an extra shot. If there is neither good/bad luck, then that turn is contiues as regular. 
 <br /> 
 <br />
 Group Members: <br />
