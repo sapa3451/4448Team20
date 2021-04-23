@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BoardFactoryTest {
 
     @Test
-    void BoardFactoryTest(){
+    void BoardFactTest(){
 
         BoardFactory myBoardFactory = new BoardFactory();
 

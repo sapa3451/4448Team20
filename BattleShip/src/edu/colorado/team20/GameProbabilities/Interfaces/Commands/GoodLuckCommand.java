@@ -7,7 +7,7 @@ import edu.colorado.team20.GameProbabilities.Interfaces.Command;
  * Description: class that implements a command to call good luck execution
  */
 public class GoodLuckCommand implements Command {
-    GoodLuckCalc goodLuckCalc = new GoodLuckCalc();
+    GoodLuckCalc goodLuckCalc;
 
     public GoodLuckCommand(GoodLuckCalc calc) {
         this.goodLuckCalc = calc;

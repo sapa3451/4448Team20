@@ -8,7 +8,7 @@ import edu.colorado.team20.GameProbabilities.Interfaces.Command;
  */
 public class BadLuckCommand implements Command {
 
-    BadLuckCalc badLuckCalc = new BadLuckCalc();
+    BadLuckCalc badLuckCalc;
 
     // constructor
     public BadLuckCommand(BadLuckCalc calc) {

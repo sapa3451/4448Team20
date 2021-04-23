@@ -11,7 +11,6 @@ import edu.colorado.team20.Player.Interfaces.Behaviors.LaserRandomShot;
 import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
 import edu.colorado.team20.Player.Interfaces.Behaviors.CannonRandomShot;
 import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
-import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
 import org.junit.jupiter.api.Test;
@@ -117,7 +116,6 @@ class ComputerPlayerTest {
         int count = 0;
         for (int i = 0; i < computerPlayer.getBoards()[1].getColumnSize(); i++) {
             for (int j = 0; j < computerPlayer.getBoards()[1].getRowSize(); j++) {
-                char s = computerPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j);
                 if (computerPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j) == 'S' || computerPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
                     count += 1;
                 }
@@ -139,7 +137,6 @@ class ComputerPlayerTest {
         Board[] computerBoards = boardSetFactory.createBoardSet(standardBoardSet);
 
         Player computerPlayer = new ComputerPlayer(computerBoards);
-        ShotBehavior shot = computerPlayer.getShotBehavior();
         Player userPlayer = new UserPlayer(playerBoards);
 
         int idNum = 0;

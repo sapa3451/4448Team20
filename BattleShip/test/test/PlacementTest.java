@@ -23,7 +23,6 @@ public class PlacementTest {
         int count = 0;
         for (int i = 0; i < playerSurfaceBoard.getColumnSize(); i++) {
             for (int j = 0; j < playerSurfaceBoard.getRowSize(); j++) {
-                char s = playerSurfaceBoard.GetPositionChar((char) ('A' + i), 1 + j);
                 if (playerSurfaceBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'S' || playerSurfaceBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
                     count += 1;
                 }
@@ -49,7 +48,6 @@ public class PlacementTest {
         int count = 0;
         for (int i = 0; i < playerSurfaceBoard.getColumnSize(); i++) {
             for (int j = 0; j < playerSurfaceBoard.getRowSize(); j++) {
-                char s = playerSurfaceBoard.GetPositionChar((char) ('A' + i), 1 + j);
                 if (playerSurfaceBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'S' || playerSurfaceBoard.GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
                     count += 1;
                 }

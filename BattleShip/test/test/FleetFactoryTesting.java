@@ -14,7 +14,6 @@ public class FleetFactoryTesting {
     //Test just for the shipFactory
         // uses the factory's "createShip" method to make each type of ship
         //include one with Developer input error to demonstrate error handling
-
         GamePieceFactory myGamePieceFactory = new GamePieceFactory();
         GamePiece myDestroyer = myGamePieceFactory.createShip("Destroyer");
         GamePiece myMineSweeper = myGamePieceFactory.createShip("minesweeper");
