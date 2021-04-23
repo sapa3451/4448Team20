@@ -1,1 +1,1 @@
-hi
+This exmaple is a refactoring we performed within the Board class to get rid of dead code. We initially had this function to help with testing, allowing us to view the ids od specific ships. But as we near the end of our project, we no longer needed this function, allowing us to delete it and get rid of a large portion of dead code.
