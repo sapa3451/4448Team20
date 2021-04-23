@@ -1,6 +1,6 @@
 # 4448Team20
 Our program runs a text-based game of Battleship that allows for user input to play against an AI as its opponent. Our game has five different game pieces (Minesweeper, Battleship, Destroyer, Submarine, and Bomber), three types of boards (underwater, sea level, air), and some new features added to the game to make it more complex and customizable. Each player starts off with six game pieces in their fleet where the sixth game piece is up to the decision of the user player. They can choose between having an extra Battleship, Submarine, or Bomber. Our program then asks the user for input on where they would like to place their game pieces and after that, our program randomly places the game pieces for the AI. The user is shown a menu during their turn to ask what they would like to do throughout the game. During the game, the player will have the ability to use our new features to enhance their gaming experience. <br />
-The new features included in our game are: 
+The new features included in our game are: <br /> <br />
 Sonar Pulse: Special weapon that allows a player to reveal a portion of their opponent’s map. Can be used twice and only activated after the player destroys the first enemy game piece. <br />
 Captain’s Quarters: Single block location on a game piece that if attacked twice will sink/destroy the game piece. <br />
 Submarine: Can be place on the surface of the water or be submerged and occupies five blocks. <br />
