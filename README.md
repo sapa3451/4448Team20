@@ -11,7 +11,7 @@
     <li> <b>Submarine:</b> Can be place on the surface of the water or be submerged and occupies five blocks. </li>
     <li> <b>Space Laser:</b> Weapon upgrade from regular shot that can shoot through all three bords and hit multiple game pieces if they are located on the same coordinates. Only activated after the player destroys the first enemy game piece. </li>
     <li> <b>Bomber:</b> Located on the air board and occupies six blocks. </li>
-    <li> <b>Special Shot Ability: </b> Based on extra ship choice, limit 2 uses per game. </li>
+    <li> <b>Special Shot Ability: </b> Based on extra ship choice, limit 2 uses per game. The following three features are the ability types: </li>
         <li> <b>Cannon Barrage:</b> Special shot type if you choose Battleship as your extra game piece for your fleet. Shoots a 3x3 area in the shape of an X. </li>
         <li> <b>Torpedo Shot:</b> Special shot type if you choose Submarine as your extra game piece for your fleet. Will instantly sink ship on hit, regardless of health or location. Can only shoot underwater or sea surface board, and will only sink the underwater ship if there are both types at the location. </li>
          <li> <b>Bomb Rub:</b> Special shot type if you choose Bomber as your extra game piece for your fleet. Shoots every other block in a row or column. </li>
