@@ -7,7 +7,7 @@ import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
 import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 
 /**
- * Description:
+ * Description: This is the abstract class for player that defines all of the necessary methods for each type of player.
  */
 public abstract class Player {
     private final Board[] boards;
@@ -28,9 +28,9 @@ public abstract class Player {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function calls to the specific placement behavior of each player and places the ships
+     * Params: ship id, size of the ship, and the position of the CQ
+     * Returns: none
      */
     public void performSurfacePlacement(int id, int size, int quartersPos) {
         for (Board board : this.boards){
@@ -41,9 +41,9 @@ public abstract class Player {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function calls to the specific placement behavior of each player and places the ships
+     * Params: ship id, size of the ship, and the position of the CQ
+     * Returns: none
      */
     public void performUnderwaterPlacement(int id, int size, int quartersPos) {
         for (Board board : this.boards){
@@ -54,9 +54,9 @@ public abstract class Player {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function calls to the specific placement behavior of each player and places the ships
+     * Params: ship id, size of the ship, and the position of the CQ
+     * Returns: none
      */
     public void performAirPlacement(int id, int size, int quartersPos) {
         for (Board board : this.boards){
@@ -67,8 +67,8 @@ public abstract class Player {
     }
 
     /**
-     * Description:
-     * Params:
+     * Description: This function performs the shot/turn for user players, this is overridden for the ComputerPlayer
+     * Params: boards to be shot at, the column and row to be shot at, the turn number of the game.
      * Returns:
      */
     public void performTurn(Board[] board, char col, int row, int turnNum) {
@@ -99,9 +99,9 @@ public abstract class Player {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function calls to the specific special shot behavior of each player and performs the shot
+     * Params: board to be shot at, the column and row to be shot at
+     * Returns: none
      */
     public void performSpecialShot(Board[] board, char col, int row){shotBehavior.shot(board, col, row);}
 
@@ -122,9 +122,9 @@ public abstract class Player {
     }
 
     /**
-     * Description:
-     * Params:
-     * Returns:
+     * Description: This function calls to the controller using the Command Pattern to implement out good/bad luck feature
+     * Params: none
+     * Returns: string of good or bad luck
      */
     public String useProbController() {
         // call bad luck then good luck in order
