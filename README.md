@@ -14,7 +14,7 @@
     <li> <b>Cannon Barrage:</b> Special shot type if you choose Battleship as your extra game piece for your fleet. Shoots a 3x3 area in the shape of an X. </li>
     <li> <b>Torpedo Shot:</b> Special shot type if you choose Submarine as your extra game piece for your fleet. Gives you an extra shot for your turn and can only shoot underwater or sea surface board. </li>
     <li> <b>Bomb Rub:</b> Special shot type if you choose Bomber as your extra game piece for your fleet. Shoots every other block in a row or column. </li>
-    <li> <b>Good/Bad Luck Chance:</b> After the 2nd round of the game, each turn there is a chance of a player getting good or bad luck. There is a 12% chance of getting good luck and 10% chance of bad luck each round. If the player gets good luck then they lose their turn shot that round but if they get good luck they receive an extra shot. If there is neither good/bad luck, then that turn is contiues as regular. </li>
+    <li> <b>Good/Bad Luck Chance:</b> After the 2nd round of the game, each turn there is a chance of a player getting good or bad luck. There is a 12% chance of getting good luck and 10% chance of bad luck each round. If the player gets bad luck then they lose their turn shot that round but if they get good luck they receive an extra shot. If there is neither good/bad luck, then that turn is contiues as regular. </li>
   </ul>
   
 <h2>Group Members</h2>
