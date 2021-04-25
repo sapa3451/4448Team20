@@ -19,7 +19,7 @@
   
 <h2>Group Members</h2>
   <ul>
-    <li>Joe Petrafeso-Crosby </li>
+    <li>Joe Petrafeso-Crosby: I am 5th year Computer Science major at CU Boulder, with a minor in Faniance and Analytics. </li>
     <li>Vanessa Reyes: I am a 3rd year Computer Science major at CU Boulder. </li>
     <li>Priscila Trevino: I am a 4th year student majoring in computer science and minoring in Applied Math. </li>
     <li>Salvatore Pacifico: I am a 3rd year student majoring in Computer Science with a minor in Biomedical Engineering. </li>
