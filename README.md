@@ -27,5 +27,5 @@
 <br />
 
 <h2>Project Download Instructions</h2> 
-<p>To get our project running, please refer to the appendix of our final report to see the instructions for installation.
-Link: https://docs.google.com/document/d/1yiN0SZ74OufcEKOK5murCqj_vp8npiX6PEycM1mzxVM/edit?usp=sharing </p>
+<p>To get our project running, please refer to the appendix of our final report to see the instructions for installation. </p>
+<p>Link: https://docs.google.com/document/d/1yiN0SZ74OufcEKOK5murCqj_vp8npiX6PEycM1mzxVM/edit?usp=sharing </p>
