@@ -4,11 +4,9 @@ import edu.colorado.team20.Board.Board;
 import edu.colorado.team20.Board.Interfaces.Behaviors.*;
 import edu.colorado.team20.Game.BoardSetFactory;
 import edu.colorado.team20.Player.ComputerPlayer;
-import edu.colorado.team20.Player.Interfaces.Behaviors.CannonRandomShot;
-import edu.colorado.team20.Player.Interfaces.Behaviors.InputPlacement;
-import edu.colorado.team20.Player.Interfaces.Behaviors.CannonInputShot;
-import edu.colorado.team20.Player.Interfaces.Behaviors.RandomPlacement;
+import edu.colorado.team20.Player.Interfaces.Behaviors.*;
 import edu.colorado.team20.Player.Interfaces.PlacementBehavior;
+import edu.colorado.team20.Player.Interfaces.ShotBehavior;
 import edu.colorado.team20.Player.Player;
 import edu.colorado.team20.Player.UserPlayer;
 import org.junit.jupiter.api.Test;
@@ -69,6 +67,8 @@ class PlayerTest {
 
         Player testPlayer = new UserPlayer(playerBoards);
 
+        testPlayer.getShotBehavior();
+
         testPlayer.performTurn(playerBoards, 'A', 1, 1);
         testPlayer.performTurn(playerBoards, 'A', 2, 1);
         testPlayer.performTurn(playerBoards, 'A', 10, 1);
@@ -89,43 +89,23 @@ class PlayerTest {
 
         PlacementBehavior placementBehavior;
         placementBehavior = new InputPlacement();
-        PlacementBehavior randomPlacementBehavior;
-        randomPlacementBehavior = new RandomPlacement();
         Board playerSurfaceBoard = new Board();
          
         playerSurfaceBoard.setShowBehavior(new RegularShow());
 
-        Board playerUnderwaterBoard = new Board();
-         
-        playerUnderwaterBoard.setShowBehavior(new RegularShow());
 
-        Board playerAirBoard = new Board();
-         
-        playerAirBoard.setShowBehavior(new RegularShow());
-
-        Board[] playerBoards = new Board[]{playerAirBoard, playerSurfaceBoard, playerUnderwaterBoard};
+        Board[] playerBoards = new Board[]{playerSurfaceBoard};
         Player userPlayer = new ComputerPlayer(playerBoards);
 
         userPlayer.setPlacementBehavior(placementBehavior);
         assertEquals(userPlayer.getPlacementBehavior(), placementBehavior);
-        userPlayer.performSurfacePlacement(1, 99, 1);
 
-        userPlayer.setPlacementBehavior(randomPlacementBehavior);
-        assertEquals(userPlayer.getPlacementBehavior(), randomPlacementBehavior);
+        String input = "A" + "\n" + "1"+ "\n" + "1";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
 
         userPlayer.performSurfacePlacement(1, 4, 3);
-        userPlayer.performSurfacePlacement(1, 3, 2);
-        userPlayer.performSurfacePlacement(1, 2, 1);
-        int count = 0;
-        for (int i = 0; i < userPlayer.getBoards()[1].getColumnSize(); i++) {
-            for (int j = 0; j < userPlayer.getBoards()[1].getRowSize(); j++) {
-                char s = userPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j);
-                if (userPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j) == 'S' || userPlayer.getBoards()[1].GetPositionChar((char) ('A' + i), 1 + j) == 'Q') {
-                    count += 1;
-                }
-            }
-        }
-        assertEquals(9, count);
+        assertEquals(playerSurfaceBoard.GetPositionChar('A',1), 'S');
 
     }
 
@@ -246,5 +226,27 @@ class PlayerTest {
             userPlayer.performTurn(playerBoards, 'Z', -1, i);
         }
 
+    }
+
+    @Test
+    public void SpecialShot() {
+        Board playerSurfaceBoard = new Board();
+
+        playerSurfaceBoard.setShowBehavior(new RegularShow());
+        Board playerUnderwaterBoard = new Board();
+
+        playerUnderwaterBoard.setShowBehavior(new RegularShow());// create underwater board
+        Board[] playerBoards = new Board[]{playerSurfaceBoard, playerUnderwaterBoard};
+        Player user = new UserPlayer(playerBoards);
+        user.setShotBehavior(new BombRun());
+        playerBoards[0].setCreateCoordinatesBehavior(new LinearCoordinates());
+        playerBoards[0].SetGamePiecePos(1,1,'A',1,4,3);
+
+        String input = "1" + "\n" + "1";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        user.performSpecialShot(playerBoards, 'Z', -1);
+        assertEquals( 'H', playerBoards[0].GetPositionChar('A',1));
     }
 }

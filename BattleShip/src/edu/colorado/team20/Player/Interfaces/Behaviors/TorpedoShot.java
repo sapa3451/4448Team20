@@ -65,8 +65,18 @@ public class TorpedoShot implements ShotBehavior {
         rowVal=rowInput;
 
         //Checks IDs at surface and Underwater Board
-        int UnderwaterID = board[2].getIDatCoord(colVal,rowVal);
-        int SurfaceID = board[1].getIDatCoord(colVal,rowVal);
+        int UnderwaterID = 0;
+        int SurfaceID = 0;
+        for (Board value : board) {
+            if (value.getzValue() < 0) {
+                UnderwaterID = value.getIDatCoord(colVal,rowVal);
+            }
+        }
+        for (Board value : board) {
+            if (value.getzValue() == 0) {
+                SurfaceID = value.getIDatCoord(colVal,rowVal);
+            }
+        }
 
     //First checks to see if there is a sub underwater and if so sinks it
         if(UnderwaterID!=0){
