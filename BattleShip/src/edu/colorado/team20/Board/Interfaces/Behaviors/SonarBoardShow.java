@@ -138,6 +138,15 @@ public class SonarBoardShow implements ShowBehavior {
                     if (board.getBoard()[i][j] == 'X') {
                         System.out.print("[X]");
                     }
+                    else if (board.getBoard()[i][j] == 'W') {
+                        System.out.print("[W]");
+                    }
+                    else if (board.getBoard()[i][j] == 'H') {
+                        System.out.print("[H]");
+                    }
+                    else if (board.getBoard()[i][j] == 'D') {
+                        System.out.print("[D]");
+                    }
                     else {
                         if (board.getzValue() > 0) {
                             System.out.print("[^]");
