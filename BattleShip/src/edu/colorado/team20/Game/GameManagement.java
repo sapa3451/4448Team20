@@ -465,10 +465,10 @@ public class GameManagement {
                 compCount++;
             }
         }
-        if (playerCount == this.playerFleet.length){
+        if (compCount == this.playerFleet.length){
             System.out.println("You have won! Your skill and strategy has allowed you to defeat your enemy and sink their entire fleet. Future enemies will fear you!");
         }
-        else if (compCount == this.compFleet.length) {
+        else if (playerCount == this.compFleet.length) {
             System.out.println("You have lost! You did not successfully defend against your enemies attacks. You may have lost this battle, but the war is far from over.");
         }
         return playerCount == this.playerFleet.length || compCount == this.compFleet.length;
