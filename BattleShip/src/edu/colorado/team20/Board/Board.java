@@ -124,6 +124,7 @@ public class Board implements BoardSubject {
     public void removeShip(int id) { //use of observer strategy here, this removes  pieces after they are sunk to longer recieve any updates
         for (GamePiece gamePiece : fleet) {
             if (id == gamePiece.getId()) {
+                gamePiece.setSunk(true);
                 fleet.remove(gamePiece);
                 break;
             }

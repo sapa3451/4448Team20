@@ -63,6 +63,8 @@ public class LaserRandomShot implements ShotBehavior {
         /*This is where the AI gets "smart." This long list of checks, loops, and such is making sure that the computer is accurately and randomly
         * choosing its next informed shot. see comments below */
         else {
+            System.out.println("The computer is now taking their shot!");
+            System.out.println();
             List<Character> check = new ArrayList<>(); //this is a list that will keep track of whether or not the computer can no longer make an informed shot with the given cord
             boolean shot = false;
             while (!shot) {

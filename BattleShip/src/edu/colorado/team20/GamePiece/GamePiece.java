@@ -44,6 +44,10 @@ public abstract class GamePiece implements GamePieceObserver {
 
     public int getQuartersSpotInt() { return this.quartersSpot; }
 
+    public void setSunk (boolean input) {
+        this.sunk = input;
+    }
+
     public int getTotShipHealth() { return this.totShipHealth; }
 
     /**

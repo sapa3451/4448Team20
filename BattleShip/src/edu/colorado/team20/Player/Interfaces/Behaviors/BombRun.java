@@ -75,18 +75,19 @@ public class BombRun implements ShotBehavior{
         else{
             System.out.println("Type which column (A-J) you would like to target: ");
             input = sc.nextLine();
-
+            input = input.toUpperCase(); // set to uppercase
             //Checking for bad input here
             while(input.toCharArray()[0] < 'A' || input.toCharArray()[0] > 'J'){//Checking for user error
                 System.out.println("Invalid column! Please enter a valid column (A-J): ");
                 input = sc.nextLine(); // Read user input
+                input = input.toUpperCase(); // set to uppercase
             }
             //Do Actual Stuff
             char col=input.toCharArray()[0];
             for (Board value : board) {
                 if (value.getzValue() < 1) {
                     for (int i = 0; i < value.getColumnSize(); i+=2) {
-                        value.MarkBoard(col, i);
+                        value.MarkBoard(col, i+1);
                     }
                 }
             }
